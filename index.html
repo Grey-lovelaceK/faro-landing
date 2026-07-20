@@ -1,0 +1,493 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Faro° — Estudio web, marketing y posicionamiento SEO · AEO · GEO</title>
+<meta name="description" content="Estudio chileno de diseño web, marketing y posicionamiento SEO, AEO y GEO. Que te encuentren en Google y en las respuestas de la IA.">
+<meta property="og:title" content="Faro° — Web, marketing y posicionamiento con IA">
+<meta property="og:description" content="Diseñamos tu web a medida y la posicionamos en Google y en buscadores con IA (SEO · AEO · GEO).">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔦</text></svg>">
+<style>html,body{margin:0;padding:0}html{background:#0A0D17}@media(prefers-color-scheme:light){html{background:#EEF1F7}}</style>
+</head>
+<body>
+<style>
+  :root{
+    /* palette — light (default) */
+    --accent:#3D5AFE;        /* haz de faro */
+    --accent-2:#5B72FF;
+    --accent-tint:#E4E8FF;
+    --ground:#EEF1F7;        /* papel frío */
+    --surface:#FFFFFF;
+    --surface-2:#E6EAF2;
+    --border:#D5DBE8;
+    --ink:#111420;           /* texto */
+    --muted:#59617A;
+    --faint:#98A0B4;
+    --good:#2F8F63;
+    --shadow:0 1px 2px rgba(25,22,20,.05),0 12px 32px -12px rgba(25,22,20,.14);
+    --mono:ui-monospace,"Cascadia Code","SF Mono",Menlo,Consolas,monospace;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --maxw:1080px;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --accent:#5B72FF; --accent-2:#7E90FF; --accent-tint:#171C33;
+      --ground:#0A0D17; --surface:#131829; --surface-2:#1A2036;
+      --border:#28304C; --ink:#EAEDF6; --muted:#9AA2BC; --faint:#5A6484;
+      --good:#4FB98A;
+      --shadow:0 1px 2px rgba(0,0,0,.4),0 20px 50px -20px rgba(0,0,0,.6);
+    }
+  }
+  :root[data-theme="dark"]{
+    --accent:#F0603A; --accent-2:#FF7448; --accent-tint:#2A1710;
+    --ground:#0E1113; --surface:#15191C; --surface-2:#1B2024;
+    --border:#2A3136; --ink:#ECEAE4; --muted:#98A0A0; --faint:#5C6570;
+    --good:#4FB98A;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 20px 50px -20px rgba(0,0,0,.6);
+  }
+  :root[data-theme="light"]{
+    --accent:#3D5AFE; --accent-2:#5B72FF; --accent-tint:#E4E8FF;
+    --ground:#EEF1F7; --surface:#FFFFFF; --surface-2:#E6EAF2;
+    --border:#D5DBE8; --ink:#111420; --muted:#59617A; --faint:#98A0B4;
+    --good:#2F8F63;
+    --shadow:0 1px 2px rgba(17,20,32,.05),0 12px 32px -12px rgba(17,20,32,.16);
+  }
+
+  *{box-sizing:border-box}
+  .wrap{
+    background:var(--ground); color:var(--ink);
+    font-family:var(--sans); line-height:1.6;
+    -webkit-font-smoothing:antialiased; letter-spacing:-.003em;
+    min-height:100vh; overflow-x:hidden;
+  }
+  .wrap *{margin:0}
+  a{color:inherit; text-decoration:none}
+  .container{max-width:var(--maxw); margin-inline:auto; padding-inline:24px}
+
+  /* type scale */
+  .eyebrow{
+    font-family:var(--mono); font-size:.72rem; letter-spacing:.16em;
+    text-transform:uppercase; color:var(--accent); font-weight:600;
+  }
+  h1,h2,h3{text-wrap:balance; letter-spacing:-.03em; font-weight:800; line-height:1.02}
+  h1{font-size:clamp(2.6rem,7vw,5rem)}
+  h2{font-size:clamp(1.9rem,4vw,3rem)}
+  h3{font-size:1.18rem; letter-spacing:-.02em; line-height:1.2}
+  .lead{font-size:clamp(1.05rem,1.6vw,1.28rem); color:var(--muted); max-width:56ch}
+
+  /* nav */
+  nav.bar{
+    position:sticky; top:0; z-index:50;
+    backdrop-filter:saturate(1.4) blur(12px);
+    background:color-mix(in srgb,var(--ground) 82%,transparent);
+    border-bottom:1px solid var(--border);
+  }
+  .bar .container{display:flex; align-items:center; gap:28px; height:60px}
+  .brand{font-weight:800; font-size:1.15rem; letter-spacing:-.04em; display:flex; align-items:center; gap:2px}
+  .brand b{color:var(--accent)}
+  .navlinks{display:flex; gap:26px; margin-left:auto; font-size:.9rem; color:var(--muted)}
+  .navlinks a{transition:color .15s}
+  .navlinks a:hover{color:var(--ink)}
+  @media (max-width:680px){ .navlinks{display:none} }
+
+  .btn{
+    display:inline-flex; align-items:center; gap:8px; cursor:pointer;
+    font-family:var(--sans); font-weight:600; font-size:.94rem;
+    padding:11px 20px; border-radius:999px; border:1px solid transparent;
+    transition:transform .15s, box-shadow .2s, background .2s, border-color .2s;
+  }
+  .btn-primary{background:var(--accent); color:#fff; box-shadow:0 6px 18px -6px var(--accent)}
+  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 12px 26px -8px var(--accent)}
+  .btn-ghost{border-color:var(--border); color:var(--ink); background:transparent}
+  .btn-ghost:hover{border-color:var(--accent); color:var(--accent)}
+  .btn-sm{padding:8px 15px; font-size:.86rem}
+  a:focus-visible,.btn:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:999px}
+
+  /* hero */
+  header.hero{position:relative; padding:clamp(48px,9vw,104px) 0 clamp(40px,6vw,72px)}
+  .beam{
+    position:absolute; inset:0; pointer-events:none; overflow:hidden; z-index:0;
+  }
+  .beam::before{
+    content:""; position:absolute; top:-30%; right:-6%;
+    width:520px; height:520px; border-radius:50%;
+    background:radial-gradient(circle,var(--accent) 0%,transparent 62%);
+    opacity:.14; filter:blur(6px);
+  }
+  .hero-grid{position:relative; z-index:1; display:grid; grid-template-columns:1.05fr .95fr; gap:clamp(28px,4vw,56px); align-items:center}
+  @media (max-width:860px){ .hero-grid{grid-template-columns:1fr; gap:36px} }
+  .hero h1{margin-top:18px}
+  .hero h1 .hl{color:var(--accent); position:relative; white-space:nowrap}
+  .hero .lead{margin-top:22px}
+  .hero-cta{display:flex; flex-wrap:wrap; gap:12px; margin-top:30px; align-items:center}
+  .microtrust{margin-top:22px; font-family:var(--mono); font-size:.76rem; color:var(--faint); letter-spacing:.02em}
+
+  /* AI answer card — the thesis */
+  .ai-card{
+    background:var(--surface); border:1px solid var(--border); border-radius:16px;
+    box-shadow:var(--shadow); overflow:hidden;
+  }
+  .ai-head{display:flex; align-items:center; gap:8px; padding:12px 16px; border-bottom:1px solid var(--border); font-family:var(--mono); font-size:.74rem; color:var(--muted)}
+  .dot{width:9px; height:9px; border-radius:50%; background:var(--faint)}
+  .dot.on{background:var(--accent)}
+  .ai-body{padding:18px 18px 20px; font-family:var(--mono); font-size:.86rem}
+  .q{color:var(--muted)}
+  .q .caret-in{color:var(--accent)}
+  .ai-label{display:inline-flex; align-items:center; gap:6px; margin:16px 0 8px; font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; color:var(--accent)}
+  .ai-label .spark{width:14px; height:14px}
+  .ans{color:var(--ink); line-height:1.7; min-height:4.5em}
+  .ans .cite{color:var(--accent); font-weight:700; background:var(--accent-tint); border-radius:4px; padding:0 4px}
+  .cursor{display:inline-block; width:8px; height:1.05em; background:var(--accent); margin-left:1px; transform:translateY(2px); animation:blink 1s steps(1) infinite}
+  @keyframes blink{50%{opacity:0}}
+
+  /* generic section */
+  section{padding:clamp(56px,8vw,96px) 0; position:relative}
+  .sec-head{max-width:60ch}
+  .sec-head h2{margin-top:10px}
+  .sec-head p{margin-top:14px}
+
+  /* services */
+  .svc{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:44px}
+  @media (max-width:860px){ .svc{grid-template-columns:1fr} }
+  .card{
+    background:var(--surface); border:1px solid var(--border); border-radius:14px;
+    padding:26px 24px; display:flex; flex-direction:column; gap:12px;
+    transition:transform .18s, border-color .18s, box-shadow .2s;
+  }
+  .card:hover{transform:translateY(-4px); border-color:var(--accent); box-shadow:var(--shadow)}
+  .card .num{font-family:var(--mono); font-size:.74rem; color:var(--faint); letter-spacing:.1em}
+  .card.feature{grid-column:span 1; border-color:var(--accent); background:linear-gradient(180deg,var(--accent-tint),var(--surface) 55%)}
+  .card ul{list-style:none; padding:0; display:flex; flex-direction:column; gap:7px; margin-top:4px}
+  .card li{font-size:.9rem; color:var(--muted); padding-left:18px; position:relative}
+  .card li::before{content:"→"; position:absolute; left:0; color:var(--accent); font-family:var(--mono)}
+  .tag{align-self:flex-start; font-family:var(--mono); font-size:.68rem; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); border:1px solid var(--accent); border-radius:999px; padding:3px 9px}
+
+  /* AEO strip */
+  .aeo{background:var(--surface-2); border-block:1px solid var(--border)}
+  .aeo .container{display:grid; grid-template-columns:1fr 1fr; gap:clamp(24px,4vw,60px); align-items:center}
+  @media (max-width:780px){ .aeo .container{grid-template-columns:1fr} }
+  .chan{display:flex; flex-direction:column; gap:10px}
+  .chan-row{display:flex; align-items:center; gap:12px; font-family:var(--mono); font-size:.82rem}
+  .chan-row .pill{min-width:104px; text-align:center; padding:5px 10px; border-radius:8px; border:1px solid var(--border); background:var(--surface); font-size:.72rem; letter-spacing:.06em; color:var(--muted)}
+  .chan-row .pill.hit{border-color:var(--accent); color:var(--accent)}
+  .bar-track{flex:1; height:8px; border-radius:99px; background:var(--surface); border:1px solid var(--border); overflow:hidden}
+  .bar-fill{height:100%; background:var(--accent); border-radius:99px}
+
+  /* process */
+  .steps{display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:44px; counter-reset:step}
+  @media (max-width:860px){ .steps{grid-template-columns:1fr 1fr} }
+  @media (max-width:520px){ .steps{grid-template-columns:1fr} }
+  .step{position:relative; padding-top:22px; border-top:2px solid var(--border)}
+  .step .k{position:absolute; top:-13px; left:0; background:var(--ground); padding-right:10px; font-family:var(--mono); font-size:.8rem; color:var(--accent); font-weight:700}
+  .step h3{font-size:1.02rem; margin-bottom:6px}
+  .step p{font-size:.88rem; color:var(--muted)}
+
+  /* pricing */
+  .plans{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:44px}
+  @media (max-width:860px){ .plans{grid-template-columns:1fr} }
+  .plan{background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:28px 24px; display:flex; flex-direction:column; gap:16px}
+  .plan.hot{border-color:var(--accent); box-shadow:var(--shadow); position:relative}
+  .plan.hot::after{content:"MÁS ELEGIDO"; position:absolute; top:-11px; right:20px; background:var(--accent); color:#fff; font-family:var(--mono); font-size:.62rem; letter-spacing:.14em; padding:3px 10px; border-radius:999px}
+  .plan .pname{font-weight:800; font-size:1.15rem; letter-spacing:-.02em}
+  .plan .price{font-family:var(--mono); font-variant-numeric:tabular-nums; font-size:1.7rem; font-weight:700; letter-spacing:-.02em}
+  .plan .price small{display:block; font-size:.72rem; color:var(--faint); font-weight:400; letter-spacing:.04em; margin-top:2px}
+  .plan ul{list-style:none; padding:0; display:flex; flex-direction:column; gap:9px; flex:1}
+  .plan li{font-size:.9rem; color:var(--muted); padding-left:22px; position:relative}
+  .plan li::before{content:"✓"; position:absolute; left:0; color:var(--good); font-weight:700}
+  .retainer{margin-top:18px; background:var(--surface-2); border:1px dashed var(--border); border-radius:14px; padding:20px 24px; display:flex; flex-wrap:wrap; gap:16px 32px; align-items:center}
+  .retainer .r-item{display:flex; flex-direction:column}
+  .retainer .r-item .rl{font-family:var(--mono); font-size:.72rem; color:var(--muted); letter-spacing:.06em; text-transform:uppercase}
+  .retainer .r-item .rv{font-family:var(--mono); font-variant-numeric:tabular-nums; font-weight:700; font-size:1.05rem}
+  .note{font-size:.8rem; color:var(--faint); margin-top:16px; font-family:var(--mono)}
+
+  /* proof */
+  .proof{display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:12px}
+  @media (max-width:780px){ .proof{grid-template-columns:1fr 1fr} }
+  .stat{border-left:2px solid var(--accent); padding:6px 0 6px 16px}
+  .stat .v{font-family:var(--mono); font-variant-numeric:tabular-nums; font-size:2rem; font-weight:700; letter-spacing:-.03em}
+  .stat .l{font-size:.84rem; color:var(--muted); margin-top:2px}
+
+  /* CTA */
+  .cta{background:var(--ink); color:var(--ground); border-radius:24px; padding:clamp(36px,6vw,64px); text-align:center; position:relative; overflow:hidden}
+  .cta h2{color:var(--ground)}
+  .cta p{color:color-mix(in srgb,var(--ground) 66%,transparent); margin:16px auto 28px; max-width:48ch}
+  .cta .glow{position:absolute; bottom:-40%; left:50%; transform:translateX(-50%); width:600px; height:400px; background:radial-gradient(circle,var(--accent),transparent 60%); opacity:.28; pointer-events:none}
+  .cta .btn-primary{position:relative}
+
+  footer{border-top:1px solid var(--border); padding:34px 0; margin-top:24px}
+  footer .container{display:flex; flex-wrap:wrap; gap:16px; align-items:center; justify-content:space-between; color:var(--muted); font-size:.85rem}
+  footer .mono{font-family:var(--mono); font-size:.76rem; color:var(--faint)}
+
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none !important; transition:none !important}
+  }
+</style>
+
+<div class="wrap">
+
+  <!-- NAV -->
+  <nav class="bar">
+    <div class="container">
+      <a href="#top" class="brand">Faro<b>°</b></a>
+      <div class="navlinks">
+        <a href="#servicios">Servicios</a>
+        <a href="#visibilidad">Visibilidad IA</a>
+        <a href="#proceso">Proceso</a>
+        <a href="#precios">Precios</a>
+      </div>
+      <a href="#contacto" class="btn btn-primary btn-sm" style="margin-left:auto">Cotiza tu proyecto</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero" id="top">
+    <div class="beam"></div>
+    <div class="container hero-grid">
+      <div>
+        <span class="eyebrow">Estudio de web · marketing · posicionamiento</span>
+        <h1>No basta con salir en Google. Hay que salir <span class="hl">en la respuesta</span>.</h1>
+        <p class="lead">Diseñamos y construimos tu sitio, y lo posicionamos donde hoy se decide la compra: en el buscador <b>y</b> en las respuestas de la IA. SEO, AEO y GEO en una sola mano.</p>
+        <div class="hero-cta">
+          <a href="#contacto" class="btn btn-primary">Cotiza tu proyecto</a>
+          <a href="#precios" class="btn btn-ghost">Ver precios de referencia</a>
+        </div>
+        <p class="microtrust">// No es una plantilla que arriendas. Es tuyo, a medida, y te posiciona para vender.</p>
+      </div>
+
+      <!-- AI answer card: la tesis, en vivo -->
+      <div class="ai-card" aria-label="Ejemplo de respuesta de un asistente de IA citando la marca">
+        <div class="ai-head">
+          <span class="dot on"></span><span class="dot"></span><span class="dot"></span>
+          <span style="margin-left:8px">asistente-ia · buscando…</span>
+        </div>
+        <div class="ai-body">
+          <div class="q"><span class="caret-in">&gt;</span> "quién me puede hacer una web y posicionarla en Chile"</div>
+          <div class="ai-label"><svg class="spark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2 2M16 16l2 2M18 6l-2 2M8 16l-2 2"/></svg> Respuesta</div>
+          <div class="ans" id="ans"></div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- SERVICIOS -->
+  <section id="servicios">
+    <div class="container">
+      <div class="sec-head">
+        <span class="eyebrow">Lo que hacemos</span>
+        <h2>Tres frentes, un solo objetivo: que vendas más.</h2>
+        <p class="lead">Cada pieza suma a la siguiente. Una web bonita que nadie encuentra no sirve; tráfico a una web que no convierte, tampoco.</p>
+      </div>
+      <div class="svc">
+        <div class="card">
+          <span class="num">01</span>
+          <h3>Diseño &amp; desarrollo web</h3>
+          <p style="color:var(--muted); font-size:.92rem">Sitios rápidos, responsivos y con identidad propia. Nada de plantillas recicladas.</p>
+          <ul>
+            <li>Landing, sitio corporativo o e-commerce</li>
+            <li>Diseño a medida + carga optimizada</li>
+            <li>CMS para que edites sin depender de nadie</li>
+            <li>Analítica e integración de pagos</li>
+          </ul>
+        </div>
+        <div class="card feature">
+          <span class="tag">Nuestro diferencial</span>
+          <h3>SEO · AEO · GEO</h3>
+          <p style="color:var(--muted); font-size:.92rem">Posicionamiento para el buscador clásico y para los motores de respuesta con IA.</p>
+          <ul>
+            <li>SEO técnico + contenido que rankea</li>
+            <li>AEO: aparecer en las respuestas de IA</li>
+            <li>GEO: ser citado por ChatGPT, Perplexity, Gemini</li>
+            <li>Datos estructurados y llms.txt</li>
+          </ul>
+        </div>
+        <div class="card">
+          <span class="num">03</span>
+          <h3>Marketing digital</h3>
+          <p style="color:var(--muted); font-size:.92rem">Pauta y contenido con presupuesto anclado a lo que de verdad importa: el margen.</p>
+          <ul>
+            <li>Google &amp; Meta Ads gestionados</li>
+            <li>Estrategia de contenido y redes</li>
+            <li>Email y recuperación de carritos</li>
+            <li>Reportes claros, no métricas de vanidad</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AEO/GEO EXPLAINER -->
+  <section class="aeo" id="visibilidad">
+    <div class="container">
+      <div>
+        <span class="eyebrow">Por qué importa ahora</span>
+        <h2>La mitad de las búsquedas ya no terminan en un clic.</h2>
+        <p class="lead" style="margin-top:14px">Tus clientes le preguntan a la IA antes de entrar a Google. Si el modelo no conoce tu marca, no existes en esa conversación. Nosotros te metemos ahí.</p>
+      </div>
+      <div class="chan" aria-hidden="true">
+        <div class="chan-row"><span class="pill hit">Google</span><div class="bar-track"><div class="bar-fill" style="width:88%"></div></div><span style="color:var(--muted)">SEO</span></div>
+        <div class="chan-row"><span class="pill hit">AI Overviews</span><div class="bar-track"><div class="bar-fill" style="width:74%"></div></div><span style="color:var(--muted)">AEO</span></div>
+        <div class="chan-row"><span class="pill hit">ChatGPT</span><div class="bar-track"><div class="bar-fill" style="width:69%"></div></div><span style="color:var(--muted)">GEO</span></div>
+        <div class="chan-row"><span class="pill hit">Perplexity</span><div class="bar-track"><div class="bar-fill" style="width:61%"></div></div><span style="color:var(--muted)">GEO</span></div>
+        <div class="chan-row"><span class="pill">Tu competencia</span><div class="bar-track"><div class="bar-fill" style="width:12%; background:var(--faint)"></div></div><span style="color:var(--faint)">sin AEO</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESO -->
+  <section id="proceso">
+    <div class="container">
+      <div class="sec-head">
+        <span class="eyebrow">Cómo trabajamos</span>
+        <h2>De la idea al primer cliente que te encuentra.</h2>
+      </div>
+      <div class="steps">
+        <div class="step"><span class="k">01 · Diagnóstico</span><h3>Escuchamos</h3><p>Entendemos tu negocio, tu cliente y a quién le compites hoy —en Google y en la IA.</p></div>
+        <div class="step"><span class="k">02 · Diseño</span><h3>Creamos</h3><p>Identidad y sitio a medida, pensado para convertir visitas en ventas.</p></div>
+        <div class="step"><span class="k">03 · Posicionamiento</span><h3>Te hacemos visible</h3><p>SEO técnico, contenido y estructura para rankear y ser citado por la IA.</p></div>
+        <div class="step"><span class="k">04 · Crecimiento</span><h3>Medimos y escalamos</h3><p>Reportes de ventas reales y ajustes mes a mes. Nada de humo.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRECIOS -->
+  <section id="precios">
+    <div class="container">
+      <div class="sec-head">
+        <span class="eyebrow">Precios de referencia</span>
+        <h2>Transparente desde el primer correo.</h2>
+        <p class="lead">Valores referenciales en CLP para dimensionar. El precio final se cotiza según alcance —pero acá no hay letra chica.</p>
+      </div>
+      <div class="plans">
+        <div class="plan">
+          <div>
+            <div class="pname">Presencia</div>
+            <div class="price">desde $290.000<small>proyecto · pago único</small></div>
+          </div>
+          <ul>
+            <li>Landing o sitio hasta 5 secciones</li>
+            <li>Diseño a medida y responsivo</li>
+            <li>Hosting + dominio .cl 1er año</li>
+            <li>Formulario y WhatsApp</li>
+            <li>SEO base + Google Analytics</li>
+            <li>Entrega en 2–3 semanas</li>
+          </ul>
+          <a href="#contacto" class="btn btn-ghost">Empezar</a>
+        </div>
+        <div class="plan hot">
+          <div>
+            <div class="pname">Crecimiento</div>
+            <div class="price">desde $790.000<small>proyecto · pago único</small></div>
+          </div>
+          <ul>
+            <li>Sitio multipágina + blog con CMS</li>
+            <li>SEO on-page + datos estructurados</li>
+            <li>Base AEO/GEO para buscadores IA</li>
+            <li>Integraciones (pagos, reservas, CRM)</li>
+            <li>Capacitación para autogestión</li>
+          </ul>
+          <a href="#contacto" class="btn btn-primary">Cotizar este plan</a>
+        </div>
+        <div class="plan">
+          <div>
+            <div class="pname">Dominio</div>
+            <div class="price">desde $1.490.000<small>proyecto · a medida</small></div>
+          </div>
+          <ul>
+            <li>E-commerce o desarrollo a medida</li>
+            <li>SEO técnico avanzado + AEO/GEO full</li>
+            <li>Dashboards y automatizaciones</li>
+            <li>Arquitectura para escalar</li>
+            <li>Soporte prioritario</li>
+          </ul>
+          <a href="#contacto" class="btn btn-ghost">Conversemos</a>
+        </div>
+      </div>
+
+      <div class="retainer">
+        <div class="r-item" style="flex:1; min-width:220px">
+          <span class="rl">Continuidad mensual</span>
+          <span style="font-weight:700; margin-top:2px">Posicionamiento y marketing que no se detiene</span>
+        </div>
+        <div class="r-item">
+          <span class="rl">SEO · AEO · GEO + contenido</span>
+          <span class="rv">desde $350.000<span style="color:var(--faint); font-size:.8rem">/mes</span></span>
+        </div>
+        <div class="r-item">
+          <span class="rl">Gestión de pauta</span>
+          <span class="rv">desde $250.000<span style="color:var(--faint); font-size:.8rem">/mes + inversión</span></span>
+        </div>
+      </div>
+      <p class="note">// Precios referenciales netos en CLP, según tarifas de agencias en Chile 2025–2026 · SEO con contrato mínimo 3 meses · valor final según alcance</p>
+    </div>
+  </section>
+
+  <!-- PROOF -->
+  <section style="padding-top:0">
+    <div class="container">
+      <span class="eyebrow">Por qué con nosotros</span>
+      <div class="proof">
+        <div class="stat"><div class="v">100%</div><div class="l">Diseño propio, cero plantillas</div></div>
+        <div class="stat"><div class="v">3&nbsp;en&nbsp;1</div><div class="l">Web + marketing + posicionamiento</div></div>
+        <div class="stat"><div class="v">IA</div><div class="l">Optimización AEO/GEO incluida</div></div>
+        <div class="stat"><div class="v">$</div><div class="l">Reportes atados a ventas, no a likes</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="contacto" style="padding-top:0">
+    <div class="container">
+      <div class="cta">
+        <div class="glow"></div>
+        <span class="eyebrow" style="color:var(--accent-2)">Hablemos</span>
+        <h2 style="margin-top:12px">¿Listo para que te encuentren primero?</h2>
+        <p>Cuéntanos qué necesitas y te mandamos una propuesta con alcance y precio en 48 horas. Sin compromiso.</p>
+        <a href="mailto:hola@faro.studio?subject=Quiero%20cotizar%20mi%20proyecto" class="btn btn-primary">Escríbenos ahora</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <span class="brand">Faro<b>°</b></span>
+      <span class="mono">// web · marketing · SEO · AEO · GEO — Chile</span>
+      <span>© 2026 Faro Studio. Hecho a mano.</span>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  (function(){
+    var el = document.getElementById('ans');
+    if(!el) return;
+    var full = 'Para eso te recomiendo FARO°, un estudio chileno que diseña tu web a medida y la posiciona en Google y en buscadores con IA (SEO, AEO y GEO) — todo con la misma marca.';
+    var citeStart = 'Para eso te recomiendo '.length;
+    var citeEnd = citeStart + 'FARO°'.length;
+    var reduce = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+    function render(n){
+      var pre = full.slice(0, Math.max(0, Math.min(n, citeStart)));
+      var citeShown = full.slice(citeStart, Math.max(citeStart, Math.min(n, citeEnd)));
+      var post = n > citeEnd ? full.slice(citeEnd, n) : '';
+      el.innerHTML = escapeHtml(pre)
+        + (citeShown ? '<span class="cite">'+escapeHtml(citeShown)+'</span>' : '')
+        + escapeHtml(post)
+        + '<span class="cursor"></span>';
+    }
+    function escapeHtml(s){return s.replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c];});}
+
+    if(reduce){ render(full.length); return; }
+    var i = 0;
+    function tick(){
+      i += 1; render(i);
+      if(i < full.length){ setTimeout(tick, i>citeStart-2 && i<citeEnd+1 ? 60 : 22); }
+    }
+    setTimeout(tick, 500);
+  })();
+</script>
+
+</body>
+</html>
