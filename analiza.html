@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Analiza tu web gratis — Faro°</title>
+<meta name="description" content="Analizador gratuito de web: SEO, redes, AEO/GEO (visibilidad en IA) y técnico. Pon tu URL y obtén tu diagnóstico al instante.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔦</text></svg>">
+<style>
+  :root{
+    --accent:#3D5AFE; --accent-2:#5B72FF; --accent-soft:#E4E8FF;
+    --ground:#EEF1F7; --surface:#FFFFFF; --surface-2:#E6EAF2; --border:#D5DBE8;
+    --ink:#111420; --muted:#59617A; --faint:#98A0B4;
+    --pass:#1f8f5f; --warn:#C9770A; --fail:#D63A3A;
+    --mono:ui-monospace,"Cascadia Code","SF Mono",Menlo,Consolas,monospace;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  @media (prefers-color-scheme:dark){:root{
+    --accent:#5B72FF; --accent-2:#7E90FF; --accent-soft:#171C33;
+    --ground:#0A0D17; --surface:#131829; --surface-2:#1A2036; --border:#28304C;
+    --ink:#EAEDF6; --muted:#9AA2BC; --faint:#5A6484;
+    --pass:#4FB98A; --warn:#E0A24A; --fail:#F0716A;
+  }}
+  :root[data-theme="dark"]{--accent:#5B72FF;--accent-2:#7E90FF;--accent-soft:#171C33;--ground:#0A0D17;--surface:#131829;--surface-2:#1A2036;--border:#28304C;--ink:#EAEDF6;--muted:#9AA2BC;--faint:#5A6484;--pass:#4FB98A;--warn:#E0A24A;--fail:#F0716A;}
+  :root[data-theme="light"]{--accent:#3D5AFE;--accent-2:#5B72FF;--accent-soft:#E4E8FF;--ground:#EEF1F7;--surface:#FFFFFF;--surface-2:#E6EAF2;--border:#D5DBE8;--ink:#111420;--muted:#59617A;--faint:#98A0B4;--pass:#1f8f5f;--warn:#C9770A;--fail:#D63A3A;}
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{background:var(--ground); color:var(--ink); font-family:var(--sans); line-height:1.55; min-height:100vh}
+  a{color:var(--accent); text-decoration:none}
+  .wrap{max-width:840px; margin:0 auto; padding:24px 20px 80px}
+  header{display:flex; align-items:center; gap:14px; padding:6px 0 26px}
+  .brand{font-weight:800; letter-spacing:-.03em; font-size:1.2rem}
+  .brand b{color:var(--accent)}
+  .back{margin-left:auto; font-size:.86rem; color:var(--muted)}
+  .back:hover{color:var(--ink)}
+  .kicker{font-family:var(--mono); font-size:.72rem; letter-spacing:.16em; text-transform:uppercase; color:var(--accent); font-weight:600}
+  h1{font-size:clamp(1.8rem,4vw,2.6rem); letter-spacing:-.03em; line-height:1.05; margin:8px 0 0; text-wrap:balance}
+  .sub{color:var(--muted); margin-top:12px; max-width:56ch}
+  form{display:flex; gap:10px; margin-top:26px; flex-wrap:wrap}
+  input[type=url]{flex:1; min-width:220px; background:var(--surface); border:1px solid var(--border); color:var(--ink); border-radius:12px; padding:14px 16px; font-size:1rem; font-family:var(--mono)}
+  input[type=url]:focus{outline:2px solid var(--accent); outline-offset:1px; border-color:transparent}
+  button{cursor:pointer; border:none; background:var(--accent); color:#fff; font-weight:700; font-size:1rem; padding:14px 24px; border-radius:12px; font-family:var(--sans); transition:transform .15s, box-shadow .2s}
+  button:hover:not(:disabled){transform:translateY(-2px); box-shadow:0 10px 22px -8px var(--accent)}
+  button:disabled{opacity:.6; cursor:wait}
+  .hint{font-family:var(--mono); font-size:.74rem; color:var(--faint); margin-top:10px}
+
+  #out{margin-top:32px}
+  .loading{display:flex; align-items:center; gap:12px; color:var(--muted); font-family:var(--mono); font-size:.9rem}
+  .spin{width:18px;height:18px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin 1s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .err{background:var(--surface); border:1px solid var(--fail); color:var(--fail); border-radius:12px; padding:16px 18px; font-size:.94rem}
+
+  .scorecard{display:flex; gap:24px; align-items:center; background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:24px; flex-wrap:wrap}
+  .ring{--v:0; width:118px; height:118px; border-radius:50%; flex:0 0 auto; display:grid; place-items:center;
+    background:conic-gradient(var(--rc) calc(var(--v)*1%), var(--surface-2) 0);}
+  .ring .inner{width:92px;height:92px;border-radius:50%;background:var(--surface);display:grid;place-items:center;text-align:center}
+  .ring .num{font-family:var(--mono);font-weight:700;font-size:2rem;letter-spacing:-.03em;line-height:1}
+  .ring .g{font-family:var(--mono);font-size:.7rem;color:var(--muted)}
+  .scoremeta{flex:1; min-width:200px}
+  .scoremeta h2{margin:0; font-size:1.15rem; letter-spacing:-.02em}
+  .scoremeta .u{font-family:var(--mono); font-size:.8rem; color:var(--muted); word-break:break-all; margin-top:4px}
+  .tallies{display:flex; gap:14px; margin-top:12px; font-family:var(--mono); font-size:.8rem}
+  .tallies .p{color:var(--pass)} .tallies .w{color:var(--warn)} .tallies .f{color:var(--fail)}
+
+  .cats{display:flex; flex-wrap:wrap; gap:10px; margin-top:16px}
+  .catpill{flex:1; min-width:140px; background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:12px 14px}
+  .catpill .cn{font-family:var(--mono); font-size:.68rem; letter-spacing:.1em; text-transform:uppercase; color:var(--muted)}
+  .catpill .cv{font-family:var(--mono); font-weight:700; font-size:1.3rem}
+  .track{height:6px;border-radius:99px;background:var(--surface-2);overflow:hidden;margin-top:6px}
+  .track>div{height:100%;border-radius:99px}
+
+  .group{margin-top:26px}
+  .group h3{font-family:var(--mono); font-size:.74rem; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); margin:0 0 8px}
+  .check{display:flex; gap:12px; padding:12px 0; border-bottom:1px solid var(--border)}
+  .ico{flex:0 0 auto;width:20px;height:20px;border-radius:6px;display:grid;place-items:center;font-size:.7rem;font-weight:800;color:#fff;margin-top:2px}
+  .ico.pass{background:var(--pass)} .ico.warn{background:var(--warn)} .ico.fail{background:var(--fail)}
+  .check .lbl{font-weight:600; font-size:.94rem}
+  .check .det{font-family:var(--mono); font-size:.78rem; color:var(--muted); margin-top:2px}
+  .check .tip{font-size:.84rem; color:var(--faint); margin-top:4px}
+  .cta{margin-top:30px; background:var(--ink); color:var(--ground); border-radius:18px; padding:28px; text-align:center}
+  .cta h3{margin:0 0 8px; font-size:1.3rem; letter-spacing:-.02em; color:var(--ground)}
+  .cta p{margin:0 auto 18px; color:color-mix(in srgb,var(--ground) 66%,transparent); max-width:44ch; font-size:.94rem}
+  .cta a{display:inline-block; background:var(--accent); color:#fff; font-weight:700; padding:12px 24px; border-radius:999px}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <a href="/" class="brand">Faro<b>°</b></a>
+      <a href="/" class="back">← Volver</a>
+    </header>
+
+    <span class="kicker">Analizador gratis</span>
+    <h1>¿Te encuentran en Google y en la IA?</h1>
+    <p class="sub">Pon la URL de tu sitio y en segundos te decimos qué tan listo está para SEO, redes y buscadores con IA (AEO/GEO). Gratis, sin registro.</p>
+
+    <form id="f">
+      <input type="url" id="url" placeholder="tunegocio.cl" autocomplete="off" required>
+      <button id="btn" type="submit">Analizar</button>
+    </form>
+    <p class="hint">// no guardamos tu sitio · analizamos la página pública, igual que Google</p>
+
+    <div id="out"></div>
+  </div>
+
+<script>
+  const f = document.getElementById('f'), out = document.getElementById('out'), btn = document.getElementById('btn');
+  const esc = s => String(s).replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+  const rc = v => v >= 70 ? 'var(--pass)' : v >= 40 ? 'var(--warn)' : 'var(--fail)';
+
+  f.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const url = document.getElementById('url').value.trim();
+    if (!url) return;
+    btn.disabled = true; btn.textContent = 'Analizando…';
+    out.innerHTML = '<div class="loading"><span class="spin"></span> Revisando ' + esc(url) + '… (10–15 seg)</div>';
+    try {
+      const r = await fetch('/api/analyze?url=' + encodeURIComponent(url));
+      const d = await r.json();
+      if (!d.ok) { out.innerHTML = '<div class="err">' + esc(d.error || 'No se pudo analizar.') + '</div>'; return; }
+      render(d);
+    } catch (err) {
+      out.innerHTML = '<div class="err">Error de red. Intenta de nuevo.</div>';
+    } finally {
+      btn.disabled = false; btn.textContent = 'Analizar';
+    }
+  });
+
+  function render(d) {
+    const col = rc(d.score);
+    const order = ['SEO', 'AEO / GEO', 'Social', 'Técnico'];
+    const groups = order.filter(o => d.checks.some(c => c.cat === o));
+
+    let h = `
+      <div class="scorecard">
+        <div class="ring" style="--v:${d.score}; --rc:${col}">
+          <div class="inner"><div><div class="num" style="color:${col}">${d.score}</div><div class="g">nota ${d.grade}</div></div></div>
+        </div>
+        <div class="scoremeta">
+          <h2>${veredicto(d.score)}</h2>
+          <div class="u">${esc(d.url)}</div>
+          <div class="tallies">
+            <span class="p">✓ ${d.counts.pass} bien</span>
+            <span class="w">▲ ${d.counts.warn} mejorable</span>
+            <span class="f">✕ ${d.counts.fail} crítico</span>
+          </div>
+        </div>
+      </div>
+      <div class="cats">` +
+      d.categories.map(c => `
+        <div class="catpill">
+          <div class="cn">${esc(c.name)}</div>
+          <div class="cv" style="color:${rc(c.score)}">${c.score}</div>
+          <div class="track"><div style="width:${c.score}%;background:${rc(c.score)}"></div></div>
+        </div>`).join('') +
+      `</div>`;
+
+    for (const g of groups) {
+      h += `<div class="group"><h3>${esc(g)}</h3>`;
+      for (const c of d.checks.filter(x => x.cat === g)) {
+        const sym = c.status === 'pass' ? '✓' : c.status === 'warn' ? '!' : '✕';
+        h += `<div class="check">
+          <span class="ico ${c.status}">${sym}</span>
+          <div>
+            <div class="lbl">${esc(c.label)} <span style="color:var(--faint);font-weight:400;font-family:var(--mono);font-size:.78rem">— ${esc(c.detail)}</span></div>
+            ${c.status !== 'pass' ? `<div class="tip">${esc(c.tip)}</div>` : ''}
+          </div>
+        </div>`;
+      }
+      h += `</div>`;
+    }
+
+    h += `<div class="cta">
+      <h3>¿Quieres que lo dejemos en verde?</h3>
+      <p>Te armamos un plan para subir esta nota — o te hacemos la web nueva, ya optimizada para Google y la IA.</p>
+      <a href="mailto:greyc9404@gmail.com?subject=Vi%20mi%20an%C3%A1lisis%20-%20quiero%20mejorar%20mi%20web">Hablemos con Faro°</a>
+    </div>`;
+
+    out.innerHTML = h;
+  }
+
+  function veredicto(s) {
+    if (s >= 85) return 'Excelente — vas muy bien.';
+    if (s >= 70) return 'Bien, pero hay que afinar.';
+    if (s >= 50) return 'Regular — dejas venta sobre la mesa.';
+    if (s >= 30) return 'Débil — te están encontrando poco.';
+    return 'Crítico — hoy eres casi invisible.';
+  }
+</script>
+</body>
+</html>
