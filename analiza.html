@@ -77,6 +77,21 @@
   .check .lbl{font-weight:600; font-size:.94rem}
   .check .det{font-family:var(--mono); font-size:.78rem; color:var(--muted); margin-top:2px}
   .check .tip{font-size:.84rem; color:var(--faint); margin-top:4px}
+  .psi{margin-top:26px; background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:22px 24px}
+  .psi .top{display:flex; align-items:center; gap:16px; flex-wrap:wrap}
+  .psi .pscore{font-family:var(--mono); font-weight:700; font-size:2rem; letter-spacing:-.03em; line-height:1}
+  .psi .ph{flex:1; min-width:180px}
+  .psi .ph h3{margin:0; font-size:1.1rem; letter-spacing:-.02em}
+  .psi .ph .sub2{font-family:var(--mono); font-size:.74rem; color:var(--muted); margin-top:3px}
+  .psi .badge{font-family:var(--mono); font-size:.66rem; letter-spacing:.08em; text-transform:uppercase; padding:4px 9px; border-radius:999px; border:1px solid var(--border); color:var(--muted)}
+  .cwv{display:flex; flex-wrap:wrap; gap:10px; margin-top:16px}
+  .cwv .m{flex:1; min-width:120px; background:var(--ground); border:1px solid var(--border); border-radius:12px; padding:12px 14px}
+  .cwv .mn{font-family:var(--mono); font-size:.66rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); display:flex; align-items:center; gap:6px}
+  .cwv .dot{width:9px; height:9px; border-radius:50%; flex:0 0 auto}
+  .cwv .mv{font-family:var(--mono); font-weight:700; font-size:1.15rem; margin-top:5px; letter-spacing:-.02em}
+  .cwv .mf{font-family:var(--mono); font-size:.68rem; color:var(--faint); margin-top:3px}
+  .psi .note{font-family:var(--mono); font-size:.72rem; color:var(--faint); margin:14px 0 0}
+  .psi.err{border-color:var(--warn)}
   .lead{margin-top:30px; background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:24px 26px}
   .lead h3{margin:0 0 6px; font-size:1.15rem; letter-spacing:-.02em}
   .lead p{margin:0 0 16px; color:var(--muted); font-size:.92rem; max-width:52ch}
@@ -181,6 +196,8 @@
       h += `</div>`;
     }
 
+    h += `<div id="psi-slot"></div>`;
+
     h += `<div class="lead" id="lead">
       <h3>Te enviamos el informe completo</h3>
       <p>Déjanos tu correo y te mandamos este diagnóstico con los pasos concretos para subir tu nota. Sin spam.</p>
@@ -199,6 +216,84 @@
 
     out.innerHTML = h;
     wireLead(d);
+    loadPageSpeed(d.url);
+  }
+
+  // ── Rendimiento real (PageSpeed Insights) ──────────────────────────────
+  async function loadPageSpeed(url) {
+    const slot = document.getElementById('psi-slot');
+    if (!slot) return;
+    slot.innerHTML = '<div class="psi"><div class="loading"><span class="spin"></span> ' +
+      'Midiendo rendimiento real con Google PageSpeed… (puede tardar ~30 seg)</div></div>';
+    try {
+      const r = await fetch('/api/pagespeed?url=' + encodeURIComponent(url) + '&strategy=mobile');
+      const d = await r.json();
+      if (!d.ok) {
+        slot.innerHTML = '<div class="psi err"><div class="ph"><h3>Rendimiento real</h3>' +
+          '<div class="sub2">No disponible: ' + esc(d.error || 'no se pudo medir') + '</div></div></div>';
+        return;
+      }
+      renderPSI(slot, d);
+    } catch (err) {
+      slot.innerHTML = '<div class="psi err"><div class="ph"><h3>Rendimiento real</h3>' +
+        '<div class="sub2">No se pudo medir el rendimiento ahora.</div></div></div>';
+    }
+  }
+
+  // Umbrales oficiales Core Web Vitals → clase de color
+  const cwvColor = (kind, v) => {
+    if (v == null) return 'var(--faint)';
+    const t = {
+      lcp: [2500, 4000], fcp: [1800, 3000], tbt: [200, 600], cls: [0.1, 0.25],
+    }[kind];
+    if (!t) return 'var(--faint)';
+    return v <= t[0] ? 'var(--pass)' : v <= t[1] ? 'var(--warn)' : 'var(--fail)';
+  };
+  const fieldColor = (cat) =>
+    cat === 'FAST' || cat === 'GOOD' ? 'var(--pass)' :
+    cat === 'AVERAGE' || cat === 'NEEDS_IMPROVEMENT' ? 'var(--warn)' :
+    cat === 'SLOW' ? 'var(--fail)' : 'var(--faint)';
+
+  function renderPSI(slot, d) {
+    const sc = d.perfScore;
+    const scCol = sc == null ? 'var(--faint)' : rc(sc);
+    const lab = d.lab || {};
+    const field = d.field || null;
+
+    const metrics = [
+      { k: 'lcp', name: 'LCP', full: 'Carga', v: lab.lcp && lab.lcp.ms, disp: lab.lcp && lab.lcp.display, f: field && field.lcp },
+      { k: 'cls', name: 'CLS', full: 'Estabilidad', v: lab.cls && lab.cls.value, disp: lab.cls && lab.cls.display, f: field && field.cls, scale: 1 },
+      { k: 'tbt', name: 'INP≈', full: 'Interacción (TBT)', v: lab.tbt && lab.tbt.ms, disp: lab.tbt && lab.tbt.display, f: field && field.inp },
+      { k: 'fcp', name: 'FCP', full: '1er contenido', v: lab.fcp && lab.fcp.ms, disp: lab.fcp && lab.fcp.display, f: field && field.fcp },
+    ];
+
+    const tiles = metrics.map(m => {
+      const col = cwvColor(m.k, m.v);
+      let f = '';
+      if (m.f && m.f.category) {
+        const fc = fieldColor(m.f.category);
+        const p75 = m.f.p75 != null ? (m.k === 'cls' ? (m.f.p75 / 100).toFixed(2) : (m.f.p75 >= 1000 ? (m.f.p75 / 1000).toFixed(1) + ' s' : m.f.p75 + ' ms')) : '';
+        f = `<div class="mf" style="color:${fc}">campo real: ${esc(p75)}</div>`;
+      }
+      return `<div class="m">
+        <div class="mn"><span class="dot" style="background:${col}"></span>${esc(m.name)} · ${esc(m.full)}</div>
+        <div class="mv" style="color:${col}">${esc(m.disp || '—')}</div>
+        ${f}
+      </div>`;
+    }).join('');
+
+    slot.innerHTML = `<div class="psi">
+      <div class="top">
+        <div class="pscore" style="color:${scCol}">${sc == null ? '—' : sc}<span style="font-size:.9rem;color:var(--muted)">/100</span></div>
+        <div class="ph">
+          <h3>Rendimiento real (Lighthouse)</h3>
+          <div class="sub2">medido por Google PageSpeed · vista móvil</div>
+        </div>
+        <span class="badge">${field ? 'con datos de campo (CrUX)' : 'solo laboratorio'}</span>
+      </div>
+      <div class="cwv">${tiles}</div>
+      <p class="note">// verde = bueno · ámbar = mejorable · rojo = lento, según umbrales Core Web Vitals de Google${field ? '' : ' · sin datos de campo: el sitio tiene poco tráfico para el reporte real de Google'}</p>
+    </div>`;
   }
 
   function wireLead(d) {
