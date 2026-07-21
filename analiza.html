@@ -57,8 +57,8 @@
   h1{font-size:clamp(1.8rem,4vw,2.6rem); letter-spacing:-.03em; line-height:1.05; margin:8px 0 0; text-wrap:balance}
   .sub{color:var(--muted); margin-top:12px; max-width:56ch}
   form{display:flex; gap:10px; margin-top:26px; flex-wrap:wrap}
-  input[type=url]{flex:1; min-width:220px; background:var(--surface); border:1px solid var(--border); color:var(--ink); border-radius:12px; padding:14px 16px; font-size:1rem; font-family:var(--mono)}
-  input[type=url]:focus{outline:2px solid var(--accent); outline-offset:1px; border-color:transparent}
+  #url{flex:1; min-width:220px; background:var(--surface); border:1px solid var(--border); color:var(--ink); border-radius:12px; padding:14px 16px; font-size:1rem; font-family:var(--mono)}
+  #url:focus{outline:2px solid var(--accent); outline-offset:1px; border-color:transparent}
   button{cursor:pointer; border:none; background:var(--accent); color:#fff; font-weight:700; font-size:1rem; padding:14px 24px; border-radius:12px; font-family:var(--sans); transition:transform .15s, box-shadow .2s}
   button:hover:not(:disabled){transform:translateY(-2px); box-shadow:0 10px 22px -8px var(--accent)}
   button:disabled{opacity:.6; cursor:wait}
@@ -177,7 +177,7 @@
     <p class="sub">Pon la URL de tu sitio y en segundos te decimos qué tan listo está para SEO, redes y buscadores con IA (AEO/GEO). Gratis, sin registro.</p>
 
     <form id="f">
-      <input type="url" id="url" placeholder="tunegocio.cl" autocomplete="off" required>
+      <input type="text" inputmode="url" id="url" placeholder="tunegocio.cl" autocomplete="off" autocapitalize="off" spellcheck="false" required>
       <button id="btn" type="submit">Analizar</button>
     </form>
     <p class="hint">// no guardamos tu sitio · analizamos la página pública, igual que Google</p>
