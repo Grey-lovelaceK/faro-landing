@@ -27,7 +27,27 @@
   html,body{margin:0;padding:0}
   body{background:var(--ground); color:var(--ink); font-family:var(--sans); line-height:1.55; min-height:100vh}
   a{color:var(--accent); text-decoration:none}
-  .wrap{max-width:840px; margin:0 auto; padding:24px 20px 80px}
+  .wrap{max-width:840px; margin:0 auto; padding:24px 20px 80px; position:relative; z-index:1}
+
+  /* Haz de luz de faro — barrido suave desde una "lámpara" superior. Puro CSS. */
+  #beam{position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden}
+  #beam::before{content:""; position:absolute; top:-150px; left:50%; width:460px; height:460px;
+    transform:translateX(-50%); border-radius:50%;
+    background:radial-gradient(circle, color-mix(in srgb,var(--accent) 42%, transparent), transparent 62%);
+    filter:blur(34px); opacity:.55}
+  #beam .sweep{position:absolute; top:-160px; left:50%; width:1100px; height:1100px; margin-left:-550px;
+    transform-origin:50% 160px; will-change:transform;
+    background:conic-gradient(from -18deg at 50% 160px,
+      transparent 0deg,
+      color-mix(in srgb,var(--accent) 20%, transparent) 11deg,
+      color-mix(in srgb,var(--accent) 6%, transparent) 17deg,
+      transparent 26deg);
+    animation:sweep 9s ease-in-out infinite}
+  @keyframes sweep{0%{transform:rotate(-30deg)} 50%{transform:rotate(30deg)} 100%{transform:rotate(-30deg)}}
+
+  /* Anillo animable: registra --v como número para poder transicionarlo */
+  @property --v{syntax:"<number>"; inherits:false; initial-value:0}
+  @keyframes rise{from{opacity:0; transform:translateY(14px)} to{opacity:1; transform:none}}
   header{display:flex; align-items:center; gap:14px; padding:6px 0 26px}
   .brand{font-weight:800; letter-spacing:-.03em; font-size:1.2rem}
   .brand b{color:var(--accent)}
@@ -52,7 +72,9 @@
 
   .scorecard{display:flex; gap:24px; align-items:center; background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:24px; flex-wrap:wrap}
   .ring{--v:0; width:118px; height:118px; border-radius:50%; flex:0 0 auto; display:grid; place-items:center;
-    background:conic-gradient(var(--rc) calc(var(--v)*1%), var(--surface-2) 0);}
+    background:conic-gradient(var(--rc) calc(var(--v)*1%), var(--surface-2) 0);
+    transition:--v 1.2s cubic-bezier(.2,.75,.25,1);
+    box-shadow:0 0 34px -8px var(--rc)}
   .ring .inner{width:92px;height:92px;border-radius:50%;background:var(--surface);display:grid;place-items:center;text-align:center}
   .ring .num{font-family:var(--mono);font-weight:700;font-size:2rem;letter-spacing:-.03em;line-height:1}
   .ring .g{font-family:var(--mono);font-size:.7rem;color:var(--muted)}
@@ -67,7 +89,7 @@
   .catpill .cn{font-family:var(--mono); font-size:.68rem; letter-spacing:.1em; text-transform:uppercase; color:var(--muted)}
   .catpill .cv{font-family:var(--mono); font-weight:700; font-size:1.3rem}
   .track{height:6px;border-radius:99px;background:var(--surface-2);overflow:hidden;margin-top:6px}
-  .track>div{height:100%;border-radius:99px}
+  .track>div{height:100%;border-radius:99px;width:0;transition:width 1s cubic-bezier(.2,.75,.25,1) .15s}
 
   .group{margin-top:26px}
   .group h3{font-family:var(--mono); font-size:.74rem; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); margin:0 0 8px}
@@ -124,9 +146,26 @@
   .cta h3{margin:0 0 8px; font-size:1.3rem; letter-spacing:-.02em; color:var(--ground)}
   .cta p{margin:0 auto 18px; color:color-mix(in srgb,var(--ground) 66%,transparent); max-width:44ch; font-size:.94rem}
   .cta a{display:inline-block; background:var(--accent); color:#fff; font-weight:700; padding:12px 24px; border-radius:999px}
+
+  /* Aparición escalonada de los bloques de resultado */
+  #out>*{animation:rise .55s cubic-bezier(.2,.75,.25,1) both}
+  #out>*:nth-child(2){animation-delay:.06s}
+  #out>*:nth-child(3){animation-delay:.12s}
+  #out>*:nth-child(4){animation-delay:.18s}
+  #out>*:nth-child(5){animation-delay:.24s}
+  #out>*:nth-child(6){animation-delay:.30s}
+  #out>*:nth-child(n+7){animation-delay:.36s}
+
+  @media (prefers-reduced-motion:reduce){
+    #beam .sweep{animation:none}
+    .ring{transition:none}
+    .track>div{transition:none}
+    #out>*{animation:none}
+  }
 </style>
 </head>
 <body>
+  <div id="beam" aria-hidden="true"><div class="sweep"></div></div>
   <div class="wrap">
     <header>
       <a href="/" class="brand">Faro<b>°</b></a>
@@ -176,8 +215,8 @@
 
     let h = `
       <div class="scorecard">
-        <div class="ring" style="--v:${d.score}; --rc:${col}">
-          <div class="inner"><div><div class="num" style="color:${col}">${d.score}</div><div class="g">nota ${d.grade}</div></div></div>
+        <div class="ring" style="--v:0; --rc:${col}" data-v="${d.score}">
+          <div class="inner"><div><div class="num" style="color:${col}" data-to="${d.score}">0</div><div class="g">nota ${d.grade}</div></div></div>
         </div>
         <div class="scoremeta">
           <h2>${veredicto(d.score)}</h2>
@@ -193,8 +232,8 @@
       d.categories.map(c => `
         <div class="catpill">
           <div class="cn">${esc(c.name)}</div>
-          <div class="cv" style="color:${rc(c.score)}">${c.score}</div>
-          <div class="track"><div style="width:${c.score}%;background:${rc(c.score)}"></div></div>
+          <div class="cv" style="color:${rc(c.score)}" data-to="${c.score}">0</div>
+          <div class="track"><div style="background:${rc(c.score)}" data-w="${c.score}"></div></div>
         </div>`).join('') +
       `</div>`;
 
@@ -233,9 +272,42 @@
     </div>`;
 
     out.innerHTML = h;
+    animateIn();
     wireLead(d);
     loadPageSpeed(d.url);
     loadAiCheck(d.url);
+  }
+
+  const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Dispara las transiciones (anillo, barras) y cuenta los números hacia arriba.
+  function animateIn() {
+    const bars = out.querySelectorAll('.track > div[data-w]');
+    const rings = out.querySelectorAll('.ring[data-v]');
+    const nums = out.querySelectorAll('[data-to]');
+    if (reduceMotion) {
+      rings.forEach(el => el.style.setProperty('--v', el.dataset.v));
+      bars.forEach(el => el.style.width = el.dataset.w + '%');
+      nums.forEach(el => el.textContent = el.dataset.to);
+      return;
+    }
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      rings.forEach(el => el.style.setProperty('--v', el.dataset.v));
+      bars.forEach(el => el.style.width = el.dataset.w + '%');
+      nums.forEach(el => countUp(el, +el.dataset.to));
+    }));
+  }
+
+  function countUp(el, to) {
+    const dur = 1000, t0 = performance.now();
+    const step = (t) => {
+      const p = Math.min(1, (t - t0) / dur);
+      const eased = 1 - Math.pow(1 - p, 3); // easeOutCubic
+      el.textContent = Math.round(to * eased);
+      if (p < 1) requestAnimationFrame(step);
+      else el.textContent = to;
+    };
+    requestAnimationFrame(step);
   }
 
   // ── Chequeo real de IA (¿te cita la IA?) ───────────────────────────────
