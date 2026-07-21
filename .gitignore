@@ -1,3 +1,10 @@
 .DS_Store
 node_modules/
 .vercel
+
+# secretos — NUNCA al repo (van en Vercel env vars)
+.env
+.env.*
+*.key
+*key*.txt
+litespeedkey.txt
