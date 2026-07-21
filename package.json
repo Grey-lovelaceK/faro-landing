@@ -1,0 +1,9 @@
+{
+  "name": "faro-landing",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Faro° — landing + analizador de web (estático + funciones serverless en Vercel)",
+  "dependencies": {
+    "@neondatabase/serverless": "^0.10.4"
+  }
+}

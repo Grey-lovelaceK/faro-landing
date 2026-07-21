@@ -77,6 +77,17 @@
   .check .lbl{font-weight:600; font-size:.94rem}
   .check .det{font-family:var(--mono); font-size:.78rem; color:var(--muted); margin-top:2px}
   .check .tip{font-size:.84rem; color:var(--faint); margin-top:4px}
+  .lead{margin-top:30px; background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:24px 26px}
+  .lead h3{margin:0 0 6px; font-size:1.15rem; letter-spacing:-.02em}
+  .lead p{margin:0 0 16px; color:var(--muted); font-size:.92rem; max-width:52ch}
+  .lead form{margin:0; gap:10px}
+  .lead input[type=email]{flex:1; min-width:220px; background:var(--ground); border:1px solid var(--border); color:var(--ink); border-radius:12px; padding:13px 15px; font-size:1rem; font-family:var(--mono)}
+  .lead input[type=email]:focus{outline:2px solid var(--accent); outline-offset:1px; border-color:transparent}
+  .lead .privacy{font-family:var(--mono); font-size:.72rem; color:var(--faint); margin:10px 0 0}
+  .lead .ok{display:flex; gap:12px; align-items:flex-start}
+  .lead .ok .ico{flex:0 0 auto;width:26px;height:26px;border-radius:8px;display:grid;place-items:center;background:var(--pass);color:#fff;font-weight:800}
+  .lead .ok h3{margin:0}
+  .lead .leaderr{color:var(--fail); font-size:.84rem; margin:10px 0 0; font-family:var(--mono)}
   .cta{margin-top:30px; background:var(--ink); color:var(--ground); border-radius:18px; padding:28px; text-align:center}
   .cta h3{margin:0 0 8px; font-size:1.3rem; letter-spacing:-.02em; color:var(--ground)}
   .cta p{margin:0 auto 18px; color:color-mix(in srgb,var(--ground) 66%,transparent); max-width:44ch; font-size:.94rem}
@@ -170,6 +181,16 @@
       h += `</div>`;
     }
 
+    h += `<div class="lead" id="lead">
+      <h3>Te enviamos el informe completo</h3>
+      <p>Déjanos tu correo y te mandamos este diagnóstico con los pasos concretos para subir tu nota. Sin spam.</p>
+      <form id="leadf">
+        <input type="email" id="email" placeholder="tucorreo@ejemplo.cl" autocomplete="email" required>
+        <button id="leadbtn" type="submit">Enviar informe</button>
+      </form>
+      <p class="privacy">// solo lo usamos para enviarte el informe y contactarte una vez</p>
+    </div>`;
+
     h += `<div class="cta">
       <h3>¿Quieres que lo dejemos en verde?</h3>
       <p>Te armamos un plan para subir esta nota — o te hacemos la web nueva, ya optimizada para Google y la IA.</p>
@@ -177,6 +198,41 @@
     </div>`;
 
     out.innerHTML = h;
+    wireLead(d);
+  }
+
+  function wireLead(d) {
+    const lf = document.getElementById('leadf');
+    if (!lf) return;
+    lf.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value.trim();
+      const lb = document.getElementById('leadbtn');
+      const prevErr = document.querySelector('#lead .leaderr');
+      if (prevErr) prevErr.remove();
+      if (!email) return;
+      lb.disabled = true; lb.textContent = 'Enviando…';
+      try {
+        const r = await fetch('/api/lead', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, url: d.url, score: d.score }),
+        });
+        const j = await r.json().catch(() => ({}));
+        if (!r.ok || !j.ok) throw new Error(j.error || 'error');
+        document.getElementById('lead').innerHTML =
+          '<div class="ok"><span class="ico">✓</span><div>' +
+          '<h3>¡Listo! Te llegará pronto.</h3>' +
+          '<p style="margin:6px 0 0">Guardamos tu correo. Te enviamos el informe y te escribimos para ayudarte a subir la nota.</p>' +
+          '</div></div>';
+      } catch (err) {
+        lb.disabled = false; lb.textContent = 'Enviar informe';
+        const p = document.createElement('p');
+        p.className = 'leaderr';
+        p.textContent = (err && err.message && err.message !== 'error') ? err.message : 'No se pudo guardar. Revisa el correo e intenta de nuevo.';
+        document.getElementById('leadf').after(p);
+      }
+    });
   }
 
   function veredicto(s) {
