@@ -72,8 +72,11 @@ export default async function handler(req, res) {
 
     const data = await r.json();
     if (!r.ok || data.error) {
-      const msg = (data.error && data.error.message) || `HTTP ${r.status}`;
-      return res.status(200).json({ ok: false, error: 'La IA no pudo responder. (' + msg + ')' });
+      const raw = (data.error && data.error.message) || `HTTP ${r.status}`;
+      let msg = 'El chequeo de IA no está disponible por ahora.';
+      if (/quota|rate|exceeded|\blimit\b/i.test(raw)) msg = 'El chequeo de IA llegó al límite gratuito. Intenta más tarde.';
+      else if (/api key|invalid|permission|denied|unauthorized/i.test(raw)) msg = 'El chequeo de IA no está configurado correctamente.';
+      return res.status(200).json({ ok: false, error: msg });
     }
     const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
     if (!text) {

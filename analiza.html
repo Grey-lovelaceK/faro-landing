@@ -113,7 +113,7 @@
   .cwv .mv{font-family:var(--mono); font-weight:700; font-size:1.15rem; margin-top:5px; letter-spacing:-.02em}
   .cwv .mf{font-family:var(--mono); font-size:.68rem; color:var(--faint); margin-top:3px}
   .psi .note{font-family:var(--mono); font-size:.72rem; color:var(--faint); margin:14px 0 0}
-  .psi.err{border-color:var(--warn)}
+  .psi.warnbox{border-color:var(--warn)}
 
   .ai{margin-top:26px; background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:22px 24px}
   .ai .top{display:flex; align-items:center; gap:14px; flex-wrap:wrap}
@@ -130,7 +130,7 @@
   .ai ul{margin:0; padding-left:18px}
   .ai li{font-size:.9rem; margin:5px 0; line-height:1.45}
   .ai .note{font-family:var(--mono); font-size:.7rem; color:var(--faint); margin:16px 0 0}
-  .ai.err{border-color:var(--warn)}
+  .ai.warnbox{border-color:var(--warn)}
   .lead{margin-top:30px; background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:24px 26px}
   .lead h3{margin:0 0 6px; font-size:1.15rem; letter-spacing:-.02em}
   .lead p{margin:0 0 16px; color:var(--muted); font-size:.92rem; max-width:52ch}
@@ -320,13 +320,13 @@
       const r = await fetch('/api/aicheck?url=' + encodeURIComponent(url));
       const d = await r.json();
       if (!d.ok) {
-        slot.innerHTML = '<div class="ai err"><div class="top"><h3>¿Te menciona la IA?</h3></div>' +
+        slot.innerHTML = '<div class="ai warnbox"><div class="top"><h3>¿Te menciona la IA?</h3></div>' +
           '<p class="verdict" style="color:var(--muted)">No disponible: ' + esc(d.error || 'no se pudo consultar') + '</p></div>';
         return;
       }
       renderAi(slot, d);
     } catch (err) {
-      slot.innerHTML = '<div class="ai err"><div class="top"><h3>¿Te menciona la IA?</h3></div>' +
+      slot.innerHTML = '<div class="ai warnbox"><div class="top"><h3>¿Te menciona la IA?</h3></div>' +
         '<p class="verdict" style="color:var(--muted)">No se pudo consultar la IA ahora.</p></div>';
     }
   }
@@ -362,13 +362,13 @@
       const r = await fetch('/api/pagespeed?url=' + encodeURIComponent(url) + '&strategy=mobile');
       const d = await r.json();
       if (!d.ok) {
-        slot.innerHTML = '<div class="psi err"><div class="ph"><h3>Rendimiento real</h3>' +
+        slot.innerHTML = '<div class="psi warnbox"><div class="ph"><h3>Rendimiento real</h3>' +
           '<div class="sub2">No disponible: ' + esc(d.error || 'no se pudo medir') + '</div></div></div>';
         return;
       }
       renderPSI(slot, d);
     } catch (err) {
-      slot.innerHTML = '<div class="psi err"><div class="ph"><h3>Rendimiento real</h3>' +
+      slot.innerHTML = '<div class="psi warnbox"><div class="ph"><h3>Rendimiento real</h3>' +
         '<div class="sub2">No se pudo medir el rendimiento ahora.</div></div></div>';
     }
   }
