@@ -1,0 +1,469 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Integración ERP e-commerce en Chile: Bsale, Defontana y Enviame — Faro°</title>
+<meta name="description" content="Integramos WooCommerce, PrestaShop, Jumpseller o Shopify con Bsale, Defontana y Enviame: sincronización de stock, boleta electrónica automática y etiquetas de despacho, con monitoreo. Precios publicados.">
+<link rel="canonical" href="https://faro-landing-alpha.vercel.app/integraciones">
+<meta property="og:title" content="Integraciones e-commerce ↔ ERP ↔ courier — Faro°">
+<meta property="og:description" content="Tu tienda y tu ERP, hablando solos: stock, precios, boletas y etiquetas de despacho sin digitar nada.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://faro-landing-alpha.vercel.app/integraciones">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Integraciones e-commerce ↔ ERP ↔ courier — Faro°">
+<meta name="twitter:description" content="WooCommerce, PrestaShop, Jumpseller y Shopify conectados con Bsale, Defontana y Enviame.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔦</text></svg>">
+<style>html,body{margin:0;padding:0}html{background:#0A0D17}@media(prefers-color-scheme:light){html{background:#EEF1F7}}</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@graph":[
+    {
+      "@type":"Service",
+      "@id":"https://faro-landing-alpha.vercel.app/integraciones#servicio",
+      "name":"Integración de tienda online con ERP y courier",
+      "serviceType":"Integración e-commerce con ERP (Bsale, Defontana) y courier (Enviame)",
+      "provider":{"@type":"Organization","name":"Faro°","url":"https://faro-landing-alpha.vercel.app/","email":"greyc9404@gmail.com"},
+      "areaServed":{"@type":"Country","name":"Chile"},
+      "description":"Sincronización de stock, precios y pedidos entre WooCommerce, PrestaShop, Jumpseller o Shopify y Bsale o Defontana, con emisión automática de boleta o factura electrónica y etiquetas de despacho vía Enviame. Incluye monitoreo mensual.",
+      "offers":[
+        {"@type":"Offer","name":"Despacho","priceCurrency":"CLP","price":"250000","description":"Tienda ↔ Enviame. Instalación desde $250.000 + desde $25.000/mes."},
+        {"@type":"Offer","name":"Conector","priceCurrency":"CLP","price":"450000","description":"1 tienda ↔ 1 ERP. Instalación desde $450.000 + desde $45.000/mes."},
+        {"@type":"Offer","name":"Omnicanal","priceCurrency":"CLP","price":"900000","description":"Varias bodegas, listas de precio y canales. Instalación desde $900.000 + desde $90.000/mes."}
+      ]
+    },
+    {
+      "@type":"FAQPage",
+      "mainEntity":[
+        {"@type":"Question","name":"¿Tienen que tocar o rehacer mi tienda online?","acceptedAnswer":{"@type":"Answer","text":"No. Nos conectamos por las APIs oficiales de tu tienda y de tu ERP. Tu sitio, tu diseño y tu plataforma quedan igual."}},
+        {"@type":"Question","name":"¿Qué accesos necesitan?","acceptedAnswer":{"@type":"Answer","text":"Una clave de API de tu tienda (WooCommerce, PrestaShop, Jumpseller o Shopify) y el token de tu ERP (Bsale o Defontana). Si usas Enviame, también su API key. Nunca te pedimos contraseñas de administrador."}},
+        {"@type":"Question","name":"¿Qué pasa si la sincronización falla?","acceptedAnswer":{"@type":"Answer","text":"Cada pedido queda registrado con su estado. Si algo falla se reintenta solo y, si no se resuelve, nos llega una alerta para revisarlo. Eso es lo que cubre la mensualidad."}},
+        {"@type":"Question","name":"¿Emiten la boleta o factura electrónica automáticamente?","acceptedAnswer":{"@type":"Answer","text":"Sí. Cuando entra un pedido pagado se crea el documento en tu ERP, que es quien lo emite ante el SII. Antes de salir a producción lo probamos en un ambiente de pruebas."}},
+        {"@type":"Question","name":"¿Qué pasa si mis SKU no coinciden entre la tienda y el ERP?","acceptedAnswer":{"@type":"Answer","text":"Es el problema más común y la razón por la que muchas integraciones no sincronizan. En el diagnóstico cruzamos tus productos de ambos lados y te entregamos la lista de los que no calzan, antes de conectar nada."}},
+        {"@type":"Question","name":"¿Cuánto demora una integración?","acceptedAnswer":{"@type":"Answer","text":"Depende del alcance. Un conector estándar entre una tienda y un ERP toma en general entre 2 y 4 semanas, incluyendo el piloto en pruebas."}},
+        {"@type":"Question","name":"¿Mi plataforma ya tiene una integración oficial, igual me sirve?","acceptedAnswer":{"@type":"Answer","text":"Si la integración oficial cubre lo que necesitas, úsala: te lo vamos a decir en el diagnóstico. Nuestro trabajo parte donde la oficial no llega, como varias bodegas, reglas de precio propias o plataformas sin conector."}}
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<style>
+  :root{
+    --accent:#3D5AFE; --accent-2:#5B72FF; --accent-tint:#E4E8FF;
+    --ground:#EEF1F7; --surface:#FFFFFF; --surface-2:#E6EAF2;
+    --border:#D5DBE8; --ink:#111420; --muted:#59617A; --faint:#98A0B4;
+    --good:#2F8F63; --warn:#B7791F;
+    --shadow:0 1px 2px rgba(17,20,32,.05),0 12px 32px -12px rgba(17,20,32,.16);
+    --mono:ui-monospace,"Cascadia Code","SF Mono",Menlo,Consolas,monospace;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --maxw:1080px;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --accent:#5B72FF; --accent-2:#7E90FF; --accent-tint:#171C33;
+      --ground:#0A0D17; --surface:#131829; --surface-2:#1A2036;
+      --border:#28304C; --ink:#EAEDF6; --muted:#9AA2BC; --faint:#5A6484;
+      --good:#4FB98A; --warn:#E0A84A;
+      --shadow:0 1px 2px rgba(0,0,0,.4),0 20px 50px -20px rgba(0,0,0,.6);
+    }
+  }
+  :root[data-theme="dark"]{
+    --accent:#5B72FF; --accent-2:#7E90FF; --accent-tint:#171C33;
+    --ground:#0A0D17; --surface:#131829; --surface-2:#1A2036;
+    --border:#28304C; --ink:#EAEDF6; --muted:#9AA2BC; --faint:#5A6484;
+    --good:#4FB98A; --warn:#E0A84A;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 20px 50px -20px rgba(0,0,0,.6);
+  }
+
+  *{box-sizing:border-box}
+  .wrap{background:var(--ground); color:var(--ink); font-family:var(--sans); line-height:1.6; -webkit-font-smoothing:antialiased; letter-spacing:-.003em; min-height:100vh; overflow-x:hidden}
+  .wrap *{margin:0}
+  a{color:inherit; text-decoration:none}
+  .container{max-width:var(--maxw); margin-inline:auto; padding-inline:24px}
+  @media (max-width:520px){ .container{padding-inline:16px} }
+
+  .eyebrow{font-family:var(--mono); font-size:.72rem; letter-spacing:.16em; text-transform:uppercase; color:var(--accent); font-weight:600}
+  h1,h2,h3{text-wrap:balance; letter-spacing:-.03em; font-weight:800; line-height:1.02}
+  h1{font-size:clamp(2.4rem,6.4vw,4.6rem)}
+  h2{font-size:clamp(1.9rem,4vw,3rem)}
+  h3{font-size:1.18rem; letter-spacing:-.02em; line-height:1.2}
+  .lead{font-size:clamp(1.05rem,1.6vw,1.28rem); color:var(--muted); max-width:56ch}
+
+  nav.bar{position:sticky; top:0; z-index:50; backdrop-filter:saturate(1.4) blur(12px); background:color-mix(in srgb,var(--ground) 82%,transparent); border-bottom:1px solid var(--border)}
+  .bar .container{display:flex; align-items:center; gap:28px; height:60px}
+  .brand{font-weight:800; font-size:1.15rem; letter-spacing:-.04em; display:flex; align-items:center; gap:2px}
+  .brand b{color:var(--accent)}
+  .navlinks{display:flex; gap:26px; margin-left:auto; font-size:.9rem; color:var(--muted)}
+  .navlinks a{transition:color .15s}
+  .navlinks a:hover{color:var(--ink)}
+  @media (max-width:760px){ .navlinks{display:none} }
+
+  .btn{display:inline-flex; align-items:center; gap:8px; cursor:pointer; font-family:var(--sans); font-weight:600; font-size:.94rem; padding:11px 20px; border-radius:999px; border:1px solid transparent; transition:transform .15s, box-shadow .2s, background .2s, border-color .2s}
+  .btn-primary{background:var(--accent); color:#fff; box-shadow:0 6px 18px -6px var(--accent)}
+  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 12px 26px -8px var(--accent)}
+  .btn-ghost{border-color:var(--border); color:var(--ink); background:transparent}
+  .btn-ghost:hover{border-color:var(--accent); color:var(--accent)}
+  .btn-sm{padding:8px 15px; font-size:.86rem}
+  a:focus-visible,.btn:focus-visible,summary:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:8px}
+
+  /* hero */
+  header.hero{position:relative; padding:clamp(48px,9vw,104px) 0 clamp(40px,6vw,72px)}
+  .beam{position:absolute; inset:0; pointer-events:none; overflow:hidden; z-index:0}
+  .beam::before{content:""; position:absolute; top:-30%; right:-6%; width:520px; height:520px; border-radius:50%; background:radial-gradient(circle,var(--accent) 0%,transparent 62%); opacity:.14; filter:blur(6px)}
+  .hero-grid{position:relative; z-index:1; display:grid; grid-template-columns:1.05fr .95fr; gap:clamp(28px,4vw,56px); align-items:center}
+  @media (max-width:860px){ .hero-grid{grid-template-columns:1fr; gap:36px} }
+  .hero h1{margin-top:18px}
+  .hero h1 .hl{color:var(--accent)}
+  .hero .lead{margin-top:22px}
+  .hero-cta{display:flex; flex-wrap:wrap; gap:12px; margin-top:30px; align-items:center}
+  .microtrust{margin-top:22px; font-family:var(--mono); font-size:.76rem; color:var(--faint); letter-spacing:.02em}
+
+  /* sync log — la tesis, en vivo */
+  .log{background:var(--surface); border:1px solid color-mix(in srgb,var(--accent) 30%,var(--border)); border-radius:16px; box-shadow:var(--shadow),0 24px 60px -28px color-mix(in srgb,var(--accent) 45%,transparent); overflow:hidden}
+  .log-head{display:flex; align-items:center; gap:8px; padding:12px 16px; border-bottom:1px solid var(--border); font-family:var(--mono); font-size:.74rem; color:var(--muted)}
+  .dot{width:9px; height:9px; border-radius:50%; background:var(--faint)}
+  .dot.on{background:var(--good)}
+  .log-body{padding:14px 16px 18px; font-family:var(--mono); font-size:.8rem; display:flex; flex-direction:column; gap:9px; min-height:15.5em}
+  .ln{display:grid; grid-template-columns:auto 1fr auto; gap:10px; align-items:baseline; opacity:1; transform:none; transition:opacity .35s, transform .35s}
+  .ln.hide{opacity:0; transform:translateY(6px)}
+  .ln .t{color:var(--faint)}
+  .ln .m{color:var(--ink); min-width:0}
+  .ln .m em{font-style:normal; color:var(--accent)}
+  .ln .s{font-weight:700; color:var(--good)}
+  .ln .s.w{color:var(--warn)}
+  .log-foot{border-top:1px solid var(--border); padding:10px 16px; font-family:var(--mono); font-size:.7rem; color:var(--faint)}
+
+  section{padding:clamp(56px,8vw,96px) 0; position:relative}
+  .sec-head{max-width:60ch}
+  .sec-head h2{margin-top:10px}
+  .sec-head p{margin-top:14px}
+
+  /* dolor */
+  .pain{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:40px}
+  @media (max-width:860px){ .pain{grid-template-columns:1fr} }
+  .pain div{border-left:2px solid var(--accent); padding:4px 0 4px 16px}
+  .pain b{display:block; font-size:1.02rem; letter-spacing:-.01em}
+  .pain p{font-size:.9rem; color:var(--muted); margin-top:4px}
+
+  /* qué sincronizamos */
+  .svc{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:44px}
+  @media (max-width:860px){ .svc{grid-template-columns:1fr 1fr} }
+  @media (max-width:560px){ .svc{grid-template-columns:1fr} }
+  .card{background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:24px 22px; display:flex; flex-direction:column; gap:10px; transition:transform .18s, border-color .18s, box-shadow .2s}
+  .card:hover{transform:translateY(-4px); border-color:var(--accent); box-shadow:var(--shadow)}
+  .card .num{font-family:var(--mono); font-size:.72rem; color:var(--accent); letter-spacing:.1em; text-transform:uppercase}
+  .card p{color:var(--muted); font-size:.9rem}
+
+  /* plataformas */
+  .plat{background:var(--surface-2); border-block:1px solid var(--border)}
+  .flow{display:grid; grid-template-columns:1fr auto 1fr auto 1fr; gap:16px; align-items:stretch; margin-top:40px}
+  @media (max-width:860px){ .flow{grid-template-columns:1fr} .flow .arrow{transform:rotate(90deg); justify-self:center} }
+  .col{background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:20px}
+  .col .rl{font-family:var(--mono); font-size:.72rem; color:var(--muted); letter-spacing:.08em; text-transform:uppercase}
+  .chips{display:flex; flex-wrap:wrap; gap:8px; margin-top:12px}
+  .chip{font-family:var(--mono); font-size:.8rem; padding:6px 11px; border-radius:8px; border:1px solid var(--border); background:var(--ground)}
+  .chip.hit{border-color:var(--accent); color:var(--accent)}
+  .arrow{align-self:center; font-family:var(--mono); font-size:1.4rem; color:var(--accent); text-shadow:0 0 14px color-mix(in srgb,var(--accent) 60%,transparent)}
+  .plat .note{margin-top:18px}
+
+  /* proceso */
+  .steps{display:grid; grid-template-columns:repeat(5,1fr); gap:16px; margin-top:44px}
+  @media (max-width:960px){ .steps{grid-template-columns:1fr 1fr} }
+  @media (max-width:520px){ .steps{grid-template-columns:1fr} }
+  .step{position:relative; padding-top:22px; border-top:2px solid var(--border)}
+  .step .k{position:absolute; top:-13px; left:0; background:var(--ground); padding-right:10px; font-family:var(--mono); font-size:.8rem; color:var(--accent); font-weight:700}
+  .step h3{font-size:1.02rem; margin-bottom:6px}
+  .step p{font-size:.88rem; color:var(--muted)}
+
+  /* precios */
+  .plans{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:44px}
+  @media (max-width:860px){ .plans{grid-template-columns:1fr} }
+  .plan{background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:28px 24px; display:flex; flex-direction:column; gap:16px}
+  .plan.hot{border-color:var(--accent); box-shadow:var(--shadow); position:relative}
+  .plan.hot::after{content:"RECOMENDADO"; position:absolute; top:-11px; right:20px; background:var(--accent); color:#fff; font-family:var(--mono); font-size:.62rem; letter-spacing:.14em; padding:3px 10px; border-radius:999px}
+  .plan .pname{font-weight:800; font-size:1.15rem; letter-spacing:-.02em}
+  .plan .pdesc{font-size:.86rem; color:var(--muted); margin-top:4px}
+  .plan .price{font-family:var(--mono); font-variant-numeric:tabular-nums; font-size:1.6rem; font-weight:700; letter-spacing:-.02em; margin-top:10px}
+  .plan .price small{display:block; font-size:.72rem; color:var(--faint); font-weight:400; letter-spacing:.04em; margin-top:2px}
+  .plan .monthly{font-family:var(--mono); font-variant-numeric:tabular-nums; font-size:.95rem; font-weight:700; color:var(--accent); margin-top:6px}
+  .plan ul{list-style:none; padding:0; display:flex; flex-direction:column; gap:9px; flex:1}
+  .plan li{font-size:.9rem; color:var(--muted); padding-left:22px; position:relative}
+  .plan li::before{content:"✓"; position:absolute; left:0; color:var(--good); font-weight:700}
+  .retainer{margin-top:18px; background:var(--surface-2); border:1px dashed var(--border); border-radius:14px; padding:20px 24px}
+  .retainer b{display:block; margin-bottom:6px}
+  .retainer p{font-size:.9rem; color:var(--muted)}
+  .note{font-size:.8rem; color:var(--faint); margin-top:16px; font-family:var(--mono)}
+
+  /* faq */
+  .faq{margin-top:36px; display:flex; flex-direction:column; gap:10px; max-width:760px}
+  .faq details{background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:0 20px}
+  .faq details[open]{border-color:var(--accent)}
+  .faq summary{cursor:pointer; list-style:none; padding:16px 0; font-weight:700; display:flex; justify-content:space-between; gap:16px}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{content:"+"; font-family:var(--mono); color:var(--accent); font-weight:700}
+  .faq details[open] summary::after{content:"−"}
+  .faq details p{color:var(--muted); font-size:.94rem; padding-bottom:18px}
+
+  .cta{background:var(--ink); color:var(--ground); border-radius:24px; padding:clamp(36px,6vw,64px); text-align:center; position:relative; overflow:hidden}
+  .cta h2{color:var(--ground)}
+  .cta p{color:color-mix(in srgb,var(--ground) 66%,transparent); margin:16px auto 28px; max-width:50ch}
+  .cta .glow{position:absolute; bottom:-40%; left:50%; transform:translateX(-50%); width:600px; height:400px; background:radial-gradient(circle,var(--accent),transparent 60%); opacity:.28; pointer-events:none}
+  .cta .btn-primary{position:relative}
+
+  footer{border-top:1px solid var(--border); padding:34px 0; margin-top:24px}
+  footer .container{display:flex; flex-wrap:wrap; gap:16px; align-items:center; justify-content:space-between; color:var(--muted); font-size:.85rem}
+  footer .mono{font-family:var(--mono); font-size:.76rem; color:var(--faint)}
+
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none !important; transition:none !important}
+  }
+</style>
+
+<div class="wrap">
+
+  <nav class="bar">
+    <div class="container">
+      <a href="/" class="brand">Faro<b>°</b></a>
+      <div class="navlinks">
+        <a href="#que">Qué sincronizamos</a>
+        <a href="#plataformas">Plataformas</a>
+        <a href="#precios">Precios</a>
+        <a href="#faq">Preguntas</a>
+      </div>
+      <a href="#contacto" class="btn btn-primary btn-sm" style="margin-left:auto">Diagnóstico gratis</a>
+    </div>
+  </nav>
+
+  <header class="hero" id="top">
+    <div class="beam"></div>
+    <div class="container hero-grid">
+      <div>
+        <span class="eyebrow">Integraciones · tienda ↔ ERP ↔ courier</span>
+        <h1>Tu tienda y tu ERP, <span class="hl">hablando solos</span>.</h1>
+        <p class="lead">Conectamos tu tienda en WooCommerce, PrestaShop, Jumpseller o Shopify con Bsale o Defontana y con Enviame. Stock, precios, boletas y etiquetas de despacho se sincronizan sin que nadie digite nada.</p>
+        <div class="hero-cta">
+          <a href="#contacto" class="btn btn-primary">Pide tu diagnóstico gratis</a>
+          <a href="#precios" class="btn btn-ghost">Ver precios</a>
+        </div>
+        <p class="microtrust">// Sin tocar tu web. Nos conectamos por las APIs oficiales de cada plataforma.</p>
+      </div>
+
+      <div class="log" aria-label="Ejemplo ilustrativo de un registro de sincronización">
+        <div class="log-head">
+          <span class="dot on"></span><span class="dot"></span><span class="dot"></span>
+          <span style="margin-left:8px">sync · ejemplo ilustrativo</span>
+        </div>
+        <div class="log-body" id="log">
+          <div class="ln"><span class="t">09:14</span><span class="m">Pedido pagado · <em>WooCommerce</em> → <em>Bsale</em></span><span class="s">✓</span></div>
+          <div class="ln"><span class="t">09:14</span><span class="m">Boleta electrónica emitida</span><span class="s">✓</span></div>
+          <div class="ln"><span class="t">09:15</span><span class="m">Etiqueta creada · <em>Enviame</em></span><span class="s">✓</span></div>
+          <div class="ln"><span class="t">09:30</span><span class="m">Stock actualizado · 3 bodegas → tienda</span><span class="s">✓</span></div>
+          <div class="ln"><span class="t">09:31</span><span class="m">API del ERP sin respuesta · reintento 1</span><span class="s w">↻</span></div>
+          <div class="ln"><span class="t">09:32</span><span class="m">Reintento OK · precios sincronizados</span><span class="s">✓</span></div>
+        </div>
+        <div class="log-foot">// cada movimiento queda registrado · si algo falla, reintenta y nos avisa</div>
+      </div>
+    </div>
+  </header>
+
+  <section style="padding-top:0">
+    <div class="container">
+      <div class="sec-head">
+        <span class="eyebrow">Si hoy haces esto a mano</span>
+        <h2>El problema no es vender online. Es todo lo que viene después.</h2>
+      </div>
+      <div class="pain">
+        <div><b>Digitas cada pedido dos veces</b><p>Lo que entra por la tienda lo vuelves a cargar en el ERP para emitir la boleta.</p></div>
+        <div><b>Vendes algo que ya no tienes</b><p>El stock de la tienda y el de la bodega no calzan, y te enteras cuando el cliente ya pagó.</p></div>
+        <div><b>Copias direcciones al courier</b><p>Cada despacho es una etiqueta armada a mano y un número de seguimiento que mandar por WhatsApp.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="que" style="padding-top:0">
+    <div class="container">
+      <div class="sec-head">
+        <span class="eyebrow">Qué sincronizamos</span>
+        <h2>Sincronización de stock, precios y boletas, de la venta al despacho.</h2>
+        <p class="lead">Cada integración se arma según cómo opera tu negocio, no al revés.</p>
+      </div>
+      <div class="svc">
+        <div class="card"><span class="num">Stock</span><h3>Inventario al día</h3><p>El stock del ERP se refleja en la tienda, incluso con varias bodegas o sucursales.</p></div>
+        <div class="card"><span class="num">Precios</span><h3>Precios y listas</h3><p>Cambias el precio en el ERP y la tienda se actualiza. Soporta listas de precio distintas por canal.</p></div>
+        <div class="card"><span class="num">Pedidos</span><h3>Pedido → venta</h3><p>Cada pedido pagado se crea como venta en Bsale o Defontana, con cliente y detalle.</p></div>
+        <div class="card"><span class="num">DTE</span><h3>Boleta y factura electrónica</h3><p>El ERP emite el documento automáticamente. También notas de crédito por devoluciones.</p></div>
+        <div class="card"><span class="num">Despacho</span><h3>Etiquetas y seguimiento</h3><p>El pedido llega a Enviame, se genera la etiqueta y el cliente recibe su número de seguimiento.</p></div>
+        <div class="card"><span class="num">Monitoreo</span><h3>Registro y alertas</h3><p>Cada movimiento queda registrado. Si algo falla, se reintenta y nos avisa antes que a ti.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="plat" id="plataformas">
+    <div class="container">
+      <div class="sec-head">
+        <span class="eyebrow">Plataformas</span>
+        <h2>Las que ya usas. No te hacemos cambiar de sistema.</h2>
+      </div>
+      <div class="flow">
+        <div class="col">
+          <span class="rl">Tu tienda</span>
+          <div class="chips"><span class="chip hit">WooCommerce</span><span class="chip hit">PrestaShop</span><span class="chip hit">Jumpseller</span><span class="chip">Shopify</span></div>
+        </div>
+        <span class="arrow" aria-hidden="true">⇄</span>
+        <div class="col">
+          <span class="rl">Tu ERP / facturación</span>
+          <div class="chips"><span class="chip hit">Bsale</span><span class="chip hit">Defontana</span></div>
+        </div>
+        <span class="arrow" aria-hidden="true">→</span>
+        <div class="col">
+          <span class="rl">Tu despacho</span>
+          <div class="chips"><span class="chip hit">Enviame</span></div>
+        </div>
+      </div>
+      <p class="note">// ¿Usas otro ERP o courier? Si tiene API, lo evaluamos en el diagnóstico sin costo.</p>
+    </div>
+  </section>
+
+  <section id="proceso">
+    <div class="container">
+      <div class="sec-head">
+        <span class="eyebrow">Cómo trabajamos</span>
+        <h2>Probado en pruebas antes de tocar una venta real.</h2>
+      </div>
+      <div class="steps">
+        <div class="step"><span class="k">01 · Diagnóstico</span><h3>Vemos tu operación</h3><p>Qué sistemas usas, qué haces a mano y si tus SKU calzan entre tienda y ERP. Sin costo.</p></div>
+        <div class="step"><span class="k">02 · Mapeo</span><h3>Definimos las reglas</h3><p>Qué se sincroniza, en qué dirección y cada cuánto. Todo queda por escrito.</p></div>
+        <div class="step"><span class="k">03 · Piloto</span><h3>Probamos sin riesgo</h3><p>Corremos la integración en un ambiente de pruebas hasta que todo cuadre.</p></div>
+        <div class="step"><span class="k">04 · Puesta en marcha</span><h3>Salimos a producción</h3><p>Activamos con seguimiento de cerca los primeros días.</p></div>
+        <div class="step"><span class="k">05 · Monitoreo</span><h3>Nos quedamos</h3><p>Alertas, reintentos y ajustes cuando las plataformas cambian sus APIs.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="precios" style="padding-top:0">
+    <div class="container">
+      <div class="sec-head">
+        <span class="eyebrow">Precios de referencia</span>
+        <h2>Precio publicado. Sin "cotiza para saber".</h2>
+        <p class="lead">Una instalación y una mensualidad que cubre monitoreo y soporte. El valor final depende del alcance que definimos en el diagnóstico.</p>
+      </div>
+      <div class="plans">
+        <div class="plan">
+          <div>
+            <div class="pname">Despacho</div>
+            <div class="pdesc">Tu tienda conectada con Enviame.</div>
+            <div class="price">desde $250.000<small>instalación · pago único</small></div>
+            <div class="monthly">+ desde $25.000/mes</div>
+          </div>
+          <ul>
+            <li>Pedido pagado → envío en Enviame</li>
+            <li>Etiqueta generada automáticamente</li>
+            <li>Número de seguimiento de vuelta a la tienda</li>
+            <li>Registro de cada envío</li>
+          </ul>
+          <a href="#contacto" class="btn btn-ghost">Cotizar</a>
+        </div>
+        <div class="plan hot">
+          <div>
+            <div class="pname">Conector</div>
+            <div class="pdesc">1 tienda ↔ 1 ERP (Bsale o Defontana).</div>
+            <div class="price">desde $450.000<small>instalación · pago único</small></div>
+            <div class="monthly">+ desde $45.000/mes</div>
+          </div>
+          <ul>
+            <li>Stock y precios del ERP a la tienda</li>
+            <li>Pedido pagado → venta en el ERP</li>
+            <li>Boleta o factura electrónica automática</li>
+            <li>Piloto en ambiente de pruebas</li>
+            <li>Monitoreo, reintentos y alertas</li>
+          </ul>
+          <a href="#contacto" class="btn btn-primary">Cotizar este pack</a>
+        </div>
+        <div class="plan">
+          <div>
+            <div class="pname">Omnicanal</div>
+            <div class="pdesc">Varias bodegas, listas y canales.</div>
+            <div class="price">desde $900.000<small>instalación · a medida</small></div>
+            <div class="monthly">+ desde $90.000/mes</div>
+          </div>
+          <ul>
+            <li>Todo lo del Conector</li>
+            <li>Varias bodegas o sucursales</li>
+            <li>Listas de precio por canal</li>
+            <li>Notas de crédito por devoluciones</li>
+            <li>Despacho con Enviame incluido</li>
+          </ul>
+          <a href="#contacto" class="btn btn-ghost">Conversemos</a>
+        </div>
+      </div>
+      <div class="retainer">
+        <b>¿Por qué hay mensualidad?</b>
+        <p>Porque una integración no es un proyecto que se entrega y se olvida. Las plataformas cambian sus APIs, los tokens vencen y a veces un servicio se cae. La mensualidad paga el monitoreo, los reintentos, las alertas y los ajustes. Sin ella, no podemos garantizar que la sincronización siga funcionando.</p>
+      </div>
+      <p class="note">// Precios referenciales netos en CLP · valor final según alcance · el ERP y el courier se pagan aparte, directo a cada proveedor</p>
+    </div>
+  </section>
+
+  <section id="faq" style="padding-top:0">
+    <div class="container">
+      <div class="sec-head">
+        <span class="eyebrow">Preguntas frecuentes</span>
+        <h2>Lo que conviene saber antes de conectar.</h2>
+      </div>
+      <div class="faq">
+        <details><summary>¿Tienen que tocar o rehacer mi tienda online?</summary><p>No. Nos conectamos por las APIs oficiales de tu tienda y de tu ERP. Tu sitio, tu diseño y tu plataforma quedan igual.</p></details>
+        <details><summary>¿Qué accesos necesitan?</summary><p>Una clave de API de tu tienda (WooCommerce, PrestaShop, Jumpseller o Shopify) y el token de tu ERP (Bsale o Defontana). Si usas Enviame, también su API key. Nunca te pedimos contraseñas de administrador.</p></details>
+        <details><summary>¿Qué pasa si la sincronización falla?</summary><p>Cada pedido queda registrado con su estado. Si algo falla se reintenta solo y, si no se resuelve, nos llega una alerta para revisarlo. Eso es lo que cubre la mensualidad.</p></details>
+        <details><summary>¿Emiten la boleta o factura electrónica automáticamente?</summary><p>Sí. Cuando entra un pedido pagado se crea el documento en tu ERP, que es quien lo emite ante el SII. Antes de salir a producción lo probamos en un ambiente de pruebas.</p></details>
+        <details><summary>¿Qué pasa si mis SKU no coinciden entre la tienda y el ERP?</summary><p>Es el problema más común y la razón por la que muchas integraciones "no sincronizan". En el diagnóstico cruzamos tus productos de ambos lados y te entregamos la lista de los que no calzan, antes de conectar nada.</p></details>
+        <details><summary>¿Cuánto demora una integración?</summary><p>Depende del alcance. Un conector estándar entre una tienda y un ERP toma en general entre 2 y 4 semanas, incluyendo el piloto en pruebas.</p></details>
+        <details><summary>¿Mi plataforma ya tiene una integración oficial, igual me sirve?</summary><p>Si la integración oficial cubre lo que necesitas, úsala: te lo vamos a decir en el diagnóstico. Nuestro trabajo parte donde la oficial no llega, como varias bodegas, reglas de precio propias o plataformas sin conector.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section id="contacto" style="padding-top:0">
+    <div class="container">
+      <div class="cta">
+        <div class="glow"></div>
+        <span class="eyebrow" style="color:var(--accent-2)">Diagnóstico gratis</span>
+        <h2 style="margin-top:12px">¿Cuántas horas al mes se te van digitando pedidos?</h2>
+        <p>Cuéntanos qué tienda, ERP y courier usas. Te respondemos qué se puede automatizar, cuánto cuesta y cuánto demora. Sin compromiso.</p>
+        <div style="display:flex; flex-wrap:wrap; gap:12px; justify-content:center">
+          <a href="mailto:greyc9404@gmail.com?subject=Quiero%20mi%20diagn%C3%B3stico%20de%20integraci%C3%B3n&amp;body=Tienda%3A%20%0AERP%3A%20%0ACourier%3A%20%0AQu%C3%A9%20hago%20hoy%20a%20mano%3A%20" class="btn btn-primary">Pedir diagnóstico</a>
+          <a href="/" class="btn btn-ghost" style="border-color:rgba(255,255,255,.28); color:var(--ground)">Ver todos los servicios</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <a href="/" class="brand">Faro<b>°</b></a>
+      <span class="mono">// integraciones · web · marketing · SEO · AEO · GEO — Chile</span>
+      <span>Cristian Revilla · <a href="mailto:greyc9404@gmail.com" style="color:var(--accent)">greyc9404@gmail.com</a></span>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  (function(){
+    var box = document.getElementById('log');
+    if(!box) return;
+    if(window.matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+    var lines = box.querySelectorAll('.ln');
+    function play(){
+      lines.forEach(function(l){ l.classList.add('hide'); });
+      lines.forEach(function(l, i){ setTimeout(function(){ l.classList.remove('hide'); }, 400 + i*700); });
+    }
+    play();
+    setInterval(play, 400 + lines.length*700 + 4000);
+  })();
+</script>
+
+</body>
+</html>
