@@ -11,12 +11,19 @@ Precios referenciales publicados en pesos chilenos (CLP, netos). Contacto: conta
 - [Marketing digital](https://faroagencia.cl/#servicios): Google y Meta Ads gestionados, contenido y email. Gestión desde $250.000 CLP al mes más inversión.
 - [Integraciones e-commerce](https://faroagencia.cl/integraciones): WooCommerce, PrestaShop, Jumpseller o Shopify conectados con Bsale o Defontana (stock, precios, boleta y factura electrónica) y con Enviame (etiquetas y seguimiento). Desde $250.000 CLP de instalación más mensualidad de monitoreo.
 
+## Nosotros
+
+- [Equipo](https://faroagencia.cl/nosotros): Cristian Revilla (cofundador y director técnico: desarrollo, SEO técnico e integraciones) y Clementina Moya (cofundadora y directora creativa y de marketing: estrategia, redacción y diseño).
+
 ## Herramientas
 
 - [Analizador de web gratis](https://faroagencia.cl/analiza): revisa SEO, redes sociales, rendimiento real (Core Web Vitals) y visibilidad en IA de cualquier sitio.
 
 ## Blog
 
+- [Cómo escribir los textos de tu web para que vendan](https://faroagencia.cl/blog/textos-web-que-venden): El titular, la propuesta de valor, qué mostrar si aún no tienes testimonios y el botón de WhatsApp.
+- [Cómo aparecer en Google Maps con tu negocio (guía 2026)](https://faroagencia.cl/blog/google-business-profile-google-maps): Crear y verificar tu Perfil de Empresa, negocios sin local, reseñas y qué hacer si te suspenden.
+- [SEO mensual en Chile: qué incluye y cuánto cuesta](https://faroagencia.cl/blog/seo-mensual-chile-precio): Rangos de precio publicados en Chile, qué debería incluir cada mes y qué preguntarle a una agencia.
 - [Qué es AEO y GEO: cómo aparecer en respuestas de IA](https://faroagencia.cl/blog/que-es-aeo-geo): Qué son el AEO y el GEO, en qué se diferencian del SEO y qué funciona para que ChatGPT, Gemini y Google citen tu negocio.
 - [Checklist SEO: 21 puntos para revisar tu web (2026)](https://faroagencia.cl/blog/checklist-seo-21-puntos): Los 21 puntos que revisa nuestro analizador, con el peso de cada uno y qué arreglar primero.
 - [¿Cuánto cuesta una página web en Chile? Precios 2026](https://faroagencia.cl/blog/cuanto-cuesta-una-pagina-web-chile): Precios en pesos según el tipo de sitio, qué incluye cada plan y los costos que casi nadie menciona.

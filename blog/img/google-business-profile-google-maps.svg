@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Cómo aparecer en Google Maps</title>
+  <desc id="desc">Mapa nocturno estilizado con pin de ubicación y ficha de negocio.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0A0D17"/><stop offset="1" stop-color="#131829"/></linearGradient>
+    <linearGradient id="beam" x1=".1" y1="1" x2="1" y2="0"><stop stop-color="#3D5AFE" stop-opacity=".25"/><stop offset=".55" stop-color="#5B72FF" stop-opacity=".09"/><stop offset="1" stop-color="#7E90FF" stop-opacity="0"/></linearGradient>
+    <linearGradient id="card" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#1A2036"/><stop offset="1" stop-color="#111625"/></linearGradient>
+    <radialGradient id="halo"><stop stop-color="#3D5AFE" stop-opacity=".38"/><stop offset=".46" stop-color="#3D5AFE" stop-opacity=".12"/><stop offset="1" stop-color="#3D5AFE" stop-opacity="0"/></radialGradient>
+    <pattern id="dots" width="24" height="24" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1" fill="#28304C" opacity=".45"/></pattern>
+    <filter id="glow" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="12"/></filter>
+    <filter id="shadow" x="-30%" y="-30%" width="170%" height="180%"><feDropShadow dx="0" dy="16" stdDeviation="15" flood-color="#050711" flood-opacity=".72"/><feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#3D5AFE" flood-opacity=".2"/></filter>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#dots)" opacity=".55"/>
+  <path d="M581 630 1200 29 1200 287Z" fill="url(#beam)"/>
+  <ellipse cx="884" cy="311" rx="292" ry="258" fill="url(#halo)"/>
+  <path d="M0 542H1200" stroke="#28304C"/>
+  <!-- stylized street plan -->
+  <g fill="none" stroke="#28304C" stroke-width="2" opacity=".95">
+    <path d="M622 180C701 203 699 260 759 275S849 259 885 304s95 28 182 77"/>
+    <path d="M623 243c56 6 67 52 130 51 77-1 85 65 144 71 74 7 101 52 176 33"/>
+    <path d="M647 408c46-59 110-38 135-87 32-63 95-29 137-59 44-32 109-12 150-68"/>
+    <path d="M686 132c16 57 83 56 91 114 6 45-36 67-10 125 20 46 85 26 111 77"/>
+    <path d="M868 132c-30 58 16 89 5 143-13 62-79 64-70 133 7 49 67 55 89 102"/>
+    <path d="M1005 158c-44 35-2 86-35 119-33 34-89 19-100 79-9 47 36 76 26 132"/>
+    <path d="M701 468c50-27 90 12 134-12 58-32 45-96 109-103 59-6 88 48 142 18"/>
+  </g>
+  <g fill="none" stroke="#5A6484" stroke-width="1" opacity=".6">
+    <path d="M653 201 1086 201M638 328 1108 328M687 450 1069 450"/>
+    <path d="M724 127v355M956 126v352M1055 155v275"/>
+  </g>
+  <!-- faint pins -->
+  <g fill="#5A6484" opacity=".9"><path d="M723 268c0-13 10-23 23-23s23 10 23 23c0 17-23 38-23 38s-23-21-23-38Z"/><circle cx="746" cy="268" r="7" fill="#131829"/><path d="M1010 417c0-12 9-22 22-22s22 10 22 22c0 16-22 36-22 36s-22-20-22-36Z"/><circle cx="1032" cy="417" r="7" fill="#131829"/></g>
+  <!-- primary map signal -->
+  <g transform="translate(857 282)"><circle r="94" fill="#3D5AFE" opacity=".09" filter="url(#glow)"/><circle r="76" fill="none" stroke="#5B72FF" stroke-opacity=".24" stroke-width="2"/><circle r="49" fill="none" stroke="#7E90FF" stroke-opacity=".42" stroke-width="2"/><path d="M0-34C-20-34-35-19-35 1c0 28 35 59 35 59S35 29 35 1C35-19 20-34 0-34Z" fill="#3D5AFE" filter="url(#shadow)"/><circle cy="1" r="12" fill="#EAEDF6"/><circle cy="1" r="6" fill="#3D5AFE"/></g>
+  <!-- business listing card -->
+  <g transform="translate(750 113) rotate(-3 162 85)" filter="url(#shadow)">
+    <rect width="326" height="171" rx="16" fill="url(#card)" stroke="#5B72FF" stroke-opacity=".55"/>
+    <rect x="18" y="19" width="44" height="44" rx="12" fill="#3D5AFE"/><path d="M31 45h18M40 35v20" stroke="#EAEDF6" stroke-width="2" stroke-linecap="round"/>
+    <rect x="76" y="23" width="142" height="10" rx="5" fill="#EAEDF6"/><rect x="76" y="42" width="92" height="7" rx="3.5" fill="#5A6484"/>
+    <g fill="#7E90FF"><path d="M21 87l4 8 9 1-6 6 2 9-9-5-8 5 2-9-7-6 9-1z"/><path d="M42 87l4 8 9 1-6 6 2 9-9-5-8 5 2-9-7-6 9-1z"/><path d="M63 87l4 8 9 1-6 6 2 9-9-5-8 5 2-9-7-6 9-1z"/><path d="M84 87l4 8 9 1-6 6 2 9-9-5-8 5 2-9-7-6 9-1z"/><path d="M105 87l4 8 9 1-6 6 2 9-9-5-8 5 2-9-7-6 9-1z"/></g>
+    <text x="132" y="104" font-family="Consolas, 'Courier New', monospace" font-size="11" fill="#9AA2BC">reseñas reales</text>
+    <rect x="18" y="125" width="145" height="30" rx="15" fill="#3D5AFE"/><path d="M37 140h10m-5-5v10" stroke="#EAEDF6" stroke-width="1.5"/><text x="57" y="145" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#fff">Cómo llegar</text>
+    <circle cx="292" cy="140" r="15" fill="#17203A" stroke="#28304C"/><path d="m285 140 5 5 9-10" fill="none" stroke="#4FB98A" stroke-width="2" stroke-linecap="round"/>
+  </g>
+  <!-- copy -->
+  <g font-family="Consolas, 'Courier New', monospace"><rect x="72" y="66" width="130" height="36" rx="18" fill="#11172A" stroke="#5B72FF"/><text x="94" y="89" font-size="13" font-weight="700" letter-spacing="1.7" fill="#7E90FF">SEO LOCAL</text></g>
+  <text x="72" y="205" fill="#EAEDF6" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="68" font-weight="800" letter-spacing="-3.2"><tspan x="72">Cómo aparecer</tspan><tspan x="72" dy="72">en Google Maps</tspan></text>
+  <text x="72" y="378" fill="#9AA2BC" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="28" letter-spacing="-.6">Guía de Google Business Profile para pymes</text>
+  <text x="72" y="588" fill="#EAEDF6" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="30" font-weight="800" letter-spacing="-1.5">Faro<tspan fill="#5B72FF">°</tspan></text>
+  <text x="1128" y="588" text-anchor="end" fill="#5A6484" font-family="Consolas, 'Courier New', monospace" font-size="14">Por Clementina Moya · faroagencia.cl</text>
+</svg>

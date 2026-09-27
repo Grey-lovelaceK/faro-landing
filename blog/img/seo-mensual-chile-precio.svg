@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">SEO mensual: qué incluye y cuánto cuesta</title>
+  <desc id="desc">Gráfico SEO ascendente, checklist mensual y respuesta breve de IA.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0A0D17"/><stop offset="1" stop-color="#131829"/></linearGradient>
+    <linearGradient id="beam" x1="0" y1="1" x2="1" y2="0"><stop stop-color="#3D5AFE" stop-opacity=".24"/><stop offset="1" stop-color="#7E90FF" stop-opacity="0"/></linearGradient>
+    <linearGradient id="area" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#3D5AFE" stop-opacity=".38"/><stop offset="1" stop-color="#3D5AFE" stop-opacity="0"/></linearGradient>
+    <radialGradient id="halo"><stop stop-color="#3D5AFE" stop-opacity=".32"/><stop offset="1" stop-color="#3D5AFE" stop-opacity="0"/></radialGradient>
+    <pattern id="dots" width="22" height="22" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1" fill="#28304C" opacity=".55"/></pattern>
+    <filter id="shadow" x="-25%" y="-25%" width="160%" height="180%"><feDropShadow dx="0" dy="16" stdDeviation="15" flood-color="#03050D" flood-opacity=".72"/><feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#3D5AFE" flood-opacity=".18"/></filter>
+    <filter id="glow"><feGaussianBlur stdDeviation="11"/></filter>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/><rect width="1200" height="630" fill="url(#dots)" opacity=".55"/><path d="M568 630 1200 28 1200 302Z" fill="url(#beam)"/><ellipse cx="890" cy="318" rx="307" ry="260" fill="url(#halo)"/><path d="M0 542H1200" stroke="#28304C"/>
+  <!-- chart canvas -->
+  <g transform="translate(622 160)"><path d="M0 229H492M0 172H492M0 115H492M0 58H492" stroke="#28304C" stroke-width="1"/><path d="M20 224 104 204 188 179 272 143 356 105 440 38 440 229 20 229Z" fill="url(#area)"/><path d="M20 224 104 204 188 179 272 143 356 105 440 38" fill="none" stroke="#5B72FF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M20 224 104 204 188 179 272 143 356 105 440 38" fill="none" stroke="#3D5AFE" stroke-width="11" opacity=".18" filter="url(#glow)"/>
+    <g fill="#EAEDF6" stroke="#3D5AFE" stroke-width="3"><circle cx="20" cy="224" r="6"/><circle cx="104" cy="204" r="6"/><circle cx="188" cy="179" r="6"/><circle cx="272" cy="143" r="6"/><circle cx="356" cy="105" r="6"/><circle cx="440" cy="38" r="7"/></g>
+    <g fill="#9AA2BC" font-family="Consolas, 'Courier New', monospace" font-size="11" text-anchor="middle"><text x="20" y="257">Mes 1</text><text x="104" y="257">Mes 2</text><text x="188" y="257">Mes 3</text><text x="272" y="257">Mes 4</text><text x="356" y="257">Mes 5</text><text x="440" y="257">Mes 6</text></g><text x="439" y="18" text-anchor="end" fill="#7E90FF" font-family="Consolas, 'Courier New', monospace" font-size="12" font-weight="700">VISIBILIDAD ↑</text>
+  </g>
+  <!-- monthly calendar -->
+  <g transform="translate(684 126)" filter="url(#shadow)"><rect width="195" height="176" rx="15" fill="#171E34" stroke="#5B72FF"/><path d="M0 42H195" stroke="#28304C"/><rect x="18" y="15" width="28" height="8" rx="4" fill="#7E90FF"/><text x="58" y="27" fill="#EAEDF6" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="15" font-weight="800">Plan mensual</text><g fill="none" stroke="#4FB98A" stroke-width="2" stroke-linecap="round"><path d="m20 66 5 5 10-11M20 96l5 5 10-11M20 126l5 5 10-11"/></g><g stroke="#5A6484" stroke-width="5" stroke-linecap="round"><path d="M47 66h113M47 96h98M47 126h122"/></g><text x="18" y="156" font-family="Consolas, 'Courier New', monospace" font-size="10" fill="#7E90FF">CONTINUIDAD / 06</text></g>
+  <!-- small AI bubble -->
+  <g transform="translate(907 374)" filter="url(#shadow)"><path d="M13 0h181a13 13 0 0 1 13 13v63a13 13 0 0 1-13 13h-107l-20 18 4-18H13A13 13 0 0 1 0 76V13A13 13 0 0 1 13 0Z" fill="#171E34" stroke="#5B72FF"/><text x="17" y="25" font-family="Consolas, 'Courier New', monospace" font-size="10" fill="#7E90FF">RESPUESTA IA</text><text x="17" y="49" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#EAEDF6">“Faro° integra SEO,</text><text x="17" y="67" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="13" fill="#EAEDF6">AEO y GEO.”</text></g>
+  <!-- left copy -->
+  <g font-family="Consolas, 'Courier New', monospace"><rect x="72" y="66" width="164" height="36" rx="18" fill="#11172A" stroke="#5B72FF"/><text x="91" y="89" font-size="12" font-weight="700" letter-spacing="1.1" fill="#7E90FF">SEO · AEO · GEO</text></g>
+  <text x="72" y="184" fill="#EAEDF6" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="62" font-weight="800" letter-spacing="-3.1"><tspan x="72">SEO mensual:</tspan><tspan x="72" dy="66">qué incluye y</tspan><tspan x="72" dy="66">cuánto cuesta</tspan></text>
+  <text x="72" y="415" fill="#9AA2BC" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="28" letter-spacing="-.6">Lo que deberías recibir cada mes</text>
+  <text x="72" y="588" fill="#EAEDF6" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="30" font-weight="800" letter-spacing="-1.5">Faro<tspan fill="#5B72FF">°</tspan></text><text x="1128" y="588" text-anchor="end" fill="#5A6484" font-family="Consolas, 'Courier New', monospace" font-size="14">Por Clementina Moya · faroagencia.cl</text>
+</svg>

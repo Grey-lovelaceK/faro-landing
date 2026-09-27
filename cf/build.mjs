@@ -8,7 +8,7 @@ import { mkdirSync, rmSync, readdirSync, copyFileSync, readFileSync, writeFileSy
 
 const PUBLIC = /\.(html|txt|xml|ico|png|svg|webp|jpg|json|js|css)$/i;
 const SKIP = new Set(['package.json', 'package-lock.json', 'vercel.json', 'sitemap.xml']);
-const DIRS = ['blog', 'blog/img'];
+const DIRS = ['blog', 'blog/img', 'img'];
 
 rmSync('dist', { recursive: true, force: true });
 mkdirSync('dist');
