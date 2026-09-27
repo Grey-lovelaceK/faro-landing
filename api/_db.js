@@ -33,5 +33,7 @@ export async function ensureSchema() {
     )`;
   // Migración para tablas viejas creadas antes de la columna `name` (idempotente).
   await sql`ALTER TABLE leads ADD COLUMN IF NOT EXISTS name TEXT`;
+  // Consentimiento explícito para novedades comerciales (casilla opcional en /analiza).
+  await sql`ALTER TABLE leads ADD COLUMN IF NOT EXISTS marketing_ok BOOLEAN NOT NULL DEFAULT false`;
   ensured = true;
 }

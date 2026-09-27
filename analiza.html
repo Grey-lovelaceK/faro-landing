@@ -227,6 +227,8 @@
   .lead .locked li{display:flex; align-items:center; gap:7px}
   .lead .locked svg{flex:0 0 auto; color:var(--accent)}
   .lead .privacy{font-family:var(--mono); font-size:.72rem; color:var(--faint); margin:10px 0 0}
+  .lead .optin{display:flex; gap:8px; align-items:flex-start; margin:12px 0 0; font-size:.84rem; color:var(--muted); cursor:pointer}
+  .lead .optin input{margin-top:3px; accent-color:var(--accent)}
   .lead .ok{display:flex; gap:12px; align-items:flex-start}
   .lead .ok .ico{flex:0 0 auto;width:26px;height:26px;border-radius:8px;display:grid;place-items:center;background:var(--pass);color:#fff;font-weight:800}
   .lead .ok h3{margin:0}
@@ -378,7 +380,8 @@
         <input type="email" id="email" placeholder="tucorreo@ejemplo.cl" autocomplete="email" required>
         <button id="leadbtn" type="submit">Ver informe completo</button>
       </form>
-      <p class="privacy">// solo lo usamos para contactarte por este análisis · <a href="/privacidad" style="color:inherit">privacidad</a></p>
+      <label class="optin"><input type="checkbox" id="mkt"> Quiero recibir consejos y novedades de Faro° (opcional, puedes darte de baja cuando quieras)</label>
+      <p class="privacy">// usamos tus datos para enviarte este informe y contactarte por él · <a href="/privacidad" style="color:inherit">privacidad</a></p>
     </div>`;
 
     out.innerHTML = h;
@@ -594,7 +597,11 @@
         const r = await fetch('/api/lead', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name, email, url: d.url, score: d.score }),
+          body: JSON.stringify({
+            name, email, url: d.url, score: d.score,
+            marketing: !!(document.getElementById('mkt') || {}).checked,
+            checks: (d.checks || []).map(c => ({ cat: c.cat, label: c.label, status: c.status, tip: c.tip })),
+          }),
         });
         const j = await r.json().catch(() => ({}));
         if (!r.ok || !j.ok) throw new Error(j.error || 'error');
@@ -602,7 +609,7 @@
         document.getElementById('lead').innerHTML =
           '<div class="ok"><span class="ico">✓</span><div>' +
           '<h3>Listo' + (first ? ', ' + esc(first) : '') + ' — aquí está tu informe completo.</h3>' +
-          '<p style="margin:6px 0 0">Te escribiremos una vez a tu correo para ofrecerte ayuda con los puntos en rojo. Sin spam.</p>' +
+          '<p style="margin:6px 0 0">' + (j.mailed ? 'También te enviamos una copia a tu correo. Si no la ves, revisa la carpeta de spam.' : 'Te escribiremos una vez a tu correo para ofrecerte ayuda con los puntos en rojo. Sin spam.') + '</p>' +
           '</div></div>';
         revealFull(d);
       } catch (err) {

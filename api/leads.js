@@ -15,7 +15,7 @@ export default async function handler(req, res) {
   let rows;
   try {
     await ensureSchema();
-    rows = await sql`SELECT name, email, url, score, created_at FROM leads ORDER BY created_at DESC LIMIT 2000`;
+    rows = await sql`SELECT name, email, url, score, marketing_ok, created_at FROM leads ORDER BY created_at DESC LIMIT 2000`;
   } catch (e) {
     return res.status(500).send('Error leyendo la base de datos.');
   }
@@ -26,8 +26,8 @@ export default async function handler(req, res) {
       const s = v == null ? '' : String(v);
       return /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
     };
-    const csv = 'name,email,url,score,created_at\n' +
-      rows.map(r => [r.name, r.email, r.url, r.score, toISO(r.created_at)].map(cell).join(',')).join('\n');
+    const csv = 'name,email,url,score,marketing_ok,created_at\n' +
+      rows.map(r => [r.name, r.email, r.url, r.score, r.marketing_ok ? 'si' : 'no', toISO(r.created_at)].map(cell).join(',')).join('\n');
     res.setHeader('Content-Type', 'text/csv; charset=utf-8');
     res.setHeader('Content-Disposition', 'attachment; filename="faro-leads.csv"');
     return res.status(200).send(csv);
@@ -40,6 +40,7 @@ export default async function handler(req, res) {
       <td>${esc(r.email)}</td>
       <td class="u">${r.url ? `<a href="${esc(r.url)}" target="_blank" rel="noopener">${esc(clip(r.url, 48))}</a>` : '—'}</td>
       <td class="s">${r.score == null ? '—' : esc(r.score)}</td>
+      <td class="s">${r.marketing_ok ? 'sí' : '—'}</td>
       <td class="d">${esc(fmt(r.created_at))}</td>
     </tr>`).join('');
 
@@ -68,7 +69,7 @@ export default async function handler(req, res) {
   <h1>Leads capturados</h1>
   <div class="meta">${rows.length} registros · <a href="/api/leads?format=csv">descargar CSV ↓</a></div>
   ${rows.length ? `<table>
-    <thead><tr><th>Nombre</th><th>Correo</th><th>URL analizada</th><th>Score</th><th>Fecha</th></tr></thead>
+    <thead><tr><th>Nombre</th><th>Correo</th><th>URL analizada</th><th>Score</th><th>Novedades</th><th>Fecha</th></tr></thead>
     <tbody>${trs}</tbody>
   </table>` : '<div class="empty">Todavía no hay leads.</div>'}
 </div></body></html>`);
