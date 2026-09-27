@@ -45,11 +45,12 @@ h1{font-size:clamp(2.1rem,5.4vw,3.2rem); margin:14px 0 14px}
 
 /* respuesta corta: lo primero que lee la IA y el lector apurado */
 .tldr{margin:28px 0; background:var(--surface); border:1px solid var(--accent); border-radius:14px; padding:18px 20px}
-.tldr strong{display:block; font-family:var(--mono); font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); margin-bottom:6px}
+.tldr > strong{display:block; font-family:var(--mono); font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); margin-bottom:6px}
 .tldr p{margin:0; color:var(--ink)}
+.tldr p strong{font-weight:700; color:var(--ink)}
 
 .toc{margin:24px 0; padding:16px 20px; border-left:2px solid var(--accent); background:var(--surface-2); border-radius:0 12px 12px 0}
-.toc strong{font-family:var(--mono); font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted)}
+.toc > strong{font-family:var(--mono); font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted)}
 .toc ol{margin:8px 0 0; padding-left:20px}
 .toc a{text-decoration:none}
 
