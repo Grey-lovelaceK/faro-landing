@@ -1,0 +1,26 @@
+---
+// Cabecera de las páginas de contenido (blog, servicios). Las páginas con diseño propio
+// (portada, /analiza, /integraciones) tienen su cabecera en su propio archivo.
+interface Props { variant?: 'blog' | 'servicios' }
+const { variant = 'blog' } = Astro.props;
+---
+<header class="bar">
+  <div class="in">
+    <a href="/" class="brand">Faro<b>°</b></a>
+    {variant === 'blog' ? (
+      <nav>
+        <a href="/blog/">Blog</a>
+        <a href="/integraciones" class="hide-sm">Integraciones</a>
+        <a href="/analiza">Analiza tu web</a>
+      </nav>
+    ) : (
+      <nav>
+        <a href="/diseno-web" class="hide-sm">Diseño web</a>
+        <a href="/seo-aeo-geo" class="hide-sm">SEO · IA</a>
+        <a href="/integraciones" class="hide-sm">Integraciones</a>
+        <a href="/precios">Precios</a>
+        <a href="/blog/" class="hide-sm">Blog</a>
+      </nav>
+    )}
+  </div>
+</header>

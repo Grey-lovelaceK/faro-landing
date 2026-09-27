@@ -1,0 +1,153 @@
+---
+// Página de servicio: /precios. Estructura, FAQ y JSON-LD en src/layouts/Service.astro.
+import Service from '../layouts/Service.astro';
+const page = {
+  "slug": "precios",
+  "crumb": "Precios",
+  "eyebrow": "Precios de referencia",
+  "title": "Precios de diseño web, SEO y marketing en Chile | Faro°",
+  "description": "Todos los precios de Faro° en un lugar: páginas web desde $290.000, SEO y AEO/GEO desde $350.000 al mes, pauta e integraciones. Valores netos en CLP.",
+  "h1": "Precios: diseño web, posicionamiento, marketing e integraciones",
+  "tldr": "Publicamos nuestros precios para que sepas el rango desde el primer correo. Páginas web <strong>desde $290.000</strong> como pago único; posicionamiento SEO, AEO y GEO <strong>desde $350.000 al mes</strong>; gestión de pauta <strong>desde $250.000 al mes</strong> más la inversión; e integraciones de tu tienda con tu ERP <strong>desde $250.000</strong> más mensualidad. Todos los valores son netos en pesos chilenos, más IVA.",
+  "ctaLabel": "Pide tu cotización por WhatsApp",
+  "waMessage": "Hola Faro°, vi sus precios y quiero cotizar",
+  "end": {
+    "title": "¿Quieres un precio exacto para tu caso?",
+    "text": "Cuéntanos qué necesitas y te enviamos alcance, plazo y precio por escrito en 48 horas."
+  },
+  "faq": [
+    {
+      "q": "¿Los precios incluyen IVA?",
+      "a": "No. Todos los precios de referencia son netos en pesos chilenos, y se les suma el 19% de IVA."
+    },
+    {
+      "q": "¿Por qué publican precios?",
+      "a": "Porque creemos que decides mejor sabiendo el rango desde el primer correo. El valor final depende del alcance y te lo entregamos por escrito."
+    },
+    {
+      "q": "¿Cuánto cuesta una página web básica?",
+      "a": "Una landing o sitio de hasta 5 secciones parte desde $290.000 netos como pago único, con hosting y dominio .cl el primer año."
+    },
+    {
+      "q": "¿Tienen contrato de permanencia?",
+      "a": "El posicionamiento SEO, AEO y GEO tiene un mínimo de 3 meses, porque es el tiempo necesario para medir resultados. Los proyectos web son de pago único."
+    },
+    {
+      "q": "¿Puedo contratar solo una auditoría?",
+      "a": "La auditoría inicial es gratis: puedes partir con el analizador en línea o pedirnos una revisión sin compromiso."
+    }
+  ],
+  "related": [
+    {
+      "href": "/blog/cuanto-cuesta-una-pagina-web-chile",
+      "title": "¿Cuánto cuesta una página web en Chile? Precios 2026"
+    },
+    {
+      "href": "/blog/seo-mensual-chile-precio",
+      "title": "SEO mensual en Chile: qué incluye y cuánto cuesta"
+    }
+  ],
+  "service": {
+    "@type": "OfferCatalog",
+    "@id": "https://faroagencia.cl/precios#catalogo",
+    "name": "Precios de referencia de Faro°",
+    "url": "https://faroagencia.cl/precios",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "name": "Presencia",
+        "price": "290000",
+        "priceCurrency": "CLP",
+        "description": "Sitio de hasta 5 secciones. Pago único, neto.",
+        "url": "https://faroagencia.cl/diseno-web"
+      },
+      {
+        "@type": "Offer",
+        "name": "Crecimiento",
+        "price": "790000",
+        "priceCurrency": "CLP",
+        "description": "Sitio multipágina con blog. Pago único, neto.",
+        "url": "https://faroagencia.cl/diseno-web"
+      },
+      {
+        "@type": "Offer",
+        "name": "Dominio",
+        "price": "1490000",
+        "priceCurrency": "CLP",
+        "description": "E-commerce o a medida. Neto.",
+        "url": "https://faroagencia.cl/diseno-web"
+      },
+      {
+        "@type": "Offer",
+        "name": "SEO · AEO · GEO + contenido",
+        "price": "350000",
+        "priceCurrency": "CLP",
+        "description": "Mensual, neto, mínimo 3 meses.",
+        "url": "https://faroagencia.cl/seo-aeo-geo"
+      },
+      {
+        "@type": "Offer",
+        "name": "Gestión de pauta",
+        "price": "250000",
+        "priceCurrency": "CLP",
+        "description": "Mensual, neto, más inversión.",
+        "url": "https://faroagencia.cl/marketing-digital"
+      },
+      {
+        "@type": "Offer",
+        "name": "Integración Conector",
+        "price": "450000",
+        "priceCurrency": "CLP",
+        "description": "Instalación, neto, más $45.000 al mes.",
+        "url": "https://faroagencia.cl/integraciones"
+      }
+    ]
+  }
+};
+---
+<Service {...page}>
+  <h2 id="web">Diseño y desarrollo web (pago único)</h2>
+    <div class="plans">
+      <div class="plan"><div class="pn">Presencia</div><div class="pp">desde $290.000<small>pago único · neto</small></div>
+        <ul><li>Landing o sitio de hasta 5 secciones</li><li>Diseño a medida y responsivo</li><li>Hosting y dominio .cl el primer año</li><li>Formulario y WhatsApp</li><li>SEO base y Google Analytics</li><li>Entrega en 2 a 3 semanas</li></ul></div>
+      <div class="plan hot"><div class="pn">Crecimiento</div><div class="pp">desde $790.000<small>pago único · neto</small></div>
+        <ul><li>Sitio multipágina con blog y administrador de contenido</li><li>SEO on-page y datos estructurados</li><li>Base AEO/GEO para aparecer en la IA</li><li>Pagos, reservas y formularios conectados</li><li>Capacitación para que lo administres</li></ul></div>
+      <div class="plan"><div class="pn">Dominio</div><div class="pp">desde $1.490.000<small>a medida · neto</small></div>
+        <ul><li>E-commerce o desarrollo a medida</li><li>SEO técnico avanzado y AEO/GEO completo</li><li>Paneles de datos del negocio</li><li>Arquitectura para crecer</li><li>Soporte prioritario</li></ul></div>
+    </div>
+    <p class="note-mono">// precios de referencia netos en CLP, más IVA · el valor final depende del alcance y queda por escrito</p>
+    <p>Detalle en <a href="/diseno-web">diseño web</a>.</p>
+
+  <h2 id="mensuales">Servicios mensuales</h2>
+    <table>
+      <thead><tr><th>Servicio</th><th>Desde</th><th>Condiciones</th></tr></thead>
+      <tbody>
+        <tr><td><a href="/seo-aeo-geo">SEO · AEO · GEO + contenido</a></td><td>$350.000 al mes</td><td>Contrato mínimo de 3 meses</td></tr>
+        <tr><td><a href="/marketing-digital">Gestión de pauta (Google y Meta Ads)</a></td><td>$250.000 al mes</td><td>Más la inversión en anuncios</td></tr>
+      </tbody>
+    </table>
+
+  <h2 id="integraciones">Integraciones (instalación + mensualidad)</h2>
+    <table>
+      <thead><tr><th>Pack</th><th>Instalación</th><th>Mensual</th><th>Incluye</th></tr></thead>
+      <tbody>
+        <tr><td>Despacho</td><td>desde $250.000</td><td>desde $25.000</td><td>Tienda ↔ Enviame: etiquetas y seguimiento</td></tr>
+        <tr><td>Conector</td><td>desde $450.000</td><td>desde $45.000</td><td>1 tienda ↔ 1 ERP (Bsale o Defontana): stock, precios, boleta o factura</td></tr>
+        <tr><td>Omnicanal</td><td>desde $900.000</td><td>desde $90.000</td><td>Varias bodegas, listas de precio, notas de crédito y despacho</td></tr>
+      </tbody>
+    </table>
+    <p>La mensualidad cubre monitoreo, reintentos, alertas y ajustes. Detalle en <a href="/integraciones">integraciones</a>.</p>
+
+  <h2 id="gratis">Gratis</h2>
+    <ul>
+      <li><strong><a href="/analiza">Analizador de web</a>:</strong> tu nota de SEO, redes y visibilidad en IA en segundos.</li>
+      <li><strong>Auditoría y diagnóstico de integración:</strong> sin costo y sin compromiso.</li>
+    </ul>
+
+  <h2 id="condiciones">Condiciones</h2>
+    <ul>
+      <li>Precios de referencia <strong>netos, en pesos chilenos, más IVA</strong>.</li>
+      <li>El valor final depende del alcance, y lo entregamos <strong>por escrito</strong> antes de empezar.</li>
+      <li>El ERP, el courier, el dominio y el hosting desde el segundo año se pagan aparte, directo a cada proveedor.</li>
+    </ul>
+</Service>

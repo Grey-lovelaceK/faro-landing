@@ -1,0 +1,68 @@
+---
+// Layout base de todo el sitio: <head> con SEO (canonical, Open Graph, Twitter, JSON-LD),
+// tema claro/oscuro (site.js) y GA4 con consentimiento (analytics.js).
+interface Props {
+  title: string;
+  description: string;
+  canonical: string;               // URL absoluta
+  ogType?: 'website' | 'article';
+  ogTitle?: string;
+  ogDescription?: string;
+  image?: string;                  // URL absoluta del og:image (PNG 1200×630)
+  imageAlt?: string;
+  twitterTitle?: string;
+  twitterDescription?: string;
+  ld?: object[];                   // bloques JSON-LD
+  published?: string;              // AAAA-MM-DD (posts)
+  modified?: string;
+  noindex?: boolean;
+  blogCss?: boolean;               // hoja compartida /blog/blog.css
+  headExtra?: string;              // HTML crudo extra para el <head> (estilos propios de la página)
+  lang?: string;
+}
+const {
+  title, description, canonical, ogType = 'website', ogTitle, ogDescription,
+  image = 'https://faroagencia.cl/blog/img/og-default.png',
+  imageAlt = 'Faro°: que te encuentren en Google y en la IA',
+  twitterTitle, twitterDescription,
+  ld = [], published, modified, noindex = false, blogCss = false, headExtra = '', lang = 'es',
+} = Astro.props;
+const favicon = 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔦</text></svg>';
+---
+<!doctype html>
+<html lang={lang}>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{title}</title>
+<meta name="description" content={description}>
+{noindex && <meta name="robots" content="noindex">}
+{!noindex && <link rel="canonical" href={canonical}>}
+{!noindex && <>
+<meta property="og:title" content={ogTitle ?? title}>
+<meta property="og:description" content={ogDescription ?? description}>
+<meta property="og:type" content={ogType}>
+<meta property="og:url" content={canonical}>
+<meta property="og:locale" content="es_CL">
+{published && <meta property="article:published_time" content={published}>}
+{(modified ?? published) && <meta property="article:modified_time" content={modified ?? published}>}
+<meta property="og:image" content={image}>
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content={imageAlt}>
+<meta name="twitter:card" content="summary_large_image">
+{twitterTitle && <meta name="twitter:title" content={twitterTitle}>}
+{twitterDescription && <meta name="twitter:description" content={twitterDescription}>}
+<meta name="twitter:image" content={image}>
+</>}
+<link rel="icon" href={favicon}>
+{blogCss && <link rel="stylesheet" href="/blog/blog.css">}
+<Fragment set:html={headExtra} />
+{ld.map((block) => <script type="application/ld+json" set:html={JSON.stringify(block, null, 2)} />)}
+<script is:inline src="/site.js"></script>
+<script is:inline src="/analytics.js" defer></script>
+</head>
+<body>
+<slot />
+</body>
+</html>

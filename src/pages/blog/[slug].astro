@@ -1,0 +1,101 @@
+---
+// Página de cada post del blog: sale de src/content/blog/<slug>.md.
+// El JSON-LD (BlogPosting + BreadcrumbList + FAQPage) se arma con los mismos datos que se ven en pantalla.
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import Faq from '../../components/Faq.astro';
+import { SITE, ORG_ID, WA, faqJsonLd, breadcrumbJsonLd, fechaLarga, wordCount } from '../../lib/seo';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const d = post.data;
+const { Content, headings } = await render(post);
+const url = `${SITE}/blog/${post.id}`;
+const img = `${SITE}/blog/img/${post.id}.png`;
+const words = wordCount(d.tldr + ' ' + (post.body ?? '') + ' ' + d.faq.map((f) => f.q + ' ' + f.a).join(' '));
+const mins = Math.max(3, Math.round(words / 200));
+const toc = headings.filter((h) => h.depth === 2);
+
+const ld = [{
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'BlogPosting', '@id': `${url}#post`, headline: d.title, description: d.description, inLanguage: 'es-CL',
+      datePublished: d.date, dateModified: d.updated ?? d.date, mainEntityOfPage: url, image: img, wordCount: words,
+      author: { '@type': 'Person', name: d.author, jobTitle: d.job, worksFor: { '@id': ORG_ID } },
+      publisher: { '@id': ORG_ID },
+      isPartOf: { '@type': 'Blog', '@id': `${SITE}/blog/#blog`, name: 'Blog de Faro°' },
+      keywords: d.keywords.join(', '),
+    },
+    breadcrumbJsonLd([{ name: 'Inicio', url: `${SITE}/` }, { name: 'Blog', url: `${SITE}/blog/` }, { name: d.title, url }]),
+    faqJsonLd(d.faq),
+  ],
+}];
+---
+<Base title={`${d.title} | Faro°`} description={d.description} canonical={url} ogType="article" ogTitle={d.title}
+  image={img} imageAlt={d.title} published={d.date} modified={d.updated ?? d.date} ld={ld} blogCss>
+<SiteHeader />
+
+<main class="wrap">
+  <nav class="crumbs" aria-label="Ruta"><a href="/">Inicio</a> / <a href="/blog/">Blog</a> / {d.cluster}</nav>
+
+  <article>
+    <span class="eyebrow">{d.cluster}</span>
+    <h1>{d.h1}</h1>
+    <div class="meta">
+      <span>Por {d.author}</span>
+      <span>Publicado el <time datetime={d.date}>{fechaLarga(d.date)}</time></span>
+      <span>{mins} min de lectura</span>
+    </div>
+
+    <img class="cover" src={`/blog/img/${post.id}.webp`} width="1200" height="630" alt={d.title} fetchpriority="high">
+
+    <div class="tldr">
+      <strong>Respuesta corta</strong>
+      <p set:html={d.tldr} />
+    </div>
+
+    <nav class="toc" aria-label="Contenido">
+      <strong>En este artículo</strong>
+      <ol>
+        {toc.map((h) => <li><a href={`#${h.slug}`}>{h.text}</a></li>)}
+        <li><a href="#preguntas">Preguntas frecuentes</a></li>
+      </ol>
+    </nav>
+
+    <div class="prose">
+      <Content />
+
+      <h2 id="preguntas">Preguntas frecuentes</h2>
+      <Faq items={d.faq} />
+    </div>
+
+    <aside class="cta">
+      <h2>{d.cta.title}</h2>
+      <p>{d.cta.text}</p>
+      <a href={d.cta.href}>{d.cta.label}</a>
+      <a class="ghost" href={WA('Hola Faro°, leí su blog')} target="_blank" rel="noopener">WhatsApp</a>
+    </aside>
+
+    <div class="author">
+      <span class="av" aria-hidden="true">{d.author[0]}</span>
+      <div><strong>{d.author}</strong><p>{d.role}</p></div>
+    </div>
+
+    <section class="related" aria-labelledby="rel">
+      <h2 id="rel" style="font-size:1.1rem">Sigue leyendo</h2>
+      <ul>
+        {d.related.map((r) => <li><a href={r.href}>{r.title}</a></li>)}
+      </ul>
+    </section>
+  </article>
+</main>
+
+<SiteFooter />
+</Base>

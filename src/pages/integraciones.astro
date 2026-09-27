@@ -1,63 +1,133 @@
-<!doctype html>
-<html lang="es">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Integración Bsale, Defontana y Enviame con tu tienda | Faro°</title>
-<meta name="description" content="Conectamos WooCommerce, PrestaShop, Jumpseller o Shopify con Bsale, Defontana y Enviame: stock, boletas y despachos sincronizados. Precios publicados.">
-<link rel="canonical" href="https://faroagencia.cl/integraciones">
-<meta property="og:title" content="Integraciones e-commerce ↔ ERP ↔ courier — Faro°">
-<meta property="og:description" content="Tu tienda y tu ERP, hablando solos: stock, precios, boletas y etiquetas de despacho sin digitar nada.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://faroagencia.cl/integraciones">
-<meta property="og:image" content="https://faroagencia.cl/blog/img/og-default.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Faro°: que te encuentren en Google y en la IA">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://faroagencia.cl/blog/img/og-default.png">
-<meta name="twitter:title" content="Integraciones e-commerce ↔ ERP ↔ courier — Faro°">
-<meta name="twitter:description" content="WooCommerce, PrestaShop, Jumpseller y Shopify conectados con Bsale, Defontana y Enviame.">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔦</text></svg>">
-<style>html,body{margin:0;padding:0}html{background:#0A0D17}@media(prefers-color-scheme:light){html{background:#EEF1F7}}</style>
-<script type="application/ld+json">
-{
-  "@context":"https://schema.org",
-  "@graph":[
-    {
-      "@type":"Service",
-      "@id":"https://faroagencia.cl/integraciones#servicio",
-      "name":"Integración de tienda online con ERP y courier",
-      "serviceType":"Integración e-commerce con ERP (Bsale, Defontana) y courier (Enviame)",
-      "provider":{"@type":"ProfessionalService","@id":"https://faroagencia.cl/#org","name":"Faro°","url":"https://faroagencia.cl/","email":"contacto@faroagencia.cl","telephone":"+56986639327"},
-      "areaServed":{"@type":"Country","name":"Chile"},
-      "description":"Sincronización de stock, precios y pedidos entre WooCommerce, PrestaShop, Jumpseller o Shopify y Bsale o Defontana, con emisión automática de boleta o factura electrónica y etiquetas de despacho vía Enviame. Incluye monitoreo mensual.",
-      "offers":[
-        {"@type":"Offer","name":"Despacho","priceCurrency":"CLP","price":"250000","description":"Tienda ↔ Enviame. Instalación desde $250.000 + desde $25.000/mes."},
-        {"@type":"Offer","name":"Conector","priceCurrency":"CLP","price":"450000","description":"1 tienda ↔ 1 ERP. Instalación desde $450.000 + desde $45.000/mes."},
-        {"@type":"Offer","name":"Omnicanal","priceCurrency":"CLP","price":"900000","description":"Varias bodegas, listas de precio y canales. Instalación desde $900.000 + desde $90.000/mes."}
-      ]
-    },
-    {
-      "@type":"FAQPage",
-      "mainEntity":[
-        {"@type":"Question","name":"¿Tienen que tocar o rehacer mi tienda online?","acceptedAnswer":{"@type":"Answer","text":"No. Nos conectamos por las APIs oficiales de tu tienda y de tu ERP. Tu sitio, tu diseño y tu plataforma quedan igual."}},
-        {"@type":"Question","name":"¿Qué accesos necesitan?","acceptedAnswer":{"@type":"Answer","text":"Una clave de API de tu tienda (WooCommerce, PrestaShop, Jumpseller o Shopify) y el token de tu ERP (Bsale o Defontana). Si usas Enviame, también su API key. Nunca te pedimos contraseñas de administrador."}},
-        {"@type":"Question","name":"¿Qué pasa si la sincronización falla?","acceptedAnswer":{"@type":"Answer","text":"Cada pedido queda registrado con su estado. Si algo falla se reintenta solo y, si no se resuelve, nos llega una alerta para revisarlo. Eso es lo que cubre la mensualidad."}},
-        {"@type":"Question","name":"¿Emiten la boleta o factura electrónica automáticamente?","acceptedAnswer":{"@type":"Answer","text":"Sí. Cuando entra un pedido pagado se crea el documento en tu ERP, que es quien lo emite ante el SII. Antes de salir a producción lo probamos en un ambiente de pruebas."}},
-        {"@type":"Question","name":"¿Qué pasa si mis SKU no coinciden entre la tienda y el ERP?","acceptedAnswer":{"@type":"Answer","text":"Es el problema más común y la razón por la que muchas integraciones no sincronizan. En el diagnóstico cruzamos tus productos de ambos lados y te entregamos la lista de los que no calzan, antes de conectar nada."}},
-        {"@type":"Question","name":"¿Cuánto demora una integración?","acceptedAnswer":{"@type":"Answer","text":"Depende del alcance. Un conector estándar entre una tienda y un ERP toma en general entre 2 y 4 semanas, incluyendo el piloto en pruebas."}},
-        {"@type":"Question","name":"¿Mi plataforma ya tiene una integración oficial, igual me sirve?","acceptedAnswer":{"@type":"Answer","text":"Si la integración oficial cubre lo que necesitas, úsala: te lo vamos a decir en el diagnóstico. Nuestro trabajo parte donde la oficial no llega, como varias bodegas, reglas de precio propias o plataformas sin conector."}}
-      ]
-    }
-  ]
-}
-</script>
-<script src="/site.js"></script>
-<script src="/analytics.js" defer></script>
-</head>
-<body>
-<style>
+---
+// Migrado desde integraciones.html (27/28-sep-2026). Estilos y scripts de la página intactos (is:inline).
+import Base from '../layouts/Base.astro';
+const ld = [
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Service",
+        "@id": "https://faroagencia.cl/integraciones#servicio",
+        "name": "Integración de tienda online con ERP y courier",
+        "serviceType": "Integración e-commerce con ERP (Bsale, Defontana) y courier (Enviame)",
+        "provider": {
+          "@type": "ProfessionalService",
+          "@id": "https://faroagencia.cl/#org",
+          "name": "Faro°",
+          "url": "https://faroagencia.cl/",
+          "email": "contacto@faroagencia.cl",
+          "telephone": "+56986639327"
+        },
+        "areaServed": {
+          "@type": "Country",
+          "name": "Chile"
+        },
+        "description": "Sincronización de stock, precios y pedidos entre WooCommerce, PrestaShop, Jumpseller o Shopify y Bsale o Defontana, con emisión automática de boleta o factura electrónica y etiquetas de despacho vía Enviame. Incluye monitoreo mensual.",
+        "offers": [
+          {
+            "@type": "Offer",
+            "name": "Despacho",
+            "priceCurrency": "CLP",
+            "price": "250000",
+            "description": "Tienda ↔ Enviame. Instalación desde $250.000 + desde $25.000/mes."
+          },
+          {
+            "@type": "Offer",
+            "name": "Conector",
+            "priceCurrency": "CLP",
+            "price": "450000",
+            "description": "1 tienda ↔ 1 ERP. Instalación desde $450.000 + desde $45.000/mes."
+          },
+          {
+            "@type": "Offer",
+            "name": "Omnicanal",
+            "priceCurrency": "CLP",
+            "price": "900000",
+            "description": "Varias bodegas, listas de precio y canales. Instalación desde $900.000 + desde $90.000/mes."
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "¿Tienen que tocar o rehacer mi tienda online?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Nos conectamos por las APIs oficiales de tu tienda y de tu ERP. Tu sitio, tu diseño y tu plataforma quedan igual."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Qué accesos necesitan?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Una clave de API de tu tienda (WooCommerce, PrestaShop, Jumpseller o Shopify) y el token de tu ERP (Bsale o Defontana). Si usas Enviame, también su API key. Nunca te pedimos contraseñas de administrador."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Qué pasa si la sincronización falla?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Cada pedido queda registrado con su estado. Si algo falla se reintenta solo y, si no se resuelve, nos llega una alerta para revisarlo. Eso es lo que cubre la mensualidad."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Emiten la boleta o factura electrónica automáticamente?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Sí. Cuando entra un pedido pagado se crea el documento en tu ERP, que es quien lo emite ante el SII. Antes de salir a producción lo probamos en un ambiente de pruebas."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Qué pasa si mis SKU no coinciden entre la tienda y el ERP?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Es el problema más común y la razón por la que muchas integraciones no sincronizan. En el diagnóstico cruzamos tus productos de ambos lados y te entregamos la lista de los que no calzan, antes de conectar nada."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Cuánto demora una integración?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Depende del alcance. Un conector estándar entre una tienda y un ERP toma en general entre 2 y 4 semanas, incluyendo el piloto en pruebas."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Mi plataforma ya tiene una integración oficial, igual me sirve?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Si la integración oficial cubre lo que necesitas, úsala: te lo vamos a decir en el diagnóstico. Nuestro trabajo parte donde la oficial no llega, como varias bodegas, reglas de precio propias o plataformas sin conector."
+            }
+          }
+        ]
+      }
+    ]
+  }
+];
+const headExtra = "<style>html,body{margin:0;padding:0}html{background:#0A0D17}@media(prefers-color-scheme:light){html{background:#EEF1F7}}</style>";
+---
+<Base
+  title="Integración Bsale, Defontana y Enviame con tu tienda | Faro°"
+  description="Conectamos WooCommerce, PrestaShop, Jumpseller o Shopify con Bsale, Defontana y Enviame: stock, boletas y despachos sincronizados. Precios publicados."
+  canonical="https://faroagencia.cl/integraciones"
+  ogType="website"
+  ogTitle="Integraciones e-commerce ↔ ERP ↔ courier — Faro°"
+  ogDescription="Tu tienda y tu ERP, hablando solos: stock, precios, boletas y etiquetas de despacho sin digitar nada."
+  imageAlt="Faro°: que te encuentren en Google y en la IA"
+  image="https://faroagencia.cl/blog/img/og-default.png"
+  twitterTitle="Integraciones e-commerce ↔ ERP ↔ courier — Faro°"
+  twitterDescription="WooCommerce, PrestaShop, Jumpseller y Shopify conectados con Bsale, Defontana y Enviame."
+  ld={ld}
+  headExtra={headExtra}
+>
+<style is:inline>
   :root{
     --accent:#3D5AFE; --accent-2:#5B72FF; --accent-tint:#E4E8FF;
     --ground:#EEF1F7; --surface:#FFFFFF; --surface-2:#E6EAF2;
@@ -457,7 +527,7 @@
 
 </div>
 
-<script>
+<script is:inline>
   (function(){
     var box = document.getElementById('log');
     if(!box) return;
@@ -471,6 +541,4 @@
     setInterval(play, 400 + lines.length*700 + 4000);
   })();
 </script>
-
-</body>
-</html>
+</Base>

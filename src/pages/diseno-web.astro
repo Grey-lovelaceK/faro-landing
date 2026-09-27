@@ -1,0 +1,129 @@
+---
+// Página de servicio: /diseno-web. Estructura, FAQ y JSON-LD en src/layouts/Service.astro.
+import Service from '../layouts/Service.astro';
+const page = {
+  "slug": "diseno-web",
+  "crumb": "Diseño web",
+  "eyebrow": "Diseño y desarrollo web",
+  "title": "Diseño de páginas web en Santiago para pymes | Faro°",
+  "description": "Diseño y desarrollo de páginas web a medida en Santiago: rápidas, responsivas y listas para aparecer en Google y en la IA. Planes desde $290.000 netos.",
+  "h1": "Diseño de páginas web a medida para pymes, listas para vender y para que te encuentren",
+  "tldr": "Diseñamos y programamos tu sitio desde cero: sin plantillas recicladas, rápido en celular y preparado desde el primer día para Google y para asistentes de IA como ChatGPT o Gemini. Una landing o sitio de hasta 5 secciones parte desde <strong>$290.000 netos</strong> y se entrega en 2 a 3 semanas.",
+  "ctaLabel": "Cotiza tu web por WhatsApp",
+  "waMessage": "Hola Faro°, quiero cotizar una página web",
+  "end": {
+    "title": "¿Conversamos sobre tu sitio?",
+    "text": "Cuéntanos qué necesitas y te respondemos con alcance, plazo y precio en 48 horas."
+  },
+  "faq": [
+    {
+      "q": "¿Cuánto cuesta una página web?",
+      "a": "Una landing o sitio de hasta 5 secciones parte desde $290.000 netos, un sitio multipágina con blog desde $790.000 y un e-commerce o desarrollo a medida desde $1.490.000, todos como pago único y más IVA."
+    },
+    {
+      "q": "¿Cuánto demoran en hacer mi sitio?",
+      "a": "Un sitio del plan Presencia se entrega en 2 a 3 semanas. Los proyectos más grandes se planifican por etapas y el plazo queda escrito en la propuesta."
+    },
+    {
+      "q": "¿Incluye hosting y dominio?",
+      "a": "El plan Presencia incluye hosting y dominio .cl durante el primer año. Desde el segundo año se renuevan con su costo propio."
+    },
+    {
+      "q": "¿Podré editar mi sitio yo mismo?",
+      "a": "En el plan Crecimiento el sitio incluye un administrador de contenido y te capacitamos para que lo gestiones sin depender de nosotros."
+    },
+    {
+      "q": "¿El sitio queda preparado para Google y la IA?",
+      "a": "Sí. Todos los planes incluyen SEO base, y desde Crecimiento suman datos estructurados y preparación para aparecer en asistentes de IA."
+    }
+  ],
+  "related": [
+    {
+      "href": "/blog/cuanto-cuesta-una-pagina-web-chile",
+      "title": "¿Cuánto cuesta una página web en Chile? Precios 2026"
+    },
+    {
+      "href": "/blog/textos-web-que-venden",
+      "title": "Cómo escribir los textos de tu web para que vendan"
+    }
+  ],
+  "service": {
+    "@type": "Service",
+    "@id": "https://faroagencia.cl/diseno-web#servicio",
+    "name": "Diseño y desarrollo de páginas web",
+    "serviceType": "Diseño web",
+    "provider": {
+      "@id": "https://faroagencia.cl/#org",
+      "@type": "ProfessionalService",
+      "name": "Faro°",
+      "url": "https://faroagencia.cl/"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "Chile"
+    },
+    "description": "Diseño y desarrollo de sitios web a medida para pymes en Chile, preparados para Google y asistentes de IA.",
+    "offers": [
+      {
+        "@type": "Offer",
+        "name": "Presencia",
+        "price": "290000",
+        "priceCurrency": "CLP",
+        "description": "Landing o sitio de hasta 5 secciones. Pago único, neto."
+      },
+      {
+        "@type": "Offer",
+        "name": "Crecimiento",
+        "price": "790000",
+        "priceCurrency": "CLP",
+        "description": "Sitio multipágina con blog y base AEO/GEO. Pago único, neto."
+      },
+      {
+        "@type": "Offer",
+        "name": "Dominio",
+        "price": "1490000",
+        "priceCurrency": "CLP",
+        "description": "E-commerce o desarrollo a medida. Neto."
+      }
+    ]
+  }
+};
+---
+<Service {...page}>
+  <h2 id="que-hacemos">Qué hacemos</h2>
+    <p>Construimos el sitio completo: diseño, desarrollo, textos junto a ti, y la base técnica para posicionarlo. No es un tema de WordPress con tu logo encima: cada sitio se diseña para tu negocio y tu cliente.</p>
+    <ul>
+      <li><strong>Landing o sitio corporativo:</strong> para presentar tus servicios y recibir consultas.</li>
+      <li><strong>Sitio con blog:</strong> para atraer clientes con contenido y posicionarte en Google.</li>
+      <li><strong>Tienda online:</strong> catálogo, pagos y, si lo necesitas, conexión con tu ERP y tu courier (<a href="/integraciones">integraciones</a>).</li>
+      <li><strong>Desarrollo a medida:</strong> reservas, cotizadores o paneles de datos.</li>
+    </ul>
+
+  <h2 id="por-que">Por qué un sitio a medida</h2>
+    <ul>
+      <li><strong>Rápido:</strong> sin código de más, carga veloz en celular. Nuestro propio sitio saca 99 en rendimiento móvil en Google PageSpeed.</li>
+      <li><strong>Pensado para convertir:</strong> un objetivo por página y un botón claro, como WhatsApp.</li>
+      <li><strong>Listo para posicionarse:</strong> títulos, datos estructurados, sitemap y preguntas frecuentes desde el lanzamiento.</li>
+      <li><strong>Tuyo:</strong> no arriendas una plantilla; el diseño es para tu marca.</li>
+    </ul>
+
+  <h2 id="planes">Planes y precios</h2>
+    <div class="plans">
+      <div class="plan"><div class="pn">Presencia</div><div class="pp">desde $290.000<small>pago único · neto</small></div>
+        <ul><li>Landing o sitio de hasta 5 secciones</li><li>Diseño a medida y responsivo</li><li>Hosting y dominio .cl el primer año</li><li>Formulario y WhatsApp</li><li>SEO base y Google Analytics</li><li>Entrega en 2 a 3 semanas</li></ul></div>
+      <div class="plan hot"><div class="pn">Crecimiento</div><div class="pp">desde $790.000<small>pago único · neto</small></div>
+        <ul><li>Sitio multipágina con blog y administrador de contenido</li><li>SEO on-page y datos estructurados</li><li>Base AEO/GEO para aparecer en la IA</li><li>Pagos, reservas y formularios conectados</li><li>Capacitación para que lo administres</li></ul></div>
+      <div class="plan"><div class="pn">Dominio</div><div class="pp">desde $1.490.000<small>a medida · neto</small></div>
+        <ul><li>E-commerce o desarrollo a medida</li><li>SEO técnico avanzado y AEO/GEO completo</li><li>Paneles de datos del negocio</li><li>Arquitectura para crecer</li><li>Soporte prioritario</li></ul></div>
+    </div>
+    <p class="note-mono">// precios de referencia netos en CLP, más IVA · el valor final depende del alcance y queda por escrito</p>
+
+  <h2 id="proceso">Cómo trabajamos</h2>
+    <ol>
+      <li><strong>Diagnóstico:</strong> entendemos tu negocio, tu cliente y a quién le compites en Google y en la IA.</li>
+      <li><strong>Diseño:</strong> identidad y estructura del sitio, pensadas para convertir visitas en consultas.</li>
+      <li><strong>Desarrollo y contenido:</strong> programamos el sitio y afinamos los textos contigo.</li>
+      <li><strong>Lanzamiento:</strong> publicamos, conectamos Google Search Console y Analytics, y revisamos que todo apruebe nuestro analizador.</li>
+    </ol>
+    <p>Trabajas directo con los dos socios: <a href="/nosotros">conócenos</a>.</p>
+</Service>

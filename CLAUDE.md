@@ -20,7 +20,8 @@ SEO/AEO en un solo equipo y el analizador gratis.
 - Dominio: **faroagencia.cl**, activo (responde con la landing desde Cloudflare, 26-sep-2026). faro.cl está tomado.
 
 ## Stack e infraestructura
-- **Sitio estático** (HTML/CSS/JS vanilla, SIN framework). No React, no build step.
+- **Sitio estático con Astro 7** (desde 28-sep-2026). Genera HTML puro, sin JavaScript de framework en el navegador
+  (solo `public/site.js`, `public/analytics.js` y los scripts inline de cada página). `npm run dev` para ver en local.
 - **Hosting:** **Cloudflare Pages**, proyecto `faro-landing` (migrado el 26/27-sep-2026). Repo GitHub: `Grey-lovelaceK/faro-landing`.
   **Deploy = `git push origin main`** (rama de producción de Pages desde el 27-sep-2026; vista previa de ramas desactivada).
   La rama `cloudflare` ya no existe.
@@ -30,24 +31,21 @@ SEO/AEO en un solo equipo y el analizador gratis.
   corren vía `functions/api/*.js` + `cf/adapter.js`. NO se usa Render ni servidor aparte.
 - **DNS:** Cloudflare (`miki`/`tadeo.ns.cloudflare.com`, delegado en NIC Chile). Correo = registros MX/SPF/DKIM/DMARC ahí.
 - `vercel.json` → `cleanUrls` + redirect total a faroagencia.cl. Pages hace URLs limpias por defecto.
-- **Cloudflare Pages (prod):** `functions/api/*.js` envuelve los mismos `api/*.js` con `cf/adapter.js`; `cf/build.mjs` publica solo una allowlist de la raíz en `dist/`. Detalle en `cf/README.md`.
+- **Cloudflare Pages (prod):** build `npm install && npm run build:cf` (= `astro build` + `cf/sitemap.mjs`), salida `dist/`.
+  `functions/api/*.js` envuelve los mismos `api/*.js` con `cf/adapter.js` (fuera de Astro). Detalle en `cf/README.md`.
 
 ## Mapa de archivos
-- `index.html` — landing (hero con "respuesta de IA" animada, servicios, visibilidad IA, proceso, equipo,
-  precios, CTA). **OJO:** se edita a mano acá directo (ya no hay archivo fuente externo).
-- `analiza.html` — página `/analiza`: analizador de web (form + resultados + puerta de leads).
-  Todo el JS del analizador vive inline al final del archivo.
-- `api/analyze.js` — baja el HTML de una URL y evalúa 21 checks SEO/social/AEO-GEO/técnico (score 0-100). Sin keys.
-- `api/pagespeed.js` — rendimiento real vía Google PageSpeed Insights (lab Lighthouse + campo CrUX).
-- `api/aicheck.js` — chequeo real de IA (¿te citaría un asistente?) vía Gemini con JSON forzado.
-- `api/lead.js` — `POST` captura de lead (name, email, url, score) → tabla `leads`.
-- `api/leads.js` — vista protegida por clave: tabla HTML + export CSV.
-- `api/_db.js` — helper de conexión Neon + `ensureSchema()`. El `_` evita que Vercel lo enrute.
-- `integraciones.html` — página `/integraciones`: servicio tienda ↔ ERP ↔ courier, con packs y precios.
-- `cf/`, `functions/api/` — deploy en Cloudflare Pages (ver arriba).
-- `tools/prospectar.js` — **interno, no se despliega**: lista negocios sin web por rubro y comuna (Google Places). Salida en `tools/out/` (gitignored).
-- `maqueta/plantilla.{css,js}` — motor de maquetas para prospectos; los datos de cada prospecto (`maqueta/*/`) están gitignored.
-- `vercel.json`, `.vercelignore`, `package.json` (única dep: `@neondatabase/serverless`; script `build:cf`), `README.md`.
+- `src/layouts/Base.astro` — `<head>` común (SEO, OG, JSON-LD, tema, GA4). `Service.astro` — páginas de servicio.
+- `src/components/` — `SiteHeader`, `SiteFooter`, `Faq`. `src/lib/seo.ts` — helpers de JSON-LD, fechas, WhatsApp.
+- `src/pages/index.astro` — portada (diseño propio, CSS inline). `analiza.astro` — analizador (todo su JS inline, `is:inline`).
+  `integraciones.astro`, `nosotros.astro`, `privacidad.astro`, `404.astro`: diseño propio.
+- `src/pages/{diseno-web,seo-aeo-geo,marketing-digital,precios}.astro` — datos + secciones sobre `Service.astro`.
+- `src/content/blog/*.md` — posts en Markdown (esquema en `src/content.config.ts`). Guía: `src/content/blog/_LEEME.md`.
+  `src/pages/blog/[slug].astro` y `blog/index.astro` los arman solos (JSON-LD, índice, sitemap).
+- `public/` — archivos tal cual: `robots.txt`, `llms.txt`, `site.js`, `analytics.js`, `blog/blog.css`, `blog/img/`, `img/`.
+- `api/*.js` — endpoints (analyze, pagespeed, aicheck, lead, leads; helpers `_db.js`, `_mail.js`). `functions/api/` + `cf/` — Cloudflare.
+- `tools/prospectar.js` — **interno, no se despliega**. `maqueta/plantilla.{css,js}` — motor de maquetas (datos gitignored).
+- `astro.config.mjs` (`build.format: 'preserve'` mantiene las URLs), `.node-version` (22), `package.json`, `vercel.json` (solo redirige).
 
 ## Variables de entorno (secretos en Cloudflare Pages → Configuración → Variables y secretos; ninguna en el repo)
 Neon propio (proyecto "Faro Agencia", São Paulo), no el de la integración de Vercel.

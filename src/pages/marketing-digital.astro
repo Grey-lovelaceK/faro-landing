@@ -1,0 +1,106 @@
+---
+// Página de servicio: /marketing-digital. Estructura, FAQ y JSON-LD en src/layouts/Service.astro.
+import Service from '../layouts/Service.astro';
+const page = {
+  "slug": "marketing-digital",
+  "crumb": "Marketing digital",
+  "eyebrow": "Marketing digital",
+  "title": "Marketing digital para pymes: Google Ads y Meta Ads | Faro°",
+  "description": "Gestión de Google Ads y Meta Ads, contenido para redes y correo para pymes en Chile, con reportes atados a consultas y ventas. Gestión desde $250.000 al mes.",
+  "h1": "Marketing digital para pymes: pauta, contenido y correo con los números a la vista",
+  "tldr": "Gestionamos tus campañas en Google Ads y Meta Ads, la estrategia de contenido para redes y el correo, con un presupuesto anclado a lo que importa: consultas y ventas, no likes. La <strong>gestión de pauta parte desde $250.000 netos al mes</strong>, más la inversión en anuncios, que pagas directo a cada plataforma.",
+  "ctaLabel": "Cotiza tu marketing por WhatsApp",
+  "waMessage": "Hola Faro°, quiero cotizar marketing digital",
+  "end": {
+    "title": "¿Quieres que tus anuncios traigan consultas?",
+    "text": "Cuéntanos tu negocio y tu meta, y te proponemos un plan con presupuesto de prueba."
+  },
+  "faq": [
+    {
+      "q": "¿Cuánto cuesta la gestión de Google Ads o Meta Ads?",
+      "a": "La gestión de pauta parte desde $250.000 netos al mes, más IVA. La inversión en anuncios es aparte y se paga directo a cada plataforma."
+    },
+    {
+      "q": "¿Cuánto debería invertir en anuncios?",
+      "a": "Depende de tu rubro y de cuánto vale un cliente para ti. Partimos con un presupuesto de prueba, medimos cuánto cuesta cada consulta y ajustamos desde ahí."
+    },
+    {
+      "q": "¿Qué conviene más: anuncios o SEO?",
+      "a": "Son complementarios. Los anuncios traen visitas desde el primer día mientras pagas; el SEO tarda más, pero lo que construyes sigue trayendo visitas sin pagar por cada clic."
+    },
+    {
+      "q": "¿Hacen el contenido para redes?",
+      "a": "Definimos la estrategia de contenido y el mensaje para tus redes, alineados con tu marca. El volumen de piezas mensuales se acuerda en la propuesta."
+    },
+    {
+      "q": "¿Cómo sé si la pauta funciona?",
+      "a": "Antes de invertir configuramos la medición de conversiones. Cada mes te mostramos cuánto se invirtió, cuántas consultas llegaron y cuánto costó cada una."
+    }
+  ],
+  "related": [
+    {
+      "href": "/blog/textos-web-que-venden",
+      "title": "Cómo escribir los textos de tu web para que vendan"
+    },
+    {
+      "href": "/blog/seo-mensual-chile-precio",
+      "title": "SEO mensual en Chile: qué incluye y cuánto cuesta"
+    }
+  ],
+  "service": {
+    "@type": "Service",
+    "@id": "https://faroagencia.cl/marketing-digital#servicio",
+    "name": "Marketing digital y gestión de pauta",
+    "serviceType": "Marketing digital",
+    "provider": {
+      "@id": "https://faroagencia.cl/#org",
+      "@type": "ProfessionalService",
+      "name": "Faro°",
+      "url": "https://faroagencia.cl/"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "Chile"
+    },
+    "description": "Gestión de Google Ads y Meta Ads, estrategia de contenido y correo para pymes, con reportes de consultas y ventas.",
+    "offers": [
+      {
+        "@type": "Offer",
+        "name": "Gestión de pauta",
+        "price": "250000",
+        "priceCurrency": "CLP",
+        "description": "Mensual, neto, más inversión en anuncios."
+      }
+    ]
+  }
+};
+---
+<Service {...page}>
+  <h2 id="que-hacemos">Qué hacemos</h2>
+    <ul>
+      <li><strong>Google Ads:</strong> anuncios en búsquedas de personas que ya quieren lo que vendes, enviados a la página indicada.</li>
+      <li><strong>Meta Ads (Facebook e Instagram):</strong> campañas para darte a conocer y llegar a tu público por comuna, interés o edad.</li>
+      <li><strong>Estrategia de contenido y redes:</strong> qué publicar, con qué frecuencia y con qué mensaje, alineado con tu marca.</li>
+      <li><strong>Correo y recuperación de carritos:</strong> para no perder a quien ya mostró interés.</li>
+    </ul>
+
+  <h2 id="como">Cómo trabajamos la pauta</h2>
+    <ol>
+      <li><strong>Medición primero:</strong> antes de invertir, dejamos Google Analytics y las conversiones configuradas (formularios, WhatsApp, compras).</li>
+      <li><strong>Campañas con objetivo claro:</strong> cada anuncio apunta a una página específica, no a la portada.</li>
+      <li><strong>Pruebas y ajustes:</strong> probamos mensajes y audiencias y movemos el presupuesto hacia lo que trae consultas.</li>
+      <li><strong>Reporte mensual:</strong> cuánto se invirtió, cuántas consultas llegaron y cuánto costó cada una.</li>
+    </ol>
+
+  <h2 id="precio">Precio</h2>
+    <div class="plans two">
+      <div class="plan hot"><div class="pn">Gestión de pauta</div><div class="pp">desde $250.000<small>al mes · neto · + inversión en anuncios</small></div>
+        <ul><li>Google Ads y Meta Ads</li><li>Configuración de conversiones</li><li>Optimización mensual</li><li>Reporte de consultas y costo por consulta</li></ul></div>
+      <div class="plan"><div class="pn">Con posicionamiento</div><div class="pp">a medida<small>SEO + pauta</small></div>
+        <ul><li>La pauta trae visitas desde el primer día</li><li>El SEO construye visitas que no se pagan por clic</li><li>Un solo equipo y un solo reporte</li></ul></div>
+    </div>
+    <p class="note-mono">// precios netos en CLP, más IVA · la inversión en anuncios se paga directo a Google y Meta</p>
+
+  <h2 id="por-que">Por qué con nosotros</h2>
+    <p>Hacemos la web, el posicionamiento y la pauta en el mismo equipo. Eso evita el problema más común de los anuncios: pagar por clics que llegan a una página que no convierte. Y los reportes hablan de consultas y ventas, no de métricas de vanidad.</p>
+</Service>

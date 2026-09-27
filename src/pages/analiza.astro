@@ -1,279 +1,94 @@
-<!doctype html>
-<html lang="es">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Analizador SEO gratis: tu web en Google y en la IA | Faro°</title>
-<meta name="description" content="Analizador gratuito de web: SEO, redes, AEO/GEO (visibilidad en IA) y técnico. Pon tu URL y obtén tu diagnóstico al instante.">
-<link rel="canonical" href="https://faroagencia.cl/analiza">
-<meta property="og:title" content="Analiza tu web gratis — Faro°">
-<meta property="og:description" content="SEO, redes, rendimiento real y visibilidad en IA (AEO/GEO) de tu sitio, gratis y al instante.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://faroagencia.cl/analiza">
-<meta property="og:locale" content="es_CL">
-<meta property="og:image" content="https://faroagencia.cl/blog/img/og-default.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Faro°: que te encuentren en Google y en la IA">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://faroagencia.cl/blog/img/og-default.png">
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "WebApplication",
-      "@id": "https://faroagencia.cl/analiza#app",
-      "name": "Analizador de web gratis de Faro°",
-      "url": "https://faroagencia.cl/analiza",
-      "applicationCategory": "BusinessApplication",
-      "operatingSystem": "Web",
-      "inLanguage": "es-CL",
-      "isAccessibleForFree": true,
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "CLP"
-      },
-      "description": "Revisa gratis el SEO, las redes sociales, el rendimiento real (Core Web Vitals) y la visibilidad en asistentes de IA (AEO/GEO) de cualquier sitio web.",
-      "provider": {
-        "@id": "https://faroagencia.cl/#org",
-        "@type": "ProfessionalService",
-        "name": "Faro°",
-        "url": "https://faroagencia.cl/"
-      }
-    },
-    {
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "¿El análisis es gratis?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Sí. La nota general y el puntaje por categoría son gratis y sin registro. El detalle de cada punto, el rendimiento real con Google PageSpeed y el chequeo de IA se desbloquean dejando tu nombre y correo."
-          }
+---
+// Migrado desde analiza.html (27/28-sep-2026). Estilos y scripts de la página intactos (is:inline).
+import Base from '../layouts/Base.astro';
+const ld = [
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "@id": "https://faroagencia.cl/analiza#app",
+        "name": "Analizador de web gratis de Faro°",
+        "url": "https://faroagencia.cl/analiza",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Web",
+        "inLanguage": "es-CL",
+        "isAccessibleForFree": true,
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "CLP"
         },
-        {
-          "@type": "Question",
-          "name": "¿Qué es AEO y GEO?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "AEO (Answer Engine Optimization) y GEO (Generative Engine Optimization) son las prácticas para que los asistentes de IA, como ChatGPT, Perplexity, Gemini o los AI Overviews de Google, entiendan tu negocio y lo citen cuando alguien pregunta por lo que ofreces. Dependen de datos estructurados, contenido que responda preguntas concretas y archivos como llms.txt."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "¿Por qué mi nota es baja si mi web se ve bien?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Porque Google y la IA no ven el diseño: leen el código. Una web puede verse muy bien y aun así no tener título optimizado, datos estructurados, sitemap o una versión rápida en celular. Eso es lo que mide el analizador."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "¿Guardan mi sitio o mis datos?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "No guardamos el análisis. Si dejas tu nombre y correo para ver el detalle, guardamos esos datos junto a la URL analizada y la nota, solo para contactarte por este análisis. El detalle está en nuestra política de privacidad."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "¿Cómo subo mi nota?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "El informe completo te dice qué corregir primero. Puedes hacerlo tú o tu desarrollador, o pedirnos que lo dejemos en verde: lo hacemos como parte de nuestros planes de web y posicionamiento."
-          }
+        "description": "Revisa gratis el SEO, las redes sociales, el rendimiento real (Core Web Vitals) y la visibilidad en asistentes de IA (AEO/GEO) de cualquier sitio web.",
+        "provider": {
+          "@id": "https://faroagencia.cl/#org",
+          "@type": "ProfessionalService",
+          "name": "Faro°",
+          "url": "https://faroagencia.cl/"
         }
-      ]
-    }
-  ]
-}
-</script>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔦</text></svg>">
-<style>
-  :root{
-    --accent:#3D5AFE; --accent-2:#5B72FF; --accent-soft:#E4E8FF;
-    --ground:#EEF1F7; --surface:#FFFFFF; --surface-2:#E6EAF2; --border:#D5DBE8;
-    --ink:#111420; --muted:#59617A; --faint:#98A0B4;
-    --pass:#1f8f5f; --warn:#C9770A; --fail:#D63A3A;
-    --mono:ui-monospace,"Cascadia Code","SF Mono",Menlo,Consolas,monospace;
-    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "¿El análisis es gratis?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Sí. La nota general y el puntaje por categoría son gratis y sin registro. El detalle de cada punto, el rendimiento real con Google PageSpeed y el chequeo de IA se desbloquean dejando tu nombre y correo."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Qué es AEO y GEO?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "AEO (Answer Engine Optimization) y GEO (Generative Engine Optimization) son las prácticas para que los asistentes de IA, como ChatGPT, Perplexity, Gemini o los AI Overviews de Google, entiendan tu negocio y lo citen cuando alguien pregunta por lo que ofreces. Dependen de datos estructurados, contenido que responda preguntas concretas y archivos como llms.txt."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Por qué mi nota es baja si mi web se ve bien?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Porque Google y la IA no ven el diseño: leen el código. Una web puede verse muy bien y aun así no tener título optimizado, datos estructurados, sitemap o una versión rápida en celular. Eso es lo que mide el analizador."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Guardan mi sitio o mis datos?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No guardamos el análisis. Si dejas tu nombre y correo para ver el detalle, guardamos esos datos junto a la URL analizada y la nota, solo para contactarte por este análisis. El detalle está en nuestra política de privacidad."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Cómo subo mi nota?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "El informe completo te dice qué corregir primero. Puedes hacerlo tú o tu desarrollador, o pedirnos que lo dejemos en verde: lo hacemos como parte de nuestros planes de web y posicionamiento."
+            }
+          }
+        ]
+      }
+    ]
   }
-  @media (prefers-color-scheme:dark){:root{
-    --accent:#5B72FF; --accent-2:#7E90FF; --accent-soft:#171C33;
-    --ground:#0A0D17; --surface:#131829; --surface-2:#1A2036; --border:#28304C;
-    --ink:#EAEDF6; --muted:#9AA2BC; --faint:#5A6484;
-    --pass:#4FB98A; --warn:#E0A24A; --fail:#F0716A;
-  }}
-  :root[data-theme="dark"]{--accent:#5B72FF;--accent-2:#7E90FF;--accent-soft:#171C33;--ground:#0A0D17;--surface:#131829;--surface-2:#1A2036;--border:#28304C;--ink:#EAEDF6;--muted:#9AA2BC;--faint:#5A6484;--pass:#4FB98A;--warn:#E0A24A;--fail:#F0716A;}
-  :root[data-theme="light"]{--accent:#3D5AFE;--accent-2:#5B72FF;--accent-soft:#E4E8FF;--ground:#EEF1F7;--surface:#FFFFFF;--surface-2:#E6EAF2;--border:#D5DBE8;--ink:#111420;--muted:#59617A;--faint:#98A0B4;--pass:#1f8f5f;--warn:#C9770A;--fail:#D63A3A;}
-  *{box-sizing:border-box}
-  html,body{margin:0;padding:0}
-  body{background:var(--ground); color:var(--ink); font-family:var(--sans); line-height:1.55; min-height:100vh}
-  a{color:var(--accent); text-decoration:none}
-  .wrap{max-width:840px; margin:0 auto; padding:24px 20px 80px; position:relative; z-index:1}
-
-  /* Haz de luz de faro — barrido suave desde una "lámpara" superior. Puro CSS. */
-  #beam{position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden}
-  #beam::before{content:""; position:absolute; top:-150px; left:50%; width:460px; height:460px;
-    transform:translateX(-50%); border-radius:50%;
-    background:radial-gradient(circle, color-mix(in srgb,var(--accent) 42%, transparent), transparent 62%);
-    filter:blur(34px); opacity:.55}
-  #beam .sweep{position:absolute; top:-160px; left:50%; width:1100px; height:1100px; margin-left:-550px;
-    transform-origin:50% 160px; will-change:transform;
-    background:conic-gradient(from -18deg at 50% 160px,
-      transparent 0deg,
-      color-mix(in srgb,var(--accent) 20%, transparent) 11deg,
-      color-mix(in srgb,var(--accent) 6%, transparent) 17deg,
-      transparent 26deg);
-    animation:sweep 9s ease-in-out infinite}
-  @keyframes sweep{0%{transform:rotate(-30deg)} 50%{transform:rotate(30deg)} 100%{transform:rotate(-30deg)}}
-
-  /* Anillo animable: registra --v como número para poder transicionarlo */
-  @property --v{syntax:"<number>"; inherits:false; initial-value:0}
-  @keyframes rise{from{opacity:0; transform:translateY(14px)} to{opacity:1; transform:none}}
-  header{display:flex; align-items:center; gap:14px; padding:6px 0 26px}
-  .brand{font-weight:800; letter-spacing:-.03em; font-size:1.2rem}
-  .brand b{color:var(--accent)}
-  .back{margin-left:auto; font-size:.86rem; color:var(--muted)}
-  .back:hover{color:var(--ink)}
-  .kicker{font-family:var(--mono); font-size:.72rem; letter-spacing:.16em; text-transform:uppercase; color:var(--accent); font-weight:600}
-  h1{font-size:clamp(1.8rem,4vw,2.6rem); letter-spacing:-.03em; line-height:1.05; margin:8px 0 0; text-wrap:balance}
-  .sub{color:var(--muted); margin-top:12px; max-width:56ch}
-  form{display:flex; gap:10px; margin-top:26px; flex-wrap:wrap}
-  #url{flex:1; min-width:220px; background:var(--surface); border:1px solid var(--border); color:var(--ink); border-radius:12px; padding:14px 16px; font-size:1rem; font-family:var(--mono)}
-  #url:focus{outline:2px solid var(--accent); outline-offset:1px; border-color:transparent}
-  button{cursor:pointer; border:none; background:var(--accent); color:#fff; font-weight:700; font-size:1rem; padding:14px 24px; border-radius:12px; font-family:var(--sans); transition:transform .15s, box-shadow .2s}
-  button:hover:not(:disabled){transform:translateY(-2px); box-shadow:0 10px 22px -8px var(--accent)}
-  button:disabled{opacity:.6; cursor:wait}
-  .hint{font-family:var(--mono); font-size:.74rem; color:var(--faint); margin-top:10px}
-
-  #out{margin-top:32px}
-  .loading{display:flex; align-items:center; gap:12px; color:var(--muted); font-family:var(--mono); font-size:.9rem}
-  .spin{width:18px;height:18px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin 1s linear infinite}
-  @keyframes spin{to{transform:rotate(360deg)}}
-  .err{background:var(--surface); border:1px solid var(--fail); color:var(--fail); border-radius:12px; padding:16px 18px; font-size:.94rem}
-
-  .scorecard{display:flex; gap:24px; align-items:center; background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:24px; flex-wrap:wrap}
-  .ring{--v:0; width:118px; height:118px; border-radius:50%; flex:0 0 auto; display:grid; place-items:center;
-    background:conic-gradient(var(--rc) calc(var(--v)*1%), var(--surface-2) 0);
-    transition:--v 1.2s cubic-bezier(.2,.75,.25,1);
-    box-shadow:0 0 34px -8px var(--rc)}
-  .ring .inner{width:92px;height:92px;border-radius:50%;background:var(--surface);display:grid;place-items:center;text-align:center}
-  .ring .num{font-family:var(--mono);font-weight:700;font-size:2rem;letter-spacing:-.03em;line-height:1}
-  .ring .g{font-family:var(--mono);font-size:.7rem;color:var(--muted)}
-  .scoremeta{flex:1; min-width:200px}
-  .scoremeta h2{margin:0; font-size:1.15rem; letter-spacing:-.02em}
-  .scoremeta .u{font-family:var(--mono); font-size:.8rem; color:var(--muted); word-break:break-all; margin-top:4px}
-  .tallies{display:flex; gap:14px; margin-top:12px; font-family:var(--mono); font-size:.8rem}
-  .tallies .p{color:var(--pass)} .tallies .w{color:var(--warn)} .tallies .f{color:var(--fail)}
-
-  .cats{display:flex; flex-wrap:wrap; gap:10px; margin-top:16px}
-  .catpill{flex:1; min-width:140px; background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:12px 14px}
-  .catpill .cn{font-family:var(--mono); font-size:.68rem; letter-spacing:.1em; text-transform:uppercase; color:var(--muted)}
-  .catpill .cv{font-family:var(--mono); font-weight:700; font-size:1.3rem}
-  .track{height:6px;border-radius:99px;background:var(--surface-2);overflow:hidden;margin-top:6px}
-  .track>div{height:100%;border-radius:99px;width:0;transition:width 1s cubic-bezier(.2,.75,.25,1) .15s}
-
-  .group{margin-top:26px}
-  .group h3{font-family:var(--mono); font-size:.74rem; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); margin:0 0 8px}
-  .check{display:flex; gap:12px; padding:12px 0; border-bottom:1px solid var(--border)}
-  .ico{flex:0 0 auto;width:20px;height:20px;border-radius:6px;display:grid;place-items:center;font-size:.7rem;font-weight:800;color:#fff;margin-top:2px}
-  .ico.pass{background:var(--pass)} .ico.warn{background:var(--warn)} .ico.fail{background:var(--fail)}
-  .check .lbl{font-weight:600; font-size:.94rem}
-  .check .det{font-family:var(--mono); font-size:.78rem; color:var(--muted); margin-top:2px}
-  .check .tip{font-size:.84rem; color:var(--faint); margin-top:4px}
-  .psi{margin-top:26px; background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:22px 24px}
-  .psi .top{display:flex; align-items:center; gap:16px; flex-wrap:wrap}
-  .psi .pscore{font-family:var(--mono); font-weight:700; font-size:2rem; letter-spacing:-.03em; line-height:1}
-  .psi .ph{flex:1; min-width:180px}
-  .psi .ph h3{margin:0; font-size:1.1rem; letter-spacing:-.02em}
-  .psi .ph .sub2{font-family:var(--mono); font-size:.74rem; color:var(--muted); margin-top:3px}
-  .psi .badge{font-family:var(--mono); font-size:.66rem; letter-spacing:.08em; text-transform:uppercase; padding:4px 9px; border-radius:999px; border:1px solid var(--border); color:var(--muted)}
-  .cwv{display:flex; flex-wrap:wrap; gap:10px; margin-top:16px}
-  .cwv .m{flex:1; min-width:120px; background:var(--ground); border:1px solid var(--border); border-radius:12px; padding:12px 14px}
-  .cwv .mn{font-family:var(--mono); font-size:.66rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); display:flex; align-items:center; gap:6px}
-  .cwv .dot{width:9px; height:9px; border-radius:50%; flex:0 0 auto}
-  .cwv .mv{font-family:var(--mono); font-weight:700; font-size:1.15rem; margin-top:5px; letter-spacing:-.02em}
-  .cwv .mf{font-family:var(--mono); font-size:.68rem; color:var(--faint); margin-top:3px}
-  .psi .note{font-family:var(--mono); font-size:.72rem; color:var(--faint); margin:14px 0 0}
-  .psi.warnbox{border-color:var(--warn)}
-
-  .ai{margin-top:26px; background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:22px 24px}
-  .ai .top{display:flex; align-items:center; gap:14px; flex-wrap:wrap}
-  .ai h3{margin:0; font-size:1.1rem; letter-spacing:-.02em; flex:1; min-width:160px}
-  .ai .verdict-badge{font-family:var(--mono); font-weight:700; font-size:.72rem; letter-spacing:.06em; text-transform:uppercase; padding:6px 12px; border-radius:999px; color:#fff}
-  .ai .vb-si{background:var(--pass)} .ai .vb-parcial{background:var(--warn)} .ai .vb-no{background:var(--fail)}
-  .ai .aiscore{font-family:var(--mono); font-weight:700; font-size:1.4rem; letter-spacing:-.02em}
-  .ai .verdict{margin:14px 0 0; font-size:.98rem; line-height:1.5}
-  .ai .query{margin-top:14px; background:var(--ground); border:1px solid var(--border); border-radius:10px; padding:11px 14px; font-family:var(--mono); font-size:.82rem}
-  .ai .query b{color:var(--muted); font-weight:600}
-  .ai .cat{font-family:var(--mono); font-size:.72rem; color:var(--muted); margin-top:4px}
-  .ai .sect{margin-top:16px}
-  .ai .sect h4{font-family:var(--mono); font-size:.7rem; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); margin:0 0 8px}
-  .ai ul{margin:0; padding-left:18px}
-  .ai li{font-size:.9rem; margin:5px 0; line-height:1.45}
-  .ai .note{font-family:var(--mono); font-size:.7rem; color:var(--faint); margin:16px 0 0}
-  .ai.warnbox{border-color:var(--warn)}
-  .lead{margin-top:30px; background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:24px 26px}
-  .lead h3{margin:0 0 6px; font-size:1.15rem; letter-spacing:-.02em}
-  .lead p{margin:0 0 16px; color:var(--muted); font-size:.92rem; max-width:52ch}
-  .lead form{margin:0; gap:10px}
-  .lead input[type=email],.lead input[type=text]{flex:1; min-width:200px; background:var(--ground); border:1px solid var(--border); color:var(--ink); border-radius:12px; padding:13px 15px; font-size:1rem; font-family:var(--mono)}
-  .lead input:focus{outline:2px solid var(--accent); outline-offset:1px; border-color:transparent}
-  .lead .locked{display:flex; flex-wrap:wrap; gap:8px 16px; margin:0 0 16px; padding:0; list-style:none; font-family:var(--mono); font-size:.78rem; color:var(--muted)}
-  .lead .locked li{display:flex; align-items:center; gap:7px}
-  .lead .locked svg{flex:0 0 auto; color:var(--accent)}
-  .lead .privacy{font-family:var(--mono); font-size:.72rem; color:var(--faint); margin:10px 0 0}
-  .lead .optin{display:flex; gap:8px; align-items:flex-start; margin:12px 0 0; font-size:.84rem; color:var(--muted); cursor:pointer}
-  .lead .optin input{margin-top:3px; accent-color:var(--accent)}
-  .lead .ok{display:flex; gap:12px; align-items:flex-start}
-  .lead .ok .ico{flex:0 0 auto;width:26px;height:26px;border-radius:8px;display:grid;place-items:center;background:var(--pass);color:#fff;font-weight:800}
-  .lead .ok h3{margin:0}
-  .lead .leaderr{color:var(--fail); font-size:.84rem; margin:10px 0 0; font-family:var(--mono)}
-  .cta{margin-top:30px; background:var(--ink); color:var(--ground); border-radius:18px; padding:28px; text-align:center}
-  .cta h3{margin:0 0 8px; font-size:1.3rem; letter-spacing:-.02em; color:var(--ground)}
-  .cta p{margin:0 auto 18px; color:color-mix(in srgb,var(--ground) 66%,transparent); max-width:44ch; font-size:.94rem}
-  .cta a{display:inline-block; background:var(--accent); color:#fff; font-weight:700; padding:12px 24px; border-radius:999px}
-
-  /* Aparición escalonada de los bloques de resultado */
-  #out>*{animation:rise .55s cubic-bezier(.2,.75,.25,1) both}
-  #out>*:nth-child(2){animation-delay:.06s}
-  #out>*:nth-child(3){animation-delay:.12s}
-  #out>*:nth-child(4){animation-delay:.18s}
-  #out>*:nth-child(5){animation-delay:.24s}
-  #out>*:nth-child(6){animation-delay:.30s}
-  #out>*:nth-child(n+7){animation-delay:.36s}
-
-  .info{margin-top:56px; border-top:1px solid var(--border); padding-top:36px}
-  .info h2{font-size:1.5rem; letter-spacing:-.03em; margin:0 0 16px}
-  .info-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:14px}
-  @media (max-width:640px){ .info-grid{grid-template-columns:1fr} }
-  .info-grid div{background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:16px 18px}
-  .info-grid h3{font-family:var(--mono); font-size:.74rem; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); margin:0 0 6px}
-  .info-grid p{margin:0; color:var(--muted); font-size:.9rem}
-  .faq{display:flex; flex-direction:column; gap:10px}
-  .faq details{background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:0 18px}
-  .faq details[open]{border-color:var(--accent)}
-  .faq summary{cursor:pointer; list-style:none; padding:14px 0; font-weight:700; display:flex; justify-content:space-between; gap:14px}
-  .faq summary::-webkit-details-marker{display:none}
-  .faq summary::after{content:"+"; font-family:var(--mono); color:var(--accent); font-weight:700}
-  .faq details[open] summary::after{content:"−"}
-  .faq summary:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:6px}
-  .faq details p{color:var(--muted); font-size:.92rem; margin:0; padding-bottom:16px}
-  @media (prefers-reduced-motion:reduce){
-    #beam .sweep{animation:none}
-    .ring{transition:none}
-    .track>div{transition:none}
-    #out>*{animation:none}
-  }
-</style>
-<script src="/site.js"></script>
-<script src="/analytics.js" defer></script>
-</head>
-<body>
+];
+const headExtra = "<style>\n  :root{\n    --accent:#3D5AFE; --accent-2:#5B72FF; --accent-soft:#E4E8FF;\n    --ground:#EEF1F7; --surface:#FFFFFF; --surface-2:#E6EAF2; --border:#D5DBE8;\n    --ink:#111420; --muted:#59617A; --faint:#98A0B4;\n    --pass:#1f8f5f; --warn:#C9770A; --fail:#D63A3A;\n    --mono:ui-monospace,\"Cascadia Code\",\"SF Mono\",Menlo,Consolas,monospace;\n    --sans:-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif;\n  }\n  @media (prefers-color-scheme:dark){:root{\n    --accent:#5B72FF; --accent-2:#7E90FF; --accent-soft:#171C33;\n    --ground:#0A0D17; --surface:#131829; --surface-2:#1A2036; --border:#28304C;\n    --ink:#EAEDF6; --muted:#9AA2BC; --faint:#5A6484;\n    --pass:#4FB98A; --warn:#E0A24A; --fail:#F0716A;\n  }}\n  :root[data-theme=\"dark\"]{--accent:#5B72FF;--accent-2:#7E90FF;--accent-soft:#171C33;--ground:#0A0D17;--surface:#131829;--surface-2:#1A2036;--border:#28304C;--ink:#EAEDF6;--muted:#9AA2BC;--faint:#5A6484;--pass:#4FB98A;--warn:#E0A24A;--fail:#F0716A;}\n  :root[data-theme=\"light\"]{--accent:#3D5AFE;--accent-2:#5B72FF;--accent-soft:#E4E8FF;--ground:#EEF1F7;--surface:#FFFFFF;--surface-2:#E6EAF2;--border:#D5DBE8;--ink:#111420;--muted:#59617A;--faint:#98A0B4;--pass:#1f8f5f;--warn:#C9770A;--fail:#D63A3A;}\n  *{box-sizing:border-box}\n  html,body{margin:0;padding:0}\n  body{background:var(--ground); color:var(--ink); font-family:var(--sans); line-height:1.55; min-height:100vh}\n  a{color:var(--accent); text-decoration:none}\n  .wrap{max-width:840px; margin:0 auto; padding:24px 20px 80px; position:relative; z-index:1}\n  /* Haz de luz de faro — barrido suave desde una \"lámpara\" superior. Puro CSS. */\n  #beam{position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden}\n  #beam::before{content:\"\"; position:absolute; top:-150px; left:50%; width:460px; height:460px;\n    transform:translateX(-50%); border-radius:50%;\n    background:radial-gradient(circle, color-mix(in srgb,var(--accent) 42%, transparent), transparent 62%);\n    filter:blur(34px); opacity:.55}\n  #beam .sweep{position:absolute; top:-160px; left:50%; width:1100px; height:1100px; margin-left:-550px;\n    transform-origin:50% 160px; will-change:transform;\n    background:conic-gradient(from -18deg at 50% 160px,\n      transparent 0deg,\n      color-mix(in srgb,var(--accent) 20%, transparent) 11deg,\n      color-mix(in srgb,var(--accent) 6%, transparent) 17deg,\n      transparent 26deg);\n    animation:sweep 9s ease-in-out infinite}\n  @keyframes sweep{0%{transform:rotate(-30deg)} 50%{transform:rotate(30deg)} 100%{transform:rotate(-30deg)}}\n  /* Anillo animable: registra --v como número para poder transicionarlo */\n  @property --v{syntax:\"<number>\"; inherits:false; initial-value:0}\n  @keyframes rise{from{opacity:0; transform:translateY(14px)} to{opacity:1; transform:none}}\n  header{display:flex; align-items:center; gap:14px; padding:6px 0 26px}\n  .brand{font-weight:800; letter-spacing:-.03em; font-size:1.2rem}\n  .brand b{color:var(--accent)}\n  .back{margin-left:auto; font-size:.86rem; color:var(--muted)}\n  .back:hover{color:var(--ink)}\n  .kicker{font-family:var(--mono); font-size:.72rem; letter-spacing:.16em; text-transform:uppercase; color:var(--accent); font-weight:600}\n  h1{font-size:clamp(1.8rem,4vw,2.6rem); letter-spacing:-.03em; line-height:1.05; margin:8px 0 0; text-wrap:balance}\n  .sub{color:var(--muted); margin-top:12px; max-width:56ch}\n  form{display:flex; gap:10px; margin-top:26px; flex-wrap:wrap}\n  #url{flex:1; min-width:220px; background:var(--surface); border:1px solid var(--border); color:var(--ink); border-radius:12px; padding:14px 16px; font-size:1rem; font-family:var(--mono)}\n  #url:focus{outline:2px solid var(--accent); outline-offset:1px; border-color:transparent}\n  button{cursor:pointer; border:none; background:var(--accent); color:#fff; font-weight:700; font-size:1rem; padding:14px 24px; border-radius:12px; font-family:var(--sans); transition:transform .15s, box-shadow .2s}\n  button:hover:not(:disabled){transform:translateY(-2px); box-shadow:0 10px 22px -8px var(--accent)}\n  button:disabled{opacity:.6; cursor:wait}\n  .hint{font-family:var(--mono); font-size:.74rem; color:var(--faint); margin-top:10px}\n  #out{margin-top:32px}\n  .loading{display:flex; align-items:center; gap:12px; color:var(--muted); font-family:var(--mono); font-size:.9rem}\n  .spin{width:18px;height:18px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin 1s linear infinite}\n  @keyframes spin{to{transform:rotate(360deg)}}\n  .err{background:var(--surface); border:1px solid var(--fail); color:var(--fail); border-radius:12px; padding:16px 18px; font-size:.94rem}\n  .scorecard{display:flex; gap:24px; align-items:center; background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:24px; flex-wrap:wrap}\n  .ring{--v:0; width:118px; height:118px; border-radius:50%; flex:0 0 auto; display:grid; place-items:center;\n    background:conic-gradient(var(--rc) calc(var(--v)*1%), var(--surface-2) 0);\n    transition:--v 1.2s cubic-bezier(.2,.75,.25,1);\n    box-shadow:0 0 34px -8px var(--rc)}\n  .ring .inner{width:92px;height:92px;border-radius:50%;background:var(--surface);display:grid;place-items:center;text-align:center}\n  .ring .num{font-family:var(--mono);font-weight:700;font-size:2rem;letter-spacing:-.03em;line-height:1}\n  .ring .g{font-family:var(--mono);font-size:.7rem;color:var(--muted)}\n  .scoremeta{flex:1; min-width:200px}\n  .scoremeta h2{margin:0; font-size:1.15rem; letter-spacing:-.02em}\n  .scoremeta .u{font-family:var(--mono); font-size:.8rem; color:var(--muted); word-break:break-all; margin-top:4px}\n  .tallies{display:flex; gap:14px; margin-top:12px; font-family:var(--mono); font-size:.8rem}\n  .tallies .p{color:var(--pass)} .tallies .w{color:var(--warn)} .tallies .f{color:var(--fail)}\n  .cats{display:flex; flex-wrap:wrap; gap:10px; margin-top:16px}\n  .catpill{flex:1; min-width:140px; background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:12px 14px}\n  .catpill .cn{font-family:var(--mono); font-size:.68rem; letter-spacing:.1em; text-transform:uppercase; color:var(--muted)}\n  .catpill .cv{font-family:var(--mono); font-weight:700; font-size:1.3rem}\n  .track{height:6px;border-radius:99px;background:var(--surface-2);overflow:hidden;margin-top:6px}\n  .track>div{height:100%;border-radius:99px;width:0;transition:width 1s cubic-bezier(.2,.75,.25,1) .15s}\n  .group{margin-top:26px}\n  .group h3{font-family:var(--mono); font-size:.74rem; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); margin:0 0 8px}\n  .check{display:flex; gap:12px; padding:12px 0; border-bottom:1px solid var(--border)}\n  .ico{flex:0 0 auto;width:20px;height:20px;border-radius:6px;display:grid;place-items:center;font-size:.7rem;font-weight:800;color:#fff;margin-top:2px}\n  .ico.pass{background:var(--pass)} .ico.warn{background:var(--warn)} .ico.fail{background:var(--fail)}\n  .check .lbl{font-weight:600; font-size:.94rem}\n  .check .det{font-family:var(--mono); font-size:.78rem; color:var(--muted); margin-top:2px}\n  .check .tip{font-size:.84rem; color:var(--faint); margin-top:4px}\n  .psi{margin-top:26px; background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:22px 24px}\n  .psi .top{display:flex; align-items:center; gap:16px; flex-wrap:wrap}\n  .psi .pscore{font-family:var(--mono); font-weight:700; font-size:2rem; letter-spacing:-.03em; line-height:1}\n  .psi .ph{flex:1; min-width:180px}\n  .psi .ph h3{margin:0; font-size:1.1rem; letter-spacing:-.02em}\n  .psi .ph .sub2{font-family:var(--mono); font-size:.74rem; color:var(--muted); margin-top:3px}\n  .psi .badge{font-family:var(--mono); font-size:.66rem; letter-spacing:.08em; text-transform:uppercase; padding:4px 9px; border-radius:999px; border:1px solid var(--border); color:var(--muted)}\n  .cwv{display:flex; flex-wrap:wrap; gap:10px; margin-top:16px}\n  .cwv .m{flex:1; min-width:120px; background:var(--ground); border:1px solid var(--border); border-radius:12px; padding:12px 14px}\n  .cwv .mn{font-family:var(--mono); font-size:.66rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); display:flex; align-items:center; gap:6px}\n  .cwv .dot{width:9px; height:9px; border-radius:50%; flex:0 0 auto}\n  .cwv .mv{font-family:var(--mono); font-weight:700; font-size:1.15rem; margin-top:5px; letter-spacing:-.02em}\n  .cwv .mf{font-family:var(--mono); font-size:.68rem; color:var(--faint); margin-top:3px}\n  .psi .note{font-family:var(--mono); font-size:.72rem; color:var(--faint); margin:14px 0 0}\n  .psi.warnbox{border-color:var(--warn)}\n  .ai{margin-top:26px; background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:22px 24px}\n  .ai .top{display:flex; align-items:center; gap:14px; flex-wrap:wrap}\n  .ai h3{margin:0; font-size:1.1rem; letter-spacing:-.02em; flex:1; min-width:160px}\n  .ai .verdict-badge{font-family:var(--mono); font-weight:700; font-size:.72rem; letter-spacing:.06em; text-transform:uppercase; padding:6px 12px; border-radius:999px; color:#fff}\n  .ai .vb-si{background:var(--pass)} .ai .vb-parcial{background:var(--warn)} .ai .vb-no{background:var(--fail)}\n  .ai .aiscore{font-family:var(--mono); font-weight:700; font-size:1.4rem; letter-spacing:-.02em}\n  .ai .verdict{margin:14px 0 0; font-size:.98rem; line-height:1.5}\n  .ai .query{margin-top:14px; background:var(--ground); border:1px solid var(--border); border-radius:10px; padding:11px 14px; font-family:var(--mono); font-size:.82rem}\n  .ai .query b{color:var(--muted); font-weight:600}\n  .ai .cat{font-family:var(--mono); font-size:.72rem; color:var(--muted); margin-top:4px}\n  .ai .sect{margin-top:16px}\n  .ai .sect h4{font-family:var(--mono); font-size:.7rem; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); margin:0 0 8px}\n  .ai ul{margin:0; padding-left:18px}\n  .ai li{font-size:.9rem; margin:5px 0; line-height:1.45}\n  .ai .note{font-family:var(--mono); font-size:.7rem; color:var(--faint); margin:16px 0 0}\n  .ai.warnbox{border-color:var(--warn)}\n  .lead{margin-top:30px; background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:24px 26px}\n  .lead h3{margin:0 0 6px; font-size:1.15rem; letter-spacing:-.02em}\n  .lead p{margin:0 0 16px; color:var(--muted); font-size:.92rem; max-width:52ch}\n  .lead form{margin:0; gap:10px}\n  .lead input[type=email],.lead input[type=text]{flex:1; min-width:200px; background:var(--ground); border:1px solid var(--border); color:var(--ink); border-radius:12px; padding:13px 15px; font-size:1rem; font-family:var(--mono)}\n  .lead input:focus{outline:2px solid var(--accent); outline-offset:1px; border-color:transparent}\n  .lead .locked{display:flex; flex-wrap:wrap; gap:8px 16px; margin:0 0 16px; padding:0; list-style:none; font-family:var(--mono); font-size:.78rem; color:var(--muted)}\n  .lead .locked li{display:flex; align-items:center; gap:7px}\n  .lead .locked svg{flex:0 0 auto; color:var(--accent)}\n  .lead .privacy{font-family:var(--mono); font-size:.72rem; color:var(--faint); margin:10px 0 0}\n  .lead .optin{display:flex; gap:8px; align-items:flex-start; margin:12px 0 0; font-size:.84rem; color:var(--muted); cursor:pointer}\n  .lead .optin input{margin-top:3px; accent-color:var(--accent)}\n  .lead .ok{display:flex; gap:12px; align-items:flex-start}\n  .lead .ok .ico{flex:0 0 auto;width:26px;height:26px;border-radius:8px;display:grid;place-items:center;background:var(--pass);color:#fff;font-weight:800}\n  .lead .ok h3{margin:0}\n  .lead .leaderr{color:var(--fail); font-size:.84rem; margin:10px 0 0; font-family:var(--mono)}\n  .cta{margin-top:30px; background:var(--ink); color:var(--ground); border-radius:18px; padding:28px; text-align:center}\n  .cta h3{margin:0 0 8px; font-size:1.3rem; letter-spacing:-.02em; color:var(--ground)}\n  .cta p{margin:0 auto 18px; color:color-mix(in srgb,var(--ground) 66%,transparent); max-width:44ch; font-size:.94rem}\n  .cta a{display:inline-block; background:var(--accent); color:#fff; font-weight:700; padding:12px 24px; border-radius:999px}\n  /* Aparición escalonada de los bloques de resultado */\n  #out>*{animation:rise .55s cubic-bezier(.2,.75,.25,1) both}\n  #out>*:nth-child(2){animation-delay:.06s}\n  #out>*:nth-child(3){animation-delay:.12s}\n  #out>*:nth-child(4){animation-delay:.18s}\n  #out>*:nth-child(5){animation-delay:.24s}\n  #out>*:nth-child(6){animation-delay:.30s}\n  #out>*:nth-child(n+7){animation-delay:.36s}\n  .info{margin-top:56px; border-top:1px solid var(--border); padding-top:36px}\n  .info h2{font-size:1.5rem; letter-spacing:-.03em; margin:0 0 16px}\n  .info-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:14px}\n  @media (max-width:640px){ .info-grid{grid-template-columns:1fr} }\n  .info-grid div{background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:16px 18px}\n  .info-grid h3{font-family:var(--mono); font-size:.74rem; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); margin:0 0 6px}\n  .info-grid p{margin:0; color:var(--muted); font-size:.9rem}\n  .faq{display:flex; flex-direction:column; gap:10px}\n  .faq details{background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:0 18px}\n  .faq details[open]{border-color:var(--accent)}\n  .faq summary{cursor:pointer; list-style:none; padding:14px 0; font-weight:700; display:flex; justify-content:space-between; gap:14px}\n  .faq summary::-webkit-details-marker{display:none}\n  .faq summary::after{content:\"+\"; font-family:var(--mono); color:var(--accent); font-weight:700}\n  .faq details[open] summary::after{content:\"−\"}\n  .faq summary:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:6px}\n  .faq details p{color:var(--muted); font-size:.92rem; margin:0; padding-bottom:16px}\n  @media (prefers-reduced-motion:reduce){\n    #beam .sweep{animation:none}\n    .ring{transition:none}\n    .track>div{transition:none}\n    #out>*{animation:none}\n  }\n</style>";
+---
+<Base
+  title="Analizador SEO gratis: tu web en Google y en la IA | Faro°"
+  description="Analizador gratuito de web: SEO, redes, AEO/GEO (visibilidad en IA) y técnico. Pon tu URL y obtén tu diagnóstico al instante."
+  canonical="https://faroagencia.cl/analiza"
+  ogType="website"
+  ogTitle="Analiza tu web gratis — Faro°"
+  ogDescription="SEO, redes, rendimiento real y visibilidad en IA (AEO/GEO) de tu sitio, gratis y al instante."
+  imageAlt="Faro°: que te encuentren en Google y en la IA"
+  image="https://faroagencia.cl/blog/img/og-default.png"
+  ld={ld}
+  headExtra={headExtra}
+>
   <div id="beam" aria-hidden="true"><div class="sweep"></div></div>
   <div class="wrap">
     <header>
@@ -314,7 +129,7 @@
     </section>
   </div>
 
-<script>
+<script is:inline>
   const f = document.getElementById('f'), out = document.getElementById('out'), btn = document.getElementById('btn');
   const esc = s => String(s).replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
   const rc = v => v >= 70 ? 'var(--pass)' : v >= 40 ? 'var(--warn)' : 'var(--fail)';
@@ -630,5 +445,4 @@
     return 'Crítico — hoy eres casi invisible.';
   }
 </script>
-</body>
-</html>
+</Base>

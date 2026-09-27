@@ -1,0 +1,74 @@
+---
+// Layout de páginas de servicio (/diseno-web, /seo-aeo-geo, /marketing-digital, /precios).
+// Cada página pasa sus datos y escribe sus secciones como contenido; el JSON-LD de FAQ y la ruta
+// de navegación salen de las mismas props que se muestran.
+import Base from './Base.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import Faq from '../components/Faq.astro';
+import { SITE, WA, faqJsonLd, breadcrumbJsonLd } from '../lib/seo';
+
+interface Props {
+  slug: string;
+  crumb: string;
+  eyebrow: string;
+  title: string;
+  description: string;
+  h1: string;
+  tldr: string;
+  ctaLabel: string;
+  waMessage: string;
+  end: { title: string; text: string };
+  faq: { q: string; a: string }[];
+  related: { href: string; title: string }[];
+  service: object;          // bloque Service u OfferCatalog del JSON-LD
+}
+const p = Astro.props;
+const url = `${SITE}/${p.slug}`;
+const wa = WA(p.waMessage);
+const ld = [{
+  '@context': 'https://schema.org',
+  '@graph': [p.service, breadcrumbJsonLd([{ name: 'Inicio', url: `${SITE}/` }, { name: p.crumb, url }]), faqJsonLd(p.faq)],
+}];
+---
+<Base title={p.title} description={p.description} canonical={url} ld={ld} blogCss>
+<SiteHeader variant="servicios" />
+
+<main class="wrap">
+  <nav class="crumbs" aria-label="Ruta"><a href="/">Inicio</a> / {p.crumb}</nav>
+  <span class="eyebrow" style="display:block; margin-top:18px">{p.eyebrow}</span>
+  <h1>{p.h1}</h1>
+
+  <div class="tldr">
+    <strong>En corto</strong>
+    <p set:html={p.tldr} />
+  </div>
+  <div class="hero-cta">
+    <a class="btn primary" href={wa} target="_blank" rel="noopener">{p.ctaLabel}</a>
+    <a class="btn ghost" href="/analiza">Analiza tu web gratis</a>
+  </div>
+
+  <div class="prose">
+    <slot />
+
+    <h2 id="preguntas">Preguntas frecuentes</h2>
+    <Faq items={p.faq} />
+  </div>
+
+  <aside class="cta">
+    <h2>{p.end.title}</h2>
+    <p>{p.end.text}</p>
+    <a href={wa} target="_blank" rel="noopener">{p.ctaLabel}</a>
+    <a class="ghost" href="/precios">Ver todos los precios</a>
+  </aside>
+
+  <section class="related" aria-labelledby="rel">
+    <h2 id="rel" style="font-size:1.1rem">Para seguir leyendo</h2>
+    <ul>
+      {p.related.map((r) => <li><a href={r.href}>{r.title}</a></li>)}
+    </ul>
+  </section>
+</main>
+
+<SiteFooter links={[{ href: '/nosotros', label: 'Nosotros' }, { href: '/blog/', label: 'Blog' }, { href: '/privacidad', label: 'Privacidad' }]} />
+</Base>

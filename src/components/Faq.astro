@@ -1,0 +1,9 @@
+---
+// Preguntas frecuentes visibles. El JSON-LD FAQPage lo arma el layout con las MISMAS preguntas
+// (usa faqJsonLd de src/lib/seo.ts), así nunca se desalinean.
+interface Props { items: { q: string; a: string }[] }
+const { items } = Astro.props;
+---
+<div class="faq">
+  {items.map((f) => <details><summary set:html={f.q} /><p set:html={f.a} /></details>)}
+</div>

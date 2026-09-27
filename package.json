@@ -3,10 +3,15 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build:cf": "node cf/build.mjs"
+    "dev": "astro dev",
+    "build": "astro build && node cf/sitemap.mjs",
+    "build:cf": "astro build && node cf/sitemap.mjs",
+    "preview": "astro preview"
   },
-  "description": "Faro° — landing + analizador de web (estático + funciones serverless en Vercel)",
+  "description": "Faro° — sitio (Astro, estático) + analizador de web (funciones en Cloudflare Pages)",
   "dependencies": {
-    "@neondatabase/serverless": "^0.10.4"
-  }
+    "@neondatabase/serverless": "^0.10.4",
+    "astro": "^7.3.5"
+  },
+  "type": "module"
 }

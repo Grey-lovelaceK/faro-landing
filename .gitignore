@@ -9,5 +9,20 @@ node_modules/
 *key*.txt
 litespeedkey.txt
 
-# build de Cloudflare Pages
+# salida de la prospección local (datos de Google Places, caducan a los 30 días)
+tools/out/
+
+# maquetas de prospectos: datos y fotos de negocios que todavía no son clientes,
+# con fotos de Places que caducan. El MOTOR (maqueta/plantilla.*) sí va al repo.
+maqueta/*/
 dist/
+
+# conocimiento comercial (precios negociados, prospectos, objeciones): NUNCA al repo público.
+# Vive solo en disco (OneDrive). Ver .claude/context/INDEX.md.
+.claude/context/privado/
+
+# settings locales de Claude Code (permisos, pueden contener claves) — nunca al repo
+.claude/settings.local.json
+
+# Astro
+.astro/

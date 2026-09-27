@@ -1,0 +1,48 @@
+---
+// Índice del blog: se arma solo con los posts de src/content/blog (más nuevo arriba).
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import { SITE, ORG_ID, fechaCorta } from '../../lib/seo';
+
+const posts = (await getCollection('blog')).sort((a, b) => b.data.date.localeCompare(a.data.date) || b.data.order - a.data.order);
+const ld = [{
+  '@context': 'https://schema.org', '@type': 'Blog', '@id': `${SITE}/blog/#blog`, name: 'Blog de Faro°', url: `${SITE}/blog/`,
+  inLanguage: 'es-CL', publisher: { '@id': ORG_ID },
+  blogPost: posts.map((p) => ({ '@type': 'BlogPosting', headline: p.data.title, url: `${SITE}/blog/${p.id}`, datePublished: p.data.date,
+    author: { '@type': 'Person', name: p.data.author } })),
+}];
+---
+<Base title="Blog de Faro°: web, SEO, IA e integraciones para pymes"
+  description="Guías prácticas para pymes chilenas: cómo aparecer en Google y en la IA, cuánto cuesta una web e integrar tu tienda con Bsale, Defontana y Enviame."
+  canonical={`${SITE}/blog/`} ogTitle="Blog de Faro°" ogDescription="Guías prácticas de web, SEO, AEO/GEO e integraciones para pymes chilenas."
+  ld={ld} blogCss>
+<header class="bar">
+  <div class="in">
+    <a href="/" class="brand">Faro<b>°</b></a>
+    <nav>
+      <a href="/#servicios" class="hide-sm">Servicios</a>
+      <a href="/integraciones" class="hide-sm">Integraciones</a>
+      <a href="/analiza">Analiza tu web</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <span class="eyebrow">Blog</span>
+  <h1>Web, SEO, IA e integraciones, explicado sin humo.</h1>
+  <p style="color:var(--muted); max-width:56ch">Guías prácticas para pymes chilenas: cómo aparecer en Google y en las respuestas de la IA, cuánto cuesta cada cosa y cómo conectar tu tienda con tu ERP.</p>
+
+  <ul class="posts">
+    {posts.map((p) => (
+      <li><a href={`/blog/${p.id}`}>
+        <span class="eyebrow">{p.data.cluster} · <time datetime={p.data.date}>{fechaCorta(p.data.date)}</time> · {p.data.author}</span>
+        <h2>{p.data.title}</h2>
+        <p>{p.data.summary}</p>
+      </a></li>
+    ))}
+  </ul>
+</main>
+
+<SiteFooter />
+</Base>
