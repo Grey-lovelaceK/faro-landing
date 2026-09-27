@@ -5,12 +5,14 @@ Contexto del proyecto para Claude Code. Léelo antes de trabajar.
 ## Qué es
 Landing + herramientas de un estudio digital chileno (dos socios). Servicios: diseño/desarrollo web,
 marketing y posicionamiento SEO/AEO/GEO. **Diferenciador central:** que al cliente lo encuentren en
-Google **y en las respuestas de la IA** (ChatGPT/Perplexity/AI Overviews) — AEO/GEO, casi nadie lo ofrece.
+Google **y en las respuestas de la IA** (ChatGPT/Perplexity/AI Overviews) — AEO/GEO. Otras agencias chilenas ya lo
+ofrecen (`[REFUTADO]` "casi nadie", `knowledge/seo-aeo-geo.md`): lo defendible es precio publicado, integraciones +
+SEO/AEO en un solo equipo y el analizador gratis.
 
 ## Marca y negocio
 - **Nombre:** Faro° (placeholder, faro = te encuentran). Se puede cambiar.
-- **Socios:** Cristian Revilla (analista programador, Ing. Informática — dev/datos/SEO técnico) +
-  socia graduada en marketing y redacción (estrategia/contenido/copy).
+- **Socios:** Cristian Florez Revilla (desarrollador full stack — dev/datos/SEO técnico) +
+  Clementina Moya, graduada en marketing y redacción, diseñadora (estrategia/contenido/copy/diseño).
 - **Contacto:** contacto@faroagencia.cl (Google Workspace; SPF, DKIM y DMARC configurados en Cloudflare DNS).
 - **Etapa:** recién empezando, SIN portafolio/testimonios todavía. Estrategia comercial: puerta a puerta
   en Macul + auditoría gratis como gancho. **NO poner en la web mensajes de "recién empezando"** (resta
@@ -71,7 +73,9 @@ Todos los endpoints degradan con mensaje en español si falta su key — nunca r
   robots, sitemap, favicon, alt). Score = suma ponderada (pass=peso, warn=½ peso) → nota A–E.
 - **v2.1 — captura de leads** (`c80f162`): Neon Postgres, tabla `leads`, vista `/api/leads?key=`.
 - **v2.2 — PageSpeed real** (`73309b9`): Core Web Vitals lab + campo.
-- **v2.3 — chequeo de IA** (`39b4584`): Gemini free tier, veredicto AEO con acciones.
+- **v2.3 — chequeo de IA** (`39b4584`): Gemini, veredicto AEO con acciones. Default `gemini-3.8-flash` (`api/aicheck.js:11`).
+- **v2.4 — puerta de leads** (`9fa8ba3`): nota gratis; detalle + PageSpeed + IA con nombre + correo. GA4 con consentimiento (`analytics.js`), `/privacidad`.
+- **Sitio (27-sep-2026):** `/blog` con 3 posts (`b5611dd`), `site.js` (tema claro/oscuro + WhatsApp flotante), og:image en todo el sitio.
 
 **Pendiente / decidido que no:**
 - **Headless propio** (`@sparticuz/chromium`): NO se hace. PSI ya renderiza con Chrome y cubre SPAs.
