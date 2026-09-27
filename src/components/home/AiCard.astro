@@ -76,7 +76,8 @@ const answer = { before: 'Para eso te recomiendo ', brand: 'FARO°', after: '...
   .ai-bubble { font-size: 1.14rem; line-height: 1.45; color: var(--ink); border-radius: var(--radius); }
   .ai-q { justify-self: start; background: var(--bubble); padding: 1rem 1.25rem; }
   .ai-a { border: 1px solid var(--line); padding: 0.875rem max(1.25rem, calc(100% - 27em)) 0.875rem 1.25rem; min-height: 5.25rem; }
-  .ai-cite { color: var(--accent); font-weight: 700; }
+  /* global: el script vuelve a crear este <strong> por innerHTML, sin el atributo de alcance de Astro */
+  :global(.ai-cite) { color: var(--accent); font-weight: 700; }
   :global(.ai-cursor) { display: inline-block; width: 0.1875rem; height: 1.1em; margin-left: 0.625rem; background: var(--accent); vertical-align: -0.18em; animation: ai-blink 1s steps(1) infinite; }
   @keyframes ai-blink { 50% { opacity: 0; } }
   .ai-input {
