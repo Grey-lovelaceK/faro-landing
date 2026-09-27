@@ -99,3 +99,20 @@ footer{border-top:1px solid var(--border); padding:28px 20px; text-align:center;
 footer a{color:var(--accent)}
 @media (prefers-reduced-motion:reduce){ *{animation:none !important; transition:none !important} }
 .cover{display:block; width:100%; height:auto; aspect-ratio:1200/630; margin:24px 0 0; border-radius:16px; border:1px solid var(--border)}
+
+/* páginas de servicio (/diseno-web, /seo-aeo-geo, /marketing-digital, /precios) */
+.hero-cta{display:flex; flex-wrap:wrap; gap:10px; margin:22px 0 0}
+.btn{display:inline-flex; align-items:center; font-weight:700; font-size:.94rem; padding:11px 20px; border-radius:999px; text-decoration:none; border:1px solid transparent}
+.btn.primary{background:var(--accent); color:#fff}
+.btn.ghost{border-color:var(--border); color:var(--ink)}
+.btn.ghost:hover{border-color:var(--accent); color:var(--accent)}
+.plans{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin:18px 0 6px}
+.plans.two{grid-template-columns:repeat(2,1fr)}
+@media (max-width:760px){ .plans,.plans.two{grid-template-columns:1fr} }
+.plan{background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:20px; display:flex; flex-direction:column; gap:10px}
+.plan.hot{border-color:var(--accent)}
+.plan .pn{font-weight:800; font-size:1.1rem; letter-spacing:-.02em}
+.plan .pp{font-family:var(--mono); font-weight:700; font-size:1.3rem}
+.plan .pp small{display:block; font-size:.72rem; font-weight:400; color:var(--faint)}
+.plan ul{margin:0; padding-left:18px; color:var(--muted); font-size:.92rem}
+.note-mono{font-family:var(--mono); font-size:.78rem; color:var(--faint); margin-top:8px}
