@@ -1,0 +1,21 @@
+# Faro°
+
+> Faro° (faroagencia.cl) es un estudio chileno, con base en Macul, Santiago, que diseña y desarrolla sitios web a medida, los posiciona en Google y en las respuestas de asistentes de IA (SEO, AEO y GEO), gestiona marketing digital y conecta tiendas online con ERP y courier. Trabaja directo con sus dos socios: desarrollo y datos por un lado, estrategia y contenido por el otro.
+
+Precios referenciales publicados en pesos chilenos (CLP, netos). Contacto: contacto@faroagencia.cl
+
+## Servicios
+
+- [Diseño y desarrollo web](https://faroagencia.cl/#servicios): landing, sitio corporativo o e-commerce a medida, rápido y responsivo. Desde $290.000 CLP (pago único).
+- [SEO · AEO · GEO](https://faroagencia.cl/#visibilidad): posicionamiento en Google y en asistentes de IA (ChatGPT, Perplexity, Gemini, AI Overviews) con SEO técnico, contenido y datos estructurados. Desde $350.000 CLP al mes.
+- [Marketing digital](https://faroagencia.cl/#servicios): Google y Meta Ads gestionados, contenido y email. Gestión desde $250.000 CLP al mes más inversión.
+- [Integraciones e-commerce](https://faroagencia.cl/integraciones): WooCommerce, PrestaShop, Jumpseller o Shopify conectados con Bsale o Defontana (stock, precios, boleta y factura electrónica) y con Enviame (etiquetas y seguimiento). Desde $250.000 CLP de instalación más mensualidad de monitoreo.
+
+## Herramientas
+
+- [Analizador de web gratis](https://faroagencia.cl/analiza): revisa SEO, redes sociales, rendimiento real (Core Web Vitals) y visibilidad en IA de cualquier sitio.
+
+## Precios
+
+- [Planes y precios de referencia](https://faroagencia.cl/#precios)
+- [Packs de integración](https://faroagencia.cl/integraciones#precios)

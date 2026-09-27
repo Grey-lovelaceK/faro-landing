@@ -1,3 +1,6 @@
 {
-  "cleanUrls": true
+  "cleanUrls": true,
+  "redirects": [
+    { "source": "/(.*)", "destination": "https://faroagencia.cl/$1", "permanent": true }
+  ]
 }

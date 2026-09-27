@@ -1,0 +1,7 @@
+# Faro° — faroagencia.cl
+# Bienvenidos buscadores y asistentes de IA (Googlebot, Bingbot, GPTBot, PerplexityBot, ClaudeBot, Google-Extended…).
+User-agent: *
+Allow: /
+Disallow: /api/
+
+Sitemap: https://faroagencia.cl/sitemap.xml
