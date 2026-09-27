@@ -52,24 +52,26 @@ export default async function handler(req, res) {
   let out;
   try {
     const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${process.env.GEMINI_API_KEY}`;
+    const body = JSON.stringify({
+      contents: [{ parts: [{ text: prompt }] }],
+      generationConfig: {
+        responseMimeType: 'application/json',
+        responseSchema: RESPONSE_SCHEMA,
+        temperature: 0.4,
+        maxOutputTokens: 4096, // los modelos 3.x gastan parte en razonamiento interno
+      },
+    });
     const ctrl = new AbortController();
     const id = setTimeout(() => ctrl.abort(), 25000);
     let r;
     try {
-      r = await fetch(endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        signal: ctrl.signal,
-        body: JSON.stringify({
-          contents: [{ parts: [{ text: prompt }] }],
-          generationConfig: {
-            responseMimeType: 'application/json',
-            responseSchema: RESPONSE_SCHEMA,
-            temperature: 0.4,
-            maxOutputTokens: 4096, // los modelos 3.x gastan parte en razonamiento interno
-          },
-        }),
-      });
+      // Un reintento ante errores transitorios (modelo saturado, límite por minuto): en prod fallaba de forma intermitente.
+      for (let attempt = 0; attempt < 2; attempt++) {
+        r = await fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, signal: ctrl.signal, body });
+        if (![429, 500, 502, 503, 504].includes(r.status) || attempt === 1) break;
+        console.error('[aicheck] Gemini', MODEL, r.status, 'reintentando');
+        await new Promise((ok) => setTimeout(ok, 1500));
+      }
     } finally { clearTimeout(id); }
 
     const data = await r.json();
