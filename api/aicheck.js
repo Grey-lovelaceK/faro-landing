@@ -6,7 +6,8 @@
 
 export const config = { maxDuration: 30 };
 
-const MODEL = process.env.GEMINI_MODEL || 'gemini-2.0-flash';
+// Con gemini-2.0-flash el chequeo fallaba en Vercel y Cloudflare (sep-2026). Si el modelo se retira, basta con GEMINI_MODEL.
+const MODEL = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
 
 const RESPONSE_SCHEMA = {
   type: 'object',
@@ -73,6 +74,7 @@ export default async function handler(req, res) {
     const data = await r.json();
     if (!r.ok || data.error) {
       const raw = (data.error && data.error.message) || `HTTP ${r.status}`;
+      console.error('[aicheck] Gemini', MODEL, r.status, raw);
       let msg = 'El chequeo de IA no está disponible por ahora.';
       if (/quota|rate|exceeded|\blimit\b/i.test(raw)) msg = 'El chequeo de IA llegó al límite gratuito. Intenta más tarde.';
       else if (/api key|invalid|permission|denied|unauthorized/i.test(raw)) msg = 'El chequeo de IA no está configurado correctamente.';
