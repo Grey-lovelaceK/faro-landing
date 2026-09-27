@@ -6,8 +6,9 @@
 
 export const config = { maxDuration: 30 };
 
-// Con gemini-2.0-flash el chequeo fallaba en Vercel y Cloudflare (sep-2026). Si el modelo se retira, basta con GEMINI_MODEL.
-const MODEL = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
+// Google retira modelos para cuentas nuevas (sep-2026: 2.0 y 2.5-flash → 404 "no longer available").
+// Si vuelve a pasar, basta con definir GEMINI_MODEL sin tocar código.
+const MODEL = process.env.GEMINI_MODEL || 'gemini-3.8-flash';
 
 const RESPONSE_SCHEMA = {
   type: 'object',
@@ -65,7 +66,7 @@ export default async function handler(req, res) {
             responseMimeType: 'application/json',
             responseSchema: RESPONSE_SCHEMA,
             temperature: 0.4,
-            maxOutputTokens: 900,
+            maxOutputTokens: 4096, // los modelos 3.x gastan parte en razonamiento interno
           },
         }),
       });
