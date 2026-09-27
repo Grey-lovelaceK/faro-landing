@@ -25,10 +25,10 @@
   body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--sans);line-height:1.65}
   .wrap{max-width:760px;margin:0 auto;padding:24px 20px 80px}
   @media (max-width:520px){.wrap{padding-inline:16px}}
-  header{display:flex;justify-content:space-between;align-items:center;margin-bottom:40px}
+  header{display:flex;align-items:center;gap:10px;margin-bottom:40px}
   .brand{font-weight:800;font-size:1.15rem;letter-spacing:-.04em;color:var(--ink);text-decoration:none}
   .brand b{color:var(--accent)}
-  header a.back{font-size:.9rem;color:var(--muted);text-decoration:none}
+  header a.back{margin-left:auto;font-size:.9rem;color:var(--muted);text-decoration:none}
   .kicker{font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:600}
   h1{font-size:clamp(2rem,5vw,2.8rem);font-weight:800;letter-spacing:-.03em;line-height:1.05;margin:12px 0 10px;text-wrap:balance}
   h2{font-size:1.2rem;letter-spacing:-.02em;margin:34px 0 8px}
@@ -44,6 +44,7 @@
   .tbl{overflow-x:auto}
   button.reset{cursor:pointer;font:inherit;font-weight:600;padding:9px 16px;border-radius:999px;border:1px solid var(--border);background:var(--surface);color:var(--ink)}
 </style>
+<script src="/site.js"></script>
 <script src="/analytics.js" defer></script>
 </head>
 <body>
