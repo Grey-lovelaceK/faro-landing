@@ -8,3 +8,6 @@ node_modules/
 *.key
 *key*.txt
 litespeedkey.txt
+
+# build de Cloudflare Pages
+dist/
