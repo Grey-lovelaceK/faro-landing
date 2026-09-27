@@ -2,10 +2,30 @@
 // Permite que los mismos api/*.js corran en Vercel y en Cloudflare sin duplicar lógica.
 // Traduce Request → req {method, query, body, headers} y res {status, setHeader, json, send, end} → Response.
 
-export function adapt(load) {
+// opts.cacheSeconds: si se define, las respuestas GET exitosas ("ok":true) se guardan en la caché de Cloudflare
+// ese tiempo (clave = URL completa). Evita gastar cuota de Gemini/PSI con la misma URL. Solo en dominio propio.
+export function adapt(load, opts = {}) {
   return async (context) => {
     const { request, env } = context;
+    const cache = opts.cacheSeconds && request.method === 'GET' && typeof caches !== 'undefined' ? caches.default : null;
+    if (cache) {
+      const hit = await cache.match(request);
+      if (hit) return hit;
+    }
+    const response = await run(load, request, env);
+    if (cache && response.status === 200) {
+      const body = await response.clone().text();
+      if (body.includes('"ok":true')) {
+        const stored = new Response(body, response);
+        stored.headers.set('Cache-Control', `public, s-maxage=${opts.cacheSeconds}`);
+        context.waitUntil ? context.waitUntil(cache.put(request, stored)) : await cache.put(request, stored);
+      }
+    }
+    return response;
+  };
+}
 
+async function run(load, request, env) {
     // Los handlers leen process.env al importarse (ej. _db.js), así que se puebla ANTES del import.
     globalThis.process ??= { env: {} };
     globalThis.process.env ??= {};
@@ -59,5 +79,4 @@ export function adapt(load) {
           }));
         });
     });
-  };
 }

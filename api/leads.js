@@ -1,15 +1,13 @@
-// Faro° — vista protegida de leads. GET /api/leads?key=CLAVE  → tabla HTML
-//                                    GET /api/leads?key=CLAVE&format=csv → descarga CSV
-// La clave vive en env var LEADS_PASSWORD (Vercel). Sin clave o incorrecta → 401.
+// Faro° — vista protegida de leads. GET /api/leads → tabla HTML · GET /api/leads?format=csv → CSV.
+// Autenticación HTTP Basic: el navegador pide usuario (cualquiera) y contraseña (= env LEADS_PASSWORD).
+// Así la clave no queda en la URL ni en el historial. Sin clave o incorrecta → 401.
 import { sql, dbReady, ensureSchema } from './_db.js';
 
 export default async function handler(req, res) {
   const pass = process.env.LEADS_PASSWORD || '';
-  const key = (req.query && req.query.key) || '';
-
   if (!pass) return res.status(500).send('Falta configurar LEADS_PASSWORD.');
-  if (key !== pass) {
-    res.setHeader('WWW-Authenticate', 'Basic');
+  if (!sameSecret(basicPassword(req), pass)) {
+    res.setHeader('WWW-Authenticate', 'Basic realm="Leads Faro", charset="UTF-8"');
     return res.status(401).send('No autorizado.');
   }
   if (!dbReady) return res.status(500).send('Base de datos no configurada.');
@@ -68,7 +66,7 @@ export default async function handler(req, res) {
   .empty{padding:30px;text-align:center;color:var(--muted);font-family:var(--mono)}
 </style></head><body><div class="wrap">
   <h1>Leads capturados</h1>
-  <div class="meta">${rows.length} registros · <a href="/api/leads?key=${encodeURIComponent(key)}&format=csv">descargar CSV ↓</a></div>
+  <div class="meta">${rows.length} registros · <a href="/api/leads?format=csv">descargar CSV ↓</a></div>
   ${rows.length ? `<table>
     <thead><tr><th>Nombre</th><th>Correo</th><th>URL analizada</th><th>Score</th><th>Fecha</th></tr></thead>
     <tbody>${trs}</tbody>
@@ -76,6 +74,23 @@ export default async function handler(req, res) {
 </div></body></html>`);
 }
 
+// Contraseña del header "Authorization: Basic base64(usuario:clave)".
+function basicPassword(req) {
+  const h = (req.headers && (req.headers.authorization || req.headers.Authorization)) || '';
+  const m = /^Basic\s+(.+)$/i.exec(h);
+  if (!m) return '';
+  try {
+    const decoded = new TextDecoder().decode(Uint8Array.from(atob(m[1]), c => c.charCodeAt(0)));
+    return decoded.slice(decoded.indexOf(':') + 1);
+  } catch { return ''; }
+}
+// Comparación en tiempo constante (no revela cuántos caracteres coinciden).
+function sameSecret(a, b) {
+  if (!a || a.length !== b.length) return false;
+  let diff = 0;
+  for (let i = 0; i < a.length; i++) diff |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  return diff === 0;
+}
 function clip(s, n) { s = String(s); return s.length > n ? s.slice(0, n) + '…' : s; }
 function toISO(d) { try { return new Date(d).toISOString(); } catch { return String(d); } }
 function fmt(d) {
