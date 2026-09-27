@@ -77,11 +77,9 @@ export default async function handler(req, res) {
       const raw = (data.error && data.error.message) || `HTTP ${r.status}`;
       console.error('[aicheck] Gemini', MODEL, r.status, raw);
       let msg = 'El chequeo de IA no está disponible por ahora.';
-      if (/quota|rate|exceeded|\blimit\b/i.test(raw)) msg = 'El chequeo de IA llegó al límite gratuito. Intenta más tarde.';
+      if (r.status === 402 || /quota|rate|exceeded|\blimit\b|credits/i.test(raw)) msg = 'El chequeo de IA llegó al límite gratuito. Intenta más tarde.';
       else if (/api key|invalid|permission|denied|unauthorized/i.test(raw)) msg = 'El chequeo de IA no está configurado correctamente.';
-      // TEMPORAL (diagnóstico sep-2026): el error crudo solo con ?debug=<LEADS_PASSWORD>. Quitar al resolver.
-      const debug = process.env.LEADS_PASSWORD && req.query.debug === process.env.LEADS_PASSWORD;
-      return res.status(200).json({ ok: false, error: msg, ...(debug ? { detail: { model: MODEL, status: r.status, raw } } : {}) });
+      return res.status(200).json({ ok: false, error: msg });
     }
     const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
     if (!text) {
