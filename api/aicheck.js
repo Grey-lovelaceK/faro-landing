@@ -78,7 +78,9 @@ export default async function handler(req, res) {
       let msg = 'El chequeo de IA no está disponible por ahora.';
       if (/quota|rate|exceeded|\blimit\b/i.test(raw)) msg = 'El chequeo de IA llegó al límite gratuito. Intenta más tarde.';
       else if (/api key|invalid|permission|denied|unauthorized/i.test(raw)) msg = 'El chequeo de IA no está configurado correctamente.';
-      return res.status(200).json({ ok: false, error: msg });
+      // TEMPORAL (diagnóstico sep-2026): el error crudo solo con ?debug=<LEADS_PASSWORD>. Quitar al resolver.
+      const debug = process.env.LEADS_PASSWORD && req.query.debug === process.env.LEADS_PASSWORD;
+      return res.status(200).json({ ok: false, error: msg, ...(debug ? { detail: { model: MODEL, status: r.status, raw } } : {}) });
     }
     const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
     if (!text) {
