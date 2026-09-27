@@ -12,7 +12,7 @@ SEO/AEO en un solo equipo y el analizador gratis.
 ## Marca y negocio
 - **Nombre:** Faro° (placeholder, faro = te encuentran). Se puede cambiar.
 - **Socios:** Cristian Florez Revilla (desarrollador full stack — dev/datos/SEO técnico) +
-  Clementina Moya, graduada en marketing y redacción, diseñadora (estrategia/contenido/copy/diseño).
+  Clementina Moya, publicista (su título; dicho por Cristian 27-sep-2026) — estrategia/contenido/copy/diseño.
 - **Contacto:** contacto@faroagencia.cl (Google Workspace; SPF, DKIM y DMARC configurados en Cloudflare DNS).
 - **Etapa:** recién empezando, SIN portafolio/testimonios todavía. Estrategia comercial: puerta a puerta
   en Macul + auditoría gratis como gancho. **NO poner en la web mensajes de "recién empezando"** (resta
