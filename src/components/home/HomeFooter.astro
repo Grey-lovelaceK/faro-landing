@@ -1,6 +1,12 @@
 ---
 // Pie del sistema nuevo: marca, mapa del sitio y contacto.
 import { WA } from '../../lib/seo';
+import Icon from '../Icon.astro';
+const social = [
+  { name: 'Instagram', icon: 'instagram', href: 'https://www.instagram.com/faroagencia.cl/' },
+  { name: 'Facebook', icon: 'facebook', href: 'https://www.facebook.com/people/Faro-Agencia/61595053283621/' },
+  { name: 'LinkedIn', icon: 'linkedin', href: 'https://www.linkedin.com/company/faroagencia-cl/' },
+] as const;
 const cols = [
   { h: 'Servicios', links: [['Diseño web', '/diseno-web'], ['SEO · AEO · GEO', '/seo-aeo-geo'], ['Marketing digital', '/marketing-digital'], ['Integraciones', '/integraciones']] },
   { h: 'Estudio', links: [['Precios', '/precios'], ['Nosotros', '/nosotros'], ['Blog', '/blog/'], ['Analizador gratis', '/analiza']] },
@@ -11,6 +17,11 @@ const cols = [
     <div class="foot-brand">
       <a href="/" class="brand" aria-label="Faro°, inicio">Faro<b>°</b></a>
       <p>Web, marketing y posicionamiento SEO · AEO · GEO. Macul, Santiago de Chile.</p>
+      <ul class="social" role="list">
+        {social.map((n) => (
+          <li><a href={n.href} target="_blank" rel="noopener me" aria-label={`Faro° en ${n.name}`} title={n.name}><Icon name={n.icon} size={20} /></a></li>
+        ))}
+      </ul>
     </div>
     {cols.map((c) => (
       <nav class="foot-col" aria-label={c.h}>
@@ -23,9 +34,6 @@ const cols = [
       <ul role="list">
         <li><a href="mailto:contacto@faroagencia.cl">contacto@faroagencia.cl</a></li>
         <li><a href={WA('Hola Faro°, vengo desde su sitio web')} target="_blank" rel="noopener">WhatsApp +56 9 8663 9327</a></li>
-        <li><a href="https://www.instagram.com/faroagencia.cl/" target="_blank" rel="noopener me">Instagram @faroagencia.cl</a></li>
-        <li><a href="https://www.facebook.com/people/Faro-Agencia/61595053283621/" target="_blank" rel="noopener me">Facebook</a></li>
-        <li><a href="https://www.linkedin.com/company/faroagencia-cl/" target="_blank" rel="noopener me">LinkedIn</a></li>
       </ul>
     </div>
   </div>
@@ -39,6 +47,9 @@ const cols = [
   .foot { border-top: 1px solid var(--line); padding: 4rem 0 1.75rem; }
   .foot-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1.2fr; gap: 2.5rem; }
   .foot-brand p { margin-top: 0.875rem; color: var(--muted); max-width: 34ch; line-height: 1.55; font-size: 0.95rem; }
+  .social { list-style: none; margin: 1.25rem 0 0; padding: 0; display: flex; gap: 0.625rem; }
+  .social a { width: 2.625rem; height: 2.625rem; border-radius: 50%; display: grid; place-items: center; border: 1px solid var(--line-strong); color: var(--ink-2); transition: border-color 0.2s, color 0.2s, background-color 0.2s; }
+  .social a:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-tint); }
   .foot-h { font-size: 0.76rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--faint); }
   .foot-col ul { list-style: none; margin: 0.875rem 0 0; padding: 0; display: grid; gap: 0.625rem; }
   .foot a:not(.brand) { text-decoration: none; color: var(--ink-2); font-size: 0.95rem; }
