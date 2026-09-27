@@ -7,13 +7,16 @@ a partir del `<link rel="canonical">` de cada página (lastmod = `article:modifi
 ## Publicar
 1. Borrador: `blog/_borrador-<slug>.html` (no se publica). Copia `blog/_plantilla.html`.
 2. Reemplaza todo `{{…}}`. Verifica que no quede ninguno: `grep -n "{{" blog/<archivo>`.
-3. Revisión: faro-copy (texto) → la socia aprueba → faro-aeo (SEO/AEO).
-4. Renombra a `blog/<slug>.html` (minúsculas, guiones, sin tildes; URL final `/blog/<slug>`).
-5. **Primer post:** copia `blog/_indice.html` a `blog/index.html`. Después, agrega cada post nuevo
+3. Portada 1200×630: pídesela a Codex en SVG dentro de `blog/img/<slug>.svg` (marca: navy #0A0D17, cobalto #3D5AFE/#5B72FF,
+   nada de crema/coral), renderízala con Chrome headless a PNG y exporta además WebP (Pillow). El PNG va en
+   `og:image` (redes lo leen seguro) y el WebP se muestra en la página (pesa ~10 veces menos).
+4. Revisión: faro-copy (texto) → la socia aprueba → faro-aeo (SEO/AEO).
+5. Renombra a `blog/<slug>.html` (minúsculas, guiones, sin tildes; URL final `/blog/<slug>`).
+6. **Primer post:** copia `blog/_indice.html` a `blog/index.html`. Después, agrega cada post nuevo
    arriba de la lista y en el `blogPost` del JSON-LD del índice.
-6. Agrega el post a `llms.txt` (sección "Blog") y enlázalo desde la página de servicio de su cluster.
-7. `git push origin main` → faro-qa verifica → el post debe sacar **A** en `/analiza`.
-8. Pide indexación en Search Console y Bing (Crawler Hints avisa a Bing solo).
+7. Agrega el post a `llms.txt` (sección "Blog") y enlázalo desde la página de servicio de su cluster.
+8. `git push origin main` → faro-qa verifica → el post debe sacar **A** en `/analiza`.
+9. Pide indexación en Search Console y Bing (Crawler Hints avisa a Bing solo).
 
 ## Reglas (CLAUDE.md)
 - Nada inventado: precios = los publicados; datos = con fecha y método; sin clientes ni casos falsos.

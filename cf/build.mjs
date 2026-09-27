@@ -1,14 +1,14 @@
 // Faro° — build para Cloudflare Pages: copia solo lo público a dist/ y genera sitemap.xml.
 // Evita publicar el repo entero (api/, .claude/, CLAUDE.md, node_modules, etc.).
 // - Raíz: archivos con extensión pública (html, txt, xml, imágenes, js, css).
-// - blog/: se publica completo salvo archivos que empiezan con "_" (plantillas y borradores).
+// - blog/ y blog/img/: se publican salvo archivos que empiezan con "_" (plantillas y borradores).
 // - sitemap.xml: se arma con el <link rel="canonical"> de cada página publicada (menos la 404 y
 //   las páginas con noindex). lastmod sale de <meta property="article:modified_time"> si existe.
 import { mkdirSync, rmSync, readdirSync, copyFileSync, readFileSync, writeFileSync, existsSync } from 'node:fs';
 
 const PUBLIC = /\.(html|txt|xml|ico|png|svg|webp|jpg|json|js|css)$/i;
 const SKIP = new Set(['package.json', 'package-lock.json', 'vercel.json', 'sitemap.xml']);
-const DIRS = ['blog'];
+const DIRS = ['blog', 'blog/img'];
 
 rmSync('dist', { recursive: true, force: true });
 mkdirSync('dist');

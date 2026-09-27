@@ -15,6 +15,12 @@ Precios referenciales publicados en pesos chilenos (CLP, netos). Contacto: conta
 
 - [Analizador de web gratis](https://faroagencia.cl/analiza): revisa SEO, redes sociales, rendimiento real (Core Web Vitals) y visibilidad en IA de cualquier sitio.
 
+## Blog
+
+- [Qué es AEO y GEO: cómo aparecer en respuestas de IA](https://faroagencia.cl/blog/que-es-aeo-geo): Qué son el AEO y el GEO, en qué se diferencian del SEO y qué funciona para que ChatGPT, Gemini y Google citen tu negocio.
+- [Checklist SEO: 21 puntos para revisar tu web (2026)](https://faroagencia.cl/blog/checklist-seo-21-puntos): Los 21 puntos que revisa nuestro analizador, con el peso de cada uno y qué arreglar primero.
+- [¿Cuánto cuesta una página web en Chile? Precios 2026](https://faroagencia.cl/blog/cuanto-cuesta-una-pagina-web-chile): Precios en pesos según el tipo de sitio, qué incluye cada plan y los costos que casi nadie menciona.
+
 ## Precios
 
 - [Planes y precios de referencia](https://faroagencia.cl/#precios)

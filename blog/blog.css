@@ -97,3 +97,4 @@ h1{font-size:clamp(2.1rem,5.4vw,3.2rem); margin:14px 0 14px}
 footer{border-top:1px solid var(--border); padding:28px 20px; text-align:center; font-size:.85rem; color:var(--muted)}
 footer a{color:var(--accent)}
 @media (prefers-reduced-motion:reduce){ *{animation:none !important; transition:none !important} }
+.cover{display:block; width:100%; height:auto; aspect-ratio:1200/630; margin:24px 0 0; border-radius:16px; border:1px solid var(--border)}
