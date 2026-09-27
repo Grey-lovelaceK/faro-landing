@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Analiza tu web gratis — Faro°</title>
+<title>Analizador SEO gratis: tu web en Google y en la IA | Faro°</title>
 <meta name="description" content="Analizador gratuito de web: SEO, redes, AEO/GEO (visibilidad en IA) y técnico. Pon tu URL y obtén tu diagnóstico al instante.">
 <link rel="canonical" href="https://faroagencia.cl/analiza">
 <meta property="og:title" content="Analiza tu web gratis — Faro°">
@@ -12,6 +12,80 @@
 <meta property="og:url" content="https://faroagencia.cl/analiza">
 <meta property="og:locale" content="es_CL">
 <meta name="twitter:card" content="summary">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "@id": "https://faroagencia.cl/analiza#app",
+      "name": "Analizador de web gratis de Faro°",
+      "url": "https://faroagencia.cl/analiza",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web",
+      "inLanguage": "es-CL",
+      "isAccessibleForFree": true,
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "CLP"
+      },
+      "description": "Revisa gratis el SEO, las redes sociales, el rendimiento real (Core Web Vitals) y la visibilidad en asistentes de IA (AEO/GEO) de cualquier sitio web.",
+      "provider": {
+        "@id": "https://faroagencia.cl/#org",
+        "@type": "ProfessionalService",
+        "name": "Faro°",
+        "url": "https://faroagencia.cl/"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "¿El análisis es gratis?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sí. La nota general y el puntaje por categoría son gratis y sin registro. El detalle de cada punto, el rendimiento real con Google PageSpeed y el chequeo de IA se desbloquean dejando tu nombre y correo."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Qué es AEO y GEO?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "AEO (Answer Engine Optimization) y GEO (Generative Engine Optimization) son las prácticas para que los asistentes de IA, como ChatGPT, Perplexity, Gemini o los AI Overviews de Google, entiendan tu negocio y lo citen cuando alguien pregunta por lo que ofreces. Dependen de datos estructurados, contenido que responda preguntas concretas y archivos como llms.txt."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Por qué mi nota es baja si mi web se ve bien?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Porque Google y la IA no ven el diseño: leen el código. Una web puede verse muy bien y aun así no tener título optimizado, datos estructurados, sitemap o una versión rápida en celular. Eso es lo que mide el analizador."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Guardan mi sitio o mis datos?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No guardamos el análisis. Si dejas tu nombre y correo para ver el detalle, guardamos esos datos junto a la URL analizada y la nota, solo para contactarte por este análisis. El detalle está en nuestra política de privacidad."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Cómo subo mi nota?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "El informe completo te dice qué corregir primero. Puedes hacerlo tú o tu desarrollador, o pedirnos que lo dejemos en verde: lo hacemos como parte de nuestros planes de web y posicionamiento."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔦</text></svg>">
 <style>
   :root{
@@ -142,8 +216,11 @@
   .lead h3{margin:0 0 6px; font-size:1.15rem; letter-spacing:-.02em}
   .lead p{margin:0 0 16px; color:var(--muted); font-size:.92rem; max-width:52ch}
   .lead form{margin:0; gap:10px}
-  .lead input[type=email]{flex:1; min-width:220px; background:var(--ground); border:1px solid var(--border); color:var(--ink); border-radius:12px; padding:13px 15px; font-size:1rem; font-family:var(--mono)}
-  .lead input[type=email]:focus{outline:2px solid var(--accent); outline-offset:1px; border-color:transparent}
+  .lead input[type=email],.lead input[type=text]{flex:1; min-width:200px; background:var(--ground); border:1px solid var(--border); color:var(--ink); border-radius:12px; padding:13px 15px; font-size:1rem; font-family:var(--mono)}
+  .lead input:focus{outline:2px solid var(--accent); outline-offset:1px; border-color:transparent}
+  .lead .locked{display:flex; flex-wrap:wrap; gap:8px 16px; margin:0 0 16px; padding:0; list-style:none; font-family:var(--mono); font-size:.78rem; color:var(--muted)}
+  .lead .locked li{display:flex; align-items:center; gap:7px}
+  .lead .locked svg{flex:0 0 auto; color:var(--accent)}
   .lead .privacy{font-family:var(--mono); font-size:.72rem; color:var(--faint); margin:10px 0 0}
   .lead .ok{display:flex; gap:12px; align-items:flex-start}
   .lead .ok .ico{flex:0 0 auto;width:26px;height:26px;border-radius:8px;display:grid;place-items:center;background:var(--pass);color:#fff;font-weight:800}
@@ -163,6 +240,22 @@
   #out>*:nth-child(6){animation-delay:.30s}
   #out>*:nth-child(n+7){animation-delay:.36s}
 
+  .info{margin-top:56px; border-top:1px solid var(--border); padding-top:36px}
+  .info h2{font-size:1.5rem; letter-spacing:-.03em; margin:0 0 16px}
+  .info-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:14px}
+  @media (max-width:640px){ .info-grid{grid-template-columns:1fr} }
+  .info-grid div{background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:16px 18px}
+  .info-grid h3{font-family:var(--mono); font-size:.74rem; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); margin:0 0 6px}
+  .info-grid p{margin:0; color:var(--muted); font-size:.9rem}
+  .faq{display:flex; flex-direction:column; gap:10px}
+  .faq details{background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:0 18px}
+  .faq details[open]{border-color:var(--accent)}
+  .faq summary{cursor:pointer; list-style:none; padding:14px 0; font-weight:700; display:flex; justify-content:space-between; gap:14px}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{content:"+"; font-family:var(--mono); color:var(--accent); font-weight:700}
+  .faq details[open] summary::after{content:"−"}
+  .faq summary:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:6px}
+  .faq details p{color:var(--muted); font-size:.92rem; margin:0; padding-bottom:16px}
   @media (prefers-reduced-motion:reduce){
     #beam .sweep{animation:none}
     .ring{transition:none}
@@ -170,6 +263,7 @@
     #out>*{animation:none}
   }
 </style>
+<script src="/analytics.js" defer></script>
 </head>
 <body>
   <div id="beam" aria-hidden="true"><div class="sweep"></div></div>
@@ -181,7 +275,7 @@
 
     <span class="kicker">Analizador gratis</span>
     <h1>¿Te encuentran en Google y en la IA?</h1>
-    <p class="sub">Pon la URL de tu sitio y en segundos te decimos qué tan listo está para SEO, redes y buscadores con IA (AEO/GEO). Gratis, sin registro.</p>
+    <p class="sub">Pon la URL de tu sitio y en segundos te damos tu nota de SEO, redes y buscadores con IA (AEO/GEO). Gratis. El detalle completo lo desbloqueas con tu nombre y correo.</p>
 
     <form id="f">
       <input type="text" inputmode="url" id="url" placeholder="tunegocio.cl" autocomplete="off" autocapitalize="off" spellcheck="false" required>
@@ -190,6 +284,26 @@
     <p class="hint">// no guardamos tu sitio · analizamos la página pública, igual que Google</p>
 
     <div id="out"></div>
+
+    <section class="info" aria-labelledby="qrev">
+      <h2 id="qrev">Qué revisa el analizador</h2>
+      <div class="info-grid">
+        <div><h3>SEO</h3><p>Título, meta descripción, encabezado H1, HTTPS, URL canónica, idioma declarado y adaptación a celular.</p></div>
+        <div><h3>Redes sociales</h3><p>Etiquetas Open Graph (título, descripción e imagen) y tarjeta de X/Twitter: cómo se ve tu link al compartirlo.</p></div>
+        <div><h3>AEO / GEO</h3><p>Datos estructurados (Schema.org), archivo llms.txt, profundidad del contenido y preguntas frecuentes: lo que usa la IA para entenderte y citarte.</p></div>
+        <div><h3>Técnico</h3><p>Respuesta del servidor, velocidad de respuesta, robots.txt, sitemap.xml, favicon y textos alternativos en imágenes.</p></div>
+        <div><h3>Rendimiento real</h3><p>Core Web Vitals medidos con Google PageSpeed Insights en celular: carga (LCP), estabilidad (CLS) e interactividad.</p></div>
+        <div><h3>Chequeo de IA</h3><p>Le mostramos tu página a un modelo de IA y le preguntamos si te recomendaría ante una búsqueda típica de tu rubro, y por qué.</p></div>
+      </div>
+      <h2 style="margin-top:34px">Preguntas frecuentes</h2>
+      <div class="faq">
+        <details><summary>¿El análisis es gratis?</summary><p>Sí. La nota general y el puntaje por categoría son gratis y sin registro. El detalle de cada punto, el rendimiento real con Google PageSpeed y el chequeo de IA se desbloquean dejando tu nombre y correo.</p></details>
+        <details><summary>¿Qué es AEO y GEO?</summary><p>AEO (Answer Engine Optimization) y GEO (Generative Engine Optimization) son las prácticas para que los asistentes de IA, como ChatGPT, Perplexity, Gemini o los AI Overviews de Google, entiendan tu negocio y lo citen cuando alguien pregunta por lo que ofreces. Dependen de datos estructurados, contenido que responda preguntas concretas y archivos como llms.txt.</p></details>
+        <details><summary>¿Por qué mi nota es baja si mi web se ve bien?</summary><p>Porque Google y la IA no ven el diseño: leen el código. Una web puede verse muy bien y aun así no tener título optimizado, datos estructurados, sitemap o una versión rápida en celular. Eso es lo que mide el analizador.</p></details>
+        <details><summary>¿Guardan mi sitio o mis datos?</summary><p>No guardamos el análisis. Si dejas tu nombre y correo para ver el detalle, guardamos esos datos junto a la URL analizada y la nota, solo para contactarte por este análisis. El detalle está en nuestra política de privacidad.</p></details>
+        <details><summary>¿Cómo subo mi nota?</summary><p>El informe completo te dice qué corregir primero. Puedes hacerlo tú o tu desarrollador, o pedirnos que lo dejemos en verde: lo hacemos como parte de nuestros planes de web y posicionamiento.</p></details>
+      </div>
+    </section>
   </div>
 
 <script>
@@ -215,10 +329,9 @@
     }
   });
 
+  // Muestra la nota + categorías gratis (gancho) y deja el detalle tras la puerta (nombre+correo).
   function render(d) {
     const col = rc(d.score);
-    const order = ['SEO', 'AEO / GEO', 'Social', 'Técnico'];
-    const groups = order.filter(o => d.checks.some(c => c.cat === o));
 
     let h = `
       <div class="scorecard">
@@ -244,6 +357,35 @@
         </div>`).join('') +
       `</div>`;
 
+    // Puerta: nombre + correo para desbloquear el informe completo.
+    const lock = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>`;
+    h += `<div class="lead" id="lead">
+      <h3>Tu informe completo está listo</h3>
+      <p>Ya tienes la nota. Déjanos tu nombre y correo y te mostramos el detalle al tiro, con qué corregir primero. Sin spam.</p>
+      <ul class="locked">
+        <li>${lock} Cada punto a mejorar, explicado</li>
+        <li>${lock} Rendimiento real (Google PageSpeed)</li>
+        <li>${lock} ¿Te menciona la IA? (AEO/GEO)</li>
+      </ul>
+      <form id="leadf">
+        <input type="text" id="name" placeholder="Tu nombre" autocomplete="name" autocapitalize="words" required>
+        <input type="email" id="email" placeholder="tucorreo@ejemplo.cl" autocomplete="email" required>
+        <button id="leadbtn" type="submit">Ver informe completo</button>
+      </form>
+      <p class="privacy">// solo lo usamos para contactarte por este análisis · <a href="/privacidad" style="color:inherit">privacidad</a></p>
+    </div>`;
+
+    out.innerHTML = h;
+    animateIn();
+    wireGate(d);
+  }
+
+  // Construye y revela el detalle completo tras capturar el lead.
+  function revealFull(d) {
+    const order = ['SEO', 'AEO / GEO', 'Social', 'Técnico'];
+    const groups = order.filter(o => d.checks.some(c => c.cat === o));
+    let h = '';
+
     for (const g of groups) {
       h += `<div class="group"><h3>${esc(g)}</h3>`;
       for (const c of d.checks.filter(x => x.cat === g)) {
@@ -262,25 +404,17 @@
     h += `<div id="psi-slot"></div>`;
     h += `<div id="ai-slot"></div>`;
 
-    h += `<div class="lead" id="lead">
-      <h3>Te enviamos el informe completo</h3>
-      <p>Déjanos tu correo y te mandamos este diagnóstico con los pasos concretos para subir tu nota. Sin spam.</p>
-      <form id="leadf">
-        <input type="email" id="email" placeholder="tucorreo@ejemplo.cl" autocomplete="email" required>
-        <button id="leadbtn" type="submit">Enviar informe</button>
-      </form>
-      <p class="privacy">// solo lo usamos para enviarte el informe y contactarte una vez</p>
-    </div>`;
-
     h += `<div class="cta">
       <h3>¿Quieres que lo dejemos en verde?</h3>
       <p>Te armamos un plan para subir esta nota — o te hacemos la web nueva, ya optimizada para Google y la IA.</p>
       <a href="mailto:contacto@faroagencia.cl?subject=Vi%20mi%20an%C3%A1lisis%20-%20quiero%20mejorar%20mi%20web">Hablemos con Faro°</a>
     </div>`;
 
-    out.innerHTML = h;
-    animateIn();
-    wireLead(d);
+    const detail = document.createElement('div');
+    detail.id = 'detail';
+    detail.innerHTML = h;
+    out.appendChild(detail);
+    animateIn(detail);
     loadPageSpeed(d.url);
     loadAiCheck(d.url);
   }
@@ -288,10 +422,11 @@
   const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // Dispara las transiciones (anillo, barras) y cuenta los números hacia arriba.
-  function animateIn() {
-    const bars = out.querySelectorAll('.track > div[data-w]');
-    const rings = out.querySelectorAll('.ring[data-v]');
-    const nums = out.querySelectorAll('[data-to]');
+  function animateIn(root) {
+    root = root || out;
+    const bars = root.querySelectorAll('.track > div[data-w]');
+    const rings = root.querySelectorAll('.ring[data-v]');
+    const nums = root.querySelectorAll('[data-to]');
     if (reduceMotion) {
       rings.forEach(el => el.style.setProperty('--v', el.dataset.v));
       bars.forEach(el => el.style.width = el.dataset.w + '%');
@@ -436,35 +571,38 @@
     </div>`;
   }
 
-  function wireLead(d) {
+  function wireGate(d) {
     const lf = document.getElementById('leadf');
     if (!lf) return;
     lf.addEventListener('submit', async (e) => {
       e.preventDefault();
+      const name = document.getElementById('name').value.trim();
       const email = document.getElementById('email').value.trim();
       const lb = document.getElementById('leadbtn');
       const prevErr = document.querySelector('#lead .leaderr');
       if (prevErr) prevErr.remove();
-      if (!email) return;
-      lb.disabled = true; lb.textContent = 'Enviando…';
+      if (!name || !email) return;
+      lb.disabled = true; lb.textContent = 'Desbloqueando…';
       try {
         const r = await fetch('/api/lead', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, url: d.url, score: d.score }),
+          body: JSON.stringify({ name, email, url: d.url, score: d.score }),
         });
         const j = await r.json().catch(() => ({}));
         if (!r.ok || !j.ok) throw new Error(j.error || 'error');
+        const first = name.split(' ')[0];
         document.getElementById('lead').innerHTML =
           '<div class="ok"><span class="ico">✓</span><div>' +
-          '<h3>¡Listo! Te llegará pronto.</h3>' +
-          '<p style="margin:6px 0 0">Guardamos tu correo. Te enviamos el informe y te escribimos para ayudarte a subir la nota.</p>' +
+          '<h3>Listo' + (first ? ', ' + esc(first) : '') + ' — aquí está tu informe completo.</h3>' +
+          '<p style="margin:6px 0 0">Te escribiremos una vez a tu correo para ofrecerte ayuda con los puntos en rojo. Sin spam.</p>' +
           '</div></div>';
+        revealFull(d);
       } catch (err) {
-        lb.disabled = false; lb.textContent = 'Enviar informe';
+        lb.disabled = false; lb.textContent = 'Ver informe completo';
         const p = document.createElement('p');
         p.className = 'leaderr';
-        p.textContent = (err && err.message && err.message !== 'error') ? err.message : 'No se pudo guardar. Revisa el correo e intenta de nuevo.';
+        p.textContent = (err && err.message && err.message !== 'error') ? err.message : 'No se pudo guardar. Revisa los datos e intenta de nuevo.';
         document.getElementById('leadf').after(p);
       }
     });

@@ -14,11 +14,15 @@ export default async function handler(req, res) {
   if (typeof body === 'string') { try { body = JSON.parse(body); } catch { body = {}; } }
   body = body || {};
 
+  const name = String(body.name || '').trim().replace(/\s+/g, ' ').slice(0, 120);
   const email = String(body.email || '').trim().toLowerCase();
   const url = body.url ? String(body.url).trim().slice(0, 500) : null;
   const scoreNum = Number(body.score);
   const score = Number.isFinite(scoreNum) ? Math.max(0, Math.min(100, Math.round(scoreNum))) : null;
 
+  if (name.length < 2) {
+    return res.status(400).json({ ok: false, error: 'Falta tu nombre.' });
+  }
   // Validación de correo simple y tolerante (no RFC completa, pero filtra basura).
   if (email.length > 254 || !/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(email)) {
     return res.status(400).json({ ok: false, error: 'Correo inválido.' });
@@ -26,7 +30,7 @@ export default async function handler(req, res) {
 
   try {
     await ensureSchema();
-    await sql`INSERT INTO leads (email, url, score) VALUES (${email}, ${url}, ${score})`;
+    await sql`INSERT INTO leads (name, email, url, score) VALUES (${name}, ${email}, ${url}, ${score})`;
     return res.status(200).json({ ok: true });
   } catch (e) {
     return res.status(500).json({ ok: false, error: 'No se pudo guardar. Intenta de nuevo más tarde.' });

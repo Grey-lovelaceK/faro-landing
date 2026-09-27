@@ -2,7 +2,7 @@
 // Evita publicar el repo entero (api/, .claude/, CLAUDE.md, node_modules, etc.).
 import { mkdirSync, rmSync, readdirSync, copyFileSync } from 'node:fs';
 
-const PUBLIC = /\.(html|txt|xml|ico|png|svg|webp|jpg|json)$/i;
+const PUBLIC = /\.(html|txt|xml|ico|png|svg|webp|jpg|json|js|css)$/i;
 const SKIP = new Set(['package.json', 'package-lock.json', 'vercel.json']);
 
 rmSync('dist', { recursive: true, force: true });

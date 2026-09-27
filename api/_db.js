@@ -25,10 +25,13 @@ export async function ensureSchema() {
   await sql`
     CREATE TABLE IF NOT EXISTS leads (
       id         SERIAL PRIMARY KEY,
+      name       TEXT,
       email      TEXT NOT NULL,
       url        TEXT,
       score      INTEGER,
       created_at TIMESTAMPTZ NOT NULL DEFAULT now()
     )`;
+  // Migración para tablas viejas creadas antes de la columna `name` (idempotente).
+  await sql`ALTER TABLE leads ADD COLUMN IF NOT EXISTS name TEXT`;
   ensured = true;
 }
