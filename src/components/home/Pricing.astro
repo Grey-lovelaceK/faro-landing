@@ -1,0 +1,105 @@
+---
+// Precios de referencia. Mismos valores que el JSON-LD de la portada y que /precios.
+import Icon from '../Icon.astro';
+const plans = [
+  { name: 'Presencia', price: '$290.000', unit: 'proyecto · pago único', cta: 'Empezar', items: ['Landing o sitio hasta 5 secciones', 'Diseño a medida y responsivo', 'Hosting + dominio .cl el 1er año', 'Formulario y WhatsApp', 'SEO base + Google Analytics', 'Entrega en 2–3 semanas'] },
+  { name: 'Crecimiento', price: '$790.000', unit: 'proyecto · pago único', cta: 'Cotizar este plan', hot: true, items: ['Sitio multipágina + blog con CMS', 'SEO on-page + datos estructurados', 'Base AEO/GEO para buscadores con IA', 'Pagos, reservas y formularios conectados', 'Capacitación para autogestión'] },
+  { name: 'Dominio', price: '$1.490.000', unit: 'proyecto · a medida', cta: 'Conversemos', items: ['E-commerce o desarrollo a medida', 'SEO técnico avanzado + AEO/GEO completo', 'Dashboards de negocio', 'Arquitectura para escalar', 'Soporte prioritario'] },
+];
+const extras = [
+  { title: 'SEO · AEO · GEO + contenido', price: '$350.000', unit: '/mes', note: 'Continuidad mensual · contrato mínimo 3 meses', href: '/seo-aeo-geo' },
+  { title: 'Gestión de pauta', price: '$250.000', unit: '/mes + inversión', note: 'Continuidad mensual · Google y Meta Ads', href: '/marketing-digital' },
+  { title: 'Integración tienda ↔ ERP', price: '$450.000', unit: ' + $45.000/mes', note: 'Si ya tienes tienda online · Bsale o Defontana', href: '/integraciones#precios' },
+];
+---
+<section class="sec pricing" id="precios" aria-labelledby="price-h">
+  <div class="wrap-sec">
+    <div class="sec-head center">
+      <h2 id="price-h">Transparente desde el primer correo.</h2>
+      <p class="lead">Valores referenciales en CLP para que dimensiones. El precio final se cotiza según alcance y te llega por escrito, sin letra chica.</p>
+    </div>
+
+    <ul class="plans" role="list">
+      {plans.map((p) => (
+        <li class:list={['plan', { hot: p.hot }]}>
+          {p.hot && <span class="badge num">Recomendado</span>}
+          <p class="pname">{p.name}</p>
+          <p class="price"><span class="from">desde</span> <span class="num"><span class="cur">$</span>{p.price.slice(1)}</span></p>
+          <p class="unit num">{p.unit}</p>
+          <ul class="feat" role="list">
+            {p.items.map((it) => <li><Icon name="check" size={18} stroke={2.2} />{it}</li>)}
+          </ul>
+          <a href="#contacto" class:list={['btn', p.hot ? 'btn-primary' : 'btn-ghost']}>{p.cta}</a>
+        </li>
+      ))}
+    </ul>
+
+    <ul class="extras" role="list">
+      {extras.map((e) => (
+        <li>
+          <a href={e.href} class="extra">
+            <span class="x-title">{e.title}</span>
+            <span class="x-price"><span class="from">desde</span> <span class="num">{e.price}</span><span class="x-unit num">{e.unit}</span></span>
+            <span class="x-note">{e.note}</span>
+            <span class="x-arrow"><Icon name="arrow" size={22} stroke={2} /></span>
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <div class="price-foot">
+      <a class="link" href="/precios">Ver todos los precios en detalle <Icon name="arrow" size={18} stroke={2} /></a>
+      <p class="note num">Precios netos en CLP · valor final según alcance</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .pricing { overflow-x: clip; }
+  .plans { isolation: isolate; list-style: none; margin: 3.5rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; align-items: stretch; }
+  .plan {
+    position: relative; display: flex; flex-direction: column; padding: 2rem 1.875rem 1.875rem; background: var(--bg);
+    border: 1px solid var(--line); border-radius: var(--radius-lg);
+  }
+  .plan.hot { border-color: var(--accent); box-shadow: 0 0 0 0.25rem var(--accent-tint), var(--shadow-card); }
+  .plan.hot::before {
+    content: ''; position: absolute; z-index: -1; inset: -18% -14%; border-radius: 50%; pointer-events: none;
+    background: radial-gradient(closest-side, var(--halo) 40%, transparent);
+  }
+  .badge {
+    position: absolute; top: -13px; left: 1.875rem; padding: 0.3125rem 0.75rem; border-radius: 62.4375rem; background: var(--accent); color: var(--on-accent);
+    font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+  }
+  .pname { font-family: var(--font-display); font-weight: 700; font-size: 1.5rem; letter-spacing: -0.03em; }
+  .price { margin-top: 1.125rem; display: flex; align-items: baseline; gap: 0.5rem; }
+  .price .num { font-family: var(--font-display); font-size: clamp(2.2rem, 3vw, 2.8rem); font-weight: 700; letter-spacing: -0.04em; line-height: 1; font-variant-numeric: tabular-nums; }
+  .cur { font-family: var(--font-body); font-weight: 700; font-size: 0.62em; vertical-align: 0.42em; margin-right: 0.08em; letter-spacing: 0; }
+  .from { font-size: 0.9rem; color: var(--muted); }
+  .unit { margin-top: 0.5rem; font-size: 0.8rem; color: var(--faint); letter-spacing: 0.02em; }
+  .feat { list-style: none; margin: 1.625rem 0 1.875rem; padding: 1.375rem 0 0; border-top: 1px solid var(--line); display: grid; gap: 0.75rem; }
+  .feat li { display: grid; grid-template-columns: 1.125rem 1fr; gap: 0.75rem; line-height: 1.4; color: var(--ink-2); font-size: 0.97rem; }
+  .feat :global(svg) { color: var(--accent); margin-top: 1px; }
+  .plan .btn { margin-top: auto; width: 100%; }
+
+  .extras { list-style: none; margin: 1.25rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+  .extra {
+    height: 100%; display: grid; grid-template-columns: 1fr auto; grid-template-areas: 't a' 'p a' 'n a'; row-gap: 0.375rem; column-gap: 1rem;
+    padding: 1.375rem 1.5rem; border: 1px dashed var(--line-strong); border-radius: var(--radius-lg); text-decoration: none; color: var(--ink);
+    transition: border-color 0.2s, background-color 0.2s;
+  }
+  .extra:hover { border-style: solid; border-color: var(--accent-line); background: var(--accent-tint); }
+  .x-title { grid-area: t; font-weight: 650; font-size: 1.04rem; }
+  .x-price { grid-area: p; display: flex; align-items: baseline; gap: 0.375rem; flex-wrap: wrap; }
+  .x-price .num:first-of-type { font-size: 1.12rem; font-weight: 600; }
+  .x-unit { font-size: 0.82rem; color: var(--muted); }
+  .x-note { grid-area: n; font-size: 0.86rem; color: var(--faint); }
+  .x-arrow { grid-area: a; align-self: center; color: var(--accent); transition: transform 0.2s var(--ease-out); }
+  .extra:hover .x-arrow { transform: translateX(0.1875rem); }
+
+  .price-foot { margin-top: 2rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem 2rem; flex-wrap: wrap; }
+  .note { font-size: 0.78rem; color: var(--faint); }
+  @media (max-width: 1000px) {
+    .plans, .extras { grid-template-columns: 1fr; max-width: 35rem; margin-inline: auto; }
+    .price-foot { max-width: 35rem; margin-inline: auto; }
+  }
+</style>

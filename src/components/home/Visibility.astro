@@ -1,0 +1,61 @@
+---
+// Dónde te busca tu cliente hoy y qué trabajamos en cada lugar. Sin barras ni porcentajes inventados:
+// cada fila dice qué se hace, no cuánto "rinde".
+import Icon from '../Icon.astro';
+const rows = [
+  { tag: 'SEO', where: 'Google', what: 'Que tu sitio aparezca en los resultados cuando buscan lo que vendes.', how: ['Títulos y descripciones', 'Velocidad y móvil', 'Sitemap e indexación'] },
+  { tag: 'AEO', where: 'AI Overviews', what: 'Que el resumen de IA de Google use tu página como fuente de la respuesta.', how: ['Respuestas directas', 'Preguntas frecuentes', 'Datos estructurados'] },
+  { tag: 'GEO', where: 'ChatGPT · Perplexity · Gemini', what: 'Que los asistentes entiendan qué haces y dónde, y te nombren cuando preguntan.', how: ['Marca como entidad clara', 'llms.txt', 'Datos consistentes en la web'] },
+];
+---
+<section class="sec vis" id="visibilidad" aria-labelledby="vis-h">
+  <div class="wrap-sec vis-grid">
+    <div class="sec-head">
+      <h2 id="vis-h">Tus clientes ya le preguntan a la IA antes que a Google.</h2>
+      <p class="lead">Si el asistente no conoce tu negocio, no existes en esa conversación. Trabajamos los tres lugares donde hoy se decide a quién llamar.</p>
+      <a class="link" href="/blog/que-es-aeo-geo">Qué es AEO y GEO, explicado <Icon name="arrow" size={18} stroke={2} /></a>
+    </div>
+    <ol class="vis-list" role="list">
+      {rows.map((r) => (
+        <li class="vis-row">
+          <span class="vis-tag num">{r.tag}</span>
+          <div class="vis-main">
+            <p class="vis-where">{r.where}</p>
+            <p class="vis-what">{r.what}</p>
+            <ul class="vis-how" role="list">
+              {r.how.map((h) => <li><Icon name="check" size={16} stroke={2.2} />{h}</li>)}
+            </ul>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .vis-grid { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 4rem; align-items: start; }
+  .vis .sec-head { position: sticky; top: 7rem; }
+  .vis .link { margin-top: 1.625rem; }
+  .vis-list { list-style: none; margin: 0; padding: 0; border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--bg); box-shadow: var(--shadow-card); }
+  .vis-row { display: grid; grid-template-columns: 4rem 1fr; gap: 1.25rem; padding: 1.75rem 1.75rem 1.75rem 1.5rem; }
+  .vis-row + .vis-row { border-top: 1px solid var(--line); }
+  .vis-tag {
+    align-self: start; justify-self: start; padding: 0.4375rem 0.625rem; border-radius: 0.5rem; background: var(--accent-tint); color: var(--accent);
+    font-size: 0.82rem; font-weight: 600; letter-spacing: 0.06em;
+  }
+  .vis-where { font-family: var(--font-display); font-weight: 700; font-size: 1.36rem; line-height: 1.15; letter-spacing: -0.03em; }
+  .vis-what { margin-top: 0.5rem; color: var(--muted); line-height: 1.5; max-width: 48ch; }
+  .vis-how { list-style: none; margin: 1rem 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .vis-how li {
+    display: inline-flex; align-items: center; gap: 0.4375rem; padding: 0.375rem 0.75rem 0.375rem 0.5625rem; border: 1px solid var(--line); border-radius: 62.4375rem;
+    font-size: 0.86rem; color: var(--ink-2);
+  }
+  .vis-how :global(svg) { color: var(--good); }
+  @media (max-width: 900px) {
+    .vis-grid { grid-template-columns: 1fr; gap: 2.25rem; }
+    .vis .sec-head { position: static; }
+  }
+  @media (max-width: 520px) {
+    .vis-row { grid-template-columns: 1fr; gap: 0.75rem; padding: 1.375rem 1.125rem; }
+  }
+</style>

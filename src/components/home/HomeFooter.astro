@@ -1,0 +1,47 @@
+---
+// Pie del sistema nuevo: marca, mapa del sitio y contacto.
+import { WA } from '../../lib/seo';
+const cols = [
+  { h: 'Servicios', links: [['Diseño web', '/diseno-web'], ['SEO · AEO · GEO', '/seo-aeo-geo'], ['Marketing digital', '/marketing-digital'], ['Integraciones', '/integraciones']] },
+  { h: 'Estudio', links: [['Precios', '/precios'], ['Nosotros', '/nosotros'], ['Blog', '/blog/'], ['Analizador gratis', '/analiza']] },
+];
+---
+<footer class="foot">
+  <div class="wrap-sec foot-grid">
+    <div class="foot-brand">
+      <a href="/" class="brand" aria-label="Faro°, inicio">Faro<b>°</b></a>
+      <p>Web, marketing y posicionamiento SEO · AEO · GEO. Macul, Santiago de Chile.</p>
+    </div>
+    {cols.map((c) => (
+      <nav class="foot-col" aria-label={c.h}>
+        <p class="foot-h num">{c.h}</p>
+        <ul role="list">{c.links.map(([t, h]) => <li><a href={h}>{t}</a></li>)}</ul>
+      </nav>
+    ))}
+    <div class="foot-col">
+      <p class="foot-h num">Contacto</p>
+      <ul role="list">
+        <li><a href="mailto:contacto@faroagencia.cl">contacto@faroagencia.cl</a></li>
+        <li><a href={WA('Hola Faro°, vengo desde su sitio web')} target="_blank" rel="noopener">WhatsApp +56 9 8663 9327</a></li>
+        <li><a href="https://www.instagram.com/faroagencia.cl/" target="_blank" rel="noopener me">Instagram @faroagencia.cl</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap-sec foot-base">
+    <span class="num">© {new Date().getFullYear()} Faro°</span>
+    <a href="/privacidad">Privacidad</a>
+  </div>
+</footer>
+
+<style>
+  .foot { border-top: 1px solid var(--line); padding: 4rem 0 1.75rem; }
+  .foot-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1.2fr; gap: 2.5rem; }
+  .foot-brand p { margin-top: 0.875rem; color: var(--muted); max-width: 34ch; line-height: 1.55; font-size: 0.95rem; }
+  .foot-h { font-size: 0.76rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--faint); }
+  .foot-col ul { list-style: none; margin: 0.875rem 0 0; padding: 0; display: grid; gap: 0.625rem; }
+  .foot a:not(.brand) { text-decoration: none; color: var(--ink-2); font-size: 0.95rem; }
+  .foot-col a { white-space: nowrap; }
+  .foot a:not(.brand):hover { color: var(--accent); }
+  .foot-base { margin-top: 3rem; padding-top: 1.375rem; border-top: 1px solid var(--line); display: flex; justify-content: space-between; gap: 1rem; font-size: 0.86rem; color: var(--faint); }
+  @media (max-width: 860px) { .foot-grid { grid-template-columns: 1fr 1fr; } .foot-brand { grid-column: 1 / -1; } }
+</style>

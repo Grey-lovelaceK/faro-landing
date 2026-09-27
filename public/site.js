@@ -6,12 +6,12 @@
   var root = document.documentElement;
   var saved = null;
   try { saved = localStorage.getItem(KEY); } catch (e) {}
-  if (saved === 'light' || saved === 'dark') root.setAttribute('data-theme', saved);
+  // Claro por defecto: el oscuro solo se activa si el visitante lo elige con el botón (se guarda en localStorage).
+  root.setAttribute('data-theme', saved === 'dark' ? 'dark' : 'light');
 
-  var mq = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
   function current() {
     var t = root.getAttribute('data-theme');
-    return t === 'light' || t === 'dark' ? t : (mq && mq.matches ? 'dark' : 'light');
+    return t === 'dark' ? 'dark' : 'light';
   }
 
   var SUN = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>';
@@ -62,7 +62,6 @@
       try { localStorage.setItem(KEY, next); } catch (e) {}
       paint();
     });
-    if (mq && mq.addEventListener) mq.addEventListener('change', paint);
     paint();
     // Con botón CTA (portada, integraciones): el tema va pegado a su izquierda y ambos a la derecha.
     var cta = host.querySelector(':scope > .btn');

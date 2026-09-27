@@ -26,3 +26,6 @@ dist/
 
 # Astro
 .astro/
+
+# impeccable (mockups y revisiones de diseño, no se publican)
+.impeccable/

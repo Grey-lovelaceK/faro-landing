@@ -1,0 +1,38 @@
+---
+// Cierre: el faro de noche. Bloque navy en ambos temas, con el mismo halo cobalto de la tarjeta de IA.
+import Icon from '../Icon.astro';
+import { WA } from '../../lib/seo';
+---
+<section class="sec closing" id="contacto" aria-labelledby="cta-h">
+  <div class="wrap-sec">
+    <div class="night">
+      <div class="beam" aria-hidden="true"></div>
+      <h2 id="cta-h">¿Listo para que te encuentren primero?</h2>
+      <p>Cuéntanos qué necesitas y te mandamos una propuesta con alcance y precio en 48 horas. Sin compromiso.</p>
+      <div class="acts">
+        <a href={WA('Hola Faro°, vengo desde su sitio web')} class="btn btn-primary" target="_blank" rel="noopener"><Icon name="whatsapp" size={20} /> Escríbenos por WhatsApp</a>
+        <a href="mailto:contacto@faroagencia.cl?subject=Quiero%20cotizar%20mi%20proyecto" class="btn btn-night">Escríbenos por correo</a>
+        <a href="/analiza" class="btn btn-night">Analiza tu web gratis</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .night {
+    --n-bg: #0a0d17; --n-ink: #eaedf6; --n-muted: #9aa2bc; --n-line: #28304c;
+    position: relative; overflow: hidden; isolation: isolate; padding: 5.5rem 2rem; border-radius: 1.75rem; text-align: center;
+    background: var(--n-bg); color: var(--n-ink); border: 1px solid var(--n-line);
+  }
+  .beam {
+    position: absolute; z-index: -1; left: 50%; top: -40%; width: 120%; height: 140%; transform: translateX(-50%);
+    background: radial-gradient(closest-side, rgba(91, 114, 255, 0.42), rgba(91, 114, 255, 0.08) 60%, transparent);
+  }
+  .night h2 { margin: 0 auto; max-width: 16ch; font-size: clamp(2.2rem, 4.4vw, 4rem); line-height: 0.98; letter-spacing: -0.04em; }
+  .night p { margin: 1.25rem auto 0; max-width: 52ch; color: var(--n-muted); font-size: 1.1rem; line-height: 1.55; }
+  .acts { margin-top: 2.125rem; display: flex; justify-content: center; flex-wrap: wrap; gap: 0.75rem; }
+  .btn-night { background: transparent; color: var(--n-ink); border-color: #3a4366; }
+  .btn-night:hover { border-color: #8b9bff; color: #fff; }
+  .night :global(.btn-primary) { --accent: #5b72ff; --accent-press: #7486ff; }
+  @media (max-width: 640px) { .night { padding: 4rem 1.25rem; border-radius: 1.375rem; } .acts .btn { width: 100%; } }
+</style>
