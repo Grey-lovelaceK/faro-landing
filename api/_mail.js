@@ -46,7 +46,8 @@ const WA = 'https://wa.me/56986639327?text=' + encodeURIComponent('Hola Faro°, 
 
 // Correo del informe para quien dejó sus datos. checks: [{cat,label,status,tip}] (ya saneados).
 export function reportEmail({ name, url, score, checks }) {
-  const first = String(name || '').split(' ')[0];
+  const raw = String(name || '').split(' ')[0];
+  const first = raw ? raw.charAt(0).toLocaleUpperCase('es-CL') + raw.slice(1) : '';
   const grade = score == null ? '—' : gradeOf(score);
   const order = ['SEO', 'AEO / GEO', 'Social', 'Técnico'];
   const todo = checks.filter(c => c.status !== 'pass');
