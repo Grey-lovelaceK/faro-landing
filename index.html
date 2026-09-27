@@ -95,6 +95,15 @@
             "url": "https://faroagencia.cl/integraciones"
           }
         ]
+      },
+      "telephone": "+56986639327",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "ventas",
+        "telephone": "+56986639327",
+        "email": "contacto@faroagencia.cl",
+        "availableLanguage": "es",
+        "areaServed": "CL"
       }
     },
     {
@@ -106,6 +115,52 @@
       "publisher": {
         "@id": "https://faroagencia.cl/#org"
       }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://faroagencia.cl/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "¿Cuánto cuesta una página web con Faro°?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Un sitio de hasta 5 secciones, con diseño a medida, SEO base, hosting y dominio .cl el primer año, parte desde $290.000 CLP netos (plan Presencia). Un sitio multipágina con blog y base AEO/GEO parte desde $790.000, y un e-commerce o desarrollo a medida desde $1.490.000. El precio final depende del alcance y te lo enviamos por escrito."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Qué es AEO y GEO, y en qué se diferencia del SEO?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "El SEO busca que aparezcas en los resultados de Google. El AEO y el GEO buscan que los asistentes de IA, como ChatGPT, Perplexity, Gemini o los AI Overviews de Google, entiendan tu negocio y te citen cuando alguien pregunta por lo que vendes. Se trabajan con datos estructurados, contenido que responde preguntas concretas y archivos como llms.txt."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Cuánto demora hacer mi sitio web?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Un sitio del plan Presencia se entrega en 2 a 3 semanas. Los proyectos más grandes se planifican por etapas y el plazo queda escrito en la propuesta."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Atienden solo en Santiago?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Tenemos base en Macul y podemos reunirnos en persona en Santiago. Diseño web, posicionamiento e integraciones los hacemos de forma remota para cualquier ciudad de Chile."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Cómo sé qué necesita mi web hoy?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Pasa tu sitio por nuestro analizador gratis: en segundos te da una nota de SEO, redes y visibilidad en IA. Si prefieres, escríbenos y te hacemos una auditoría sin costo."
+          }
+        }
+      ]
     }
   ]
 }
@@ -319,6 +374,18 @@
   .cta .glow{position:absolute; bottom:-40%; left:50%; transform:translateX(-50%); width:600px; height:400px; background:radial-gradient(circle,var(--accent),transparent 60%); opacity:.28; pointer-events:none}
   .cta .btn-primary{position:relative}
 
+
+  /* faq */
+  .faq{margin-top:36px; display:flex; flex-direction:column; gap:10px; max-width:760px}
+  .faq details{background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:0 20px}
+  .faq details[open]{border-color:var(--accent)}
+  .faq summary{cursor:pointer; list-style:none; padding:16px 0; font-weight:700; display:flex; justify-content:space-between; gap:16px}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{content:"+"; font-family:var(--mono); color:var(--accent); font-weight:700}
+  .faq details[open] summary::after{content:"−"}
+  .faq summary:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:6px}
+  .faq details p{color:var(--muted); font-size:.94rem; padding-bottom:18px}
+
   footer{border-top:1px solid var(--border); padding:34px 0; margin-top:24px}
   footer .container{display:flex; flex-wrap:wrap; gap:16px; align-items:center; justify-content:space-between; color:var(--muted); font-size:.85rem}
   footer .mono{font-family:var(--mono); font-size:.76rem; color:var(--faint)}
@@ -340,6 +407,7 @@
         <a href="/integraciones">Integraciones</a>
         <a href="#equipo">Equipo</a>
         <a href="#precios">Precios</a>
+        <a href="#faq">Preguntas</a>
       </div>
       <a href="#contacto" class="btn btn-primary btn-sm" style="margin-left:auto">Cotiza tu proyecto</a>
     </div>
@@ -595,6 +663,24 @@
     </div>
   </section>
 
+
+  <!-- FAQ -->
+  <section id="faq" style="padding-top:0">
+    <div class="container">
+      <div class="sec-head">
+        <span class="eyebrow">Preguntas frecuentes</span>
+        <h2>Lo que nos preguntan antes de partir.</h2>
+      </div>
+      <div class="faq">
+        <details><summary>¿Cuánto cuesta una página web con Faro°?</summary><p>Un sitio de hasta 5 secciones, con diseño a medida, SEO base, hosting y dominio .cl el primer año, parte desde $290.000 CLP netos (plan Presencia). Un sitio multipágina con blog y base AEO/GEO parte desde $790.000, y un e-commerce o desarrollo a medida desde $1.490.000. El precio final depende del alcance y te lo enviamos por escrito.</p></details>
+        <details><summary>¿Qué es AEO y GEO, y en qué se diferencia del SEO?</summary><p>El SEO busca que aparezcas en los resultados de Google. El AEO y el GEO buscan que los asistentes de IA, como ChatGPT, Perplexity, Gemini o los AI Overviews de Google, entiendan tu negocio y te citen cuando alguien pregunta por lo que vendes. Se trabajan con datos estructurados, contenido que responde preguntas concretas y archivos como llms.txt.</p></details>
+        <details><summary>¿Cuánto demora hacer mi sitio web?</summary><p>Un sitio del plan Presencia se entrega en 2 a 3 semanas. Los proyectos más grandes se planifican por etapas y el plazo queda escrito en la propuesta.</p></details>
+        <details><summary>¿Atienden solo en Santiago?</summary><p>Tenemos base en Macul y podemos reunirnos en persona en Santiago. Diseño web, posicionamiento e integraciones los hacemos de forma remota para cualquier ciudad de Chile.</p></details>
+        <details><summary>¿Cómo sé qué necesita mi web hoy?</summary><p>Pasa tu sitio por nuestro analizador gratis: en segundos te da una nota de SEO, redes y visibilidad en IA. Si prefieres, escríbenos y te hacemos una auditoría sin costo.</p></details>
+      </div>
+    </div>
+  </section>
+
   <!-- CTA -->
   <section id="contacto" style="padding-top:0">
     <div class="container">
@@ -604,7 +690,8 @@
         <h2 style="margin-top:12px">¿Listo para que te encuentren primero?</h2>
         <p>Cuéntanos qué necesitas y te mandamos una propuesta con alcance y precio en 48 horas. Sin compromiso.</p>
         <div style="display:flex; flex-wrap:wrap; gap:12px; justify-content:center">
-          <a href="mailto:contacto@faroagencia.cl?subject=Quiero%20cotizar%20mi%20proyecto" class="btn btn-primary">Escríbenos ahora</a>
+          <a href="https://wa.me/56986639327?text=Hola%20Faro%C2%B0%2C%20vengo%20desde%20su%20sitio%20web" class="btn btn-primary" target="_blank" rel="noopener">Escríbenos por WhatsApp</a>
+          <a href="mailto:contacto@faroagencia.cl?subject=Quiero%20cotizar%20mi%20proyecto" class="btn btn-ghost" style="border-color:rgba(255,255,255,.28); color:var(--ground)">Escríbenos por correo</a>
           <a href="mailto:contacto@faroagencia.cl?subject=Quiero%20mi%20auditor%C3%ADa%20gratis%20SEO%2FAEO" class="btn btn-ghost" style="border-color:rgba(255,255,255,.28); color:var(--ground)">Pide tu auditoría gratis</a>
         </div>
       </div>
@@ -615,7 +702,7 @@
     <div class="container">
       <span class="brand">Faro<b>°</b></span>
       <span class="mono">// web · marketing · SEO · AEO · GEO · integraciones — Macul, Santiago</span>
-      <span>Cristian Revilla · <a href="mailto:contacto@faroagencia.cl" style="color:var(--accent)">contacto@faroagencia.cl</a> · <a href="/privacidad">Privacidad</a></span>
+      <span>Cristian Revilla · <a href="mailto:contacto@faroagencia.cl" style="color:var(--accent)">contacto@faroagencia.cl</a> · <a href="https://wa.me/56986639327?text=Hola%20Faro%C2%B0%2C%20vengo%20desde%20su%20sitio%20web" style="color:var(--accent)" target="_blank" rel="noopener">WhatsApp +56 9 8663 9327</a> · <a href="/privacidad">Privacidad</a></span>
     </div>
   </footer>
 
