@@ -1,6 +1,7 @@
 // Faro° — Analizador de web v1 (serverless, Vercel).
 // Baja el HTML de la URL (server-side, sin CORS) y evalúa SEO + social + AEO/GEO + técnico.
-// Sin dependencias, sin API keys. Devuelve JSON con score y checks.
+// Sin dependencias, sin API keys. Devuelve JSON con score y checks, más extras sin puntaje
+// (tech: con qué está hecha; understood: qué datos del negocio lee Google en su JSON-LD).
 
 export default async function handler(req, res) {
   const raw = (req.query && req.query.url) || '';
@@ -13,11 +14,12 @@ export default async function handler(req, res) {
   const origin = url.origin;
 
   const t0 = Date.now();
-  let html = '', status = 0, finalUrl = target;
+  let html = '', status = 0, finalUrl = target, headers = null;
   try {
     const r = await fetchWithTimeout(target, 12000);
     status = r.status;
     finalUrl = r.url || target;
+    headers = r.headers;
     html = await capText(r, 900_000); // cap ~900KB
   } catch (e) {
     return res.status(200).json({ ok: false, error: 'No pudimos acceder al sitio. ¿Existe y responde? (' + (e.name || 'error') + ')', url: target });
@@ -44,10 +46,12 @@ export default async function handler(req, res) {
   // JSON-LD (AEO)
   const ldBlocks = html.match(/<script[^>]+application\/ld\+json[^>]*>([\s\S]*?)<\/script>/gi) || [];
   const ldTypes = [];
+  const ldNodes = [];
   for (const b of ldBlocks) {
     try {
       const json = JSON.parse(b.replace(/<script[^>]*>/i, '').replace(/<\/script>/i, ''));
       collectTypes(json, ldTypes);
+      collectNodes(json, ldNodes);
     } catch { /* json-ld malformado */ }
   }
   const hasFaq = ldTypes.some(t => /faq/i.test(t));
@@ -127,6 +131,10 @@ export default async function handler(req, res) {
     ok: true, url: finalUrl, score,
     grade: score >= 85 ? 'A' : score >= 70 ? 'B' : score >= 50 ? 'C' : score >= 30 ? 'D' : 'E',
     categories, checks: C,
+    // Extras informativos, SIN puntaje: con qué está hecha y qué entiende Google (no cambian la nota).
+    tech: detectTech(html, headers),
+    understood: understood(ldNodes, ldTypes),
+    richResultsUrl: 'https://search.google.com/test/rich-results?url=' + encodeURIComponent(finalUrl),
     counts: {
       pass: C.filter(c => c.status === 'pass').length,
       warn: C.filter(c => c.status === 'warn').length,
@@ -142,7 +150,7 @@ async function fetchWithTimeout(u, ms) {
   try {
     return await fetch(u, {
       redirect: 'follow', signal: ctrl.signal,
-      headers: { 'User-Agent': 'Mozilla/5.0 (compatible; FaroBot/1.0; +https://faro-landing-alpha.vercel.app)', 'Accept': 'text/html,*/*' },
+      headers: { 'User-Agent': 'Mozilla/5.0 (compatible; FaroBot/1.0; +https://faroagencia.cl/analiza)', 'Accept': 'text/html,*/*' },
     });
   } finally { clearTimeout(id); }
 }
@@ -167,6 +175,70 @@ function collectTypes(node, out) {
   if (Array.isArray(node)) { node.forEach(n => collectTypes(n, out)); return; }
   if (node['@type']) { const t = node['@type']; (Array.isArray(t) ? t : [t]).forEach(x => { if (!out.includes(x)) out.push(x); }); }
   if (node['@graph']) collectTypes(node['@graph'], out);
+}
+function collectNodes(node, out) {
+  if (!node || typeof node !== 'object') return;
+  if (Array.isArray(node)) { node.forEach(n => collectNodes(n, out)); return; }
+  if (node['@type']) out.push(node);
+  if (node['@graph']) collectNodes(node['@graph'], out);
+}
+
+// Con qué está hecha la web (firmas públicas en el HTML y las cabeceras). Informativo: sirve para saber qué ofrecer.
+const TECH = [
+  ['WordPress', 'plataforma', h => /\/wp-content\/|\/wp-includes\//i.test(h)],
+  ['WooCommerce', 'tienda', h => /\/plugins\/woocommerce\/|woocommerce-(page|cart|js)|wc-block/i.test(h)],
+  ['Shopify', 'tienda', (h, H) => /cdn\.shopify\.com|Shopify\.theme/i.test(h) || !!H('x-shopify-stage')],
+  ['Jumpseller', 'tienda', h => /jumpseller\.com\/|jumpseller-|Jumpseller\./i.test(h)],
+  ['PrestaShop', 'tienda', h => /var prestashop|prestashop\s*=|\/modules\/ps_|content="prestashop/i.test(h)],
+  ['Tiendanube', 'tienda', h => /mitiendanube|nuvemshop|tiendanube/i.test(h)],
+  ['Bsale', 'tienda', h => /bsale\.(cl|io)\/|bsalestore|dojiw2m9tvv09/i.test(h)],
+  ['Wix', 'plataforma', (h, H) => /static\.wixstatic\.com|wix\.com\/|_wixCssImports/i.test(h) || !!H('x-wix-request-id')],
+  ['Squarespace', 'plataforma', h => /static1\.squarespace\.com|squarespace-cdn/i.test(h)],
+  ['Webflow', 'plataforma', h => /data-wf-page|website-files\.com|webflow\.js/i.test(h)],
+  ['Lovable', 'plataforma', h => /cdn\.gpteng\.co|gptengineer|lovable-tagger|lovable\.app\/[^"' ]*\.js/i.test(h)],
+  ['Google Sites', 'plataforma', h => /sites\.google\.com|gstatic\.com\/atari/i.test(h)],
+  ['Joomla', 'plataforma', h => /\/media\/jui\/|content="joomla/i.test(h)],
+  ['Drupal', 'plataforma', h => /drupal-settings-json|Drupal\.settings|\/sites\/default\/files/i.test(h)],
+  ['Elementor', 'constructor', h => /elementor/i.test(h)],
+  ['Next.js', 'framework', h => /__NEXT_DATA__|\/_next\/static/i.test(h)],
+  ['Astro', 'framework', h => /content="astro|\/_astro\//i.test(h)],
+  ['Google Analytics', 'medición', h => /gtag\(|google-analytics\.com|googletagmanager\.com\/gtag/i.test(h)],
+  ['Google Tag Manager', 'medición', h => /googletagmanager\.com\/gtm\.js|GTM-[A-Z0-9]{4,}/.test(h)],
+  ['Píxel de Meta', 'medición', h => /connect\.facebook\.net\/[^"']*fbevents|fbq\(/i.test(h)],
+  ['WhatsApp', 'contacto', h => /wa\.me\/|api\.whatsapp\.com|web\.whatsapp\.com/i.test(h)],
+  ['Cloudflare', 'hosting', (h, H) => /cloudflare/i.test(H('server') || '')],
+];
+function detectTech(html, headers) {
+  const H = (k) => { try { return headers ? headers.get(k) : null; } catch { return null; } };
+  // Solo el código (atributos y scripts), no el texto visible: una página que *menciona* WooCommerce no está hecha en WooCommerce.
+  const attrs = (html.match(/\b(?:src|href|content|class|id|data-[a-z-]+)\s*=\s*["'][^"']*["']/gi) || []).join(' ');
+  const scripts = (html.match(/<script\b[^>]*>[\s\S]*?<\/script>/gi) || []).join(' ').replace(/<script[^>]+application\/ld\+json[\s\S]*?<\/script>/gi, ' ');
+  const code = attrs + ' ' + scripts;
+  const found = TECH.filter(([, , test]) => { try { return test(code, H); } catch { return false; } }).map(([name, kind]) => ({ name, kind }));
+  const gen = (html.match(/<meta[^>]+name=["']generator["'][^>]*content=["']([^"']{2,60})["']/i) || [])[1];
+  if (gen && !found.some(t => gen.toLowerCase().includes(t.name.toLowerCase()))) found.unshift({ name: gen.trim(), kind: 'generador' });
+  return found.slice(0, 12);
+}
+
+// Qué datos del negocio puede leer Google en el JSON-LD (lo que alimenta la ficha, los resultados enriquecidos y la IA).
+function understood(nodes, types) {
+  const biz = nodes.find(n => [].concat(n['@type']).some(t => /Organization|LocalBusiness|Service|Store|Restaurant|Dentist|Physician|Clinic|Salon|Agency|Shop/i.test(String(t)))) || null;
+  const has = (k) => !!(biz && biz[k] && (typeof biz[k] !== 'object' || Object.keys(biz[k]).length));
+  return {
+    types: types.slice(0, 10),
+    business: biz ? String([].concat(biz['@type'])[0]) : null,
+    fields: [
+      ['Nombre del negocio', has('name')],
+      ['Dirección', has('address')],
+      ['Teléfono', has('telephone') || has('contactPoint')],
+      ['Horario de atención', has('openingHours') || has('openingHoursSpecification')],
+      ['Reseñas o calificación', has('aggregateRating') || has('review')],
+      ['Logo', has('logo') || has('image')],
+      ['Redes sociales (sameAs)', has('sameAs')],
+      ['Precios u ofertas', has('priceRange') || has('offers') || has('hasOfferCatalog') || types.some(t => /Offer|Product/i.test(t))],
+      ['Preguntas frecuentes', types.some(t => /FAQ/i.test(t))],
+    ].map(([label, ok]) => ({ label, ok })),
+  };
 }
 function decode(s) { return s.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'"); }
 function clip(s, n) { return s.length > n ? s.slice(0, n) + '…' : s; }

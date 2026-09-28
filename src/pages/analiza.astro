@@ -155,6 +155,18 @@ const headExtra = "<style>\n  :root{--pass:#1f8f5f;--warn:#B8690A;--fail:#D63A3A
   <SiteFooter />
 <style is:global>
   [hidden]{display:none !important}
+  .extras{margin-top:26px; background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:22px 24px; display:grid; gap:22px}
+  .ex-sec h3{margin:0 0 10px; font-size:1.1rem; letter-spacing:-.02em}
+  .chips-t{display:flex; flex-wrap:wrap; gap:8px}
+  .chip-t{font-size:.84rem; color:var(--muted); padding:6px 11px; border-radius:999px; border:1px solid var(--border); background:var(--bg)}
+  .chip-t b{color:var(--ink); font-weight:650}
+  .ex-sub{margin:0 0 12px; color:var(--muted); font-size:.92rem}
+  .ex-list{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:1fr 1fr; gap:8px 18px}
+  @media (max-width:560px){ .ex-list{grid-template-columns:1fr} }
+  .ex-list li{display:flex; align-items:center; gap:10px; font-size:.92rem}
+  .ex-list li.n{color:var(--muted)}
+  .ex-list .ico{margin-top:0}
+  .ex-btn{display:inline-block; margin-top:14px; font-weight:600; font-size:.92rem; color:var(--accent)}
   .nw-switch{margin:14px 0 0}
   .nw-switch button,.nw-back{background:none; border:none; padding:0; color:var(--accent); font-weight:600; font-size:.95rem; cursor:pointer; box-shadow:none}
   .nw-switch button:hover,.nw-back:hover{text-decoration:underline; transform:none; box-shadow:none}
@@ -276,6 +288,7 @@ const headExtra = "<style>\n  :root{--pass:#1f8f5f;--warn:#B8690A;--fail:#D63A3A
       h += `</div>`;
     }
 
+    h += extrasBlock(d);
     h += `<div id="psi-slot"></div>`;
     h += `<div id="ai-slot"></div>`;
 
@@ -288,6 +301,22 @@ const headExtra = "<style>\n  :root{--pass:#1f8f5f;--warn:#B8690A;--fail:#D63A3A
     animateIn(detail);
     loadPageSpeed(d.url);
     loadAiCheck(d.url);
+  }
+
+  // Extras sin puntaje: con qué está hecha la web y qué datos del negocio lee Google (JSON-LD).
+  function extrasBlock(d) {
+    const tech = d.tech || [], u = d.understood;
+    if (!tech.length && !u) return '';
+    const chips = tech.map(t => `<span class="chip-t"><b>${esc(t.name)}</b> ${esc(t.kind)}</span>`).join('');
+    const fields = u ? u.fields.map(f => `<li class="${f.ok ? 'y' : 'n'}"><span class="ico ${f.ok ? 'pass' : 'fail'}">${f.ok ? '✓' : '✕'}</span>${esc(f.label)}</li>`).join('') : '';
+    const miss = u ? u.fields.filter(f => !f.ok).length : 0;
+    return `<div class="extras">
+      ${tech.length ? `<div class="ex-sec"><h3>Con qué está hecha tu web</h3><div class="chips-t">${chips}</div></div>` : ''}
+      ${u ? `<div class="ex-sec"><h3>Qué entiende Google de tu negocio</h3>
+        <p class="ex-sub">${u.business ? 'Tu web se presenta como <b>' + esc(u.business) + '</b> en sus datos estructurados.' : 'Tu web no le dice a Google qué tipo de negocio es (no tiene datos estructurados de negocio).'}${miss ? ' Faltan ' + miss + ' datos que Google y la IA usan para mostrarte.' : ''}</p>
+        <ul class="ex-list">${fields}</ul>
+        <a class="ex-btn" href="${esc(d.richResultsUrl)}" target="_blank" rel="noopener">Verlo en la prueba oficial de Google →</a></div>` : ''}
+    </div>`;
   }
 
   // Cierre según el problema que mostró el análisis (tres públicos: base débil → web nueva;
