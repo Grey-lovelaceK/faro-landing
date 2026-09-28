@@ -1,5 +1,6 @@
-// Faro° — captura de lead. POST { name, email, url?, score?, checks?, marketing? } → guarda en tabla `leads`
-// y, si hay RESEND_API_KEY, envía el informe al lead y un aviso interno. Sin key: guarda igual, mailed=false.
+// Faro° — captura de lead. POST { name, email, url?, score?, checks?, marketing?, kind? } → guarda en tabla `leads`
+// kind 'sinweb': negocio sin web (modo «¿La IA conoce tu negocio?»); url trae «Negocio · rubro · comuna».
+// Si hay RESEND_API_KEY, envía el informe al lead y un aviso interno. Sin key: guarda igual, mailed=false.
 import { sql, dbReady, ensureSchema } from './_db.js';
 import { mailReady, sendMail, reportEmail, leadNoticeEmail, notifyTo } from './_mail.js';
 
@@ -24,6 +25,7 @@ export default async function handler(req, res) {
   const score = Number.isFinite(scoreNum) ? Math.max(0, Math.min(100, Math.round(scoreNum))) : null;
   const marketing = body.marketing === true;
   const checks = cleanChecks(body.checks);
+  const kind = body.kind === 'sinweb' ? 'sinweb' : 'web';
 
   if (name.length < 2) {
     return res.status(400).json({ ok: false, error: 'Falta tu nombre.' });
@@ -45,8 +47,8 @@ export default async function handler(req, res) {
 
   let mailed = false;
   if (mailReady() && recent < MAX_MAILS_PER_HOUR) {
-    const report = reportEmail({ name, url, score, checks });
-    const notice = leadNoticeEmail({ name, email, url, score, marketing });
+    const report = reportEmail({ name, url, score, checks, kind });
+    const notice = leadNoticeEmail({ name, email, url, score, marketing, kind });
     const [r1] = await Promise.all([
       sendMail({ to: email, ...report }),
       sendMail({ to: notifyTo(), replyTo: email, ...notice }),

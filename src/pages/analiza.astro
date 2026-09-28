@@ -99,13 +99,29 @@ const headExtra = "<style>\n  :root{\n    --accent:#3D5AFE; --accent-2:#5B72FF; 
 
     <span class="kicker">Analizador gratis</span>
     <h1>¿Te encuentran en Google y en la IA?</h1>
-    <p class="sub">Pon la URL de tu sitio y en segundos te damos tu nota de SEO, redes y buscadores con IA (AEO/GEO). Gratis. El detalle completo lo desbloqueas con tu nombre y correo.</p>
+    <p class="sub" id="sub">Pon la URL de tu sitio y en segundos te damos tu nota de SEO, redes y buscadores con IA (AEO/GEO). Gratis. El detalle completo lo desbloqueas con tu nombre y correo.</p>
 
     <form id="f">
       <input type="text" inputmode="url" id="url" placeholder="tunegocio.cl" autocomplete="off" autocapitalize="off" spellcheck="false" required>
       <button id="btn" type="submit">Analizar</button>
     </form>
     <p class="hint">// no guardamos tu sitio · analizamos la página pública, igual que Google</p>
+
+    <!-- Modo «sin web»: para negocios que solo están en Instagram/WhatsApp. -->
+    <p class="nw-switch" id="nwSwitch" hidden><button type="button" id="toNoWeb">¿No tienes web? Revisa si la IA conoce tu negocio →</button></p>
+    <form id="fnw" class="nw-form" hidden>
+      <p class="nw-lead">Le hacemos a la IA, con búsqueda de Google, la pregunta que haría un cliente tuyo, y vemos si te nombra.</p>
+      <div class="nw-grid">
+        <label>Nombre del negocio<input type="text" id="nwName" placeholder="Pastelería Lucía" maxlength="80" required></label>
+        <label>Rubro<input type="text" id="nwRubro" placeholder="pastelería" maxlength="60" required></label>
+        <label>Comuna<input type="text" id="nwComuna" placeholder="Macul" maxlength="60" required></label>
+        <label><span class="lt">Instagram <span>(opcional)</span></span><input type="text" id="nwIg" placeholder="@tunegocio" maxlength="60" autocapitalize="off" spellcheck="false"></label>
+      </div>
+      <div class="nw-actions">
+        <button id="nwBtn" type="submit">Preguntarle a la IA</button>
+        <button type="button" class="nw-back" id="toWeb">Sí tengo web</button>
+      </div>
+    </form>
 
     <div id="out"></div>
 
@@ -129,6 +145,33 @@ const headExtra = "<style>\n  :root{\n    --accent:#3D5AFE; --accent-2:#5B72FF; 
       </div>
     </section>
   </div>
+
+<style is:global>
+  [hidden]{display:none !important}
+  .nw-switch{margin:14px 0 0}
+  .nw-switch button,.nw-back{background:none; border:none; padding:0; color:var(--accent); font-weight:600; font-size:.95rem; cursor:pointer; box-shadow:none}
+  .nw-switch button:hover,.nw-back:hover{text-decoration:underline; transform:none; box-shadow:none}
+  .nw-form{margin-top:22px; background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:22px 24px; display:block}
+  .nw-lead{margin:0 0 16px; color:var(--muted); font-size:.95rem}
+  .nw-grid{display:grid; grid-template-columns:1fr 1fr; gap:12px 14px}
+  @media (max-width:640px){ .nw-grid{grid-template-columns:1fr} }
+  .nw-grid label{display:grid; gap:6px; font-size:.86rem; font-weight:600; color:var(--ink)}
+  .nw-grid label .lt span{font-weight:400; color:var(--faint)}
+  .nw-grid input{background:var(--ground); border:1px solid var(--border); color:var(--ink); border-radius:12px; padding:12px 14px; font-size:1rem; font-family:var(--sans)}
+  .nw-grid input:focus{outline:2px solid var(--accent); outline-offset:1px; border-color:transparent}
+  .nw-actions{display:flex; align-items:center; gap:18px; margin-top:16px; flex-wrap:wrap}
+  .pres .top{display:flex; align-items:center; gap:14px; flex-wrap:wrap}
+  .pres h3{margin:0; font-size:1.15rem; letter-spacing:-.02em; flex:1; min-width:180px}
+  .pres .answer{margin:14px 0 0; background:var(--ground); border:1px solid var(--border); border-radius:12px; padding:14px 16px; font-size:.95rem; line-height:1.55}
+  .pres .answer b{display:block; font-size:.8rem; color:var(--muted); font-weight:600; margin-bottom:6px}
+  .pres .grid4{display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-top:14px}
+  @media (max-width:640px){ .pres .grid4{grid-template-columns:1fr 1fr} }
+  .pres .grid4 div{background:var(--ground); border:1px solid var(--border); border-radius:12px; padding:10px 12px; font-size:.84rem; color:var(--muted)}
+  .pres .grid4 strong{display:block; font-size:.95rem; margin-top:2px}
+  .pres .src{margin:14px 0 0; font-size:.8rem; color:var(--faint)}
+  .cta .alt{margin:16px auto 0; padding-top:14px; border-top:1px solid color-mix(in srgb,var(--ground) 18%,transparent); font-size:.9rem; color:color-mix(in srgb,var(--ground) 72%,transparent); max-width:48ch}
+  .cta .alt a{display:inline; background:none; padding:0; color:#8B9BFF; font-weight:600; border-radius:0}
+</style>
 
 <script is:inline>
   const f = document.getElementById('f'), out = document.getElementById('out'), btn = document.getElementById('btn');
@@ -229,12 +272,7 @@ const headExtra = "<style>\n  :root{\n    --accent:#3D5AFE; --accent-2:#5B72FF; 
     h += `<div id="psi-slot"></div>`;
     h += `<div id="ai-slot"></div>`;
 
-    h += `<div class="cta">
-      <h3>¿Quieres que lo dejemos en verde?</h3>
-      <p>Te armamos un plan para subir esta nota — o te hacemos la web nueva, ya optimizada para Google y la IA.</p>
-      <a href="https://wa.me/56986639327?text=Hola%20Faro%C2%B0%2C%20analic%C3%A9%20mi%20web%20y%20quiero%20mejorarla" target="_blank" rel="noopener">Hablemos por WhatsApp</a>
-      <p style="margin:12px 0 0; font-size:.86rem">o escríbenos a <a href="mailto:contacto@faroagencia.cl?subject=Vi%20mi%20an%C3%A1lisis%20-%20quiero%20mejorar%20mi%20web" style="all:unset; cursor:pointer; text-decoration:underline">contacto@faroagencia.cl</a></p>
-    </div>`;
+    h += ctaFor(d);
 
     const detail = document.createElement('div');
     detail.id = 'detail';
@@ -243,6 +281,157 @@ const headExtra = "<style>\n  :root{\n    --accent:#3D5AFE; --accent-2:#5B72FF; 
     animateIn(detail);
     loadPageSpeed(d.url);
     loadAiCheck(d.url);
+  }
+
+  // Cierre según el problema que mostró el análisis (tres públicos: base débil → web nueva;
+  // web que no aparece → posicionamiento; web que ya va bien → traer visitas con campañas).
+  // Siempre menciona las campañas de Meta para quien vende por redes. Precios = los publicados en /precios.
+  const WA = m => 'https://wa.me/56986639327?text=' + encodeURIComponent(m);
+  function ctaFor(d) {
+    const cat = n => { const c = (d.categories || []).find(x => x.name === n); return c ? c.score : 100; };
+    const seo = cat('SEO'), aeo = cat('AEO / GEO'), tec = cat('Técnico');
+    let o;
+    if (d.score < 50 || tec < 50) o = {
+      h: 'Tu web necesita una base nueva',
+      p: 'Con esta nota, arreglar punto por punto sale más caro que partir bien: una web rápida, clara y hecha desde el inicio para Google y la IA. Planes desde $290.000, pago único.',
+      link: ['/diseno-web', 'Ver diseño web'], wa: 'Hola Faro°, analicé mi web y quiero una nueva',
+    };
+    else if (Math.min(seo, aeo) < 75) o = {
+      h: 'Tu web existe, pero Google y la IA no la están mostrando',
+      p: 'Si antes te llegaban clientes y ahora no, suele ser esto: la competencia te pasó en Google y los asistentes de IA no te recomiendan. Posicionamiento SEO · AEO · GEO desde $350.000 al mes.',
+      link: ['/seo-aeo-geo', 'Ver posicionamiento'], wa: 'Hola Faro°, analicé mi web y quiero volver a aparecer en Google',
+    };
+    else o = {
+      h: 'Tu web va bien: el siguiente paso es traer más visitas',
+      p: 'La base está. Ahora toca llevar gente: campañas en Google y en Meta (Instagram y Facebook), con presupuesto medido y reportes claros. Gestión desde $250.000 al mes más la inversión.',
+      link: ['/marketing-digital', 'Ver marketing digital'], wa: 'Hola Faro°, mi web va bien y quiero más clientes', ads: true,
+    };
+    return `<div class="cta">
+      <h3>${o.h}</h3>
+      <p>${o.p}</p>
+      <a href="${WA(o.wa)}" target="_blank" rel="noopener">Hablemos por WhatsApp</a>
+      <p style="margin:12px auto 0; font-size:.86rem"><a href="${o.link[0]}" style="all:unset; cursor:pointer; text-decoration:underline">${o.link[1]}</a> · o escríbenos a <a href="mailto:contacto@faroagencia.cl?subject=Vi%20mi%20an%C3%A1lisis" style="all:unset; cursor:pointer; text-decoration:underline">contacto@faroagencia.cl</a></p>
+      ${o.ads ? '' : `<p class="alt">¿Vendes por Instagram o Facebook? También gestionamos tus campañas en Meta para traer clientes mientras mejoramos tu web. <a href="/marketing-digital">Ver campañas →</a></p>`}
+    </div>`;
+  }
+
+  // ── Modo «sin web»: ¿la IA conoce tu negocio? ──────────────────────────
+  // Se muestra con ?sinweb (prueba) o cuando el HTML trae data-noweb="on" en el body.
+  const fnw = document.getElementById('fnw'), nwSwitch = document.getElementById('nwSwitch');
+  if (new URLSearchParams(location.search).has('sinweb') || document.body.dataset.noweb === 'on') nwSwitch.hidden = false;
+  const sub = document.getElementById('sub'), subWeb = sub.textContent;
+  const showNoWeb = (on) => {
+    fnw.hidden = !on; f.hidden = on; nwSwitch.hidden = on;
+    sub.textContent = on ? 'Sin web también se puede revisar: dinos el nombre de tu negocio, tu rubro y tu comuna, y vemos si la IA te recomienda cuando un cliente pregunta. Gratis.' : subWeb;
+    document.querySelector('.hint').hidden = on; out.innerHTML = '';
+    if (on) document.getElementById('nwName').focus();
+  };
+  document.getElementById('toNoWeb').addEventListener('click', () => showNoWeb(true));
+  document.getElementById('toWeb').addEventListener('click', () => { showNoWeb(false); document.getElementById('url').focus(); });
+
+  fnw.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const v = id => document.getElementById(id).value.trim();
+    const q = { name: v('nwName'), rubro: v('nwRubro'), comuna: v('nwComuna'), ig: v('nwIg') };
+    if (!q.name || !q.rubro || !q.comuna) return;
+    const b = document.getElementById('nwBtn');
+    b.disabled = true; b.textContent = 'Preguntando…';
+    out.innerHTML = '<div class="loading"><span class="spin"></span> Preguntándole a la IA por ' + esc(q.rubro) + ' en ' + esc(q.comuna) + '… (~15 seg)</div>';
+    try {
+      const r = await fetch('/api/presence?' + new URLSearchParams(q));
+      const d = await r.json();
+      if (!d.ok) { out.innerHTML = '<div class="err">' + esc(d.error || 'No se pudo consultar.') + '</div>'; return; }
+      renderNoWeb(d);
+    } catch (err) {
+      out.innerHTML = '<div class="err">Error de red. Intenta de nuevo.</div>';
+    } finally { b.disabled = false; b.textContent = 'Preguntarle a la IA'; }
+  });
+
+  // Gratis: si la IA te nombró y su respuesta. Tras nombre + correo: presencia, a quién recomienda, qué hacer.
+  function renderNoWeb(d) {
+    const label = { si: 'Te recomienda', parcial: 'Apareces, pero no te recomienda', no: 'No te nombra' }[d.found];
+    const vb = { si: 'si', parcial: 'parcial', no: 'no' }[d.found];
+    const lock = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>`;
+    out.innerHTML = `<div class="ai pres">
+        <div class="top"><h3>¿La IA conoce a ${esc(d.business)}?</h3><span class="verdict-badge vb-${vb}">${esc(label)}</span></div>
+        <div class="query"><b>Pregunta de un cliente:</b> "¿Dónde encuentro un buen negocio de ${esc(d.query)}?"</div>
+        ${d.answer ? `<div class="answer"><b>Lo que respondió la IA</b>${esc(d.answer)}</div>` : ''}
+        <p class="verdict">${esc(d.verdict)}</p>
+      </div>
+      <div class="lead" id="lead">
+        <h3>Mira qué te falta para aparecer</h3>
+        <p>Déjanos tu nombre y correo y te mostramos al tiro dónde estás y dónde no, a quién recomienda la IA en tu rubro y qué hacer primero. Sin spam.</p>
+        <ul class="locked">
+          <li>${lock} Tu presencia: Google Maps, reseñas, Instagram, web</li>
+          <li>${lock} A quién recomienda la IA en tu rubro</li>
+          <li>${lock} Qué hacer primero para aparecer</li>
+        </ul>
+        <form id="leadf">
+          <input type="text" id="name" placeholder="Tu nombre" autocomplete="name" autocapitalize="words" required>
+          <input type="email" id="email" placeholder="tucorreo@ejemplo.cl" autocomplete="email" required>
+          <button id="leadbtn" type="submit">Ver qué me falta</button>
+        </form>
+        <label class="optin"><input type="checkbox" id="mkt"> Quiero recibir consejos y novedades de Faro° (opcional, puedes darte de baja cuando quieras)</label>
+        <p class="privacy">Usamos tus datos para enviarte este resultado y contactarte por él · <a href="/privacidad" style="color:inherit">privacidad</a></p>
+      </div>`;
+    const lf = document.getElementById('leadf');
+    lf.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim(), email = document.getElementById('email').value.trim();
+      const lb = document.getElementById('leadbtn');
+      const prev = document.querySelector('#lead .leaderr'); if (prev) prev.remove();
+      if (!name || !email) return;
+      lb.disabled = true; lb.textContent = 'Desbloqueando…';
+      try {
+        const r = await fetch('/api/lead', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name, email, kind: 'sinweb',
+            url: [d.business, d.rubro, d.comuna].join(' · ') + (d.instagram ? ' · @' + d.instagram : ''),
+            marketing: !!(document.getElementById('mkt') || {}).checked,
+            checks: (d.actions || []).map(a => ({ cat: 'Qué hacer', label: a, status: 'warn', tip: '' })),
+          }),
+        });
+        const j = await r.json().catch(() => ({}));
+        if (!r.ok || !j.ok) throw new Error(j.error || 'error');
+        const first = name.split(' ')[0];
+        document.getElementById('lead').innerHTML = '<div class="ok"><span class="ico">✓</span><div><h3>Listo' + (first ? ', ' + esc(first) : '') + ': aquí está lo que te falta.</h3>' +
+          '<p style="margin:6px 0 0">' + (j.mailed ? 'También te enviamos una copia a tu correo. Si no la ves, revisa la carpeta de spam.' : 'Te escribiremos una vez a tu correo para ayudarte a aparecer. Sin spam.') + '</p></div></div>';
+        revealNoWeb(d);
+      } catch (err) {
+        lb.disabled = false; lb.textContent = 'Ver qué me falta';
+        const p = document.createElement('p'); p.className = 'leaderr';
+        p.textContent = (err && err.message && err.message !== 'error') ? err.message : 'No se pudo guardar. Revisa los datos e intenta de nuevo.';
+        lf.after(p);
+      }
+    });
+  }
+
+  function revealNoWeb(d) {
+    const txt = { si: 'Sí', no: 'No', 'no se sabe': 'No se sabe' };
+    const col = v => v === 'si' ? 'var(--pass)' : v === 'no' ? 'var(--fail)' : 'var(--muted)';
+    const cell = (n, v) => `<div>${n}<strong style="color:${col(v)}">${txt[v] || '—'}</strong></div>`;
+    const p = d.presence || {};
+    const rec = (d.recommended || []).map(x => `<li>${esc(x)}</li>`).join('');
+    const acts = (d.actions || []).map(x => `<li>${esc(x)}</li>`).join('');
+    const src = (d.sources || []).map(s => esc(s.title)).join(' · ');
+    const el = document.createElement('div');
+    el.id = 'detail';
+    el.innerHTML = `<div class="ai pres">
+        <div class="top"><h3>Tu presencia hoy</h3></div>
+        <div class="grid4">${cell('Google Maps', p.googleMaps)}${cell('Reseñas en Google', p.reviews)}${cell('Instagram', p.instagram)}${cell('Web', p.web)}</div>
+        ${rec ? `<div class="sect"><h4>A quién recomienda la IA para «${esc(d.query)}»</h4><ul>${rec}</ul></div>` : ''}
+        ${acts ? `<div class="sect"><h4>Qué hacer primero</h4><ul>${acts}</ul></div>` : ''}
+        <p class="note">Consulta hecha hoy con ${esc(d.model || 'IA')}${d.grounded ? ' y búsqueda de Google' : ''}. Las respuestas de la IA cambian: tómalo como una prueba, no como una nota fija.${src ? ' Fuentes: ' + src + '.' : ''}</p>
+      </div>
+      <div class="cta">
+        <h3>Te ayudamos a aparecer, aunque hoy no tengas web</h3>
+        <p>Partimos por tu perfil de Google (Maps y reseñas), que es lo que más pesa cuando alguien busca cerca. Y cuando quieras, tu web: planes desde $290.000, pago único.</p>
+        <a href="${WA('Hola Faro°, revisé si la IA conoce mi negocio y quiero aparecer')}" target="_blank" rel="noopener">Hablemos por WhatsApp</a>
+        <p style="margin:12px auto 0; font-size:.86rem"><a href="/precios" style="all:unset; cursor:pointer; text-decoration:underline">Ver precios</a> · o escríbenos a <a href="mailto:contacto@faroagencia.cl?subject=Quiero%20aparecer%20en%20Google%20y%20la%20IA" style="all:unset; cursor:pointer; text-decoration:underline">contacto@faroagencia.cl</a></p>
+        <p class="alt">¿Vendes por Instagram? Gestionamos tus campañas en Meta para que te lleguen clientes desde ya. Desde $250.000 al mes más la inversión. <a href="/marketing-digital">Ver campañas →</a></p>
+      </div>`;
+    out.appendChild(el);
   }
 
   const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
