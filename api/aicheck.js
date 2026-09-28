@@ -104,7 +104,7 @@ async function extractPage(target) {
   try {
     const r = await fetch(target, {
       redirect: 'follow', signal: ctrl.signal,
-      headers: { 'User-Agent': 'Mozilla/5.0 (compatible; FaroBot/1.0; +https://faro-landing-alpha.vercel.app)', 'Accept': 'text/html,*/*' },
+      headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36', 'Accept': 'text/html,application/xhtml+xml,*/*;q=0.8', 'Accept-Language': 'es-CL,es;q=0.9' },
     });
     const t = await r.text();
     html = t.length > 900_000 ? t.slice(0, 900_000) : t;

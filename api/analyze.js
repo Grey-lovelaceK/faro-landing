@@ -25,6 +25,10 @@ export default async function handler(req, res) {
     return res.status(200).json({ ok: false, error: 'No pudimos acceder al sitio. ¿Existe y responde? (' + (e.name || 'error') + ')', url: target });
   }
   const ms = Date.now() - t0;
+  if ([401, 403, 429, 503].includes(status) && /forbidden|access denied|captcha|cloudflare|attention required|just a moment|too many requests|acceso denegado/i.test(html.slice(0, 5000))) {
+    return res.status(200).json({ ok: false, blocked: true, url: finalUrl,
+      error: `El sitio bloquea las revisiones automáticas (HTTP ${status}), así que no podemos ponerle nota sin ver la página real. Ábrelo en tu navegador: si carga, el bloqueo es solo para robots.` });
+  }
 
   // ── Extracción tolerante ────────────────────────────────────────────
   const metaTags = html.match(/<meta\b[^>]*>/gi) || [];
@@ -150,7 +154,8 @@ async function fetchWithTimeout(u, ms) {
   try {
     return await fetch(u, {
       redirect: 'follow', signal: ctrl.signal,
-      headers: { 'User-Agent': 'Mozilla/5.0 (compatible; FaroBot/1.0; +https://faroagencia.cl/analiza)', 'Accept': 'text/html,*/*' },
+      // UA de navegador (como PageSpeed): muchos sitios bloquean todo lo que diga «bot» y responden 403.
+      headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36', 'Accept': 'text/html,application/xhtml+xml,*/*;q=0.8', 'Accept-Language': 'es-CL,es;q=0.9' },
     });
   } finally { clearTimeout(id); }
 }
