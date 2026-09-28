@@ -1,4 +1,5 @@
 ---
+import BrandLogo from '../components/BrandLogo.astro';
 // Migrado desde nosotros.html (27/28-sep-2026). Estilos y scripts de la página intactos (is:inline).
 import Base from '../layouts/Base.astro';
 const ld = [
@@ -79,7 +80,7 @@ const headExtra = "<style>\n  .team{display:grid; grid-template-columns:1fr 1fr;
 >
 <header class="bar">
   <div class="in">
-    <a href="/" class="brand">Faro<b>°</b></a>
+    <BrandLogo size={34} />
     <nav>
       <a href="/#servicios" class="hide-sm">Servicios</a>
       <a href="/blog/" class="hide-sm">Blog</a>

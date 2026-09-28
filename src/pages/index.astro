@@ -1,4 +1,5 @@
 ---
+import BrandLogo from '../components/BrandLogo.astro';
 // Portada de Faro° (rediseño 27-sep-2026, dirección «estándar del rubro», comp aprobada .impeccable/mocks/comp-2.png).
 import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
@@ -163,7 +164,7 @@ const preload = '<link rel="preload" href="/fonts/palanquin-dark-700-latin.woff2
 >
   <nav class="bar" aria-label="Principal">
     <div class="container wrap">
-      <a href="/" class="brand" aria-label="Faro°, inicio">Faro<b>°</b></a>
+      <BrandLogo size={40} />
       <div class="navlinks">
         <a href="/#servicios">Servicios</a>
         <a href="/precios">Precios</a>

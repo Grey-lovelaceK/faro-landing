@@ -1,4 +1,5 @@
 ---
+import BrandLogo from '../../components/BrandLogo.astro';
 // Índice del blog: se arma solo con los posts de src/content/blog (más nuevo arriba).
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
@@ -19,7 +20,7 @@ const ld = [{
   ld={ld} blogCss>
 <header class="bar">
   <div class="in">
-    <a href="/" class="brand">Faro<b>°</b></a>
+    <BrandLogo size={34} />
     <nav>
       <a href="/#servicios" class="hide-sm">Servicios</a>
       <a href="/integraciones" class="hide-sm">Integraciones</a>

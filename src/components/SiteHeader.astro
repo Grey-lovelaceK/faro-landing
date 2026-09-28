@@ -1,4 +1,5 @@
 ---
+import BrandLogo from './BrandLogo.astro';
 // Cabecera de las páginas de contenido (blog, servicios). Las páginas con diseño propio
 // (portada, /analiza, /integraciones) tienen su cabecera en su propio archivo.
 interface Props { variant?: 'blog' | 'servicios' }
@@ -6,7 +7,7 @@ const { variant = 'blog' } = Astro.props;
 ---
 <header class="bar">
   <div class="in">
-    <a href="/" class="brand">Faro<b>°</b></a>
+    <BrandLogo size={34} />
     {variant === 'blog' ? (
       <nav>
         <a href="/blog/">Blog</a>

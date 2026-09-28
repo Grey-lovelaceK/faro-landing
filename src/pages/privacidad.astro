@@ -1,4 +1,5 @@
 ---
+import BrandLogo from '../components/BrandLogo.astro';
 // Migrado desde privacidad.html (27/28-sep-2026). Estilos y scripts de la página intactos (is:inline).
 import Base from '../layouts/Base.astro';
 const ld = [
@@ -34,7 +35,7 @@ const headExtra = "<style>\n  :root{--accent:#3D5AFE;--ground:#EEF1F7;--surface:
 >
 <div class="wrap">
   <header>
-    <a href="/" class="brand">Faro<b>°</b></a>
+    <BrandLogo size={34} />
     <a href="/" class="back">← Volver</a>
   </header>
 
