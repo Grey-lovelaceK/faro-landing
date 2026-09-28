@@ -328,6 +328,7 @@ const headExtra = "<style>\n  :root{\n    --accent:#3D5AFE; --accent-2:#5B72FF; 
   };
   document.getElementById('toNoWeb').addEventListener('click', () => showNoWeb(true));
   document.getElementById('toWeb').addEventListener('click', () => { showNoWeb(false); document.getElementById('url').focus(); });
+  if (new URLSearchParams(location.search).get('sinweb') === '1') showNoWeb(true); // enlace «Solo tengo Instagram» de la portada
 
   fnw.addEventListener('submit', async (e) => {
     e.preventDefault();
