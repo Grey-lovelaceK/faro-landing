@@ -5,7 +5,7 @@
 //    si el negocio aparece, qué presencia tiene y qué hacer. Sin resultados de búsqueda, no nombra competidores.
 // Env: TAVILY_API_KEY + GROQ_API_KEY y/o GEMINI_API_KEY (ver api/_llm.js).
 
-import { askJson, search } from './_llm.js';
+import { askJson, search, groqModels, groqModel } from './_llm.js';
 
 export const config = { maxDuration: 30 };
 
@@ -53,7 +53,7 @@ Formato exacto: {"answer": "", "recommended": [""], "found": "si|parcial|no", "p
 
   const ai = await askJson(prompt, { order: ['groq', 'gemini'] });
   if (!ai.ok && q.diag === 'faro-7c1') {
-    return res.status(200).json({ ok: false, diag: ai.error, envs: { groq: !!process.env.GROQ_API_KEY, gemini: !!process.env.GEMINI_API_KEY, tavily: !!process.env.TAVILY_API_KEY, groqModel: process.env.GROQ_MODEL || null }, search: [market.results.length, own.results.length] });
+    return res.status(200).json({ ok: false, diag: ai.error, envs: { groq: !!process.env.GROQ_API_KEY, gemini: !!process.env.GEMINI_API_KEY, tavily: !!process.env.TAVILY_API_KEY, groqModel: await groqModel(), groqModels: await groqModels() }, search: [market.results.length, own.results.length] });
   }
   if (!ai.ok) {
     return res.status(200).json({ ok: false, error: ai.quota ? 'El chequeo de IA llegó a su límite de hoy. Intenta más tarde.' : 'El chequeo de IA no está disponible por ahora.' });

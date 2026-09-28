@@ -3,7 +3,23 @@
 // Env: GEMINI_API_KEY / GEMINI_MODEL, GROQ_API_KEY / GROQ_MODEL, TAVILY_API_KEY. Ninguna va en el repo.
 
 const GEMINI_MODEL = () => process.env.GEMINI_MODEL || 'gemini-3.8-flash';
-const GROQ_MODEL = () => process.env.GROQ_MODEL || 'llama-3.3-70b-versatile';
+// Groq retira modelos seguido: sin GROQ_MODEL, se elige solo uno de la lista de la cuenta (preferencia abajo).
+let groqPicked = null;
+const GROQ_PREF = [/gpt-oss-120b/i, /llama-4.*maverick/i, /llama.*70b/i, /qwen.*32b/i, /llama-4.*scout/i, /gpt-oss-20b/i, /llama/i];
+export async function groqModel() {
+  if (process.env.GROQ_MODEL) return process.env.GROQ_MODEL;
+  if (groqPicked) return groqPicked;
+  try {
+    const r = await fetch('https://api.groq.com/openai/v1/models', { headers: { Authorization: `Bearer ${process.env.GROQ_API_KEY}` } });
+    const ids = ((await r.json()).data || []).filter(m => m.active !== false).map(m => m.id)
+      .filter(id => !/whisper|tts|guard|playai|distil|embed|vision|orpheus/i.test(id));
+    for (const re of GROQ_PREF) { const hit = ids.find(id => re.test(id)); if (hit) return (groqPicked = hit); }
+    return (groqPicked = ids[0] || 'llama-3.1-8b-instant');
+  } catch { return 'llama-3.1-8b-instant'; }
+}
+export async function groqModels() {
+  try { const r = await fetch('https://api.groq.com/openai/v1/models', { headers: { Authorization: `Bearer ${process.env.GROQ_API_KEY}` } }); return ((await r.json()).data || []).map(m => m.id); } catch (e) { return [String(e.message)]; }
+}
 const RETRY = [429, 500, 502, 503, 504];
 
 async function post(url, headers, body, ms) {
@@ -49,23 +65,24 @@ export async function gemini(prompt, { schema, ms = 22000, temperature = 0.3 } =
 // Groq (API compatible con OpenAI) en modo JSON.
 export async function groq(prompt, { ms = 20000, temperature = 0.3 } = {}) {
   if (!process.env.GROQ_API_KEY) return { ok: false, error: 'sin GROQ_API_KEY' };
+  const model = await groqModel();
   try {
     const { r, data } = await post(
       'https://api.groq.com/openai/v1/chat/completions',
       { Authorization: `Bearer ${process.env.GROQ_API_KEY}` },
       {
-        model: GROQ_MODEL(), temperature, max_tokens: 2048, response_format: { type: 'json_object' },
+        model, temperature, max_tokens: 2048, response_format: { type: 'json_object' },
         messages: [{ role: 'system', content: 'Respondes solo con un objeto JSON válido, en español de Chile.' }, { role: 'user', content: prompt }],
       },
       ms,
     );
     if (!r.ok || data.error) {
       const msg = (data.error && (data.error.message || data.error)) || `HTTP ${r.status}`;
-      console.error('[llm] Groq', GROQ_MODEL(), r.status, msg);
+      console.error('[llm] Groq', model, r.status, msg);
       return { ok: false, error: String(msg), quota: isQuota(r.status, String(msg)) };
     }
     const json = parseJson(data?.choices?.[0]?.message?.content || '');
-    return json ? { ok: true, json, provider: 'groq', model: GROQ_MODEL() } : { ok: false, error: 'Groq sin JSON' };
+    return json ? { ok: true, json, provider: 'groq', model } : { ok: false, error: 'Groq sin JSON' };
   } catch (e) {
     return { ok: false, error: 'Groq: ' + (e.name === 'AbortError' ? 'tiempo agotado' : e.message) };
   }
