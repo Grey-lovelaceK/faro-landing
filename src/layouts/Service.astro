@@ -3,8 +3,9 @@
 // Cada página pasa sus datos y escribe sus secciones como contenido; el JSON-LD de FAQ y la ruta
 // de navegación salen de las mismas props que se muestran.
 import Base from './Base.astro';
-import SiteHeader from '../components/SiteHeader.astro';
-import SiteFooter from '../components/SiteFooter.astro';
+import SiteNav from '../components/SiteNav.astro';
+import SiteFooter from '../components/home/HomeFooter.astro';
+import '../styles/content.css';
 import Faq from '../components/Faq.astro';
 import { SITE, WA, faqJsonLd, breadcrumbJsonLd } from '../lib/seo';
 
@@ -31,12 +32,11 @@ const ld = [{
   '@graph': [p.service, breadcrumbJsonLd([{ name: 'Inicio', url: `${SITE}/` }, { name: p.crumb, url }]), faqJsonLd(p.faq)],
 }];
 ---
-<Base title={p.title} description={p.description} canonical={url} ld={ld} blogCss>
-<SiteHeader variant="servicios" />
+<Base title={p.title} description={p.description} canonical={url} ld={ld}>
+<SiteNav />
 
-<main class="wrap">
+<main class="doc">
   <nav class="crumbs" aria-label="Ruta"><a href="/">Inicio</a> / {p.crumb}</nav>
-  <span class="eyebrow" style="display:block; margin-top:18px">{p.eyebrow}</span>
   <h1>{p.h1}</h1>
 
   <div class="tldr">
@@ -44,8 +44,8 @@ const ld = [{
     <p set:html={p.tldr} />
   </div>
   <div class="hero-cta">
-    <a class="btn primary" href={wa} target="_blank" rel="noopener">{p.ctaLabel}</a>
-    <a class="btn ghost" href="/analiza">Analiza tu web gratis</a>
+    <a class="btn btn-primary" href={wa} target="_blank" rel="noopener">{p.ctaLabel}</a>
+    <a class="btn btn-ghost" href="/analiza">Analiza tu web gratis</a>
   </div>
 
   <div class="prose">
@@ -63,12 +63,12 @@ const ld = [{
   </aside>
 
   <section class="related" aria-labelledby="rel">
-    <h2 id="rel" style="font-size:1.1rem">Para seguir leyendo</h2>
+    <h2 id="rel">Para seguir leyendo</h2>
     <ul>
       {p.related.map((r) => <li><a href={r.href}>{r.title}</a></li>)}
     </ul>
   </section>
 </main>
 
-<SiteFooter links={[{ href: '/nosotros', label: 'Nosotros' }, { href: '/blog/', label: 'Blog' }, { href: '/privacidad', label: 'Privacidad' }]} />
+<SiteFooter />
 </Base>

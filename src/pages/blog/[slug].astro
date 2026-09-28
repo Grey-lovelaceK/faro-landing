@@ -3,8 +3,9 @@
 // El JSON-LD (BlogPosting + BreadcrumbList + FAQPage) se arma con los mismos datos que se ven en pantalla.
 import { getCollection, render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
-import SiteHeader from '../../components/SiteHeader.astro';
-import SiteFooter from '../../components/SiteFooter.astro';
+import SiteNav from '../../components/SiteNav.astro';
+import SiteFooter from '../../components/home/HomeFooter.astro';
+import '../../styles/content.css';
 import Faq from '../../components/Faq.astro';
 import { SITE, ORG_ID, WA, faqJsonLd, breadcrumbJsonLd, fechaLarga, wordCount } from '../../lib/seo';
 
@@ -21,6 +22,8 @@ const img = `${SITE}/blog/img/${post.id}.png`;
 const words = wordCount(d.tldr + ' ' + (post.body ?? '') + ' ' + d.faq.map((f) => f.q + ' ' + f.a).join(' '));
 const mins = Math.max(3, Math.round(words / 200));
 const toc = headings.filter((h) => h.depth === 2);
+// Foto real del autor (public/img); si no hay, la inicial.
+const photo = /clementina/i.test(d.author) ? '/img/clementina.webp' : /cristian/i.test(d.author) ? '/img/cristian.webp' : null;
 
 const ld = [{
   '@context': 'https://schema.org',
@@ -39,16 +42,16 @@ const ld = [{
 }];
 ---
 <Base title={`${d.title} | Faro°`} description={d.description} canonical={url} ogType="article" ogTitle={d.title}
-  image={img} imageAlt={d.title} published={d.date} modified={d.updated ?? d.date} ld={ld} blogCss>
-<SiteHeader />
+  image={img} imageAlt={d.title} published={d.date} modified={d.updated ?? d.date} ld={ld}>
+<SiteNav />
 
-<main class="wrap">
+<main class="doc">
   <nav class="crumbs" aria-label="Ruta"><a href="/">Inicio</a> / <a href="/blog/">Blog</a> / {d.cluster}</nav>
 
   <article>
-    <span class="eyebrow">{d.cluster}</span>
     <h1>{d.h1}</h1>
     <div class="meta">
+      <span class="cat">{d.cluster}</span>
       <span>Por {d.author}</span>
       <span>Publicado el <time datetime={d.date}>{fechaLarga(d.date)}</time></span>
       <span>{mins} min de lectura</span>
@@ -84,12 +87,12 @@ const ld = [{
     </aside>
 
     <div class="author">
-      <span class="av" aria-hidden="true">{d.author[0]}</span>
+      <span class="av">{photo ? <img src={photo} alt={`Foto de ${d.author}`} width="48" height="48" loading="lazy" decoding="async"> : d.author[0]}</span>
       <div><strong>{d.author}</strong><p>{d.role}</p></div>
     </div>
 
     <section class="related" aria-labelledby="rel">
-      <h2 id="rel" style="font-size:1.1rem">Sigue leyendo</h2>
+      <h2 id="rel">Sigue leyendo</h2>
       <ul>
         {d.related.map((r) => <li><a href={r.href}>{r.title}</a></li>)}
       </ul>

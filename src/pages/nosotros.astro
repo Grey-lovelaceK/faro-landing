@@ -1,5 +1,7 @@
 ---
-import BrandLogo from '../components/BrandLogo.astro';
+import SiteNav from '../components/SiteNav.astro';
+import SiteFooter from '../components/home/HomeFooter.astro';
+import '../styles/content.css';
 // Migrado desde nosotros.html (27/28-sep-2026). Estilos y scripts de la página intactos (is:inline).
 import Base from '../layouts/Base.astro';
 const ld = [
@@ -63,7 +65,7 @@ const ld = [
     ]
   }
 ];
-const headExtra = "<style>\n  .team{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:28px}\n  @media (max-width:640px){ .team{grid-template-columns:1fr} }\n  .person{background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:24px; display:flex; flex-direction:column; gap:12px}\n  .photo{width:140px; height:140px; border-radius:50%; background:linear-gradient(135deg,var(--accent),var(--accent-2)); color:#fff; display:grid; place-items:center; font-weight:800; font-size:1.8rem; letter-spacing:-.03em; overflow:hidden}\n  .photo img{width:100%; height:100%; object-fit:cover}\n  .person h3{margin:4px 0 0; font-size:1.3rem}\n  .person .role{font-size:.92rem; font-weight:600; color:var(--accent)}\n  .person p{margin:0; color:var(--muted); font-size:.95rem}\n  .person ul{margin:0; padding-left:18px; color:var(--muted); font-size:.92rem}\n  .principles{display:grid; grid-template-columns:repeat(2,1fr); gap:14px; margin-top:20px}\n  @media (max-width:640px){ .principles{grid-template-columns:1fr} }\n  .principles div{border-left:2px solid var(--accent); padding:4px 0 4px 16px}\n  .principles strong{display:block; color:var(--ink)}\n  .principles span{color:var(--muted); font-size:.94rem}\n  .mv{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:20px}\n  @media (max-width:640px){ .mv{grid-template-columns:1fr} }\n  .mv div{background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:22px 24px}\n  .mv strong{display:block; font-family:var(--mono); font-size:.74rem; letter-spacing:.1em; text-transform:uppercase; color:var(--accent)}\n  .mv p{margin:10px 0 0; color:var(--ink); font-size:1.02rem; line-height:1.55}\n  .svc-links{display:grid; grid-template-columns:repeat(2,1fr); gap:12px; margin-top:18px; padding:0; list-style:none}\n  @media (max-width:640px){ .svc-links{grid-template-columns:1fr} }\n  .svc-links a{display:block; background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:14px 16px; text-decoration:none; color:var(--ink); font-weight:600}\n  .svc-links a:hover{border-color:var(--accent)}\n  .svc-links small{display:block; font-weight:400; color:var(--muted); margin-top:2px}\n</style>";
+const headExtra = "<style>\n  .team{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:28px}\n  @media (max-width:640px){ .team{grid-template-columns:1fr} }\n  .person{background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:24px; display:flex; flex-direction:column; gap:12px}\n  .photo{width:140px; height:140px; border-radius:50%; background:var(--accent-tint); color:#fff; display:grid; place-items:center; font-weight:800; font-size:1.8rem; letter-spacing:-.03em; overflow:hidden}\n  .photo img{width:100%; height:100%; object-fit:cover}\n  .person h3{margin:4px 0 0; font-size:1.45rem}\n  .person .role{font-size:.92rem; font-weight:600; color:var(--accent)}\n  .person p{margin:0; color:var(--muted); font-size:.95rem}\n  .person ul{margin:0; padding-left:18px; color:var(--muted); font-size:.92rem}\n  .principles{display:grid; grid-template-columns:repeat(2,1fr); gap:14px; margin-top:20px}\n  @media (max-width:640px){ .principles{grid-template-columns:1fr} }\n  .principles div{border-left:2px solid var(--accent); padding:4px 0 4px 16px}\n  .principles strong{display:block; color:var(--ink)}\n  .principles span{color:var(--muted); font-size:.94rem}\n  .mv{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:20px}\n  @media (max-width:640px){ .mv{grid-template-columns:1fr} }\n  .mv div{background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:22px 24px}\n  .mv strong{display:block; font-size:.92rem; font-weight:700; color:var(--accent)}\n  .mv p{margin:10px 0 0; color:var(--ink); font-size:1.02rem; line-height:1.55}\n  .svc-links{display:grid; grid-template-columns:repeat(2,1fr); gap:12px; margin-top:18px; padding:0; list-style:none}\n  @media (max-width:640px){ .svc-links{grid-template-columns:1fr} }\n  .svc-links a{display:block; background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:14px 16px; text-decoration:none; color:var(--ink); font-weight:600}\n  .svc-links a:hover{border-color:var(--accent)}\n  .svc-links small{display:block; font-weight:400; color:var(--muted); margin-top:2px}\n</style>";
 ---
 <Base
   title="Nosotros: el equipo detrás de Faro° en Macul, Santiago"
@@ -74,25 +76,14 @@ const headExtra = "<style>\n  .team{display:grid; grid-template-columns:1fr 1fr;
   ogDescription="Un estudio, dos especialistas: desarrollo y datos por un lado, estrategia, redacción y diseño por el otro."
   imageAlt="Faro°: que te encuentren en Google y en la IA"
   image="https://faroagencia.cl/blog/img/og-default.png"
-  blogCss
   ld={ld}
   headExtra={headExtra}
 >
-<header class="bar">
-  <div class="in">
-    <BrandLogo size={34} />
-    <nav>
-      <a href="/#servicios" class="hide-sm">Servicios</a>
-      <a href="/blog/" class="hide-sm">Blog</a>
-      <a href="/analiza">Analiza tu web</a>
-    </nav>
-  </div>
-</header>
+<SiteNav />
 
-<main class="wrap">
+<main class="doc">
   <nav class="crumbs" aria-label="Ruta"><a href="/">Inicio</a> / Nosotros</nav>
 
-  <span class="eyebrow" style="display:block; margin-top:18px">Nosotros</span>
   <h1>Un estudio, dos especialistas. Trabajas directo con nosotros.</h1>
 
   <div class="tldr">
@@ -174,8 +165,5 @@ const headExtra = "<style>\n  .team{display:grid; grid-template-columns:1fr 1fr;
   </aside>
 </main>
 
-<footer>
-  <a href="/" style="color:inherit; text-decoration:none"><strong>Faro°</strong></a> · Macul, Santiago ·
-  <a href="mailto:contacto@faroagencia.cl">contacto@faroagencia.cl</a> · <a href="/blog/">Blog</a> · <a href="/privacidad">Privacidad</a>
-</footer>
+<SiteFooter />
 </Base>

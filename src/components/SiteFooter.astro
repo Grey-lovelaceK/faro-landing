@@ -1,8 +1,0 @@
----
-interface Props { links?: { href: string; label: string }[] }
-const { links = [{ href: '/privacidad', label: 'Privacidad' }] } = Astro.props;
----
-<footer>
-  <a href="/" style="color:inherit; text-decoration:none"><strong>Faro°</strong></a> · Macul, Santiago ·
-  <a href="mailto:contacto@faroagencia.cl">contacto@faroagencia.cl</a> · <a href="https://www.instagram.com/faroagencia.cl/" target="_blank" rel="noopener me">Instagram</a> · <a href="https://www.facebook.com/people/Faro-Agencia/61595053283621/" target="_blank" rel="noopener me">Facebook</a> · <a href="https://www.linkedin.com/company/faroagencia-cl/" target="_blank" rel="noopener me">LinkedIn</a>{links.map((l) => <> · <a href={l.href}>{l.label}</a></>)}
-</footer>

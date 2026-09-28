@@ -36,14 +36,14 @@ SEO/AEO en un solo equipo y el analizador gratis.
 
 ## Mapa de archivos
 - `src/layouts/Base.astro` — `<head>` común (SEO, OG, JSON-LD, tema, GA4). `Service.astro` — páginas de servicio.
-- `src/components/` — `SiteHeader`, `SiteFooter`, `Faq`. `src/lib/seo.ts` — helpers de JSON-LD, fechas, WhatsApp.
-- `src/pages/index.astro` — portada (diseño propio, CSS inline). `analiza.astro` — analizador (todo su JS inline, `is:inline`).
+- `src/components/` — `SiteNav` (menú de todo el sitio), `BrandLogo`, `Icon`, `Faq`, `home/*` (secciones de la portada y `HomeFooter`, el pie de todo el sitio). `src/styles/faro.css` (sistema de diseño, cargado en `Base`) y `content.css` (páginas de lectura). `src/lib/seo.ts` — helpers de JSON-LD, fechas, WhatsApp.
+- `src/pages/index.astro` — portada (componentes `home/*`). `analiza.astro` — analizador (todo su JS inline, `is:inline`; modo «sin web» → `/api/presence`).
   `integraciones.astro`, `nosotros.astro`, `privacidad.astro`, `404.astro`: diseño propio.
 - `src/pages/{diseno-web,seo-aeo-geo,marketing-digital,precios}.astro` — datos + secciones sobre `Service.astro`.
 - `src/content/blog/*.md` — posts en Markdown (esquema en `src/content.config.ts`). Guía: `src/content/blog/_LEEME.md`.
   `src/pages/blog/[slug].astro` y `blog/index.astro` los arman solos (JSON-LD, índice, sitemap).
-- `public/` — archivos tal cual: `robots.txt`, `llms.txt`, `site.js`, `analytics.js`, `blog/blog.css`, `blog/img/`, `img/`.
-- `api/*.js` — endpoints (analyze, pagespeed, aicheck, lead, leads; helpers `_db.js`, `_mail.js`). `functions/api/` + `cf/` — Cloudflare.
+- `public/` — archivos tal cual: `robots.txt`, `llms.txt`, `site.js`, `analytics.js`, `blog/img/`, `img/`, favicon e íconos.
+- `api/*.js` — endpoints (analyze, pagespeed, aicheck, presence, lead, leads; helpers `_db.js`, `_mail.js`, `_llm.js` = Gemini/Groq/Tavily con respaldo). `functions/api/` + `cf/` — Cloudflare.
 - `tools/prospectar.js` — **interno, no se despliega**. `maqueta/plantilla.{css,js}` — motor de maquetas (datos gitignored).
 - `astro.config.mjs` (`build.format: 'preserve'` mantiene las URLs), `.node-version` (22), `package.json`, `vercel.json` (solo redirige).
 
@@ -56,6 +56,8 @@ Neon propio (proyecto "Faro Agencia", São Paulo), no el de la integración de V
 | `GEMINI_API_KEY` | chequeo de IA | el bloque de IA se degrada con mensaje, no rompe |
 | `GEMINI_MODEL` | opcional, default `gemini-3.8-flash` (2.0 y 2.5 retirados para cuentas nuevas, sep-2026) | usa el default |
 | `PAGESPEED_API_KEY` | opcional, sube la cuota de PSI | funciona con cuota baja |
+| `GROQ_API_KEY` / `GROQ_MODEL` | respaldo de IA cuando Gemini falla (modelo: se elige solo si falta `GROQ_MODEL`) | sin respaldo; solo Gemini |
+| `TAVILY_API_KEY` | búsqueda web del modo «sin web» (`/api/presence`) | ese modo responde «no configurado» |
 
 Todos los endpoints degradan con mensaje en español si falta su key — nunca revientan la página.
 

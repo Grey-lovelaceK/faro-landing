@@ -45,7 +45,7 @@
   }
 
   function themeButton() {
-    var host = document.querySelector('nav.bar .container, header.bar .in, .wrap > header');
+    var host = document.querySelector('nav.bar .nav-in, nav.bar .container, header.bar .in, .wrap > header');
     if (!host) return;
     var b = document.createElement('button');
     b.type = 'button';

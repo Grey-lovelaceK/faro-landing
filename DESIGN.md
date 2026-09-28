@@ -165,7 +165,7 @@ components:
 
 # Design System: Faro°
 
-> **Alcance (27-sep-2026).** Este sistema vive hoy **solo en la portada** (`src/pages/index.astro` + `src/components/home/*` + `src/styles/faro.css`). El resto del sitio sigue con los estilos anteriores y está **pendiente de migración**: `/analiza`, `/integraciones`, `/nosotros`, `/privacidad`, `404`, las páginas de servicio (`src/layouts/Service.astro`: diseño web, SEO·AEO·GEO, marketing digital, precios) y el blog (`public/blog/blog.css`). Al migrar una página, se importa `faro.css` y se usan estos tokens; no se copian valores del sistema viejo (crema, coral, `ground`/`surface` del DESIGN.md anterior: son anti-referencia).
+> **Alcance (28-sep-2026).** Todo el sitio usa este sistema: `src/styles/faro.css` se carga en `Base.astro` para todas las páginas; menú único `src/components/SiteNav.astro`, pie único `src/components/home/HomeFooter.astro` y logo `BrandLogo`. Las páginas de lectura (servicios, blog, nosotros) usan además `src/styles/content.css` (columna `.doc`). `/analiza`, `/integraciones`, `/privacidad` y `404` mantienen sus estilos propios, pero sus nombres de color antiguos (`--ground`, `--surface`, `--border`, `--mono`…) son alias de los tokens nuevos definidos en `faro.css`: no se agregan colores sueltos nuevos.
 
 ## Overview
 

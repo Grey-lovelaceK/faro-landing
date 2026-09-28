@@ -1,0 +1,34 @@
+---
+// Menú principal de todo el sitio (sistema nuevo): logo, enlaces, CTA y menú ☰ bajo 860px.
+// El botón de tema lo agrega public/site.js a la izquierda del CTA. Estilos en src/styles/faro.css (nav.bar, .mnav).
+import BrandLogo from './BrandLogo.astro';
+import Icon from './Icon.astro';
+interface Props { logo?: number }
+const { logo = 36 } = Astro.props;
+const links = [['Servicios', '/#servicios'], ['Precios', '/precios'], ['Nosotros', '/nosotros'], ['Blog', '/blog/']];
+---
+<nav class="bar" aria-label="Principal">
+  <div class="nav-in">
+    <BrandLogo size={logo} />
+    <div class="navlinks">
+      {links.map(([t, h]) => <a href={h}>{t}</a>)}
+    </div>
+    <a href="/analiza" class="btn btn-primary btn-sm"><span class="cta-long">Analiza tu web gratis</span><span class="cta-short">Analiza gratis</span></a>
+    <details class="mnav">
+      <summary aria-label="Menú"><span class="mnav-open"><Icon name="menu" size={22} stroke={2} /></span><span class="mnav-close"><Icon name="close" size={22} stroke={2} /></span></summary>
+      <div class="mnav-panel">
+        {links.map(([t, h]) => <a href={h}>{t}</a>)}
+        <a href="/analiza" class="btn btn-primary">Analiza tu web gratis</a>
+      </div>
+    </details>
+  </div>
+</nav>
+
+<script is:inline>
+  // Menú de pantallas chicas: se cierra al elegir un enlace o con Escape.
+  (function () {
+    var m = document.querySelector('.mnav'); if (!m) return;
+    m.addEventListener('click', function (e) { if (e.target.closest('a')) m.open = false; });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && m.open) { m.open = false; m.querySelector('summary').focus(); } });
+  })();
+</script>

@@ -1,6 +1,8 @@
 ---
 // Layout base de todo el sitio: <head> con SEO (canonical, Open Graph, Twitter, JSON-LD),
 // tema claro/oscuro (site.js) y GA4 con consentimiento (analytics.js).
+// faro.css (sistema de diseño) se carga en TODAS las páginas: tokens, tipografía, menú, botones y pie.
+import '../styles/faro.css';
 interface Props {
   title: string;
   description: string;
@@ -16,7 +18,6 @@ interface Props {
   published?: string;              // AAAA-MM-DD (posts)
   modified?: string;
   noindex?: boolean;
-  blogCss?: boolean;               // hoja compartida /blog/blog.css
   headExtra?: string;              // HTML crudo extra para el <head> (estilos propios de la página)
   lang?: string;
 }
@@ -25,7 +26,7 @@ const {
   image = 'https://faroagencia.cl/blog/img/og-default.png',
   imageAlt = 'Faro°: que te encuentren en Google y en la IA',
   twitterTitle, twitterDescription,
-  ld = [], published, modified, noindex = false, blogCss = false, headExtra = '', lang = 'es',
+  ld = [], published, modified, noindex = false, headExtra = '', lang = 'es',
 } = Astro.props;
 ---
 <!doctype html>
@@ -59,7 +60,6 @@ const {
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
 <meta name="theme-color" content="#0F172A">
-{blogCss && <link rel="stylesheet" href="/blog/blog.css">}
 <Fragment set:html={headExtra} />
 {ld.map((block) => <script type="application/ld+json" set:html={JSON.stringify(block, null, 2)} />)}
 <script is:inline src="/site.js"></script>

@@ -1,8 +1,7 @@
 ---
-import BrandLogo from '../components/BrandLogo.astro';
+import SiteNav from '../components/SiteNav.astro';
 // Portada de Faro° (rediseño 27-sep-2026, dirección «estándar del rubro», comp aprobada .impeccable/mocks/comp-2.png).
 import Base from '../layouts/Base.astro';
-import Icon from '../components/Icon.astro';
 import AiCard from '../components/home/AiCard.astro';
 import ServiceBento from '../components/home/ServiceBento.astro';
 import Paths from '../components/home/Paths.astro';
@@ -163,28 +162,7 @@ const preload = '<link rel="preload" href="/fonts/palanquin-dark-700-latin.woff2
   ld={ld}
   headExtra={preload}
 >
-  <nav class="bar" aria-label="Principal">
-    <div class="container wrap">
-      <BrandLogo size={40} />
-      <div class="navlinks">
-        <a href="/#servicios">Servicios</a>
-        <a href="/precios">Precios</a>
-        <a href="/nosotros">Nosotros</a>
-        <a href="/blog/">Blog</a>
-      </div>
-      <a href="/analiza" class="btn btn-primary btn-sm"><span class="cta-long">Analiza tu web gratis</span><span class="cta-short">Analiza gratis</span></a>
-      <details class="mnav">
-        <summary aria-label="Menú"><span class="mnav-open"><Icon name="menu" size={22} stroke={2} /></span><span class="mnav-close"><Icon name="close" size={22} stroke={2} /></span></summary>
-        <div class="mnav-panel">
-          <a href="/#servicios">Servicios</a>
-          <a href="/precios">Precios</a>
-          <a href="/nosotros">Nosotros</a>
-          <a href="/blog/">Blog</a>
-          <a href="/analiza" class="btn btn-primary">Analiza tu web gratis</a>
-        </div>
-      </details>
-    </div>
-  </nav>
+  <SiteNav logo={40} />
 
   <main>
     <header class="hero">
@@ -213,12 +191,6 @@ const preload = '<link rel="preload" href="/fonts/palanquin-dark-700-latin.woff2
   <HomeFooter />
 
   <script is:inline>
-    // Menú de pantallas chicas: se cierra al elegir un enlace o con Escape.
-    (function () {
-      var m = document.querySelector('.mnav'); if (!m) return;
-      m.addEventListener('click', function (e) { if (e.target.closest('a')) m.open = false; });
-      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && m.open) { m.open = false; m.querySelector('summary').focus(); } });
-    })();
     (function () {
       if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
       var fold = innerHeight;

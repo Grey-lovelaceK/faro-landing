@@ -1,9 +1,10 @@
 ---
-import BrandLogo from '../../components/BrandLogo.astro';
 // Índice del blog: se arma solo con los posts de src/content/blog (más nuevo arriba).
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
-import SiteFooter from '../../components/SiteFooter.astro';
+import SiteNav from '../../components/SiteNav.astro';
+import SiteFooter from '../../components/home/HomeFooter.astro';
+import '../../styles/content.css';
 import { SITE, ORG_ID, fechaCorta } from '../../lib/seo';
 
 const posts = (await getCollection('blog')).sort((a, b) => b.data.date.localeCompare(a.data.date) || b.data.order - a.data.order);
@@ -17,27 +18,17 @@ const ld = [{
 <Base title="Blog de Faro°: web, SEO, IA e integraciones para pymes"
   description="Guías prácticas para pymes chilenas: cómo aparecer en Google y en la IA, cuánto cuesta una web e integrar tu tienda con Bsale, Defontana y Enviame."
   canonical={`${SITE}/blog/`} ogTitle="Blog de Faro°" ogDescription="Guías prácticas de web, SEO, AEO/GEO e integraciones para pymes chilenas."
-  ld={ld} blogCss>
-<header class="bar">
-  <div class="in">
-    <BrandLogo size={34} />
-    <nav>
-      <a href="/#servicios" class="hide-sm">Servicios</a>
-      <a href="/integraciones" class="hide-sm">Integraciones</a>
-      <a href="/analiza">Analiza tu web</a>
-    </nav>
-  </div>
-</header>
+  ld={ld}>
+<SiteNav />
 
-<main class="wrap">
-  <span class="eyebrow">Blog</span>
+<main class="doc">
   <h1>Web, SEO, IA e integraciones, explicado sin humo.</h1>
   <p style="color:var(--muted); max-width:56ch">Guías prácticas para pymes chilenas: cómo aparecer en Google y en las respuestas de la IA, cuánto cuesta cada cosa y cómo conectar tu tienda con tu ERP.</p>
 
   <ul class="posts">
     {posts.map((p) => (
       <li><a href={`/blog/${p.id}`}>
-        <span class="eyebrow">{p.data.cluster} · <time datetime={p.data.date}>{fechaCorta(p.data.date)}</time> · {p.data.author}</span>
+        <span class="meta"><span class="cat">{p.data.cluster}</span><time datetime={p.data.date}>{fechaCorta(p.data.date)}</time><span>{p.data.author}</span></span>
         <h2>{p.data.title}</h2>
         <p>{p.data.summary}</p>
       </a></li>

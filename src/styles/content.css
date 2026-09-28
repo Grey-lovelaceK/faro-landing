@@ -1,0 +1,94 @@
+/* Faro° — páginas de contenido (servicios, blog, nosotros) sobre el sistema de faro.css.
+   Reemplazó a la antigua public/blog/blog.css. Todo color es token de faro.css (ambos temas); sin monoespaciada
+   ni mayúsculas espaciadas (regla «No-Mono» de DESIGN.md). Columna de lectura: .doc. */
+
+.doc { width: min(47.5rem, 100% - 2.5rem); margin: 0 auto; padding: 2.5rem 0 5rem; }
+@media (max-width: 520px) { .doc { width: calc(100% - 2rem); } }
+.doc p { margin: 0 0 1em; }
+.doc h1 { font-size: clamp(2.2rem, 5.2vw, 3.4rem); line-height: 1.02; letter-spacing: -0.035em; margin: 1.25rem 0 0.9rem; }
+
+.crumbs { font-size: 0.86rem; color: var(--faint); }
+.crumbs a { color: var(--faint); text-decoration: none; }
+.crumbs a:hover { color: var(--accent); }
+.meta { font-size: 0.9rem; color: var(--faint); display: flex; flex-wrap: wrap; gap: 0.375rem 0.875rem; }
+.cat { font-size: 0.9rem; font-weight: 600; color: var(--accent); }
+
+/* respuesta corta: lo primero que lee la IA y el lector apurado */
+.tldr { margin: 1.75rem 0; background: var(--accent-tint); border: 1px solid var(--accent-line); border-radius: var(--radius); padding: 1.125rem 1.25rem; }
+.tldr > strong { display: block; font-size: 0.92rem; font-weight: 700; color: var(--accent); margin-bottom: 0.375rem; }
+.tldr p { margin: 0; color: var(--ink); line-height: 1.65; }
+.tldr p strong { font-weight: 700; color: var(--ink); }
+
+.toc { margin: 1.5rem 0; padding: 1rem 1.25rem; border: 1px solid var(--line); background: var(--bg-soft); border-radius: var(--radius); }
+.toc > strong { font-size: 0.92rem; font-weight: 700; color: var(--ink); }
+.toc ol { margin: 0.5rem 0 0; padding-left: 1.25rem; }
+.toc li { margin: 0.2rem 0; }
+.toc a { color: var(--accent); text-decoration: none; }
+.toc a:hover { text-decoration: underline; }
+
+.prose { line-height: 1.75; }
+.prose h2 { font-size: clamp(1.5rem, 3vw, 1.9rem); line-height: 1.1; margin: 2.75rem 0 0.75rem; scroll-margin-top: 5.5rem; }
+.prose h3 { font-size: 1.22rem; line-height: 1.2; margin: 1.75rem 0 0.5rem; }
+.prose p, .prose li { color: var(--muted); font-size: 1.04rem; }
+.prose ul, .prose ol { padding-left: 1.3rem; margin: 0 0 1em; }
+.prose li { margin: 0.25rem 0; }
+.prose strong { color: var(--ink); }
+.prose a { color: var(--accent); }
+.prose table { width: 100%; border-collapse: collapse; margin: 1.125rem 0; font-size: 0.94rem; display: block; overflow-x: auto; }
+.prose th, .prose td { text-align: left; padding: 0.625rem 0.75rem; border-bottom: 1px solid var(--line); color: var(--muted); vertical-align: top; }
+.prose th { font-size: 0.86rem; font-weight: 700; color: var(--ink); }
+.prose code { font-size: 0.92em; background: var(--bubble); padding: 1px 6px; border-radius: 6px; }
+.prose blockquote { margin: 1.25rem 0; padding: 0.25rem 0 0.25rem 1.125rem; border-left: 2px solid var(--accent); color: var(--ink); }
+.prose img { max-width: 100%; height: auto; border-radius: var(--radius); }
+
+/* preguntas frecuentes (componente Faq) */
+.faq { margin-top: 0.75rem; border-top: 1px solid var(--line); }
+.faq details { border-bottom: 1px solid var(--line); }
+.faq summary { cursor: pointer; list-style: none; padding: 1.125rem 0.125rem; font-weight: 650; color: var(--ink); display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: '+'; flex: none; width: 1.75rem; height: 1.75rem; border-radius: 50%; border: 1px solid var(--line-strong); display: grid; place-items: center; color: var(--accent); font-weight: 700; }
+.faq details[open] summary::after { content: '−'; background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.faq summary:hover { color: var(--accent); }
+.faq details p { margin: 0; padding: 0 0.125rem 1.125rem; color: var(--muted); }
+
+/* cierre: el faro de noche, igual que la portada */
+.cta { margin-top: 3rem; background: #0a0d17; color: #eaedf6; border: 1px solid #28304c; border-radius: 1.5rem; padding: 2.5rem 1.75rem; text-align: center; position: relative; overflow: hidden; isolation: isolate; }
+.cta::before { content: ''; position: absolute; z-index: -1; left: 50%; top: -60%; width: 130%; height: 160%; transform: translateX(-50%); background: radial-gradient(closest-side, rgba(91, 114, 255, 0.38), rgba(91, 114, 255, 0.06) 60%, transparent); }
+.cta h2 { color: #fff; font-size: clamp(1.5rem, 3vw, 2rem); line-height: 1.05; margin: 0 auto 0.6rem; max-width: 22ch; }
+.cta p { color: #9aa2bc; margin: 0 auto 1.25rem; max-width: 46ch; }
+.cta a { display: inline-flex; align-items: center; justify-content: center; height: 3rem; padding: 0 1.5rem; margin: 0.25rem; border-radius: var(--radius); background: #5b72ff; color: #fff; font-weight: 600; text-decoration: none; }
+.cta a.ghost { background: transparent; border: 1px solid #3a4366; color: #eaedf6; }
+.cta a.ghost:hover { border-color: #8b9bff; }
+
+.author { margin-top: 2.5rem; display: flex; gap: 0.875rem; align-items: center; padding-top: 1.5rem; border-top: 1px solid var(--line); }
+.author .av { flex: none; width: 3rem; height: 3rem; border-radius: 50%; background: var(--accent-tint); color: var(--accent); display: grid; place-items: center; font-family: var(--font-display); font-weight: 700; overflow: hidden; }
+.author .av img { width: 100%; height: 100%; object-fit: cover; }
+.author p { margin: 0.125rem 0 0; color: var(--muted); font-size: 0.92rem; }
+
+.related { margin-top: 2rem; }
+.related h2 { font-size: 1.15rem; margin: 0 0 0.75rem; }
+.related ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.625rem; }
+.related a { display: block; background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius); padding: 0.875rem 1rem; text-decoration: none; color: var(--ink); font-weight: 600; transition: border-color 0.2s; }
+.related a:hover { border-color: var(--accent-line); color: var(--accent); }
+
+/* índice del blog */
+.posts { list-style: none; padding: 0; margin: 2rem 0 0; display: grid; gap: 0.875rem; }
+.posts a { display: block; background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 1.25rem 1.375rem; text-decoration: none; color: var(--ink); transition: border-color 0.2s, transform 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out); }
+.posts a:hover { border-color: var(--accent-line); transform: translateY(-2px); box-shadow: var(--shadow-card); }
+.posts h2 { font-size: 1.3rem; line-height: 1.15; margin: 0.375rem 0; }
+.posts p { margin: 0; color: var(--muted); font-size: 0.96rem; }
+.cover { display: block; width: 100%; height: auto; aspect-ratio: 1200 / 630; margin: 1.5rem 0 0; border-radius: var(--radius-lg); border: 1px solid var(--line); }
+
+/* páginas de servicio (/diseno-web, /seo-aeo-geo, /marketing-digital, /precios) */
+.hero-cta { display: flex; flex-wrap: wrap; gap: 0.625rem; margin: 1.375rem 0 0; }
+.plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.875rem; margin: 1.125rem 0 0.375rem; }
+.plans.two { grid-template-columns: repeat(2, 1fr); }
+@media (max-width: 760px) { .plans, .plans.two { grid-template-columns: 1fr; } }
+.plan { background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 1.25rem; display: flex; flex-direction: column; gap: 0.625rem; }
+.plan.hot { border-color: var(--accent); box-shadow: 0 0 0 4px var(--accent-tint); }
+.plan .pn { font-family: var(--font-display); font-weight: 700; font-size: 1.2rem; letter-spacing: -0.03em; color: var(--ink); }
+.plan .pp { font-family: var(--font-body); font-weight: 800; font-size: 1.4rem; letter-spacing: -0.02em; color: var(--ink); font-variant-numeric: tabular-nums; }
+.plan .pp small { display: block; font-family: var(--font-body); font-size: 0.8rem; font-weight: 400; letter-spacing: 0; color: var(--faint); margin-top: 0.125rem; }
+.plan ul { margin: 0; padding-left: 1.125rem; }
+.plan li { font-size: 0.94rem; }
+.note-mono, .prose .note-mono { font-size: 0.86rem; line-height: 1.55; color: var(--faint); margin-top: 0.5rem; }
