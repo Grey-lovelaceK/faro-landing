@@ -111,7 +111,30 @@ nav.bar .container { height: 100%; display: flex; align-items: center; gap: 1.75
 .navlinks { display: flex; gap: 2.5rem; margin: 0 auto; font-size: 0.93rem; font-weight: 500; letter-spacing: -0.005em; }
 .navlinks a { text-decoration: none; color: var(--ink-2); transition: color 0.15s; }
 .navlinks a:hover { color: var(--accent); }
-@media (max-width: 860px) { .navlinks { display: none; } }
+/* menú de pantallas chicas: <details> para que funcione sin JavaScript */
+.mnav { display: none; }
+.mnav summary {
+  list-style: none; cursor: pointer; width: 2.625rem; height: 2.625rem; border-radius: 50%; display: grid; place-items: center;
+  border: 1px solid var(--line-strong); color: var(--ink); transition: border-color 0.15s, color 0.15s;
+}
+.mnav summary::-webkit-details-marker { display: none; }
+.mnav summary:hover { border-color: var(--accent); color: var(--accent); }
+.mnav .mnav-close, .mnav[open] .mnav-open { display: none; }
+.mnav[open] .mnav-close { display: contents; }
+.mnav-open { display: contents; }
+.mnav-panel {
+  position: absolute; left: 0; right: 0; top: 100%; padding: 0.75rem 1rem 1.25rem; display: grid; gap: 0.25rem;
+  background: var(--bg); border-bottom: 1px solid var(--line); box-shadow: 0 1.5rem 2.5rem -1.5rem rgba(15, 23, 42, 0.25);
+}
+.mnav-panel a:not(.btn) { padding: 0.85rem 0.25rem; font-size: 1.1rem; font-weight: 600; text-decoration: none; color: var(--ink); border-bottom: 1px solid var(--line); }
+.mnav-panel a:not(.btn):hover { color: var(--accent); }
+.mnav-panel .btn { margin-top: 0.75rem; width: 100%; }
+.cta-short { display: none; }
+@media (max-width: 860px) {
+  .navlinks { display: none; }
+  .mnav { display: block; margin-left: 0.625rem; }
+}
+@media (max-width: 480px) { .cta-long { display: none; } .cta-short { display: inline; } }
 @media (max-width: 420px) { nav.bar .container { gap: 0.75rem; justify-content: space-between; } nav.bar .btn-sm { padding: 0 0.875rem; font-size: 0.84rem; } }
 
 /* secciones */

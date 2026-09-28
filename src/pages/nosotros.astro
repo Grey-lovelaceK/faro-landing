@@ -25,6 +25,7 @@ const ld = [
         "@type": "Person",
         "@id": "https://faroagencia.cl/nosotros#cristian",
         "name": "Cristian Florez Revilla",
+        "image": "https://faroagencia.cl/img/cristian.webp",
         "jobTitle": "Cofundador y director técnico",
         "worksFor": {
           "@id": "https://faroagencia.cl/#org"
@@ -44,6 +45,7 @@ const ld = [
         "@type": "Person",
         "@id": "https://faroagencia.cl/nosotros#clementina",
         "name": "Clementina Moya",
+        "image": "https://faroagencia.cl/img/clementina.webp",
         "jobTitle": "Cofundadora y directora creativa y de marketing",
         "worksFor": {
           "@id": "https://faroagencia.cl/#org"
@@ -60,7 +62,7 @@ const ld = [
     ]
   }
 ];
-const headExtra = "<style>\n  .team{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:28px}\n  @media (max-width:640px){ .team{grid-template-columns:1fr} }\n  .person{background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:24px; display:flex; flex-direction:column; gap:12px}\n  .photo{width:88px; height:88px; border-radius:50%; background:linear-gradient(135deg,var(--accent),var(--accent-2)); color:#fff; display:grid; place-items:center; font-weight:800; font-size:1.8rem; letter-spacing:-.03em; overflow:hidden}\n  .photo img{width:100%; height:100%; object-fit:cover}\n  .person h3{margin:4px 0 0; font-size:1.3rem}\n  .person .role{font-family:var(--mono); font-size:.74rem; letter-spacing:.1em; text-transform:uppercase; color:var(--accent)}\n  .person p{margin:0; color:var(--muted); font-size:.95rem}\n  .person ul{margin:0; padding-left:18px; color:var(--muted); font-size:.92rem}\n  .principles{display:grid; grid-template-columns:repeat(2,1fr); gap:14px; margin-top:20px}\n  @media (max-width:640px){ .principles{grid-template-columns:1fr} }\n  .principles div{border-left:2px solid var(--accent); padding:4px 0 4px 16px}\n  .principles strong{display:block; color:var(--ink)}\n  .principles span{color:var(--muted); font-size:.94rem}\n  .mv{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:20px}\n  @media (max-width:640px){ .mv{grid-template-columns:1fr} }\n  .mv div{background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:22px 24px}\n  .mv strong{display:block; font-family:var(--mono); font-size:.74rem; letter-spacing:.1em; text-transform:uppercase; color:var(--accent)}\n  .mv p{margin:10px 0 0; color:var(--ink); font-size:1.02rem; line-height:1.55}\n  .svc-links{display:grid; grid-template-columns:repeat(2,1fr); gap:12px; margin-top:18px; padding:0; list-style:none}\n  @media (max-width:640px){ .svc-links{grid-template-columns:1fr} }\n  .svc-links a{display:block; background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:14px 16px; text-decoration:none; color:var(--ink); font-weight:600}\n  .svc-links a:hover{border-color:var(--accent)}\n  .svc-links small{display:block; font-weight:400; color:var(--muted); margin-top:2px}\n</style>";
+const headExtra = "<style>\n  .team{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:28px}\n  @media (max-width:640px){ .team{grid-template-columns:1fr} }\n  .person{background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:24px; display:flex; flex-direction:column; gap:12px}\n  .photo{width:140px; height:140px; border-radius:50%; background:linear-gradient(135deg,var(--accent),var(--accent-2)); color:#fff; display:grid; place-items:center; font-weight:800; font-size:1.8rem; letter-spacing:-.03em; overflow:hidden}\n  .photo img{width:100%; height:100%; object-fit:cover}\n  .person h3{margin:4px 0 0; font-size:1.3rem}\n  .person .role{font-size:.92rem; font-weight:600; color:var(--accent)}\n  .person p{margin:0; color:var(--muted); font-size:.95rem}\n  .person ul{margin:0; padding-left:18px; color:var(--muted); font-size:.92rem}\n  .principles{display:grid; grid-template-columns:repeat(2,1fr); gap:14px; margin-top:20px}\n  @media (max-width:640px){ .principles{grid-template-columns:1fr} }\n  .principles div{border-left:2px solid var(--accent); padding:4px 0 4px 16px}\n  .principles strong{display:block; color:var(--ink)}\n  .principles span{color:var(--muted); font-size:.94rem}\n  .mv{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:20px}\n  @media (max-width:640px){ .mv{grid-template-columns:1fr} }\n  .mv div{background:var(--surface); border:1px solid var(--border); border-radius:18px; padding:22px 24px}\n  .mv strong{display:block; font-family:var(--mono); font-size:.74rem; letter-spacing:.1em; text-transform:uppercase; color:var(--accent)}\n  .mv p{margin:10px 0 0; color:var(--ink); font-size:1.02rem; line-height:1.55}\n  .svc-links{display:grid; grid-template-columns:repeat(2,1fr); gap:12px; margin-top:18px; padding:0; list-style:none}\n  @media (max-width:640px){ .svc-links{grid-template-columns:1fr} }\n  .svc-links a{display:block; background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:14px 16px; text-decoration:none; color:var(--ink); font-weight:600}\n  .svc-links a:hover{border-color:var(--accent)}\n  .svc-links small{display:block; font-weight:400; color:var(--muted); margin-top:2px}\n</style>";
 ---
 <Base
   title="Nosotros: el equipo detrás de Faro° en Macul, Santiago"
@@ -114,7 +116,7 @@ const headExtra = "<style>\n  .team{display:grid; grid-template-columns:1fr 1fr;
 
   <div class="team">
     <article class="person" id="cristian">
-      <div class="photo" aria-hidden="true">CR</div><!-- foto pendiente: reemplazar por <img src="/img/cristian.webp" alt="Cristian Florez Revilla" width="88" height="88"> -->
+      <div class="photo"><img src="/img/cristian.webp" alt="Foto de Cristian Florez Revilla" width="140" height="140" loading="lazy" decoding="async"></div>
       <div>
         <span class="role">Cofundador · Director técnico</span>
         <h3>Cristian Florez Revilla</h3>
@@ -128,7 +130,7 @@ const headExtra = "<style>\n  .team{display:grid; grid-template-columns:1fr 1fr;
       </ul>
     </article>
     <article class="person" id="clementina">
-      <div class="photo" aria-hidden="true">CM</div><!-- foto pendiente: reemplazar por <img src="/img/clementina.webp" alt="Clementina Moya" width="88" height="88"> -->
+      <div class="photo"><img src="/img/clementina.webp" alt="Foto de Clementina Moya" width="140" height="140" loading="lazy" decoding="async"></div>
       <div>
         <span class="role">Cofundadora · Directora creativa y de marketing</span>
         <h3>Clementina Moya</h3>
