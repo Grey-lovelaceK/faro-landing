@@ -1,7 +1,8 @@
 ---
 // El logo de Faro° (el faro como F + «ARO» + horizonte, sin el círculo) como marca del menú.
 // Pedido de Clementina, 27-sep-2026. `size` es el alto; el ancho sigue la proporción del dibujo (1,69:1).
-// Navy en tema claro y blanco en oscuro; el nombre va en alt/aria-label para lectores y buscadores.
+// Navy en tema claro y blanco en oscuro. Las dos llevan alt: la que no toca va con display:none,
+// que la saca del árbol de accesibilidad (no se lee dos veces) y el analizador no la cuenta como sin alt.
 interface Props { size?: number }
 const { size = 44 } = Astro.props;
 const w = Math.round(size * 1.691);
@@ -9,7 +10,7 @@ const dim = `width:${w / 16}rem;height:${size / 16}rem`; // tamaño en la propia
 ---
 <a href="/" class="brand-logo" aria-label="Faro°, inicio">
   <img class="logo-light" src="/img/logo-nav-navy.png" width={w} height={size} style={dim} alt="Faro°">
-  <img class="logo-dark" src="/img/logo-nav-blanco.png" width={w} height={size} style={dim} alt="" aria-hidden="true">
+  <img class="logo-dark" src="/img/logo-nav-blanco.png" width={w} height={size} style={dim} alt="Faro°">
 </a>
 
 <style>
