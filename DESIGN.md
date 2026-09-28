@@ -82,8 +82,8 @@ typography:
     fontSize: "1rem"
     fontWeight: 400
     lineHeight: 1.6
-  label-mono:
-    fontFamily: "ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace"
+  label:
+    fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
     fontSize: "0.82rem"
     fontWeight: 500
     letterSpacing: "0.1em"
@@ -147,7 +147,7 @@ components:
     textColor: "{colors.ink-2}"
     rounded: "{rounded.pill}"
     padding: "6px 12px"
-  tag-mono:
+  tag:
     backgroundColor: "{colors.accent-tint}"
     textColor: "{colors.accent}"
     rounded: "{rounded.tag}"
@@ -173,14 +173,14 @@ components:
 
 Faro° es un estudio que hace que a su cliente lo encuentren, en Google y en la respuesta de la IA. El sistema lo dice con un solo gesto de luz: sobre blanco y tinta azul noche, un único cobalto con su halo marca dónde está la respuesta. Todo lo demás es neutro, frío y calmo, para que ese punto de luz se lea sin esfuerzo. En oscuro, la página entera se vuelve la noche y el cobalto sube de brillo; en claro, la noche aparece una sola vez, en el bloque de cierre.
 
-La densidad es de producto SaaS del rubro, no de revista: tarjetas de borde de 1px, radios medianos, títulos grotescos muy pesados y apretados, cuerpo en la fuente del sistema y monoespaciada para metadatos (precios, etiquetas, numeración). El héroe es la tarjeta de respuesta de IA escribiéndose en vivo; ninguna foto de agencia, ningún héroe partido texto/imagen.
+La densidad es de producto SaaS del rubro, no de revista: tarjetas de borde de 1px, radios medianos, títulos grotescos muy pesados y apretados, cuerpo, etiquetas y cifras en la fuente del sistema (cifras tabulares para precios). El héroe es la tarjeta de respuesta de IA escribiéndose en vivo; ninguna foto de agencia, ningún héroe partido texto/imagen.
 
 La prueba es el producto, no el adorno: no hay testimonios, logos de clientes ni cifras de rendimiento inventadas en ningún componente. Los componentes muestran qué se hace (checks, chips de tareas), nunca porcentajes que no se pueden sostener.
 
 **Key Characteristics:**
 - Un solo acento: cobalto `accent` con halo radial difuso; sin segundo color de marca ni tonos cálidos.
 - Tinta azul noche en lugar de negro; neutros fríos con ligero azul.
-- Palanquin Dark 700 apretada (-0.03 a -0.04em) para todo título; sistema para cuerpo; mono para datos.
+- Palanquin Dark 700 apretada (-0.03 a -0.04em) para todo título; sistema para cuerpo, etiquetas y datos. Sin monoespaciada.
 - Planos por defecto: bordes de 1px `line`; sombra solo en las piezas protagonistas y en hover.
 - Ambos temas por tokens; el bloque de noche es navy fijo en los dos.
 - **Tema claro por defecto** (desde 27-sep-2026): `public/site.js` fija `data-theme="light"` antes de pintar aunque el sistema esté en oscuro; el oscuro solo se activa con el botón y se recuerda en `localStorage` (`faro-theme`). El CSS de `prefers-color-scheme` queda como respaldo solo sin JavaScript.
@@ -193,7 +193,7 @@ Paleta de noche fría: blanco o navy de fondo, tinta azul noche, grises con azul
 ### Primary
 - **Cobalto Faro** (`accent`; `accent-dark` en oscuro): el único color con intención. Botón primario, la palabra «la respuesta.» del titular, la cita FARO° en la respuesta de IA, íconos en sus cuadros tintados, checks de los planes, enlaces de acción, foco, selección de texto y el cursor de escritura.
 - **Cobalto presionado** (`accent-press`): hover del botón primario. En oscuro es *más claro* que el acento (la luz sube), en claro es más oscuro.
-- **Tinta de halo** (`accent-tint`): fondo de los cuadros de ícono, del servicio destacado, de las etiquetas mono y del anillo de 4px del plan recomendado.
+- **Tinta de halo** (`accent-tint`): fondo de los cuadros de ícono, del servicio destacado, de las etiquetas SEO/AEO/GEO y del anillo de 4px del plan recomendado.
 - **Línea de halo** (`accent-line`): borde de hover de tarjetas, borde del servicio destacado, nodos del proceso en reposo.
 - **Halo** (`halo`): solo en degradados radiales difusos (detrás de la tarjeta de IA, detrás del plan recomendado, sombra del primer nodo). Nunca como relleno plano.
 
@@ -219,9 +219,9 @@ Paleta de noche fría: blanco o navy de fondo, tinta azul noche, grises con azul
 
 **Display Font:** Palanquin Dark 700 (autoalojada en `public/fonts/palanquin-dark-700-latin.woff2`, OFL, `font-display: swap`, precargada en la portada), con fallback `'Segoe UI', system-ui, sans-serif`.
 **Body Font:** pila del sistema (`-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial`).
-**Label/Mono Font:** `ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, Consolas` con cifras tabulares (clase `.num`).
+**Label Font:** la misma del cuerpo; la clase `.num` solo activa cifras tabulares (`font-variant-numeric: tabular-nums`).
 
-**Character:** Una grotesca extra pesada y apretada que habla fuerte y corto, sobre un cuerpo neutro que no compite. La mono aporta el tono de "instrumento que mide": precios, etiquetas y numeración.
+**Character:** Una grotesca extra pesada y apretada que habla fuerte y corto, sobre un cuerpo neutro que no compite. Las etiquetas y cifras van en la misma fuente del cuerpo, en su caja natural.
 
 **Escala raíz:** en escritorio (≥1000px) `html { font-size: clamp(15px, 100vw/96, 16px) }`, así la portada mantiene proporciones entre 1280 y 1600px. Por eso los tamaños se escriben en `rem`.
 
@@ -233,12 +233,12 @@ Paleta de noche fría: blanco o navy de fondo, tinta azul noche, grises con azul
 - **Price** (700 display, `clamp(2.2rem, 3vw, 2.8rem)`, 1, tabular): el monto del plan; el signo `$` va en la fuente de cuerpo al 62% y elevado.
 - **Lead** (400, `clamp(1.02rem, 1.3vw, 1.18rem)`, 1.55, `muted`, máx. 60ch): bajada bajo un H2. La del héroe es mayor (`clamp(1.08rem, 1.6vw, 1.5rem)`, 1.35, máx. 64ch).
 - **Body** (400, 1rem, 1.6): cuerpo general; párrafos de tarjeta a 0.9–0.97rem con 1.4–1.55. Máximo de línea entre 30ch y 68ch según contexto.
-- **Label mono** (500–600, 0.72–0.82rem, 0.06–0.1em, mayúsculas): etiqueta de la tarjeta de IA, insignia «Recomendado», etiquetas SEO/AEO/GEO y encabezados de columna del pie. Unidades de precio y notas en mono minúscula (0.78–0.86rem, 0.02em, `faint`).
+- **Etiqueta** (600–700, 0.8–0.95rem, sin tracking, caja normal): etiqueta de la tarjeta de IA, insignia «Recomendado», etiquetas SEO/AEO/GEO (siglas) y encabezados de columna del pie. Unidades de precio y notas en 0.78–0.86rem, `faint`.
 
 ### Named Rules
 **The Tight Display Rule.** Todo H1–H3 va en Palanquin Dark 700 con tracking negativo (-0.03em base, -0.035/-0.04em en tamaños grandes) y `text-wrap: balance`. Nunca en peso regular, nunca con tracking positivo.
 
-**The Mono Means Data Rule.** La monoespaciada es para cifras, unidades y etiquetas de componente. No se usa para párrafos ni para títulos de sección.
+**The No-Mono Rule.** Nada de monoespaciada ni de mayúsculas espaciadas (texto en mayúsculas con tracking amplio) en etiquetas, eyebrows ni datos: Clementina lo vetó el 27-sep-2026 porque se lee como sitio hecho por IA. Las etiquetas van en la fuente del cuerpo, caja normal, sin tracking; las siglas (SEO, AEO, GEO) son la única mayúscula.
 
 ## Layout
 
@@ -280,7 +280,7 @@ Radios medianos y consistentes, con un pill para lo que es "control" o "etiqueta
 - **14px** (`--radius`, 0.875rem): botones, tarjetas de servicio, burbujas de la IA, caja de prueba.
 - **18px** (`--radius-lg`, 1.125rem): contenedores grandes (tarjeta de IA, lista de visibilidad, planes, extras, personas).
 - **28px** (22px en móvil): solo el bloque de noche.
-- **8px**: etiquetas mono SEO/AEO/GEO.
+- **8px**: etiquetas SEO/AEO/GEO.
 - **Pill** (999px): chips, insignia, campo de la tarjeta de IA. **Círculo**: avatares, nodos del proceso, botón enviar, control +/− del FAQ.
 
 Bordes siempre de 1px sólidos; los extras de precio usan borde **discontinuo** `line-strong` que pasa a sólido en hover (se leen como "complemento opcional"). Íconos: set propio de línea en caja de 24, trazo 1.8 por defecto (2–2.2 en tamaños chicos), puntas redondeadas.
@@ -299,8 +299,8 @@ Directos y con peso: altos, sin mayúsculas, texto 600.
 ### Chips
 - **Chip de tarea** (filas de visibilidad): pill con borde `line`, texto `ink-2` 0.86rem, check verde `good` a la izquierda.
 - **Chip de habilidad** (personas): pill con fondo `bubble`, sin borde.
-- **Etiqueta mono** (SEO/AEO/GEO): radio 8px, fondo `accent-tint`, texto `accent`, mono 0.82rem 600, tracking 0.06em.
-- **Insignia «Recomendado»**: pill `accent` montada sobre el borde superior del plan, mono 0.72rem mayúsculas.
+- **Etiqueta** (SEO/AEO/GEO): radio 8px, fondo `accent-tint`, texto `accent`, 0.86rem 700, tracking 0.01em.
+- **Insignia «Recomendado»**: pill `accent` montada sobre el borde superior del plan, 0.8rem 600 en caja normal.
 
 ### Cards / Containers
 - **Corner Style:** 14px (servicio) o 18px (contenedores grandes).
@@ -317,10 +317,10 @@ No hay formularios en la portada. El único "campo" es el de la tarjeta de IA, q
 Barra fija arriba, 4.5rem, borde inferior `line`, fondo `bg` al 86% con `backdrop-filter: saturate(1.5) blur(14px)`. Marca «Faro°» en Palanquin Dark 1.82rem con el `°` en `accent`; enlaces centrados 0.93rem 500 `ink-2` que pasan a `accent` en hover; CTA primario pequeño a la derecha. Bajo 860px se ocultan los enlaces y queda marca + CTA.
 
 ### Tarjeta de respuesta de IA (firma)
-El héroe del sistema y pieza intocable. Tarjeta de 18px con sombra de tarjeta sobre un halo radial que "respira" (7s). Cabecera con destello cobalto, etiqueta mono en mayúsculas y tres puntos de ventana; pregunta del usuario en burbuja `bubble` con avatar neutro; respuesta con borde `line` y avatar `accent-tint`, que se escribe letra a letra (24ms, 70ms al llegar a la marca) con cursor cobalto parpadeante; la cita **FARO°** en `accent` 700. Con movimiento reducido o sin JS, la respuesta aparece completa.
+El héroe del sistema y pieza intocable. Tarjeta de 18px con sombra de tarjeta sobre un halo radial que "respira" (7s). Cabecera con destello cobalto, etiqueta «Asistente de visibilidad IA» (0.95rem 600, caja normal) y tres puntos de ventana; pregunta del usuario en burbuja `bubble` con avatar neutro; respuesta con borde `line` y avatar `accent-tint`, que se escribe letra a letra (24ms, 70ms al llegar a la marca) con cursor cobalto parpadeante; la cita **FARO°** en `accent` 700. Con movimiento reducido o sin JS, la respuesta aparece completa.
 
 ### Línea del proceso (firma)
-Cuatro nodos circulares de 56px numerados en mono sobre una línea de 1px que va de `accent` a `line`. Con JS, la línea se dibuja (1.4s) y cada nodo se enciende en orden (0.32s de escalón); el primero es sólido `accent` con halo. En móvil pasa a vertical.
+Cuatro nodos circulares de 56px numerados (cifras tabulares) sobre una línea de 1px que va de `accent` a `line`. Con JS, la línea se dibuja (1.4s) y cada nodo se enciende en orden (0.32s de escalón); el primero es sólido `accent` con halo. En móvil pasa a vertical.
 
 ### Bloque de noche (firma)
 Cierre navy fijo en ambos temas, radio 28px, borde `night-line`, con un haz radial cobalto que cae desde arriba. Titular display centrado, bajada `night-muted`, tres acciones (primaria WhatsApp + dos night).
@@ -336,7 +336,7 @@ Curva única `--ease-out: cubic-bezier(0.16, 1, 0.3, 1)`. Aparición al hacer sc
 ### Do:
 - **Do** usar un solo acento, `accent`, y reservar el halo radial para la pieza protagonista de la sección.
 - **Do** escribir todo color como token de `faro.css`, con valor claro y oscuro (`:root`, `prefers-color-scheme` guardado con `:not([data-theme='light'])` y `[data-theme='dark']`).
-- **Do** usar Palanquin Dark 700 con tracking negativo para títulos y la mono con cifras tabulares para precios y datos.
+- **Do** usar Palanquin Dark 700 con tracking negativo para títulos y cifras tabulares (`.num`) para precios y datos.
 - **Do** separar superficies con bordes de 1px `line`; sombra de tarjeta solo en protagonistas y hover.
 - **Do** escribir tamaños en `rem` para que escalen con la raíz de escritorio.
 - **Do** mantener el texto gris en `muted` o `faint` (≥4.5:1 en ambos temas).

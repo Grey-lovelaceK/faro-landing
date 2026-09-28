@@ -33,7 +33,6 @@
 
   --font-display: 'Palanquin Dark', 'Segoe UI', system-ui, sans-serif;
   --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  --font-mono: ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace;
 
   --wrap: 64.6875rem;
   --wrap-wide: 87.6875rem;
@@ -85,7 +84,7 @@ p { margin: 0; }
 .wrap-wide { width: min(var(--wrap-wide), 100% - 2rem); margin-inline: auto; }
 .wrap-sec { width: min(77.5rem, 100% - 3rem); margin-inline: auto; }
 @media (max-width: 640px) { .wrap-sec { width: calc(100% - 2rem); } }
-.num { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+.num { font-variant-numeric: tabular-nums; }
 
 /* botones */
 .btn {
