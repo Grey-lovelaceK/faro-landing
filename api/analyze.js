@@ -63,6 +63,13 @@ export default async function handler(req, res) {
   // Contenido
   const text = html.replace(/<script[\s\S]*?<\/script>/gi, ' ').replace(/<style[\s\S]*?<\/style>/gi, ' ').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
   const words = text ? text.split(' ').length : 0;
+  // Verificación anti-robots que algunos hostings sirven a IPs de datacenter (p. ej. HTTP 202 con página vacía):
+  // no es la web real, así que no se le pone nota.
+  const challenge = /captcha|challenge|sucuri|sgcaptcha|imunify|verify you are human|checking your browser|bot protection/i.test(html.slice(0, 20000));
+  if (status === 202 || (!title && words < 25 && (challenge || status >= 400))) {
+    return res.status(200).json({ ok: false, blocked: true, url: finalUrl,
+      error: `El sitio respondió con una verificación anti-robots (HTTP ${status}) en vez de la página, así que no podemos ponerle nota. Ábrelo en tu navegador: si carga, el bloqueo es solo para revisiones automáticas.` });
+  }
 
   // Imágenes / alt
   const imgs = html.match(/<img\b[^>]*>/gi) || [];
