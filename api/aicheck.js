@@ -2,13 +2,11 @@
 // GET /api/aicheck?url=...
 // Baja la página, se la da a Gemini y simula si un asistente de IA (ChatGPT/Perplexity)
 // recomendaría/citaría este sitio ante una consulta típica del rubro. Devuelve JSON forzado.
-// Requiere env GEMINI_API_KEY (gratis en Google AI Studio). Modelo configurable con GEMINI_MODEL.
+// Usa Gemini (GEMINI_API_KEY) y, si falla, Groq (GROQ_API_KEY) como respaldo: ver api/_llm.js.
+
+import { askJson } from './_llm.js';
 
 export const config = { maxDuration: 30 };
-
-// Google retira modelos para cuentas nuevas (sep-2026: 2.0 y 2.5-flash → 404 "no longer available").
-// Si vuelve a pasar, basta con definir GEMINI_MODEL sin tocar código.
-const MODEL = process.env.GEMINI_MODEL || 'gemini-3.8-flash';
 
 const RESPONSE_SCHEMA = {
   type: 'object',
@@ -26,8 +24,8 @@ const RESPONSE_SCHEMA = {
 };
 
 export default async function handler(req, res) {
-  if (!process.env.GEMINI_API_KEY) {
-    return res.status(200).json({ ok: false, error: 'Chequeo de IA no configurado (falta GEMINI_API_KEY).' });
+  if (!process.env.GEMINI_API_KEY && !process.env.GROQ_API_KEY) {
+    return res.status(200).json({ ok: false, error: 'Chequeo de IA no configurado.' });
   }
 
   const raw = (req.query && req.query.url) || '';
@@ -48,57 +46,19 @@ export default async function handler(req, res) {
   // 2) Prompt para Gemini
   const prompt = buildPrompt(urlObj.hostname, page);
 
-  // 3) Llamar a Gemini con salida JSON forzada
-  let out;
-  try {
-    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${process.env.GEMINI_API_KEY}`;
-    const body = JSON.stringify({
-      contents: [{ parts: [{ text: prompt }] }],
-      generationConfig: {
-        responseMimeType: 'application/json',
-        responseSchema: RESPONSE_SCHEMA,
-        temperature: 0.4,
-        maxOutputTokens: 4096, // los modelos 3.x gastan parte en razonamiento interno
-      },
-    });
-    const ctrl = new AbortController();
-    const id = setTimeout(() => ctrl.abort(), 25000);
-    let r;
-    try {
-      // Un reintento ante errores transitorios (modelo saturado, límite por minuto): en prod fallaba de forma intermitente.
-      for (let attempt = 0; attempt < 2; attempt++) {
-        r = await fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, signal: ctrl.signal, body });
-        if (![429, 500, 502, 503, 504].includes(r.status) || attempt === 1) break;
-        console.error('[aicheck] Gemini', MODEL, r.status, 'reintentando');
-        await new Promise((ok) => setTimeout(ok, 1500));
-      }
-    } finally { clearTimeout(id); }
-
-    const data = await r.json();
-    if (!r.ok || data.error) {
-      const raw = (data.error && data.error.message) || `HTTP ${r.status}`;
-      console.error('[aicheck] Gemini', MODEL, r.status, raw);
-      let msg = 'El chequeo de IA no está disponible por ahora.';
-      if (r.status === 402 || /quota|rate|exceeded|\blimit\b|credits/i.test(raw)) msg = 'El chequeo de IA llegó al límite gratuito. Intenta más tarde.';
-      else if (/api key|invalid|permission|denied|unauthorized/i.test(raw)) msg = 'El chequeo de IA no está configurado correctamente.';
-      return res.status(200).json({ ok: false, error: msg });
-    }
-    const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-    if (!text) {
-      const blocked = data?.promptFeedback?.blockReason;
-      return res.status(200).json({ ok: false, error: blocked ? 'La IA bloqueó el contenido del sitio.' : 'La IA no devolvió resultado.' });
-    }
-    out = JSON.parse(text);
-  } catch (e) {
-    return res.status(200).json({ ok: false, error: 'El chequeo de IA tardó demasiado o falló. Intenta de nuevo.' });
+  // 3) IA con salida JSON: Gemini primero; si falla (cuota, caída, modelo retirado), Groq.
+  const ai = await askJson(prompt, { schema: RESPONSE_SCHEMA });
+  if (!ai.ok) {
+    return res.status(200).json({ ok: false, error: ai.quota ? 'El chequeo de IA llegó a su límite de hoy. Intenta más tarde.' : 'El chequeo de IA no está disponible por ahora.' });
   }
+  const out = ai.json;
 
   // Normalizar
   const clampScore = Math.max(0, Math.min(100, Math.round(Number(out.aeoScore) || 0)));
   return res.status(200).json({
     ok: true,
     url: target,
-    model: MODEL,
+    model: ai.model,
     category: str(out.category),
     location: str(out.location),
     query: str(out.query),
@@ -132,7 +92,9 @@ TAREA:
 4. aeoScore: 0-100, qué tan citeable/entendible es hoy para un LLM.
 5. verdict: 1-2 frases directas sobre su visibilidad en IA.
 6. reasons: 2-4 motivos concretos del veredicto.
-7. actions: 3-5 acciones específicas y accionables para que la IA lo cite más (schema, FAQ, contenido, datos de contacto/NAP, etc.).`;
+7. actions: 3-5 acciones específicas y accionables para que la IA lo cite más (schema, FAQ, contenido, datos de contacto/NAP, etc.).
+
+Formato exacto: {"category": "", "location": "", "query": "", "cited": "si|parcial|no", "aeoScore": 0, "verdict": "", "reasons": [""], "actions": [""]}`;
 }
 
 async function extractPage(target) {

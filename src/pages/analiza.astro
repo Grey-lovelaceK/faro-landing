@@ -110,7 +110,7 @@ const headExtra = "<style>\n  :root{\n    --accent:#3D5AFE; --accent-2:#5B72FF; 
     <!-- Modo «sin web»: para negocios que solo están en Instagram/WhatsApp. -->
     <p class="nw-switch" id="nwSwitch" hidden><button type="button" id="toNoWeb">¿No tienes web? Revisa si la IA conoce tu negocio →</button></p>
     <form id="fnw" class="nw-form" hidden>
-      <p class="nw-lead">Le hacemos a la IA, con búsqueda de Google, la pregunta que haría un cliente tuyo, y vemos si te nombra.</p>
+      <p class="nw-lead">Buscamos en internet lo que buscaría un cliente tuyo, se lo damos a una IA y vemos si te recomienda.</p>
       <div class="nw-grid">
         <label>Nombre del negocio<input type="text" id="nwName" placeholder="Pastelería Lucía" maxlength="80" required></label>
         <label>Rubro<input type="text" id="nwRubro" placeholder="pastelería" maxlength="60" required></label>
@@ -423,7 +423,7 @@ const headExtra = "<style>\n  :root{\n    --accent:#3D5AFE; --accent-2:#5B72FF; 
         <div class="grid4">${cell('Google Maps', p.googleMaps)}${cell('Reseñas en Google', p.reviews)}${cell('Instagram', p.instagram)}${cell('Web', p.web)}</div>
         ${rec ? `<div class="sect"><h4>A quién recomienda la IA para «${esc(d.query)}»</h4><ul>${rec}</ul></div>` : ''}
         ${acts ? `<div class="sect"><h4>Qué hacer primero</h4><ul>${acts}</ul></div>` : ''}
-        <p class="note">Consulta hecha hoy con ${esc(d.model || 'IA')}${d.grounded ? ' y búsqueda de Google' : ''}. Las respuestas de la IA cambian: tómalo como una prueba, no como una nota fija.${src ? ' Fuentes: ' + src + '.' : ''}</p>
+        <p class="note">Consulta hecha hoy con ${esc(d.model || 'IA')}${d.grounded ? ' sobre una búsqueda real en internet' : ''}. Las respuestas de la IA cambian: tómalo como una prueba, no como una nota fija.${src ? ' Fuentes: ' + src + '.' : ''}</p>
       </div>
       <div class="cta">
         <h3>Te ayudamos a aparecer, aunque hoy no tengas web</h3>
