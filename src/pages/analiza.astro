@@ -57,6 +57,14 @@ const ld = [
           },
           {
             "@type": "Question",
+            "name": "¿Y si no tengo página web?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "También puedes revisarte. Elige «¿No tienes web?», escribe el nombre de tu negocio, tu rubro y tu comuna, y buscamos en internet lo que buscaría un cliente tuyo. Una IA lee esos resultados y te dice si te recomendaría, qué presencia tienes hoy (Google Maps, reseñas, Instagram) y qué hacer primero para aparecer."
+            }
+          },
+          {
+            "@type": "Question",
             "name": "¿Guardan mi sitio o mis datos?",
             "acceptedAnswer": {
               "@type": "Answer",
@@ -108,7 +116,7 @@ const headExtra = "<style>\n  :root{\n    --accent:#3D5AFE; --accent-2:#5B72FF; 
     <p class="hint">// no guardamos tu sitio · analizamos la página pública, igual que Google</p>
 
     <!-- Modo «sin web»: para negocios que solo están en Instagram/WhatsApp. -->
-    <p class="nw-switch" id="nwSwitch" hidden><button type="button" id="toNoWeb">¿No tienes web? Revisa si la IA conoce tu negocio →</button></p>
+    <p class="nw-switch" id="nwSwitch"><button type="button" id="toNoWeb">¿No tienes web? Revisa si la IA conoce tu negocio →</button></p>
     <form id="fnw" class="nw-form" hidden>
       <p class="nw-lead">Buscamos en internet lo que buscaría un cliente tuyo, se lo damos a una IA y vemos si te recomienda.</p>
       <div class="nw-grid">
@@ -140,6 +148,7 @@ const headExtra = "<style>\n  :root{\n    --accent:#3D5AFE; --accent-2:#5B72FF; 
         <details><summary>¿El análisis es gratis?</summary><p>Sí. La nota general y el puntaje por categoría son gratis y sin registro. El detalle de cada punto, el rendimiento real con Google PageSpeed y el chequeo de IA se desbloquean dejando tu nombre y correo.</p></details>
         <details><summary>¿Qué es AEO y GEO?</summary><p>AEO (Answer Engine Optimization) y GEO (Generative Engine Optimization) son las prácticas para que los asistentes de IA, como ChatGPT, Perplexity, Gemini o los AI Overviews de Google, entiendan tu negocio y lo citen cuando alguien pregunta por lo que ofreces. Dependen de datos estructurados, contenido que responda preguntas concretas y archivos como llms.txt.</p></details>
         <details><summary>¿Por qué mi nota es baja si mi web se ve bien?</summary><p>Porque Google y la IA no ven el diseño: leen el código. Una web puede verse muy bien y aun así no tener título optimizado, datos estructurados, sitemap o una versión rápida en celular. Eso es lo que mide el analizador.</p></details>
+        <details><summary>¿Y si no tengo página web?</summary><p>También puedes revisarte. Elige «¿No tienes web?», escribe el nombre de tu negocio, tu rubro y tu comuna, y buscamos en internet lo que buscaría un cliente tuyo. Una IA lee esos resultados y te dice si te recomendaría, qué presencia tienes hoy (Google Maps, reseñas, Instagram) y qué hacer primero para aparecer.</p></details>
         <details><summary>¿Guardan mi sitio o mis datos?</summary><p>No guardamos el análisis. Si dejas tu nombre y correo para ver el detalle, guardamos esos datos junto a la URL analizada y la nota, solo para contactarte por este análisis. El detalle está en nuestra política de privacidad.</p></details>
         <details><summary>¿Cómo subo mi nota?</summary><p>El informe completo te dice qué corregir primero. Puedes hacerlo tú o tu desarrollador, o pedirnos que lo dejemos en verde: lo hacemos como parte de nuestros planes de web y posicionamiento.</p></details>
       </div>
@@ -316,9 +325,7 @@ const headExtra = "<style>\n  :root{\n    --accent:#3D5AFE; --accent-2:#5B72FF; 
   }
 
   // ── Modo «sin web»: ¿la IA conoce tu negocio? ──────────────────────────
-  // Se muestra con ?sinweb (prueba) o cuando el HTML trae data-noweb="on" en el body.
   const fnw = document.getElementById('fnw'), nwSwitch = document.getElementById('nwSwitch');
-  if (new URLSearchParams(location.search).has('sinweb') || document.body.dataset.noweb === 'on') nwSwitch.hidden = false;
   const sub = document.getElementById('sub'), subWeb = sub.textContent;
   const showNoWeb = (on) => {
     fnw.hidden = !on; f.hidden = on; nwSwitch.hidden = on;

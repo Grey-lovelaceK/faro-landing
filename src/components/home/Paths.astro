@@ -1,0 +1,50 @@
+---
+// «¿Por dónde partimos?»: una entrada por cada tipo de cliente, para que nadie piense «esto no es para mí».
+// Precios = los publicados en /precios e /integraciones.
+import Icon from '../Icon.astro';
+const paths = [
+  { icon: 'monitor', t: 'Quiero mi primera web', d: 'Un sitio a medida, rápido y listo para Google y la IA desde el primer día.', meta: 'Desde $290.000, pago único', href: '/diseno-web' },
+  { icon: 'bars', t: 'Tengo web, pero no me llegan clientes', d: 'Revisa gratis qué está fallando: Google, la IA, la velocidad o el mensaje.', meta: 'Análisis gratis', href: '/analiza' },
+  { icon: 'megaphone', t: 'Quiero que me lleven las redes', d: 'Contenido, publicaciones y campañas en Instagram, Facebook y Google.', meta: 'Pauta desde $250.000 al mes', href: '/marketing-digital' },
+  { icon: 'puzzle', t: 'Quiero conectar mi tienda', d: 'Tu tienda online con Bsale, Defontana o Enviame: stock, boletas y despachos solos.', meta: 'Desde $250.000 + mensualidad', href: '/integraciones' },
+  { icon: 'sparkle', t: 'Solo tengo Instagram', d: 'Mira si la IA conoce tu negocio cuando un cliente pregunta por tu rubro.', meta: 'Revisión gratis', href: '/analiza?sinweb=1' },
+] as const;
+---
+<section class="sec paths" id="empezar" aria-labelledby="paths-h">
+  <div class="wrap-sec">
+    <div class="sec-head center">
+      <h2 id="paths-h">¿Por dónde partimos?</h2>
+      <p class="lead">Elige lo que más se parece a tu caso. Si no sabes, escríbenos y lo vemos juntos.</p>
+    </div>
+    <ul class="path-grid" role="list">
+      {paths.map((p) => (
+        <li>
+          <a href={p.href} class="path">
+            <span class="p-icon"><Icon name={p.icon} size={24} stroke={2} /></span>
+            <span class="p-t">{p.t}</span>
+            <span class="p-d">{p.d}</span>
+            <span class="p-foot"><span class="p-meta num">{p.meta}</span><Icon name="arrow" size={20} stroke={2} /></span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .path-grid { list-style: none; margin: 3rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; }
+  .path {
+    height: 100%; display: flex; flex-direction: column; gap: 0.625rem; padding: 1.375rem 1.25rem 1.25rem;
+    border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--bg); color: var(--ink); text-decoration: none;
+    transition: border-color 0.2s, transform 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out);
+  }
+  .path:hover { border-color: var(--accent-line); transform: translateY(-3px); box-shadow: var(--shadow-card); }
+  .p-icon { width: 2.75rem; height: 2.75rem; border-radius: var(--radius-sm); display: grid; place-items: center; background: var(--accent-tint); color: var(--accent); }
+  .p-t { margin-top: 0.375rem; font-family: var(--font-display); font-weight: 700; font-size: 1.2rem; line-height: 1.15; letter-spacing: -0.03em; }
+  .p-d { color: var(--muted); font-size: 0.92rem; line-height: 1.45; }
+  .p-foot { margin-top: auto; padding-top: 0.625rem; display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; color: var(--accent); }
+  .p-meta { font-size: 0.84rem; font-weight: 600; color: var(--ink-2); }
+  @media (max-width: 1100px) { .path-grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 760px) { .path-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 480px) { .path-grid { grid-template-columns: 1fr; } }
+</style>

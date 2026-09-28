@@ -5,7 +5,7 @@
 //    si el negocio aparece, qué presencia tiene y qué hacer. Sin resultados de búsqueda, no nombra competidores.
 // Env: TAVILY_API_KEY + GROQ_API_KEY y/o GEMINI_API_KEY (ver api/_llm.js).
 
-import { askJson, search, groqModels, groqModel } from './_llm.js';
+import { askJson, search } from './_llm.js';
 
 export const config = { maxDuration: 30 };
 
@@ -46,15 +46,12 @@ TAREA:
 2) ¿Recomendaste a "${name}"? found = "si" si está en tu recomendación; "parcial" si aparece en los resultados pero no lo recomendarías; "no" si no aparece.
 3) presence, según los resultados del negocio: googleMaps, instagram, web, reviews = "si" | "no" | "no se sabe" (usa "no se sabe" si los resultados no alcanzan para afirmarlo).
 4) verdict: 1-2 frases directas para el dueño sobre qué tan visible es hoy.
-5) actions: 3-5 acciones concretas para que Google y la IA lo encuentren y lo recomienden.
+5) actions: 3-5 acciones concretas para que Google y la IA lo encuentren y lo recomienden. Al perfil de Google llámalo «Perfil de Empresa en Google» (no «Google My Business»).
 No incluyas direcciones ni teléfonos de otros negocios. Español de Chile, tono directo y honesto.
 
 Formato exacto: {"answer": "", "recommended": [""], "found": "si|parcial|no", "presence": {"googleMaps": "", "instagram": "", "web": "", "reviews": ""}, "verdict": "", "actions": [""]}`;
 
   const ai = await askJson(prompt, { order: ['groq', 'gemini'] });
-  if (!ai.ok && q.diag === 'faro-7c1') {
-    return res.status(200).json({ ok: false, diag: ai.error, envs: { groq: !!process.env.GROQ_API_KEY, gemini: !!process.env.GEMINI_API_KEY, tavily: !!process.env.TAVILY_API_KEY, groqModel: await groqModel(), groqModels: await groqModels() }, search: [market.results.length, own.results.length] });
-  }
   if (!ai.ok) {
     return res.status(200).json({ ok: false, error: ai.quota ? 'El chequeo de IA llegó a su límite de hoy. Intenta más tarde.' : 'El chequeo de IA no está disponible por ahora.' });
   }
@@ -69,7 +66,12 @@ Formato exacto: {"answer": "", "recommended": [""], "found": "si|parcial|no", "p
   const haystack = market.results.map(x => (x.title + ' ' + x.content).toLowerCase()).join(' ');
   const recommended = arr(out.recommended).map(x => x.slice(0, 80)).filter(n => haystack.includes(n.toLowerCase().slice(0, 18))).slice(0, 5);
 
-  const found = ['si', 'parcial', 'no'].includes(out.found) ? out.found : 'no';
+  // «found» sale de los datos: en la lista de recomendados → si; solo en la búsqueda del cliente → parcial; si no, no.
+  const norm = (t) => String(t).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+  const key = norm(name);
+  const inRec = recommended.some(r => norm(r).includes(key) || key.includes(norm(r)));
+  const inMarket = norm(haystack).includes(key);
+  const found = inRec ? 'si' : inMarket ? 'parcial' : 'no';
   const yn = v => (['si', 'no', 'no se sabe'].includes(v) ? v : 'no se sabe');
   return res.status(200).json({
     ok: true,

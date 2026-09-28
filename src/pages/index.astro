@@ -5,6 +5,7 @@ import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
 import AiCard from '../components/home/AiCard.astro';
 import ServiceBento from '../components/home/ServiceBento.astro';
+import Paths from '../components/home/Paths.astro';
 import Visibility from '../components/home/Visibility.astro';
 import Process from '../components/home/Process.astro';
 import Pricing from '../components/home/Pricing.astro';
@@ -201,6 +202,7 @@ const preload = '<link rel="preload" href="/fonts/palanquin-dark-700-latin.woff2
     <section id="servicios" class="services wrap-wide" aria-label="Servicios">
       <ServiceBento />
     </section>
+    <Paths />
     <Visibility />
     <Process />
     <Pricing />
@@ -223,7 +225,7 @@ const preload = '<link rel="preload" href="/fonts/palanquin-dark-700-latin.woff2
       var io = new IntersectionObserver(function (es) {
         es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add(e.target.classList.contains('steps') ? 'lit' : 'in'); io.unobserve(e.target); } });
       }, { rootMargin: '0px 0px -12% 0px' });
-      var groups = ['.sec-head', '.vis-row', '.plan', '.extra', '.person', '.faq-list details', '.night', '.step'];
+      var groups = ['.sec-head', '.path-grid > li', '.vis-row', '.plan', '.extra', '.person', '.faq-list details', '.night', '.step'];
       groups.forEach(function (sel) {
         var i = 0, last = null;
         document.querySelectorAll('main ' + sel).forEach(function (el) {
