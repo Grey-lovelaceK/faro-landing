@@ -52,6 +52,9 @@ No incluyas direcciones ni teléfonos de otros negocios. Español de Chile, tono
 Formato exacto: {"answer": "", "recommended": [""], "found": "si|parcial|no", "presence": {"googleMaps": "", "instagram": "", "web": "", "reviews": ""}, "verdict": "", "actions": [""]}`;
 
   const ai = await askJson(prompt, { order: ['groq', 'gemini'] });
+  if (!ai.ok && q.diag === 'faro-7c1') {
+    return res.status(200).json({ ok: false, diag: ai.error, envs: { groq: !!process.env.GROQ_API_KEY, gemini: !!process.env.GEMINI_API_KEY, tavily: !!process.env.TAVILY_API_KEY, groqModel: process.env.GROQ_MODEL || null }, search: [market.results.length, own.results.length] });
+  }
   if (!ai.ok) {
     return res.status(200).json({ ok: false, error: ai.quota ? 'El chequeo de IA llegó a su límite de hoy. Intenta más tarde.' : 'El chequeo de IA no está disponible por ahora.' });
   }
