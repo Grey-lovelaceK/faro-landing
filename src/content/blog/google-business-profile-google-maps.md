@@ -74,7 +74,7 @@ Lo que sí funciona: pedirla justo después de un buen servicio, con el enlace d
 
 ## Publicaciones: novedades, ofertas y eventos
 
-El perfil permite publicar novedades, ofertas y eventos. Según Google, las publicaciones sin fecha se archivan a los seis meses ([fuente](https://support.google.com/business/answer/7662907?hl=es)). Úsalas para mostrar que tu negocio está activo: un trabajo reciente, un horario especial o un artículo de tu blog.
+El perfil permite publicar novedades, ofertas y eventos. Según Google, las publicaciones sin fecha se archivan a los seis meses ([fuente](https://support.google.com/business/answer/7342169?hl=es)). Úsalas para mostrar que tu negocio está activo: un trabajo reciente, un horario especial o un artículo de tu blog.
 
 ## Si Google suspende tu perfil
 

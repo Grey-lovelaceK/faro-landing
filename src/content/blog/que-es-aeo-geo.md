@@ -46,7 +46,7 @@ Nadie fuera de estas empresas conoce el algoritmo exacto, pero su documentación
 | Perplexity | Su rastreador, PerplexityBot, que muestra y enlaza sitios en sus resultados | No bloquear PerplexityBot en robots.txt |
 | ChatGPT (búsqueda) | Búsqueda web con su propio rastreador, OAI-SearchBot | No bloquearlo en robots.txt. Permitirlo no garantiza que te cite, pero bloquearlo te deja fuera |
 
-Fuentes: [Google Search Central](https://developers.google.com/search/docs/appearance/ai-features), [blog de Bing Webmaster](https://blogs.bing.com/webmaster/February-2026/Introducing-AI-Performance-in-Bing-Webmaster-Tools-Public-Preview) y [documentación de Perplexity](https://docs.perplexity.ai/docs/resources/perplexity-crawlers).
+Fuentes: [Google Search Central](https://developers.google.com/search/docs/appearance/ai-features), [blog de Bing Webmaster](https://blogs.bing.com/webmaster/2026/2/Introducing-AI-Performance-in-Bing-Webmaster-Tools-Public-Preview) y [documentación de Perplexity](https://docs.perplexity.ai/docs/resources/perplexity-crawlers).
 
 ## Qué funciona según la evidencia (y qué no)
 
