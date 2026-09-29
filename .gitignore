@@ -29,3 +29,6 @@ dist/
 
 # impeccable (mockups y revisiones de diseño, no se publican)
 .impeccable/
+
+# Vault de Obsidian generado desde .claude/context (incluye privado/). Nunca a git.
+.claude/vault/
