@@ -89,6 +89,7 @@ Lee la ficha completa en `.claude/context/PROJECT.md`. Resumen de a quién llama
 - **faro-estrategia** — oferta, precios, prospección, contenido para redes, métricas del embudo. También asiste a la socia.
 - **faro-aeo** — audita SEO/AEO/GEO y mantiene la rúbrica del analizador.
 - **faro-qa** — verifica en prod; no escribe código de producción.
+- **faro-marca** — guardián de la identidad visual: inspecciona sitio y redes contra `DESIGN.md` y propone mejoras. No edita; decide la socia.
 - **data-guru / dba** (globales) — solo bajo demanda; una tabla no justifica guardianes fijos.
 
 ## Reglas

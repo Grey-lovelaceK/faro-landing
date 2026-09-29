@@ -1,22 +1,39 @@
 ---
 // Menú principal de todo el sitio (sistema nuevo): logo, enlaces, CTA y menú ☰ bajo 860px.
-// El botón de tema lo agrega public/site.js a la izquierda del CTA. Estilos en src/styles/faro.css (nav.bar, .mnav).
+// «Servicios» despliega las cinco familias (pedido de Clementina, 29-sep-2026): se abre al pasar el mouse,
+// con el teclado (foco) o con clic; sin JavaScript igual funciona el enlace a /#servicios.
+// El botón de tema lo agrega public/site.js a la izquierda del CTA. Estilos en src/styles/faro.css (nav.bar, .navdd, .mnav).
 import BrandLogo from './BrandLogo.astro';
 import Icon from './Icon.astro';
 interface Props { logo?: number }
 const { logo = 36 } = Astro.props;
-const links = [['Servicios', '/#servicios'], ['Precios', '/precios'], ['Nosotros', '/nosotros'], ['Blog', '/blog/']];
+const services = [
+  ['Diseño web', '/diseno-web', 'Landing, sitio corporativo y tienda online'],
+  ['Aparecer en Google', '/seo-aeo-geo', 'Google Maps, Google y la IA'],
+  ['Branding', '/branding', 'Identidad de marca y manual'],
+  ['Marketing digital', '/marketing-digital', 'Anuncios, redes y correo'],
+  ['Integraciones', '/integraciones', 'Tu tienda con tu ERP y courier'],
+];
+const links = [['Precios', '/precios'], ['Nosotros', '/nosotros'], ['Blog', '/blog/']];
 ---
 <nav class="bar" aria-label="Principal">
   <div class="nav-in">
     <BrandLogo size={logo} />
     <div class="navlinks">
+      <div class="navdd">
+        <a href="/#servicios" class="dd-btn" aria-haspopup="true" aria-expanded="false">Servicios <svg class="dd-caret" aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></a>
+        <div class="dd-panel">
+          {services.map(([t, h, d]) => <a href={h}><span class="dd-t">{t}</span><span class="dd-d">{d}</span></a>)}
+        </div>
+      </div>
       {links.map(([t, h]) => <a href={h}>{t}</a>)}
     </div>
     <a href="/analiza" class="btn btn-primary btn-sm"><span class="cta-long">Analiza tu web gratis</span><span class="cta-short">Analiza gratis</span></a>
     <details class="mnav">
       <summary aria-label="Menú"><span class="mnav-open"><Icon name="menu" size={22} stroke={2} /></span><span class="mnav-close"><Icon name="close" size={22} stroke={2} /></span></summary>
       <div class="mnav-panel">
+        <p class="mnav-h">Servicios</p>
+        {services.map(([t, h]) => <a href={h} class="mnav-sub">{t}</a>)}
         {links.map(([t, h]) => <a href={h}>{t}</a>)}
         <a href="/analiza" class="btn btn-primary">Analiza tu web gratis</a>
       </div>
@@ -30,5 +47,16 @@ const links = [['Servicios', '/#servicios'], ['Precios', '/precios'], ['Nosotros
     var m = document.querySelector('.mnav'); if (!m) return;
     m.addEventListener('click', function (e) { if (e.target.closest('a')) m.open = false; });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && m.open) { m.open = false; m.querySelector('summary').focus(); } });
+  })();
+  // Desplegable «Servicios»: el primer clic abre (en pantallas táctiles no hay hover); Escape o clic afuera cierra.
+  (function () {
+    var dd = document.querySelector('.navdd'); if (!dd) return;
+    var b = dd.querySelector('.dd-btn');
+    function set(o) { dd.classList.toggle('open', o); b.setAttribute('aria-expanded', o ? 'true' : 'false'); }
+    b.addEventListener('click', function (e) { if (!dd.classList.contains('open')) { e.preventDefault(); set(true); } });
+    dd.addEventListener('mouseenter', function () { set(true); });
+    dd.addEventListener('mouseleave', function () { set(false); });
+    document.addEventListener('click', function (e) { if (!dd.contains(e.target)) set(false); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && dd.classList.contains('open')) { set(false); b.focus(); } });
   })();
 </script>
