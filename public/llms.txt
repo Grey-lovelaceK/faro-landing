@@ -16,7 +16,7 @@ Precios referenciales publicados en pesos chilenos (CLP, netos). Contacto: conta
 
 - Misión: Ayudamos a pymes chilenas a que sus clientes las encuentren: en Google y en las respuestas de la inteligencia artificial. Diseñamos su web, la posicionamos y la conectamos con su negocio, con precios claros y trato directo con quienes hacen el trabajo.
 - Visión: Ser el estudio al que acuden las pymes chilenas cuando quieren crecer en internet, reconocidas por resultados que se pueden ver, precios que se publican y un trato cercano.
-- [Equipo](https://faroagencia.cl/nosotros): Cristian Florez Revilla (cofundador y director técnico: desarrollo, SEO técnico e integraciones) y Clementina Moya (cofundadora y directora creativa y de marketing: estrategia, redacción y diseño).
+- [Equipo](https://faroagencia.cl/nosotros): Cristian Florez Revilla (cofundador y director de tecnología y posicionamiento: desarrollo, SEO técnico e integraciones) y Clementina Moya (cofundadora y directora creativa y de marketing: estrategia, redacción y diseño).
 
 ## Herramientas
 
