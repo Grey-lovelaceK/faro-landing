@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">¿Cuánto cuesta aparecer en Google Maps y en Google en Chile?</title>
+  <desc id="desc">Pin de mapa con tres planes mensuales: Google Maps, Google + IA y Crecimiento.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0A0D17"/><stop offset="1" stop-color="#131829"/></linearGradient>
+    <linearGradient id="beam" x1="0" y1="1" x2="1" y2="0"><stop stop-color="#3D5AFE" stop-opacity=".24"/><stop offset="1" stop-color="#7E90FF" stop-opacity="0"/></linearGradient>
+    <radialGradient id="halo"><stop stop-color="#3D5AFE" stop-opacity=".32"/><stop offset="1" stop-color="#3D5AFE" stop-opacity="0"/></radialGradient>
+    <pattern id="dots" width="22" height="22" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1" fill="#28304C" opacity=".55"/></pattern>
+    <filter id="shadow" x="-25%" y="-25%" width="160%" height="180%"><feDropShadow dx="0" dy="16" stdDeviation="15" flood-color="#03050D" flood-opacity=".72"/><feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#3D5AFE" flood-opacity=".18"/></filter>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/><rect width="1200" height="630" fill="url(#dots)" opacity=".55"/><path d="M568 630 1200 28 1200 302Z" fill="url(#beam)"/><ellipse cx="900" cy="318" rx="307" ry="260" fill="url(#halo)"/><path d="M0 542H1200" stroke="#28304C"/>
+  <!-- pin -->
+  <g transform="translate(1040 92)"><path d="M40 0C18 0 0 18 0 40c0 30 40 72 40 72s40-42 40-72C80 18 62 0 40 0Z" fill="#3D5AFE"/><circle cx="40" cy="40" r="15" fill="#0A0D17"/></g>
+  <!-- plan cards -->
+  <g font-family="Segoe UI, Arial, Helvetica, sans-serif">
+    <g transform="translate(660 150)" filter="url(#shadow)"><rect width="340" height="92" rx="15" fill="#171E34" stroke="#28304C"/><text x="22" y="38" font-size="20" font-weight="700" fill="#EAEDF6">Google Maps</text><text x="22" y="70" font-size="15" fill="#9AA2BC">al mes, neto</text><text x="318" y="58" text-anchor="end" font-size="28" font-weight="800" fill="#EAEDF6">$150.000</text></g>
+    <g transform="translate(640 262)" filter="url(#shadow)"><rect width="380" height="102" rx="15" fill="#171E34" stroke="#5B72FF" stroke-width="2"/><text x="24" y="42" font-size="22" font-weight="700" fill="#EAEDF6">Google + IA</text><text x="24" y="76" font-size="15" fill="#7E90FF">SEO, AEO y GEO</text><text x="356" y="64" text-anchor="end" font-size="30" font-weight="800" fill="#EAEDF6">$350.000</text></g>
+    <g transform="translate(660 384)" filter="url(#shadow)"><rect width="340" height="92" rx="15" fill="#171E34" stroke="#28304C"/><text x="22" y="38" font-size="20" font-weight="700" fill="#EAEDF6">Crecimiento</text><text x="22" y="70" font-size="15" fill="#9AA2BC">al mes, neto</text><text x="318" y="58" text-anchor="end" font-size="28" font-weight="800" fill="#EAEDF6">$650.000</text></g>
+  </g>
+  <!-- left copy -->
+  <g font-family="Segoe UI, Arial, Helvetica, sans-serif"><rect x="72" y="66" width="190" height="36" rx="18" fill="#11172A" stroke="#5B72FF"/><text x="167" y="90" text-anchor="middle" font-size="15" font-weight="600" fill="#7E90FF">Precios 2026</text></g>
+  <text x="72" y="184" fill="#EAEDF6" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="58" font-weight="800" letter-spacing="-2.8"><tspan x="72">¿Cuánto cuesta</tspan><tspan x="72" dy="64">aparecer en</tspan><tspan x="72" dy="64">Google Maps?</tspan></text>
+  <text x="72" y="410" fill="#9AA2BC" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="27" letter-spacing="-.6"><tspan x="72">Lo que cobran las agencias</tspan><tspan x="72" dy="36">en Chile y qué trae cada plan</tspan></text>
+  <text x="72" y="588" fill="#EAEDF6" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="30" font-weight="800" letter-spacing="-1.5">Faro<tspan fill="#5B72FF">°</tspan></text><text x="1128" y="588" text-anchor="end" fill="#5A6484" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="15">Por Cristian Florez Revilla · faroagencia.cl</text>
+</svg>
