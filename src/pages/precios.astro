@@ -1,14 +1,39 @@
 ---
 // Página de servicio: /precios. Estructura, FAQ y JSON-LD en src/layouts/Service.astro.
 import Service from '../layouts/Service.astro';
+import ServiceCards from '../components/ServiceCards.astro';
+// Tarjetas en lugar de tablas (pedido de Cristian 29-sep-2026: las tablas «no me gusta como se ve»).
+const branding = [
+  { name: 'Logo e identidad básica', desc: 'Logo y sus versiones, colores y tipografías, con 2 rondas de cambios.', price: 'desde $190.000', unit: 'pago único', href: '/branding#planes' },
+  { name: 'Manual de marca', desc: 'Todo lo anterior + manual, aplicaciones y plantillas para Instagram.', price: 'desde $390.000', unit: 'pago único', href: '/branding#planes' },
+  { name: 'Material publicitario', desc: 'Flyers, pendones, tarjetas, menús o letreros con tu identidad.', price: 'desde $40.000', unit: 'por pieza', href: '/branding#planes' },
+];
+const posicionamiento = [
+  { name: 'Google Maps', desc: 'Perfil de Empresa, publicaciones, reseñas y chequeo mensual en IA.', price: 'desde $150.000', unit: 'al mes', tag: 'Sirve sin web', href: '/seo-aeo-geo#planes' },
+  { name: 'Google + IA', desc: 'Todo Google Maps + SEO técnico, 2 contenidos al mes y visibilidad en IA.', price: 'desde $350.000', unit: 'al mes', tag: 'Recomendado', href: '/seo-aeo-geo#planes' },
+  { name: 'Crecimiento', desc: 'Todo Google + IA + 4 contenidos, páginas por comuna y enlaces.', price: 'desde $650.000', unit: 'al mes', href: '/seo-aeo-geo#planes' },
+];
+const marketing = [
+  { name: 'Anuncios en Google o Meta', desc: 'Una plataforma, con medición de conversiones y reporte de consultas.', price: 'desde $190.000', unit: 'al mes + inversión', href: '/marketing-digital#anuncios' },
+  { name: 'Anuncios en Google y Meta', desc: 'Ambas plataformas y un solo reporte de consultas y ventas.', price: 'desde $320.000', unit: 'al mes + inversión', href: '/marketing-digital#anuncios' },
+  { name: 'Redes sociales: Al día', desc: '8 publicaciones al mes en Instagram y Facebook, con calendario y reporte.', price: 'desde $250.000', unit: 'al mes', href: '/marketing-digital#redes' },
+  { name: 'Redes sociales: Crecer', desc: '12 publicaciones al mes, 4 de ellas reels, y respuesta a comentarios.', price: 'desde $420.000', unit: 'al mes', href: '/marketing-digital#redes' },
+  { name: 'Email marketing', desc: '2 campañas al mes con diseño, textos y reporte. Automatizaciones desde $290.000.', price: 'desde $120.000', unit: 'al mes', href: '/marketing-digital#correo' },
+  { name: 'Mantenimiento web', desc: 'Cambios, respaldos, seguridad y soporte de tu sitio.', price: 'desde $39.990', unit: 'al mes', href: '/diseno-web' },
+];
+const integraciones = [
+  { name: 'Despacho', desc: 'Tienda ↔ Enviame: etiquetas y seguimiento. Mensualidad desde $25.000.', price: 'desde $250.000', unit: 'instalación', href: '/integraciones#precios' },
+  { name: 'Conector', desc: '1 tienda ↔ 1 ERP (Bsale o Defontana): stock, precios, boleta o factura. Desde $45.000 al mes.', price: 'desde $450.000', unit: 'instalación', href: '/integraciones#precios' },
+  { name: 'Omnicanal', desc: 'Varias bodegas, listas de precio, notas de crédito y despacho. Desde $90.000 al mes.', price: 'desde $900.000', unit: 'instalación', href: '/integraciones#precios' },
+];
 const page = {
   "slug": "precios",
   "crumb": "Precios",
   "eyebrow": "Precios de referencia",
-  "title": "Precios de diseño web, SEO y marketing en Chile | Faro°",
-  "description": "Todos los precios de Faro° en un lugar: páginas web desde $290.000, aparecer en Google Maps desde $150.000 al mes, pauta e integraciones. Valores netos en CLP.",
-  "h1": "Precios: diseño web, posicionamiento, marketing e integraciones",
-  "tldr": "Publicamos nuestros precios para que sepas el rango desde el primer correo. Páginas web <strong>desde $290.000</strong> como pago único; aparecer en Google Maps <strong>desde $150.000 al mes</strong> y en Google y la IA (SEO, AEO y GEO) <strong>desde $350.000 al mes</strong>; gestión de pauta <strong>desde $250.000 al mes</strong> más la inversión; e integraciones de tu tienda con tu ERP <strong>desde $250.000</strong> más mensualidad. Todos los valores son netos en pesos chilenos, más IVA.",
+  "title": "Precios de diseño web, branding, SEO y marketing | Faro°",
+  "description": "Todos los precios de Faro°: web desde $290.000, branding desde $190.000, Google Maps desde $150.000 al mes, anuncios, redes y correo. Netos en CLP.",
+  "h1": "Precios: diseño web, branding, posicionamiento, marketing e integraciones",
+  "tldr": "Publicamos nuestros precios para que sepas el rango desde el primer correo. Páginas web <strong>desde $290.000</strong> y branding <strong>desde $190.000</strong>, como pago único; aparecer en Google Maps <strong>desde $150.000 al mes</strong>; anuncios <strong>desde $190.000 al mes</strong> más la inversión; redes sociales <strong>desde $250.000</strong>; email marketing <strong>desde $120.000</strong>; e integraciones de tu tienda <strong>desde $250.000</strong> más mensualidad. Todos los valores son netos en pesos chilenos, más IVA.",
   "ctaLabel": "Pide tu cotización por WhatsApp",
   "waMessage": "Hola Faro°, vi sus precios y quiero cotizar",
   "end": {
@@ -26,11 +51,11 @@ const page = {
     },
     {
       "q": "¿Cuánto cuesta una página web básica?",
-      "a": "Una landing o sitio de hasta 5 secciones parte desde $290.000 netos como pago único, con hosting y dominio .cl el primer año."
+      "a": "Una landing page parte desde $290.000 netos como pago único, con hosting y dominio .cl el primer año. Un sitio corporativo con blog parte desde $450.000."
     },
     {
       "q": "¿Tienen contrato de permanencia?",
-      "a": "El posicionamiento SEO, AEO y GEO tiene un mínimo de 3 meses, porque es el tiempo necesario para medir resultados. Los proyectos web son de pago único."
+      "a": "Los planes mensuales de posicionamiento tienen un mínimo de 3 meses, porque es el tiempo necesario para medir resultados. Anuncios, redes y correo se contratan mes a mes. Los proyectos de web y branding son de pago único."
     },
     {
       "q": "¿Puedo contratar solo una auditoría?",
@@ -53,109 +78,51 @@ const page = {
     "name": "Precios de referencia de Faro°",
     "url": "https://faroagencia.cl/precios",
     "itemListElement": [
-      {
-        "@type": "Offer",
-        "name": "Presencia",
-        "price": "290000",
-        "priceCurrency": "CLP",
-        "description": "Sitio de hasta 5 secciones. Pago único, neto.",
-        "url": "https://faroagencia.cl/diseno-web"
-      },
-      {
-        "@type": "Offer",
-        "name": "Crecimiento",
-        "price": "790000",
-        "priceCurrency": "CLP",
-        "description": "Sitio multipágina con blog. Pago único, neto.",
-        "url": "https://faroagencia.cl/diseno-web"
-      },
-      {
-        "@type": "Offer",
-        "name": "Dominio",
-        "price": "1490000",
-        "priceCurrency": "CLP",
-        "description": "E-commerce o a medida. Neto.",
-        "url": "https://faroagencia.cl/diseno-web"
-      },
-      {
-        "@type": "Offer",
-        "name": "Google Maps (SEO local)",
-        "price": "150000",
-        "priceCurrency": "CLP",
-        "description": "Mensual, neto, mínimo 3 meses.",
-        "url": "https://faroagencia.cl/seo-aeo-geo#planes"
-      },
-      {
-        "@type": "Offer",
-        "name": "Google + IA (SEO, AEO y GEO)",
-        "price": "350000",
-        "priceCurrency": "CLP",
-        "description": "Mensual, neto, mínimo 3 meses.",
-        "url": "https://faroagencia.cl/seo-aeo-geo#planes"
-      },
-      {
-        "@type": "Offer",
-        "name": "Crecimiento (SEO, AEO y GEO)",
-        "price": "650000",
-        "priceCurrency": "CLP",
-        "description": "Mensual, neto, mínimo 3 meses.",
-        "url": "https://faroagencia.cl/seo-aeo-geo#planes"
-      },
-      {
-        "@type": "Offer",
-        "name": "Gestión de pauta",
-        "price": "250000",
-        "priceCurrency": "CLP",
-        "description": "Mensual, neto, más inversión.",
-        "url": "https://faroagencia.cl/marketing-digital"
-      },
-      {
-        "@type": "Offer",
-        "name": "Integración Conector",
-        "price": "450000",
-        "priceCurrency": "CLP",
-        "description": "Instalación, neto, más $45.000 al mes.",
-        "url": "https://faroagencia.cl/integraciones"
-      }
+      { "@type": "Offer", "name": "Landing page", "price": "290000", "priceCurrency": "CLP", "description": "Pago único, neto. Con hosting y dominio el primer año.", "url": "https://faroagencia.cl/diseno-web" },
+      { "@type": "Offer", "name": "Sitio web corporativo", "price": "450000", "priceCurrency": "CLP", "description": "Pago único, neto.", "url": "https://faroagencia.cl/diseno-web" },
+      { "@type": "Offer", "name": "Tienda online", "price": "790000", "priceCurrency": "CLP", "description": "Pago único, neto.", "url": "https://faroagencia.cl/diseno-web" },
+      { "@type": "Offer", "name": "Mantenimiento web", "price": "39990", "priceCurrency": "CLP", "description": "Mensual, neto.", "url": "https://faroagencia.cl/diseno-web" },
+      { "@type": "Offer", "name": "Logo e identidad básica", "price": "190000", "priceCurrency": "CLP", "description": "Pago único, neto.", "url": "https://faroagencia.cl/branding" },
+      { "@type": "Offer", "name": "Identidad completa y manual de marca", "price": "390000", "priceCurrency": "CLP", "description": "Pago único, neto.", "url": "https://faroagencia.cl/branding" },
+      { "@type": "Offer", "name": "Material publicitario", "price": "40000", "priceCurrency": "CLP", "description": "Por pieza, neto.", "url": "https://faroagencia.cl/branding" },
+      { "@type": "Offer", "name": "Google Maps (SEO local)", "price": "150000", "priceCurrency": "CLP", "description": "Mensual, neto, mínimo 3 meses.", "url": "https://faroagencia.cl/seo-aeo-geo#planes" },
+      { "@type": "Offer", "name": "Google + IA (SEO, AEO y GEO)", "price": "350000", "priceCurrency": "CLP", "description": "Mensual, neto, mínimo 3 meses.", "url": "https://faroagencia.cl/seo-aeo-geo#planes" },
+      { "@type": "Offer", "name": "Crecimiento (SEO, AEO y GEO)", "price": "650000", "priceCurrency": "CLP", "description": "Mensual, neto, mínimo 3 meses.", "url": "https://faroagencia.cl/seo-aeo-geo#planes" },
+      { "@type": "Offer", "name": "Anuncios en Google o Meta", "price": "190000", "priceCurrency": "CLP", "description": "Mensual, neto, más inversión.", "url": "https://faroagencia.cl/marketing-digital#anuncios" },
+      { "@type": "Offer", "name": "Anuncios en Google y Meta", "price": "320000", "priceCurrency": "CLP", "description": "Mensual, neto, más inversión.", "url": "https://faroagencia.cl/marketing-digital#anuncios" },
+      { "@type": "Offer", "name": "Redes sociales: Al día", "price": "250000", "priceCurrency": "CLP", "description": "Mensual, neto. 8 publicaciones.", "url": "https://faroagencia.cl/marketing-digital#redes" },
+      { "@type": "Offer", "name": "Redes sociales: Crecer", "price": "420000", "priceCurrency": "CLP", "description": "Mensual, neto. 12 publicaciones.", "url": "https://faroagencia.cl/marketing-digital#redes" },
+      { "@type": "Offer", "name": "Email marketing", "price": "120000", "priceCurrency": "CLP", "description": "Mensual, neto. 2 campañas.", "url": "https://faroagencia.cl/marketing-digital#correo" },
+      { "@type": "Offer", "name": "Correos automáticos", "price": "290000", "priceCurrency": "CLP", "description": "Pago único, neto.", "url": "https://faroagencia.cl/marketing-digital#correo" },
+      { "@type": "Offer", "name": "Integración Despacho", "price": "250000", "priceCurrency": "CLP", "description": "Instalación, neto, más $25.000 al mes.", "url": "https://faroagencia.cl/integraciones" },
+      { "@type": "Offer", "name": "Integración Conector", "price": "450000", "priceCurrency": "CLP", "description": "Instalación, neto, más $45.000 al mes.", "url": "https://faroagencia.cl/integraciones" }
     ]
   }
 };
 ---
 <Service {...page}>
-  <h2 id="web">Diseño y desarrollo web (pago único)</h2>
+  <h2 id="web">Diseño web (pago único)</h2>
     <div class="plans">
-      <div class="plan"><div class="pn">Presencia</div><div class="pp">desde $290.000<small>pago único · neto</small></div>
-        <ul><li>Landing o sitio de hasta 5 secciones</li><li>Diseño a medida y responsivo</li><li>Hosting y dominio .cl el primer año</li><li>Formulario y WhatsApp</li><li>SEO base y Google Analytics</li><li>Entrega en 2 a 3 semanas</li></ul></div>
-      <div class="plan hot"><div class="pn">Crecimiento</div><div class="pp">desde $790.000<small>pago único · neto</small></div>
-        <ul><li>Sitio multipágina con blog y administrador de contenido</li><li>SEO on-page y datos estructurados</li><li>Base AEO/GEO para aparecer en la IA</li><li>Pagos, reservas y formularios conectados</li><li>Capacitación para que lo administres</li></ul></div>
-      <div class="plan"><div class="pn">Dominio</div><div class="pp">desde $1.490.000<small>a medida · neto</small></div>
-        <ul><li>E-commerce o desarrollo a medida</li><li>SEO técnico avanzado y AEO/GEO completo</li><li>Paneles de datos del negocio</li><li>Arquitectura para crecer</li><li>Soporte prioritario</li></ul></div>
+      <div class="plan"><div class="pn">Landing page</div><div class="pp">desde $290.000<small>pago único · neto</small></div>
+        <ul><li>Una página o sitio de hasta 5 secciones</li><li>Hosting y dominio .cl el primer año</li><li>Formulario y WhatsApp</li><li>SEO base y Google Analytics</li><li>Entrega en 2 a 3 semanas</li></ul></div>
+      <div class="plan hot"><div class="pn">Sitio corporativo</div><div class="pp">desde $450.000<small>pago único · neto</small></div>
+        <ul><li>Hasta 10 páginas, con blog</li><li>Administrador de contenido</li><li>SEO on-page y datos estructurados</li><li>Base para aparecer en la IA</li></ul></div>
+      <div class="plan"><div class="pn">Tienda online</div><div class="pp">desde $790.000<small>pago único · neto</small></div>
+        <ul><li>Catálogo, carrito y pagos en línea</li><li>SEO técnico y datos de producto</li><li>Conectable a tu ERP y courier</li><li>Capacitación para cargar productos</li></ul></div>
     </div>
-    <p class="note-mono">Precios de referencia netos en CLP, más IVA · el valor final depende del alcance y queda por escrito</p>
-    <p>Detalle en <a href="/diseno-web">diseño web</a>.</p>
+    <p>Mantenimiento mensual opcional desde <strong>$39.990</strong>. Detalle en <a href="/diseno-web">diseño web</a>.</p>
+
+  <h2 id="branding">Branding (pago único)</h2>
+    <ServiceCards items={branding} />
 
   <h2 id="mensuales">Servicios mensuales</h2>
-    <table>
-      <thead><tr><th>Servicio</th><th>Desde</th><th>Condiciones</th></tr></thead>
-      <tbody>
-        <tr><td><a href="/seo-aeo-geo#planes">Google Maps (SEO local)</a></td><td>$150.000 al mes</td><td>Mínimo 3 meses · sirve sin web</td></tr>
-        <tr><td><a href="/seo-aeo-geo#planes">Google + IA (SEO, AEO y GEO)</a></td><td>$350.000 al mes</td><td>Mínimo 3 meses · incluye 2 contenidos al mes</td></tr>
-        <tr><td><a href="/seo-aeo-geo#planes">Crecimiento (SEO, AEO y GEO)</a></td><td>$650.000 al mes</td><td>Mínimo 3 meses · incluye 4 contenidos al mes</td></tr>
-        <tr><td><a href="/marketing-digital">Gestión de pauta (Google y Meta Ads)</a></td><td>$250.000 al mes</td><td>Más la inversión en anuncios</td></tr>
-        <tr><td><a href="/marketing-digital#precio">Gestión de redes sociales</a></td><td>A cotizar</td><td>Según cuántas publicaciones al mes</td></tr>
-        <tr><td><a href="/marketing-digital#correo">Email marketing</a></td><td>A cotizar</td><td>Según volumen y frecuencia de envíos</td></tr>
-      </tbody>
-    </table>
+    <h3>Aparecer en Google (mínimo 3 meses)</h3>
+    <ServiceCards items={posicionamiento} />
+    <h3>Marketing y mantenimiento</h3>
+    <ServiceCards items={marketing} />
 
   <h2 id="integraciones">Integraciones (instalación + mensualidad)</h2>
-    <table>
-      <thead><tr><th>Pack</th><th>Instalación</th><th>Mensual</th><th>Incluye</th></tr></thead>
-      <tbody>
-        <tr><td>Despacho</td><td>desde $250.000</td><td>desde $25.000</td><td>Tienda ↔ Enviame: etiquetas y seguimiento</td></tr>
-        <tr><td>Conector</td><td>desde $450.000</td><td>desde $45.000</td><td>1 tienda ↔ 1 ERP (Bsale o Defontana): stock, precios, boleta o factura</td></tr>
-        <tr><td>Omnicanal</td><td>desde $900.000</td><td>desde $90.000</td><td>Varias bodegas, listas de precio, notas de crédito y despacho</td></tr>
-      </tbody>
-    </table>
+    <ServiceCards items={integraciones} />
     <p>La mensualidad cubre monitoreo, reintentos, alertas y ajustes. Detalle en <a href="/integraciones">integraciones</a>.</p>
 
   <h2 id="gratis">Gratis</h2>

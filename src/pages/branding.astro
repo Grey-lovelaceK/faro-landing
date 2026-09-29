@@ -1,0 +1,110 @@
+---
+// Página de servicio: /branding. Estructura, FAQ y JSON-LD en src/layouts/Service.astro.
+// Servicio nuevo (29-sep-2026): lo propuso Cristian y Clementina dijo «totalmente»; lo lidera ella (publicista).
+// Precios: propuesta de la sesión aprobada por Cristian («un poco más barato que el mercado»); Clementina puede ajustarlos.
+import Service from '../layouts/Service.astro';
+const page = {
+  "slug": "branding",
+  "crumb": "Branding",
+  "eyebrow": "Branding e identidad de marca",
+  "title": "Branding para pymes: logo e identidad de marca | Faro°",
+  "description": "Diseño de logo, identidad de marca, manual y material publicitario para pymes en Chile, con estrategia de por medio. Desde $190.000 netos, pago único.",
+  "h1": "Branding para pymes: una marca que se reconoce y se recuerda",
+  "tldr": "Una marca no es solo un logo: es cómo se ve y cómo suena tu negocio en todas partes, del letrero a Instagram. Diseñamos tu logo y tu identidad partiendo por quién eres y a quién le vendes. <strong>Logo e identidad básica desde $190.000</strong>, <strong>identidad completa con manual de marca desde $390.000</strong> y <strong>material publicitario desde $40.000 por pieza</strong>, pago único y netos. Lo lidera Clementina Moya, publicista.",
+  "ctaLabel": "Cotiza tu marca por WhatsApp",
+  "waMessage": "Hola Faro°, quiero cotizar branding para mi negocio",
+  "end": {
+    "title": "¿Conversamos sobre tu marca?",
+    "text": "Cuéntanos de tu negocio y te respondemos con alcance, plazo y precio en 48 horas."
+  },
+  "cards": [
+    { "name": "Logo e identidad básica", "desc": "Tu logo con sus versiones, colores y tipografías, listo para web, redes e impresión.", "price": "desde $190.000", "unit": "pago único" },
+    { "name": "Manual de marca", "desc": "Identidad completa y una guía de uso para que tu marca se vea igual en todas partes.", "price": "desde $390.000", "unit": "pago único" },
+    { "name": "Material publicitario", "desc": "Flyers, pendones, tarjetas, menús o letreros con la identidad de tu marca.", "price": "desde $40.000", "unit": "por pieza" },
+    { "name": "Aplicaciones de marca", "desc": "Plantillas para Instagram, portada de perfiles, firma de correo y presentaciones.", "tag": "Incluidas en el manual de marca" },
+    { "name": "Marca + web", "desc": "Tu identidad nueva aplicada directo en tu sitio, en un solo proyecto y con un solo equipo.", "tag": "Un solo equipo", "href": "/diseno-web" },
+    { "name": "Marca en redes", "desc": "Contenido mensual para Instagram y Facebook con tu identidad nueva.", "price": "desde $250.000", "unit": "al mes", "href": "/marketing-digital#redes" }
+  ],
+  "cardsTitle": "Qué hacemos",
+  "goals": ["Que te reconozcan", "Verte profesional", "Una marca consistente", "Destacar de tu competencia", "Que te recuerden", "Cobrar lo que vales"],
+  "steps": [
+    { "t": "Descubrimiento", "d": "Una conversación para entender tu negocio, a quién le vendes y cómo se ve tu competencia." },
+    { "t": "Propuesta", "d": "Te mostramos caminos de diseño con su porqué, no solo dibujos." },
+    { "t": "Ajustes", "d": "Afinamos el camino que elijas en rondas de cambios definidas en la propuesta." },
+    { "t": "Entrega", "d": "Recibes los archivos en todos los formatos y, si corresponde, el manual de marca." }
+  ],
+  "faq": [
+    {
+      "q": "¿Cuánto cuesta diseñar un logo?",
+      "a": "El logo con su identidad básica (versiones, colores y tipografías) parte desde $190.000 netos como pago único. La identidad completa con manual de marca parte desde $390.000."
+    },
+    {
+      "q": "¿Qué recibo al final?",
+      "a": "El logo en sus versiones (principal, horizontal, ícono, en blanco y en negro), la paleta de colores y las tipografías, en archivos para web, redes e impresión. Con el manual de marca, además, la guía de uso y las aplicaciones."
+    },
+    {
+      "q": "¿El logo queda a mi nombre?",
+      "a": "Sí. Al terminar el proyecto te entregamos los archivos editables y la marca es tuya para usarla donde quieras."
+    },
+    {
+      "q": "¿Cuánto demora?",
+      "a": "Depende del alcance y de las rondas de cambios. El plazo queda escrito en la propuesta antes de empezar."
+    },
+    {
+      "q": "¿Pueden hacer la marca y la web juntas?",
+      "a": "Sí, y es lo que más recomendamos: la identidad se aplica directo en el sitio y en tus redes, con un solo equipo."
+    }
+  ],
+  "related": [
+    {
+      "href": "/blog/textos-web-que-venden",
+      "title": "Cómo escribir los textos de tu web para que vendan"
+    },
+    {
+      "href": "/blog/cuanto-cuesta-una-pagina-web-chile",
+      "title": "¿Cuánto cuesta una página web en Chile? Precios 2026"
+    }
+  ],
+  "service": {
+    "@type": "Service",
+    "@id": "https://faroagencia.cl/branding#servicio",
+    "name": "Branding: logo e identidad de marca",
+    "serviceType": "Branding",
+    "provider": {
+      "@id": "https://faroagencia.cl/#org",
+      "@type": "ProfessionalService",
+      "name": "Faro°",
+      "url": "https://faroagencia.cl/"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "Chile"
+    },
+    "description": "Diseño de logo, identidad de marca, manual de marca y material publicitario para pymes en Chile.",
+    "offers": [
+      { "@type": "Offer", "name": "Logo e identidad básica", "price": "190000", "priceCurrency": "CLP", "description": "Pago único, neto." },
+      { "@type": "Offer", "name": "Identidad completa y manual de marca", "price": "390000", "priceCurrency": "CLP", "description": "Pago único, neto." },
+      { "@type": "Offer", "name": "Material publicitario", "price": "40000", "priceCurrency": "CLP", "description": "Por pieza, neto." }
+    ]
+  }
+};
+---
+<Service {...page}>
+  <h2 id="planes">Planes y precios</h2>
+    <div class="plans">
+      <div class="plan"><div class="pn">Identidad básica</div><div class="pp">desde $190.000<small>pago único · neto</small></div>
+        <ul><li>Conversación de descubrimiento</li><li>Logo principal y sus versiones: horizontal, ícono, blanco y negro</li><li>Paleta de colores y tipografías</li><li>2 rondas de cambios</li><li>Archivos para web, redes e impresión</li></ul></div>
+      <div class="plan hot"><div class="pn">Manual de marca</div><div class="pp">desde $390.000<small>pago único · neto</small></div>
+        <ul><li>Todo lo de Identidad básica</li><li>Manual de marca: usos correctos, espacios, colores y tipografías</li><li>Aplicaciones: tarjeta, firma de correo, portada y foto de perfil</li><li>Plantillas editables para Instagram</li><li>3 rondas de cambios</li></ul></div>
+      <div class="plan"><div class="pn">Material publicitario</div><div class="pp">desde $40.000<small>por pieza · neto</small></div>
+        <ul><li>Flyers, pendones y afiches</li><li>Tarjetas de presentación</li><li>Menús, catálogos y listas de precios</li><li>Letreros y vitrinas</li><li>Archivos listos para la imprenta</li></ul></div>
+    </div>
+    <p class="note-mono">Precios de referencia netos en CLP, más IVA · la impresión se paga aparte, directo a la imprenta · el alcance final queda por escrito</p>
+
+  <h2 id="por-que">Por qué con nosotros</h2>
+    <ul>
+      <li><strong>Estrategia antes que dibujo:</strong> lo lidera <a href="/nosotros">Clementina Moya</a>, publicista. La marca parte por a quién le vendes, no por lo que está de moda.</li>
+      <li><strong>Pensada para lo digital:</strong> tu logo tiene que leerse en el ícono de Instagram y en Google Maps, no solo en un letrero.</li>
+      <li><strong>Todo junto:</strong> la misma marca en tu web, tus redes y tu perfil de Google, hecho por el mismo equipo.</li>
+    </ul>
+</Service>

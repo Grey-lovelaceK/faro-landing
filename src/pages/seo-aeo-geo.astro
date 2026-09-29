@@ -15,6 +15,22 @@ const page = {
     "title": "¿Te encuentran hoy en Google y en la IA?",
     "text": "Parte por el analizador gratis o escríbenos y te decimos qué haríamos en tus primeros 3 meses."
   },
+  "cards": [
+    { "name": "Google Maps", "desc": "Tu Perfil de Empresa completo, con publicaciones, fotos y horarios, para salir cuando buscan cerca.", "price": "desde $150.000", "unit": "al mes", "tag": "Sirve sin web" },
+    { "name": "Reseñas", "desc": "Enlace y código QR para pedir reseñas, y respuesta a cada una.", "tag": "Incluido desde Google Maps" },
+    { "name": "SEO técnico", "desc": "Que Google pueda leer, entender y mostrar tu web: velocidad, indexación y datos estructurados.", "tag": "Desde Google + IA" },
+    { "name": "Contenido que te encuentra", "desc": "Páginas y artículos que responden lo que buscan tus clientes, por servicio y por comuna.", "tag": "Desde Google + IA" },
+    { "name": "Visibilidad en IA", "desc": "Que ChatGPT, Gemini y los AI Overviews te entiendan y te recomienden (AEO y GEO).", "tag": "Incluida desde el primer plan" },
+    { "name": "Reporte mensual", "desc": "Llamadas, visitas, consultas y si la IA te nombra, explicado en palabras simples.", "tag": "En todos los planes" }
+  ],
+  "cardsTitle": "Qué hacemos",
+  "goals": ["Salir en Google Maps", "Más llamadas", "Más consultas", "Más reseñas", "Aparecer en Google", "Que la IA te recomiende"],
+  "steps": [
+    { "t": "Diagnóstico", "d": "Pasamos tu web o tu negocio por el analizador y buscamos cómo te encuentra hoy un cliente." },
+    { "t": "Estrategia", "d": "Elegimos las búsquedas que te traen clientes y el plan que tiene sentido para tu caso." },
+    { "t": "Implementación", "d": "Perfil de Google, ajustes técnicos, contenido y datos para la IA, mes a mes." },
+    { "t": "Medición", "d": "Cada mes te mostramos qué cambió: posiciones, llamadas, consultas y lo que responde la IA." }
+  ],
   "faq": [
     {
       "q": "¿Cuánto cuesta aparecer en Google?",
@@ -77,14 +93,11 @@ const page = {
 ---
 <Service {...page}>
   <h2 id="que-es">SEO, AEO y GEO, en simple</h2>
-    <table>
-      <thead><tr><th></th><th>Qué busca</th><th>Dónde se nota</th></tr></thead>
-      <tbody>
-        <tr><td><strong>SEO</strong></td><td>Aparecer en los resultados de búsqueda</td><td>Google y Bing</td></tr>
-        <tr><td><strong>SEO local</strong></td><td>Aparecer cuando buscan cerca</td><td>Google Maps y tu Perfil de Empresa</td></tr>
-        <tr><td><strong>AEO / GEO</strong></td><td>Que la IA te nombre y te cite al responder</td><td>ChatGPT, Gemini, Perplexity, Copilot, AI Overviews</td></tr>
-      </tbody>
-    </table>
+    <ul class="scards" role="list">
+      <li><div class="sc"><span class="sc-name">SEO</span><span class="sc-desc">Aparecer en los resultados cuando buscan lo que vendes.</span><span class="sc-foot"><span class="sc-tag">Google y Bing</span></span></div></li>
+      <li><div class="sc"><span class="sc-name">SEO local</span><span class="sc-desc">Aparecer cuando buscan cerca, con tu ficha, tus reseñas y tu horario.</span><span class="sc-foot"><span class="sc-tag">Google Maps</span></span></div></li>
+      <li><div class="sc"><span class="sc-name">AEO y GEO</span><span class="sc-desc">Que la IA te nombre y te cite cuando alguien le pide una recomendación.</span><span class="sc-foot"><span class="sc-tag">ChatGPT, Gemini, AI Overviews</span></span></div></li>
+    </ul>
     <p>El estudio que acuñó el término GEO (Princeton e IIT Delhi, 2023) midió que citar fuentes y sumar datos concretos puede aumentar hasta un 40% la visibilidad de una página en las respuestas generadas por IA. Lo explicamos en <a href="/blog/que-es-aeo-geo">qué es AEO y GEO</a>.</p>
 
   <h2 id="planes">Planes y precios</h2>
@@ -97,15 +110,6 @@ const page = {
         <ul><li>Todo lo del plan Google + IA</li><li>4 contenidos al mes</li><li>Páginas por servicio y por comuna</li><li>Enlaces desde medios y directorios de tu rubro</li><li>Mejoras de conversión en tu web: botones, formularios y pruebas</li><li>Reunión mensual de resultados</li></ul></div>
     </div>
     <p class="note-mono">Precios netos en CLP, más IVA · el diagnóstico con el <a href="/analiza">analizador</a> es gratis · comparativa con el mercado en <a href="/blog/cuanto-cuesta-aparecer-en-google-maps-chile">cuánto cuesta aparecer en Google Maps</a></p>
-
-  <h2 id="por-que">Qué hacemos distinto</h2>
-    <ul>
-      <li><strong>Precio publicado:</strong> sabes cuánto cuesta antes de escribirnos. Muchas agencias no publican sus tarifas.</li>
-      <li><strong>La IA incluida desde el primer plan:</strong> otras agencias cobran el AEO/GEO aparte y en planes más caros.</li>
-      <li><strong>Sin contratos largos:</strong> mínimo 3 meses, que es lo que toma medir si algo funciona. Después sigues mes a mes.</li>
-      <li><strong>Medimos si la IA te recomienda:</strong> cada mes le hacemos a los asistentes la pregunta que haría tu cliente y te mostramos la respuesta.</li>
-      <li><strong>Todo queda a tu nombre:</strong> tu Perfil de Empresa, tu dominio y tus cuentas de Google son tuyos, no nuestros.</li>
-    </ul>
 
   <h2 id="medimos">Cómo medimos si funciona</h2>
     <ul>

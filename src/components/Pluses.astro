@@ -1,0 +1,41 @@
+---
+// «Lo que no encuentras en otra agencia»: lo que tiene Faro° y el resto del rubro no (dicho por Cristian, 29-sep-2026).
+// Solo hechos verificables del propio sitio; nada de cifras de clientes. Va en la portada y en cada página de servicio.
+import Icon from './Icon.astro';
+interface Props { home?: boolean }
+const { home = false } = Astro.props;
+const items = [
+  { t: 'Precios publicados', d: 'Sabes cuánto cuesta antes de escribirnos. Sin «solicita tu presupuesto» para saber el rango.', href: '/precios' },
+  { t: 'Analizador gratis', d: 'Tu web con nota de la A a la E en segundos: Google, redes, velocidad e IA.', href: '/analiza' },
+  { t: '¿No tienes web?', d: 'Igual revisamos gratis si Google y la IA conocen tu negocio, con tu nombre y tu comuna.', href: '/analiza?sinweb=1' },
+  { t: 'La IA incluida', d: 'Aparecer en ChatGPT y Gemini viene desde el plan más barato, no como extra.', href: '/seo-aeo-geo' },
+  { t: 'Tu tienda conectada', d: 'Integramos tu tienda online con Bsale, Defontana y tu courier: stock, boletas y despachos solos.', href: '/integraciones' },
+  { t: 'Webs a medida, rápidas', d: 'Sin plantillas recicladas: código limpio que carga rápido en el celular.', href: '/diseno-web' },
+  { t: 'Sin amarras', d: 'Planes mensuales con mínimo de 3 meses, y tus cuentas y tu dominio siempre a tu nombre.', href: '/precios#condiciones' },
+];
+---
+<section class:list={['pluses', { 'sec': home }]} aria-labelledby="plus-h">
+  <div class:list={{ 'wrap-sec': home }}>
+    <h2 id="plus-h" class:list={{ 'center': home }}>Lo que no encuentras en otra agencia</h2>
+    <ul class="plus-grid" role="list">
+      {items.map((i) => (
+        <li><a href={i.href}><span class="pl-i"><Icon name="check" size={18} stroke={2.4} /></span><span class="pl-t">{i.t}</span><span class="pl-d">{i.d}</span></a></li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .pluses h2.center { text-align: center; font-size: clamp(2rem, 3.6vw, 3rem); letter-spacing: -0.04em; line-height: 1; }
+  .plus-grid { list-style: none; margin: 1.5rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(15.5rem, 1fr)); gap: 0.875rem; }
+  .sec .plus-grid { margin-top: 2.75rem; }
+  .plus-grid a {
+    height: 100%; display: grid; grid-template-columns: 2rem 1fr; grid-template-areas: 'i t' 'i d'; column-gap: 0.75rem; row-gap: 0.25rem;
+    padding: 1.125rem 1.125rem 1.125rem 1rem; border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--bg);
+    color: var(--ink); text-decoration: none; transition: border-color 0.2s, background-color 0.2s;
+  }
+  .plus-grid a:hover { border-color: var(--accent-line); background: var(--accent-tint); }
+  .pl-i { grid-area: i; width: 2rem; height: 2rem; border-radius: 50%; display: grid; place-items: center; background: var(--accent-tint); color: var(--accent); }
+  .pl-t { grid-area: t; font-family: var(--font-display); font-weight: 700; font-size: 1.08rem; letter-spacing: -0.02em; line-height: 1.2; padding-top: 0.25rem; }
+  .pl-d { grid-area: d; color: var(--muted); font-size: 0.9rem; line-height: 1.45; }
+</style>

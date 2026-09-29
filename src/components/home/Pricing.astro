@@ -2,14 +2,17 @@
 // Precios de referencia. Mismos valores que el JSON-LD de la portada y que /precios.
 import Icon from '../Icon.astro';
 const plans = [
-  { name: 'Presencia', price: '$290.000', unit: 'proyecto · pago único', cta: 'Empezar', items: ['Landing o sitio hasta 5 secciones', 'Diseño a medida y responsivo', 'Hosting + dominio .cl el 1er año', 'Formulario y WhatsApp', 'SEO base + Google Analytics', 'Entrega en 2–3 semanas'] },
-  { name: 'Crecimiento', price: '$790.000', unit: 'proyecto · pago único', cta: 'Cotizar este plan', hot: true, items: ['Sitio multipágina + blog con CMS', 'SEO on-page + datos estructurados', 'Base AEO/GEO para buscadores con IA', 'Pagos, reservas y formularios conectados', 'Capacitación para autogestión'] },
-  { name: 'Dominio', price: '$1.490.000', unit: 'proyecto · a medida', cta: 'Conversemos', items: ['E-commerce o desarrollo a medida', 'SEO técnico avanzado + AEO/GEO completo', 'Dashboards de negocio', 'Arquitectura para escalar', 'Soporte prioritario'] },
+  { name: 'Landing page', price: '$290.000', unit: 'proyecto · pago único', cta: 'Empezar', items: ['Una página o sitio de hasta 5 secciones', 'Diseño a medida y responsivo', 'Hosting + dominio .cl el 1er año', 'Formulario y WhatsApp', 'SEO base + Google Analytics', 'Entrega en 2–3 semanas'] },
+  { name: 'Sitio corporativo', price: '$450.000', unit: 'proyecto · pago único', cta: 'Cotizar este plan', hot: true, items: ['Hasta 10 páginas + blog con administrador', 'SEO on-page + datos estructurados', 'Base AEO/GEO para aparecer en la IA', 'Formularios y reservas conectados', 'Capacitación para autogestión'] },
+  { name: 'Tienda online', price: '$790.000', unit: 'proyecto · pago único', cta: 'Conversemos', items: ['Catálogo, carrito y pagos en línea', 'Pensada para comprar desde el celular', 'SEO técnico + datos de producto', 'Conectable a tu ERP y courier', 'Capacitación para cargar productos'] },
 ];
 const extras = [
   { title: 'Aparecer en Google Maps y la IA', price: '$150.000', unit: '/mes', note: 'Google + IA con contenido desde $350.000 · mínimo 3 meses', href: '/seo-aeo-geo#planes' },
-  { title: 'Gestión de pauta', price: '$250.000', unit: '/mes + inversión', note: 'Continuidad mensual · Google y Meta Ads', href: '/marketing-digital' },
-  { title: 'Integración tienda ↔ ERP', price: '$450.000', unit: ' + $45.000/mes', note: 'Si ya tienes tienda online · Bsale o Defontana', href: '/integraciones#precios' },
+  { title: 'Branding: logo e identidad', price: '$190.000', unit: ' pago único', note: 'Manual de marca desde $390.000', href: '/branding#planes' },
+  { title: 'Anuncios en Google y Meta', price: '$190.000', unit: '/mes + inversión', note: 'Ambas plataformas desde $320.000', href: '/marketing-digital#anuncios' },
+  { title: 'Redes sociales', price: '$250.000', unit: '/mes', note: '8 publicaciones en Instagram y Facebook', href: '/marketing-digital#redes' },
+  { title: 'Email marketing', price: '$120.000', unit: '/mes', note: '2 campañas al mes · automatizaciones aparte', href: '/marketing-digital#correo' },
+  { title: 'Integración tienda ↔ ERP', price: '$250.000', unit: ' + mensualidad', note: 'Bsale, Defontana o Enviame', href: '/integraciones#precios' },
 ];
 ---
 <section class="sec pricing" id="precios" aria-labelledby="price-h">

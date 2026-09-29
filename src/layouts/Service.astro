@@ -1,5 +1,6 @@
 ---
-// Layout de páginas de servicio (/diseno-web, /seo-aeo-geo, /marketing-digital, /precios).
+// Layout de páginas de servicio (/diseno-web, /branding, /seo-aeo-geo, /marketing-digital, /precios).
+// Orden (tomado de estudiovertical.cl): título → tarjetas de subservicio → contenido → pluses → FAQ → «¿Tienes un proyecto en mente?».
 // Cada página pasa sus datos y escribe sus secciones como contenido; el JSON-LD de FAQ y la ruta
 // de navegación salen de las mismas props que se muestran.
 import Base from './Base.astro';
@@ -7,6 +8,8 @@ import SiteNav from '../components/SiteNav.astro';
 import SiteFooter from '../components/home/HomeFooter.astro';
 import '../styles/content.css';
 import Faq from '../components/Faq.astro';
+import ServiceCards from '../components/ServiceCards.astro';
+import Pluses from '../components/Pluses.astro';
 import { SITE, WA, faqJsonLd, breadcrumbJsonLd } from '../lib/seo';
 
 interface Props {
@@ -23,6 +26,10 @@ interface Props {
   faq: { q: string; a: string }[];
   related: { href: string; title: string }[];
   service: object;          // bloque Service u OfferCatalog del JSON-LD
+  cards?: { name: string; desc: string; price?: string; unit?: string; tag?: string; href?: string }[];
+  cardsTitle?: string;
+  goals?: string[];          // «Lo que buscamos contigo» (resultados en palabras del cliente)
+  steps?: { t: string; d: string }[];   // proceso en 4 pasos
 }
 const p = Astro.props;
 const url = `${SITE}/${p.slug}`;
@@ -49,17 +56,30 @@ const ld = [{
   </div>
 
   <div class="prose">
+    {p.cards && <h2 id="servicios">{p.cardsTitle ?? 'Servicios'}</h2>}
+    {p.cards && <ServiceCards items={p.cards} />}
+    {p.goals && <h2 id="objetivos">Lo que buscamos contigo</h2>}
+    {p.goals && <ul class="goals" role="list">{p.goals.map((g) => <li>{g}</li>)}</ul>}
+    {p.steps && <h2 id="proceso">Cómo trabajamos</h2>}
+    {p.steps && (
+      <ol class="steps4">
+        {p.steps.map((s, i) => <li><span class="s4-n num">{String(i + 1).padStart(2, '0')}</span><span class="s4-t">{s.t}</span><span class="s4-d">{s.d}</span></li>)}
+      </ol>
+    )}
     <slot />
+
+    <Pluses />
 
     <h2 id="preguntas">Preguntas frecuentes</h2>
     <Faq items={p.faq} />
   </div>
 
   <aside class="cta">
-    <h2>{p.end.title}</h2>
-    <p>{p.end.text}</p>
+    <h2>¿Tienes un proyecto en mente?</h2>
+    <p>{p.end.text} O parte gratis: analiza tu web o, si no tienes, busca tu negocio.</p>
     <a href={wa} target="_blank" rel="noopener">{p.ctaLabel}</a>
-    <a class="ghost" href="/precios">Ver todos los precios</a>
+    <a class="ghost" href="/analiza">Analiza tu web gratis</a>
+    <a class="ghost" href="/analiza?sinweb=1">No tengo web</a>
   </aside>
 
   <section class="related" aria-labelledby="rel">

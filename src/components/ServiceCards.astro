@@ -1,0 +1,22 @@
+---
+// Tarjetas de subservicio de cada familia (idea tomada del orden de estudiovertical.cl, con precio y el plus de Faro°).
+// Estilos en src/styles/content.css (.scards). Si la tarjeta tiene href, toda la tarjeta es enlace.
+interface Card { name: string; desc: string; price?: string; unit?: string; tag?: string; href?: string }
+interface Props { items: Card[] }
+const { items } = Astro.props;
+---
+<ul class="scards" role="list">
+  {items.map((c) => {
+    const body = (
+      <>
+        <span class="sc-name">{c.name}</span>
+        <span class="sc-desc">{c.desc}</span>
+        <span class="sc-foot">
+          {c.price && <span class="sc-price num">{c.price}{c.unit && <small>{c.unit}</small>}</span>}
+          {c.tag && <span class="sc-tag">{c.tag}</span>}
+        </span>
+      </>
+    );
+    return <li>{c.href ? <a class="sc" href={c.href}>{body}</a> : <div class="sc">{body}</div>}</li>;
+  })}
+</ul>

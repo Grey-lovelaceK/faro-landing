@@ -1,43 +1,60 @@
 ---
 // Página de servicio: /marketing-digital. Estructura, FAQ y JSON-LD en src/layouts/Service.astro.
+// Precios: propuesta aprobada por Cristian el 29-sep-2026 («un poco más barato que el mercado»).
 import Service from '../layouts/Service.astro';
 const page = {
   "slug": "marketing-digital",
   "crumb": "Marketing digital",
   "eyebrow": "Marketing digital",
-  "title": "Marketing digital para pymes: Google Ads y Meta Ads | Faro°",
-  "description": "Google Ads, Meta Ads, redes y email marketing para pymes en Chile, con reportes de consultas y ventas. Gestión desde $250.000 al mes.",
-  "h1": "Marketing digital para pymes: pauta, contenido y correo con los números a la vista",
-  "tldr": "Gestionamos tus campañas en Google Ads y Meta Ads, la estrategia de contenido para redes y el correo, con un presupuesto anclado a lo que importa: consultas y ventas, no likes. La <strong>gestión de pauta parte desde $250.000 netos al mes</strong>, más la inversión en anuncios, que pagas directo a cada plataforma.",
+  "title": "Marketing digital para pymes: anuncios, redes y correo | Faro°",
+  "description": "Anuncios en Google y Meta, redes sociales y email marketing para pymes en Chile, con reportes de consultas y ventas. Desde $120.000 netos al mes.",
+  "h1": "Marketing digital para pymes que quieren más clientes, con los números a la vista",
+  "tldr": "Te ayudamos a que te conozcan y te compren: anuncios en Google, Instagram y Facebook, contenido para tus redes y correos a tus clientes, medido en consultas y ventas, no en likes. <strong>Anuncios desde $190.000 al mes</strong> más la inversión, <strong>redes sociales desde $250.000</strong> y <strong>email marketing desde $120.000</strong>, netos. Y si quieres aparecer en Google sin pagar por clic, está <a href=\"/seo-aeo-geo\">Aparecer en Google</a>.",
   "ctaLabel": "Cotiza tu marketing por WhatsApp",
   "waMessage": "Hola Faro°, quiero cotizar marketing digital",
   "end": {
-    "title": "¿Quieres que tus anuncios traigan consultas?",
+    "title": "¿Quieres que tu marketing traiga consultas?",
     "text": "Cuéntanos tu negocio y tu meta, y te proponemos un plan con presupuesto de prueba."
   },
+  "cards": [
+    { "name": "Aparecer en Google", "desc": "Google Maps, resultados de Google y respuestas de la IA, sin pagar por cada clic.", "price": "desde $150.000", "unit": "al mes", "tag": "Incluye IA", "href": "/seo-aeo-geo" },
+    { "name": "Anuncios en Google y Meta", "desc": "Campañas en Google, Instagram y Facebook orientadas a consultas y ventas.", "price": "desde $190.000", "unit": "al mes + inversión" },
+    { "name": "Redes sociales", "desc": "Calendario, diseño, textos y publicación en Instagram y Facebook, con el estilo de tu marca.", "price": "desde $250.000", "unit": "al mes" },
+    { "name": "Email marketing", "desc": "Campañas y correos automáticos para volver a venderle a quien ya te conoce.", "price": "desde $120.000", "unit": "al mes" },
+    { "name": "Analítica", "desc": "Google Analytics y Search Console configurados, y un reporte mensual de consultas y ventas.", "tag": "Incluida en todos los planes" },
+    { "name": "Identidad para tus redes", "desc": "Logo, colores y plantillas para que tus publicaciones se vean de una sola marca.", "price": "desde $190.000", "unit": "pago único", "href": "/branding" }
+  ],
+  "cardsTitle": "Qué hacemos",
+  "goals": ["Más visitas", "Más consultas", "Más ventas", "Mejor posicionamiento", "Que te reconozcan", "Saber cuánto cuesta cada cliente"],
+  "steps": [
+    { "t": "Diagnóstico", "d": "Miramos tu negocio, tu competencia y lo que ya tienes: web, redes, perfil de Google." },
+    { "t": "Estrategia", "d": "Elegimos los canales y el presupuesto según cuánto vale un cliente para ti." },
+    { "t": "Implementación", "d": "Dejamos la medición lista y lanzamos anuncios, contenido o correos con un objetivo claro." },
+    { "t": "Optimización", "d": "Cada mes movemos el presupuesto hacia lo que trae consultas y te lo mostramos en un reporte." }
+  ],
   "faq": [
     {
       "q": "¿Cuánto cuesta la gestión de Google Ads o Meta Ads?",
-      "a": "La gestión de pauta parte desde $250.000 netos al mes, más IVA. La inversión en anuncios es aparte y se paga directo a cada plataforma."
+      "a": "La gestión de anuncios en una plataforma parte desde $190.000 netos al mes, y en Google y Meta juntos desde $320.000. La inversión en anuncios es aparte y se paga directo a cada plataforma."
+    },
+    {
+      "q": "¿Cuánto cuesta que me lleven las redes sociales?",
+      "a": "Desde $250.000 netos al mes por 8 publicaciones en Instagram y Facebook, con calendario, diseño, textos y reporte. Con 12 publicaciones, 4 de ellas reels, desde $420.000."
+    },
+    {
+      "q": "¿Cuánto cuesta el email marketing?",
+      "a": "Desde $120.000 netos al mes por 2 campañas, con diseño, textos, limpieza de la lista y reporte. Los correos automáticos (bienvenida, carrito abandonado, recompra) se instalan desde $290.000 como pago único."
     },
     {
       "q": "¿Cuánto debería invertir en anuncios?",
       "a": "Depende de tu rubro y de cuánto vale un cliente para ti. Partimos con un presupuesto de prueba, medimos cuánto cuesta cada consulta y ajustamos desde ahí."
     },
     {
-      "q": "¿Qué conviene más: anuncios o SEO?",
-      "a": "Son complementarios. Los anuncios traen visitas desde el primer día mientras pagas; el SEO tarda más, pero lo que construyes sigue trayendo visitas sin pagar por cada clic."
+      "q": "¿Qué conviene más: anuncios o aparecer en Google?",
+      "a": "Son complementarios. Los anuncios traen visitas desde el primer día mientras pagas; el posicionamiento tarda más, pero lo que construyes sigue trayendo visitas sin pagar por cada clic."
     },
     {
-      "q": "¿Hacen el contenido para redes?",
-      "a": "Sí. Con la gestión de redes planificamos un calendario mensual y diseñamos, redactamos y publicamos tus contenidos en Instagram y Facebook. Cuántas publicaciones incluye y el precio se cotizan según tu negocio."
-    },
-    {
-      "q": "¿Hacen email marketing?",
-      "a": "Sí. Diseñamos y enviamos tus campañas de correo, newsletters y automatizaciones (bienvenida, carrito abandonado, recompra) desde tu propio dominio, con infraestructura profesional de envío. Solo escribimos a quienes aceptaron recibir correos, con baja en un clic. El precio depende del volumen y la frecuencia, y lo cotizamos."
-    },
-    {
-      "q": "¿Cómo sé si la pauta funciona?",
+      "q": "¿Cómo sé si funciona?",
       "a": "Antes de invertir configuramos la medición de conversiones. Cada mes te mostramos cuánto se invirtió, cuántas consultas llegaron y cuánto costó cada una."
     }
   ],
@@ -47,14 +64,14 @@ const page = {
       "title": "Cómo escribir los textos de tu web para que vendan"
     },
     {
-      "href": "/blog/seo-mensual-chile-precio",
-      "title": "SEO mensual en Chile: qué incluye y cuánto cuesta"
+      "href": "/blog/cuanto-cuesta-aparecer-en-google-maps-chile",
+      "title": "¿Cuánto cuesta aparecer en Google Maps en Chile?"
     }
   ],
   "service": {
     "@type": "Service",
     "@id": "https://faroagencia.cl/marketing-digital#servicio",
-    "name": "Marketing digital y gestión de pauta",
+    "name": "Marketing digital: anuncios, redes sociales y email marketing",
     "serviceType": "Marketing digital",
     "provider": {
       "@id": "https://faroagencia.cl/#org",
@@ -66,68 +83,44 @@ const page = {
       "@type": "Country",
       "name": "Chile"
     },
-    "description": "Gestión de Google Ads y Meta Ads, estrategia de contenido y correo para pymes, con reportes de consultas y ventas.",
+    "description": "Gestión de Google Ads y Meta Ads, redes sociales y email marketing para pymes, con reportes de consultas y ventas.",
     "offers": [
-      {
-        "@type": "Offer",
-        "name": "Gestión de pauta",
-        "price": "250000",
-        "priceCurrency": "CLP",
-        "description": "Mensual, neto, más inversión en anuncios."
-      },
-      {
-        "@type": "Offer",
-        "name": "Gestión de redes sociales",
-        "description": "Calendario mensual, diseño, textos y publicación en Instagram y Facebook, con reporte. Precio según volumen, a cotizar."
-      },
-      {
-        "@type": "Offer",
-        "name": "Email marketing",
-        "description": "Campañas de correo, newsletters y automatizaciones desde el dominio del cliente. Precio según volumen, a cotizar."
-      }
+      { "@type": "Offer", "name": "Anuncios en Google o Meta", "price": "190000", "priceCurrency": "CLP", "description": "Mensual, neto, una plataforma, más inversión en anuncios." },
+      { "@type": "Offer", "name": "Anuncios en Google y Meta", "price": "320000", "priceCurrency": "CLP", "description": "Mensual, neto, ambas plataformas, más inversión en anuncios." },
+      { "@type": "Offer", "name": "Redes sociales: Al día", "price": "250000", "priceCurrency": "CLP", "description": "Mensual, neto. 8 publicaciones en Instagram y Facebook." },
+      { "@type": "Offer", "name": "Redes sociales: Crecer", "price": "420000", "priceCurrency": "CLP", "description": "Mensual, neto. 12 publicaciones, 4 de ellas reels." },
+      { "@type": "Offer", "name": "Email marketing", "price": "120000", "priceCurrency": "CLP", "description": "Mensual, neto. 2 campañas al mes." },
+      { "@type": "Offer", "name": "Correos automáticos", "price": "290000", "priceCurrency": "CLP", "description": "Pago único, neto. Bienvenida, carrito abandonado y recompra." }
     ]
   }
 };
 ---
 <Service {...page}>
-  <h2 id="que-hacemos">Qué hacemos</h2>
-    <ul>
-      <li><strong>Google Ads:</strong> anuncios en búsquedas de personas que ya quieren lo que vendes, enviados a la página indicada.</li>
-      <li><strong>Meta Ads (Facebook e Instagram):</strong> campañas para darte a conocer y llegar a tu público por comuna, interés o edad.</li>
-      <li><strong>Gestión de redes sociales:</strong> planificamos, diseñamos, redactamos y publicamos tu contenido en Instagram y Facebook, con un calendario mensual y el estilo de tu marca.</li>
-      <li><strong>Correo y recuperación de carritos:</strong> para no perder a quien ya mostró interés.</li>
-    </ul>
-
-  <h2 id="como">Cómo trabajamos la pauta</h2>
-    <ol>
-      <li><strong>Medición primero:</strong> antes de invertir, dejamos Google Analytics y las conversiones configuradas (formularios, WhatsApp, compras).</li>
-      <li><strong>Campañas con objetivo claro:</strong> cada anuncio apunta a una página específica, no a la portada.</li>
-      <li><strong>Pruebas y ajustes:</strong> probamos mensajes y audiencias y movemos el presupuesto hacia lo que trae consultas.</li>
-      <li><strong>Reporte mensual:</strong> cuánto se invirtió, cuántas consultas llegaron y cuánto costó cada una.</li>
-    </ol>
-
-  <h2 id="precio">Precio</h2>
-    <div class="plans">
-      <div class="plan hot"><div class="pn">Gestión de pauta</div><div class="pp">desde $250.000<small>al mes · neto · + inversión en anuncios</small></div>
-        <ul><li>Google Ads y Meta Ads</li><li>Configuración de conversiones</li><li>Optimización mensual</li><li>Reporte de consultas y costo por consulta</li></ul></div>
-      <div class="plan"><div class="pn">Gestión de redes</div><div class="pp">a cotizar<small>al mes · según volumen de publicaciones</small></div>
-        <ul><li>Estrategia y calendario mensual</li><li>Diseño y textos de cada publicación</li><li>Publicación en Instagram y Facebook</li><li>Reporte mensual de alcance e interacción</li></ul></div>
-      <div class="plan"><div class="pn">Con posicionamiento</div><div class="pp">a medida<small>SEO + pauta</small></div>
-        <ul><li>La pauta trae visitas desde el primer día</li><li>El SEO construye visitas que no se pagan por clic</li><li>Un solo equipo y un solo reporte</li></ul></div>
+  <h2 id="anuncios">Anuncios en Google y Meta</h2>
+    <div class="plans two">
+      <div class="plan"><div class="pn">Una plataforma</div><div class="pp">desde $190.000<small>al mes · neto · + inversión</small></div>
+        <ul><li>Google Ads o Meta Ads (Instagram y Facebook)</li><li>Medición de conversiones antes de invertir</li><li>Pruebas de mensajes y audiencias</li><li>Reporte de consultas y costo por consulta</li></ul></div>
+      <div class="plan hot"><div class="pn">Google y Meta</div><div class="pp">desde $320.000<small>al mes · neto · + inversión</small></div>
+        <ul><li>Google Ads y Meta Ads juntos</li><li>Cada anuncio a su propia página, no a la portada</li><li>Presupuesto que se mueve hacia lo que funciona</li><li>Un solo reporte de consultas y ventas</li></ul></div>
     </div>
-    <p class="note-mono">Precios netos en CLP, más IVA · la inversión en anuncios se paga directo a Google y Meta · la gestión de redes y el email marketing se cotizan según volumen</p>
+
+  <h2 id="redes">Redes sociales</h2>
+    <div class="plans two">
+      <div class="plan"><div class="pn">Al día</div><div class="pp">desde $250.000<small>al mes · neto</small></div>
+        <ul><li>8 publicaciones al mes en Instagram y Facebook</li><li>Calendario mensual que apruebas antes</li><li>Diseño y textos con el estilo de tu marca</li><li>Reporte simple de alcance e interacción</li></ul></div>
+      <div class="plan hot"><div class="pn">Crecer</div><div class="pp">desde $420.000<small>al mes · neto</small></div>
+        <ul><li>12 publicaciones al mes, 4 de ellas reels</li><li>Reels editados con el material que nos envías</li><li>Respuesta a comentarios en horario hábil</li><li>Reporte mensual con qué funcionó y qué ajustamos</li></ul></div>
+    </div>
 
   <h2 id="correo">Email marketing</h2>
-    <p>El correo es el canal más barato para volver a venderle a quien ya te conoce. Lo diseñamos, lo enviamos y lo medimos por ti:</p>
-    <ul>
-      <li><strong>Campañas y newsletters:</strong> ofertas, novedades y contenido útil, con el diseño de tu marca.</li>
-      <li><strong>Automatizaciones:</strong> bienvenida a nuevos contactos, carrito abandonado y recordatorio de recompra.</li>
-      <li><strong>Desde tu propio dominio:</strong> correos que salen de <em>@tunegocio.cl</em>, con SPF y DKIM configurados para que no lleguen a spam.</li>
-      <li><strong>Infraestructura profesional de envío:</strong> pagas por lo que envías, no un plan mensual por cantidad de contactos.</li>
-      <li><strong>Base de contactos en orden:</strong> solo a quienes aceptaron recibir correos, con baja en un clic y limpieza de rebotes, como pide la ley de datos personales.</li>
-      <li><strong>Reporte:</strong> aperturas, clics y ventas o consultas que vinieron del correo.</li>
-    </ul>
+    <div class="plans two">
+      <div class="plan"><div class="pn">Volver a venderle</div><div class="pp">desde $120.000<small>al mes · neto</small></div>
+        <ul><li>2 campañas al mes: ofertas, novedades o newsletter</li><li>Diseño y textos de tu marca</li><li>Base de contactos limpia, con baja en un clic</li><li>Reporte de aperturas, clics y ventas</li></ul></div>
+      <div class="plan"><div class="pn">Correos automáticos</div><div class="pp">desde $290.000<small>pago único · neto</small></div>
+        <ul><li>Bienvenida a nuevos contactos</li><li>Carrito abandonado</li><li>Recordatorio de recompra</li><li>Desde tu dominio, con SPF y DKIM para no caer en spam</li></ul></div>
+    </div>
+    <p class="note-mono">Precios netos en CLP, más IVA · la inversión en anuncios se paga directo a Google y Meta · el costo de envío de correos se cobra según volumen · solo escribimos a quienes aceptaron recibir correos</p>
 
   <h2 id="por-que">Por qué con nosotros</h2>
-    <p>Hacemos la web, el posicionamiento y la pauta en el mismo equipo. Eso evita el problema más común de los anuncios: pagar por clics que llegan a una página que no convierte. Y los reportes hablan de consultas y ventas, no de métricas de vanidad.</p>
+    <p>Hacemos la web, el posicionamiento y los anuncios en el mismo equipo. Eso evita el problema más común de la pauta: pagar por clics que llegan a una página que no convierte. Y los reportes hablan de consultas y ventas, no de métricas de vanidad.</p>
 </Service>

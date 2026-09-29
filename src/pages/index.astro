@@ -11,14 +11,15 @@ import Pricing from '../components/home/Pricing.astro';
 import Team from '../components/home/Team.astro';
 import HomeFaq from '../components/home/HomeFaq.astro';
 import ClosingCta from '../components/home/ClosingCta.astro';
+import Pluses from '../components/Pluses.astro';
 import HomeFooter from '../components/home/HomeFooter.astro';
 import { faqJsonLd } from '../lib/seo';
 import '../styles/faro.css';
 
 const faq = [
-  { q: "¿Cuánto cuesta una página web con Faro°?", a: "Un sitio de hasta 5 secciones, con diseño a medida, SEO base, hosting y dominio .cl el primer año, parte desde $290.000 CLP netos (plan Presencia). Un sitio multipágina con blog y base AEO/GEO parte desde $790.000, y un e-commerce o desarrollo a medida desde $1.490.000. El precio final depende del alcance y te lo enviamos por escrito." },
+  { q: "¿Cuánto cuesta una página web con Faro°?", a: "Una landing page con diseño a medida, SEO base, hosting y dominio .cl el primer año parte desde $290.000 CLP netos. Un sitio corporativo con blog parte desde $450.000 y una tienda online desde $790.000. El precio final depende del alcance y te lo enviamos por escrito." },
   { q: "¿Qué es AEO y GEO, y en qué se diferencia del SEO?", a: "El SEO busca que aparezcas en los resultados de Google. El AEO y el GEO buscan que los asistentes de IA, como ChatGPT, Perplexity, Gemini o los AI Overviews de Google, entiendan tu negocio y te citen cuando alguien pregunta por lo que vendes. Se trabajan con datos estructurados, contenido que responde preguntas concretas y archivos como llms.txt." },
-  { q: "¿Cuánto demora hacer mi sitio web?", a: "Un sitio del plan Presencia se entrega en 2 a 3 semanas. Los proyectos más grandes se planifican por etapas y el plazo queda escrito en la propuesta." },
+  { q: "¿Cuánto demora hacer mi sitio web?", a: "Una landing page se entrega en 2 a 3 semanas. Los proyectos más grandes se planifican por etapas y el plazo queda escrito en la propuesta." },
   { q: "¿Atienden solo en Santiago?", a: "Tenemos base en Macul y podemos reunirnos en persona en Santiago. Diseño web, posicionamiento e integraciones los hacemos de forma remota para cualquier ciudad de Chile." },
   { q: "¿Cómo sé qué necesita mi web hoy?", a: "Pasa tu sitio por nuestro analizador gratis: en segundos te da una nota de SEO, redes y visibilidad en IA. Si prefieres, escríbenos y te hacemos una auditoría sin costo." },
 ];
@@ -78,23 +79,30 @@ const ld = [
           "itemListElement": [
             {
               "@type": "Offer",
-              "name": "Presencia",
-              "description": "Landing o sitio hasta 5 secciones, diseño a medida, SEO base. Desde $290.000 CLP, pago único.",
+              "name": "Landing page",
+              "description": "Landing o sitio de hasta 5 secciones, diseño a medida, SEO base, hosting y dominio el primer año. Desde $290.000 CLP, pago único.",
               "price": "290000",
               "priceCurrency": "CLP"
             },
             {
               "@type": "Offer",
-              "name": "Crecimiento",
-              "description": "Sitio multipágina con blog y CMS, SEO on-page, datos estructurados y base AEO/GEO. Desde $790.000 CLP, pago único.",
+              "name": "Sitio web corporativo",
+              "description": "Hasta 10 páginas con blog y administrador, SEO on-page y base AEO/GEO. Desde $450.000 CLP, pago único.",
+              "price": "450000",
+              "priceCurrency": "CLP"
+            },
+            {
+              "@type": "Offer",
+              "name": "Tienda online",
+              "description": "Catálogo, carrito y pagos en línea, conectable a ERP y courier. Desde $790.000 CLP, pago único.",
               "price": "790000",
               "priceCurrency": "CLP"
             },
             {
               "@type": "Offer",
-              "name": "Dominio",
-              "description": "E-commerce o desarrollo a medida con SEO técnico avanzado y AEO/GEO completo. Desde $1.490.000 CLP.",
-              "price": "1490000",
+              "name": "Branding: logo e identidad",
+              "description": "Logo, versiones, colores y tipografías. Desde $190.000 CLP, pago único.",
+              "price": "190000",
               "priceCurrency": "CLP"
             },
             {
@@ -109,6 +117,27 @@ const ld = [
               "name": "Google + IA (SEO, AEO y GEO)",
               "description": "Posicionamiento mensual con contenido. Desde $350.000 CLP al mes, mínimo 3 meses.",
               "price": "350000",
+              "priceCurrency": "CLP"
+            },
+            {
+              "@type": "Offer",
+              "name": "Anuncios en Google y Meta",
+              "description": "Gestión de anuncios. Desde $190.000 CLP al mes más la inversión.",
+              "price": "190000",
+              "priceCurrency": "CLP"
+            },
+            {
+              "@type": "Offer",
+              "name": "Redes sociales",
+              "description": "8 publicaciones al mes en Instagram y Facebook. Desde $250.000 CLP al mes.",
+              "price": "250000",
+              "priceCurrency": "CLP"
+            },
+            {
+              "@type": "Offer",
+              "name": "Email marketing",
+              "description": "2 campañas al mes. Desde $120.000 CLP al mes.",
+              "price": "120000",
               "priceCurrency": "CLP"
             },
             {
@@ -191,6 +220,7 @@ const preload = '<link rel="preload" href="/fonts/palanquin-dark-700-latin.woff2
     <Visibility />
     <Process />
     <Pricing />
+    <Pluses home />
     <Team />
     <HomeFaq items={faq} />
     <ClosingCta />
@@ -204,7 +234,7 @@ const preload = '<link rel="preload" href="/fonts/palanquin-dark-700-latin.woff2
       var io = new IntersectionObserver(function (es) {
         es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add(e.target.classList.contains('steps') ? 'lit' : 'in'); io.unobserve(e.target); } });
       }, { rootMargin: '0px 0px -12% 0px' });
-      var groups = ['.sec-head', '.path-grid > li', '.vis-row', '.plan', '.extra', '.person', '.faq-list details', '.night', '.step'];
+      var groups = ['.sec-head', '.plus-grid > li', '.path-grid > li', '.vis-row', '.plan', '.extra', '.person', '.faq-list details', '.night', '.step'];
       groups.forEach(function (sel) {
         var i = 0, last = null;
         document.querySelectorAll('main ' + sel).forEach(function (el) {
