@@ -18,6 +18,7 @@ const page = {
     "text": "Cuéntanos de tu negocio y te respondemos con alcance, plazo y precio en 48 horas."
   },
   "cards": [
+    { "name": "Solo diseño de logo", "desc": "Si solo necesitas el logo: tu logo principal y sus versiones, en archivos listos para usar.", "price": "desde $120.000", "unit": "pago único", "tag": "Sin plan" },
     { "name": "Identidad de marca básica", "desc": "Tu logo con sus versiones, colores y tipografías, listo para web, redes e impresión.", "price": "desde $190.000", "unit": "pago único" },
     { "name": "Manual de marca", "desc": "Identidad completa y una guía de uso para que tu marca se vea igual en todas partes.", "price": "desde $390.000", "unit": "pago único" },
     { "name": "Material publicitario", "desc": "Flyers, pendones, tarjetas, menús o letreros con la identidad de tu marca.", "price": "desde $40.000", "unit": "por pieza" },
@@ -36,7 +37,11 @@ const page = {
   "faq": [
     {
       "q": "¿Cuánto cuesta diseñar un logo?",
-      "a": "La identidad de marca básica (logo con sus versiones, colores y tipografías) parte desde $190.000 netos como pago único. La identidad completa con manual de marca parte desde $390.000."
+      "a": "Solo el logo, desde $120.000 netos como pago único. La identidad de marca básica (logo con sus versiones, colores y tipografías) parte desde $190.000, y la identidad completa con manual de marca desde $390.000."
+    },
+    {
+      "q": "¿Tengo que contratar un plan?",
+      "a": "No. En branding pagas solo por lo que necesitas: puedes pedir solo tu logo, o solo piezas como pendones, flyers o tarjetas, sin plan ni mensualidad. La gestión de redes sociales, en cambio, se contrata como plan mensual."
     },
     {
       "q": "¿Qué recibo al final?",
@@ -82,6 +87,7 @@ const page = {
     },
     "description": "Diseño de logo, identidad de marca, manual de marca y material publicitario para pymes en Chile.",
     "offers": [
+      { "@type": "Offer", "name": "Solo diseño de logo", "price": "120000", "priceCurrency": "CLP", "description": "Pago único, neto." },
       { "@type": "Offer", "name": "Identidad de marca básica", "price": "190000", "priceCurrency": "CLP", "description": "Pago único, neto." },
       { "@type": "Offer", "name": "Identidad completa y manual de marca", "price": "390000", "priceCurrency": "CLP", "description": "Pago único, neto." },
       { "@type": "Offer", "name": "Material publicitario", "price": "40000", "priceCurrency": "CLP", "description": "Por pieza, neto." }
@@ -91,6 +97,7 @@ const page = {
 ---
 <Service {...page}>
   <h2 id="planes">Planes y precios</h2>
+    <p><strong>No necesitas un plan:</strong> en branding pagas solo por lo que necesitas. Puedes pedir solo tu logo (desde $120.000) o solo las piezas que te faltan, como pendones, flyers o tarjetas. Lo único que va con plan mensual es la <a href="/marketing-digital#redes">gestión de redes sociales</a>.</p>
     <div class="plans">
       <div class="plan"><div class="pn">Identidad de marca básica</div><div class="pp">desde $190.000<small>pago único · neto</small></div>
         <ul><li>Conversación de descubrimiento</li><li>Logo principal y sus versiones: horizontal, ícono, blanco y negro</li><li>Paleta de colores y tipografías</li><li>2 rondas de cambios</li><li>Archivos para web, redes e impresión</li></ul></div>
