@@ -1,18 +1,19 @@
 ---
-title: "Cómo aparecer en Google Maps con tu negocio (guía 2026)"
-h1: "Cómo aparecer en Google Maps con tu negocio: guía del Perfil de Empresa de Google"
-description: "Cómo aparecer en Google Maps con tu Perfil de Empresa de Google: crear y verificar la ficha, negocios sin local, reseñas y qué hacer si te suspenden."
+title: "Cómo salir en Google Maps con tu negocio (guía 2026)"
+h1: "Cómo salir en Google Maps con tu negocio: crea tu cuenta de Google Empresa paso a paso"
+description: "Cómo salir en Google Maps con tu negocio: crea tu cuenta de Google Empresa, verifícala, aparece sin local, consigue reseñas y qué hacer si te suspenden."
 date: "2026-09-27"
+updated: "2026-10-08"
 order: 5
 author: "Clementina Moya"
 role: "Redacción, diseño y marketing en Faro°."
 job: "Redacción, diseño y marketing"
 cluster: "SEO local"
-keywords: ["cómo aparecer en Google Maps", "perfil de empresa en Google", "Google Business Profile", "Google My Business Chile", "cómo verificar mi negocio en Google"]
+keywords: ["cómo salir en Google Maps", "crear cuenta Google Empresa", "aparecer en Google Maps negocio", "cómo aparecer en Google Maps", "perfil de empresa en Google", "Google Business Profile", "Google My Business Chile", "cómo verificar mi negocio en Google"]
 tldr: "Aparecer en Google Maps es gratis: creas tu <strong>Perfil de Empresa</strong> en Google (antes llamado Google My Business), lo verificas y lo completas. Google ordena los resultados locales según <strong>relevancia, distancia y prominencia</strong>, y no se puede pagar por mejorar esa posición. Si atiendes donde está el cliente y no en un local, oculta tu dirección y define hasta 20 zonas de servicio."
 summary: "Crear y verificar tu Perfil de Empresa, negocios sin local, reseñas y qué hacer si te suspenden."
-faq: [{"q": "¿Es gratis aparecer en Google Maps?", "a": "Sí. Crear y mantener el Perfil de Empresa de Google no tiene costo. Lo que se paga, si quieres, son los anuncios, que aparecen marcados como publicidad."}, {"q": "¿Puedo aparecer en Google Maps sin local?", "a": "Sí, como negocio de área de servicio: ocultas tu dirección y defines hasta 20 zonas donde atiendes, a no más de dos horas de tu base. Lo que no se permite es usar una oficina virtual o una dirección donde no trabajas."}, {"q": "¿Cuánto demora la verificación?", "a": "Según Google, la revisión puede tardar hasta 5 días hábiles. Si te verifican por carta, llega en unos 14 días y el código vence a los 30."}, {"q": "¿Puedo poner palabras clave en el nombre de mi negocio?", "a": "No. Google exige el nombre real y prohíbe agregar eslóganes, servicios o ubicaciones. Hacerlo puede llevar a la suspensión del perfil."}, {"q": "¿Puedo ofrecer un descuento a cambio de una reseña?", "a": "No. La política de Google prohíbe las reseñas pagadas en plata o en especie, y también pedir solo reseñas positivas. Sí puedes pedirle a cada cliente real que deje su opinión."}]
-cta: {"title": "¿Quieres que dejemos tu perfil y tu web alineados?", "text": "Revisamos tu ficha de Google y tu sitio para que digan lo mismo y te encuentren en tu comuna.", "href": "/analiza", "label": "Analiza tu web gratis"}
+faq: [{"q": "¿Cómo salgo en Google Maps con mi negocio?", "a": "Creando tu Perfil de Empresa en Google (lo que mucha gente llama «cuenta de Google Empresa»), verificándolo y completándolo con categoría, horario, fotos y reseñas. Es gratis, y el paso a paso está en esta guía."}, {"q": "¿Es gratis aparecer en Google Maps?", "a": "Sí. Crear y mantener el Perfil de Empresa de Google no tiene costo. Lo que se paga, si quieres, son los anuncios, que aparecen marcados como publicidad."}, {"q": "¿Puedo aparecer en Google Maps sin local?", "a": "Sí, como negocio de área de servicio: ocultas tu dirección y defines hasta 20 zonas donde atiendes, a no más de dos horas de tu base. Lo que no se permite es usar una oficina virtual o una dirección donde no trabajas."}, {"q": "¿Cuánto demora la verificación?", "a": "Según Google, la revisión puede tardar hasta 5 días hábiles. Si te verifican por carta, llega en unos 14 días y el código vence a los 30."}, {"q": "¿Puedo poner palabras clave en el nombre de mi negocio?", "a": "No. Google exige el nombre real y prohíbe agregar eslóganes, servicios o ubicaciones. Hacerlo puede llevar a la suspensión del perfil."}, {"q": "¿Puedo ofrecer un descuento a cambio de una reseña?", "a": "No. La política de Google prohíbe las reseñas pagadas en plata o en especie, y también pedir solo reseñas positivas. Sí puedes pedirle a cada cliente real que deje su opinión."}]
+cta: {"title": "¿Prefieres que lo hagamos nosotros?", "text": "Dejamos tu perfil completo, con publicaciones y reseñas cada mes, y revisamos si la IA te recomienda en tu comuna. Desde $150.000 al mes.", "href": "/seo-aeo-geo#planes", "label": "Ver el plan Google Maps"}
 related: [{"href": "/blog/que-es-aeo-geo", "title": "Qué es AEO y GEO: cómo aparecer en respuestas de IA"}, {"href": "/blog/textos-web-que-venden", "title": "Cómo escribir los textos de tu web para que vendan"}]
 ---
 
@@ -32,7 +33,7 @@ Según la [ayuda oficial de Google](https://support.google.com/business/answer/7
 
 Google agrega dos cosas que conviene saber: **no se puede solicitar ni pagar por un mejor posicionamiento local**, y más reseñas y valoraciones positivas mejoran la posición. La distancia explica algo que confunde a muchos: un negocio de Macul puede no aparecer cuando alguien busca desde Providencia, aunque su ficha esté perfecta.
 
-## Paso a paso: crear y verificar tu perfil
+## Paso a paso: crea tu cuenta de Google Empresa y verifícala
 
 1. Entra a business.google.com con la cuenta de Google de tu negocio, idealmente un correo con tu dominio.
 2. Escribe el nombre real del negocio y elige la categoría principal más precisa posible.

@@ -1,14 +1,15 @@
 ---
-title: "SEO mensual en Chile: qué incluye y cuánto cuesta"
-h1: "SEO mensual en Chile: qué incluye, cuánto cuesta y cómo saber si funciona"
-description: "Cuánto cuesta el SEO mensual en Chile en 2026, qué debería incluir cada mes, cuándo se ven resultados y qué preguntarle a una agencia antes de contratar."
+title: "Precio SEO en Chile: cuánto cuesta el posicionamiento"
+h1: "Precio del SEO en Chile: cuánto cuesta el posicionamiento en Google, qué incluye y cómo saber si funciona"
+description: "Precios y tarifas del SEO en Chile en 2026: cuánto cuesta el posicionamiento en Google al mes, qué debería incluir y qué preguntarle a una agencia."
 date: "2026-09-27"
+updated: "2026-10-08"
 order: 4
 author: "Clementina Moya"
 role: "Redacción, diseño y marketing en Faro°."
 job: "Redacción, diseño y marketing"
 cluster: "Precios"
-keywords: ["cuánto cuesta el SEO en Chile", "precio SEO mensual", "agencia SEO Santiago", "qué incluye un servicio SEO", "SEO para pymes"]
+keywords: ["precio SEO Chile", "posicionamiento en Google precio", "agencia SEO precios", "tarifas SEO", "cuánto cuesta el SEO en Chile", "precio SEO mensual", "agencia SEO Santiago", "qué incluye un servicio SEO", "SEO para pymes"]
 tldr: "Según las tarifas que publican agencias chilenas (revisadas en septiembre de 2026), el SEO mensual para pymes va aproximadamente de <strong>$190.000 a $1.500.000 al mes</strong>, según el alcance. En Faro°, aparecer en Google Maps parte desde <strong>$150.000 netos al mes</strong> y el plan de SEO, AEO y GEO con contenido desde <strong>$350.000</strong>, con un mínimo de 3 meses. Y una advertencia que hace la propia Google: nadie puede garantizarte el primer lugar."
 summary: "Rangos de precio publicados en Chile, qué debería incluir cada mes y qué preguntarle a una agencia."
 faq: [{"q": "¿Cuánto cuesta el SEO mensual en Chile?", "a": "Según las tarifas publicadas por agencias chilenas en septiembre de 2026, entre unos $190.000 y $1.500.000 al mes para pymes, según el alcance. En Faro°, aparecer en Google Maps parte desde $150.000 netos al mes y el plan de SEO, AEO y GEO con contenido desde $350.000."}, {"q": "¿Los precios incluyen IVA?", "a": "Depende de cada agencia, así que pregunta siempre. Los precios de Faro° son netos: se les suma el 19% de IVA."}, {"q": "¿Cuánto tarda el SEO en dar resultados?", "a": "Google dice que algunos cambios se notan en horas y otros tardan varios meses, y recomienda esperar algunas semanas antes de evaluar. Por eso trabajamos con un mínimo de 3 meses."}, {"q": "¿Qué conviene más: SEO o Google Ads?", "a": "Son complementarios. Google Ads trae visitas desde el primer día mientras pagas; el SEO tarda más, pero lo que construyes sigue trayendo visitas sin pagar por cada clic. Muchas pymes parten con anuncios mientras el SEO madura."}, {"q": "¿Una agencia puede garantizarme el primer lugar en Google?", "a": "No. Google dice explícitamente que nadie puede garantizar el primer lugar y recomienda desconfiar de quien lo prometa."}]
@@ -16,7 +17,7 @@ cta: {"title": "¿Quieres un plan mensual con alcance por escrito?", "text": "Te
 related: [{"href": "/blog/cuanto-cuesta-una-pagina-web-chile", "title": "¿Cuánto cuesta una página web en Chile? Precios 2026"}, {"href": "/blog/checklist-seo-21-puntos", "title": "Checklist SEO: 21 puntos para revisar tu web"}]
 ---
 
-## Cuánto cuesta: lo que publican las agencias en Chile
+## Precios y tarifas: lo que publican las agencias en Chile
 
 Revisamos las páginas de precios de agencias chilenas el 27 de septiembre de 2026. Los rangos que publican:
 
