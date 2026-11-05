@@ -90,6 +90,7 @@ Lee la ficha completa en `.claude/context/PROJECT.md`. Resumen de a quién llama
 - **faro-aeo** — audita SEO/AEO/GEO y mantiene la rúbrica del analizador.
 - **faro-qa** — verifica en prod; no escribe código de producción.
 - **faro-marca** — guardián de la identidad visual: inspecciona sitio y redes contra `DESIGN.md` y propone mejoras. No edita; decide la socia.
+- **faro-diseno** — diseñador front senior: dirección visual, interacción y movimiento vanilla, imágenes con Codex. Construye y verifica con capturas; se automejora con sus skills `faro-motion`, `faro-imagenes`, `faro-radar` (radar cada 14 días) + `impeccable` y `frontend-design`.
 - **data-guru / dba** (globales) — solo bajo demanda; una tabla no justifica guardianes fijos.
 
 ## Reglas
