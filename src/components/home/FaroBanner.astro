@@ -1,0 +1,61 @@
+---
+// Banner del faro: la foto de noche (generada con Codex el 3-nov-2026, sin texto ni marcas) y, encima, un canvas
+// WebGL (public/faro-banner.js) con el haz que gira de verdad, bruma, estrellas que titilan y el mar que se mueve.
+// El scroll empuja el giro del haz y mueve las capas a distinta velocidad (profundidad).
+// Sin JS, con movimiento reducido o sin WebGL: la foto quieta, completa, con la lámpara encendida.
+// El texto va FUERA del cuadro (regla de la socia, 3-nov-2026: nada en movimiento detrás del texto).
+---
+<section class="sec faro-sec" aria-labelledby="faro-h">
+  <div class="wrap-sec">
+    <figure class="faro-ban" data-faro>
+      <picture>
+        <source media="(max-width: 640px)" type="image/avif" srcset="/img/faro/faro-noche-v-640.avif 640w, /img/faro/faro-noche-v-1024.avif 1024w" sizes="calc(100vw - 2rem)">
+        <source media="(max-width: 640px)" type="image/webp" srcset="/img/faro/faro-noche-v-640.webp 640w, /img/faro/faro-noche-v-1024.webp 1024w" sizes="calc(100vw - 2rem)">
+        <source type="image/avif" srcset="/img/faro/faro-noche-960.avif 960w, /img/faro/faro-noche-1536.avif 1536w" sizes="min(77.5rem, 100vw - 3rem)">
+        <img src="/img/faro/faro-noche-1536.webp" srcset="/img/faro/faro-noche-960.webp 960w, /img/faro/faro-noche-1536.webp 1536w" sizes="min(77.5rem, 100vw - 3rem)"
+          width="1536" height="1024" loading="lazy" decoding="async"
+          alt="Un faro blanco encendido sobre las rocas de la costa, de noche, con el mar en larga exposición y el cielo con estrellas.">
+      </picture>
+      <canvas aria-hidden="true"></canvas>
+    </figure>
+    <div class="faro-cap">
+      <h2 id="faro-h">Un faro no sale a buscar barcos. Se deja ver.</h2>
+      <p>Eso hacemos con tu negocio: que Google y los asistentes de IA lo vean claro y desde lejos, para que te encuentren cuando alguien pregunta por lo que vendes.</p>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  // Carga el haz solo cuando el banner se acerca a la pantalla, con movimiento permitido y WebGL disponible.
+  (function () {
+    var f = document.querySelector('[data-faro]');
+    if (!f || !window.IntersectionObserver || matchMedia('(prefers-reduced-motion: reduce)').matches || !window.WebGLRenderingContext) return;
+    var io = new IntersectionObserver(function (es) {
+      if (!es[0].isIntersecting) return;
+      io.disconnect();
+      f.querySelector('img').loading = 'eager';
+      var s = document.createElement('script'); s.src = '/faro-banner.js'; s.async = true; document.head.appendChild(s);
+    }, { rootMargin: '600px 0px' });
+    io.observe(f);
+  })();
+</script>
+
+<style>
+  .faro-ban {
+    position: relative; margin: 0; aspect-ratio: 2 / 1; overflow: hidden; isolation: isolate;
+    border-radius: 1.75rem; border: 1px solid var(--line); background: #0a0d17;
+  }
+  /* la foto ocupa un 10 % más que el cuadro: es el margen que usa el parallax (el canvas la dibuja con la misma geometría) */
+  .faro-ban img { position: absolute; left: -5%; top: -5%; width: 110%; height: 110%; max-width: none; object-fit: cover; object-position: 0% 62%; }
+  .faro-ban canvas { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 0.9s var(--ease-out); }
+  .faro-ban canvas.on { opacity: 1; }
+  .faro-cap { margin-top: 2rem; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1.5rem 4rem; align-items: end; }
+  .faro-cap h2 { font-size: clamp(2rem, 3.6vw, 3.2rem); line-height: 1; letter-spacing: -0.035em; max-width: 16ch; }
+  .faro-cap p { color: var(--muted); font-size: clamp(1.02rem, 1.3vw, 1.18rem); line-height: 1.55; max-width: 46ch; }
+  @media (max-width: 900px) { .faro-cap { grid-template-columns: minmax(0, 1fr); } }
+  @media (max-width: 640px) {
+    .faro-ban { aspect-ratio: 4 / 5; border-radius: 1.375rem; }
+    .faro-ban img { object-position: 0% 85%; }
+    .faro-cap { margin-top: 1.5rem; }
+  }
+</style>
