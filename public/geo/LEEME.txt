@@ -1,0 +1,11 @@
+Datos de la escena 3D de la portada de faroagencia.cl (src/scripts/faro3d.js).
+
+santiago-v1.bin y santiago-mask.webp son una base de datos derivada de OpenStreetMap:
+© OpenStreetMap contributors — https://www.openstreetmap.org/copyright
+Se distribuyen bajo la Open Database License 1.0 (ODbL): https://opendatacommons.org/licenses/odbl/1-0/
+
+Relieve: tiles Terrarium de AWS Open Data (Mapzen/Tilezen), a partir de SRTM y otras fuentes:
+https://registry.opendata.aws/terrain-tiles/
+
+Formato de santiago-v1.bin (gzip): 'F3G1' + uint32 largo de cabecera + cabecera JSON + arreglos little-endian
+(int16/uint16/uint8) descritos en cabecera.sec. Coordenadas en metros desde el cerro Santa Lucía (x = este, z = sur).

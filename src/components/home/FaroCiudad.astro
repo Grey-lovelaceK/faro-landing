@@ -1,30 +1,49 @@
 ---
-// Banner 3D de la portada: Santiago de noche (Gran Torre Costanera, Mapocho y Costanera Norte, Sanhattan, casas bajas)
-// y un faro en un cerro cuyo haz recorre la ciudad y encuentra tres locales. La escena es src/scripts/faro3d.js
-// (three.js), que se descarga solo cuando el recuadro se acerca a la pantalla. Con el recuadro en pantalla, el scroll
-// mueve la cámara y el haz por estaciones (scrub); sin JS, sin WebGL2, con movimiento reducido o en un equipo lento
-// queda un póster sacado de la misma escena, con los tres locales encendidos.
+// Banner 3D de la portada: Santiago de noche con datos reales (edificios, calles y Mapocho de OpenStreetMap; relieve de
+// Terrarium/AWS Open Data) visto desde el cerro Santa Lucía, y un faro ficticio en su cumbre cuyo haz encuentra tres
+// locales. La escena es src/scripts/faro3d.js (three.js), que se descarga solo cuando el recuadro se acerca a la pantalla.
+// Con el recuadro en pantalla, el scroll mueve la cámara y el haz por estaciones (scrub); sin JS, sin WebGL2, con
+// movimiento reducido o en un equipo lento queda un póster sacado de la misma escena.
+//
+// FICHA: cuando el haz encuentra un local (su estación del scroll) se abre su ficha de negocio, como el panel de un lugar
+// en un mapa; también al tocar su pin. Es un diálogo NO modal: no roba el foco si se abre sola; si la abre el usuario,
+// recibe el foco, Esc la cierra y el foco vuelve al pin. Estilo genérico de mapa con tokens de DESIGN.md (no imita a ningún
+// producto). Los botones de acción son decorativos; el único enlace real lleva a /analiza. La foto baja al abrir la ficha.
 //
 // LOCALES: hoy los tres son FICTICIOS (nombres inventados, buscados en la web el 3-nov-2026 sin coincidencias en
-// Santiago) y se rotulan «Ejemplo». Para poner un negocio real: "real": true + "permiso" (quién autorizó, por escrito,
-// y cuándo). Sin "permiso" se sigue rotulando «Ejemplo». Nunca un real sin permiso.
+// Santiago), igual que sus fotos (generadas), notas, número de reseñas y reseñas: todo se rotula «Ejemplo». Para poner
+// un negocio real: "real": true + "permiso" (quién autorizó, por escrito, y cuándo). Nunca un real sin permiso.
+// escena: x/z en metros desde el cerro Santa Lucía (x = este, z = sur), rot = hacia dónde mira la vitrina (rad).
 import Icon from '../Icon.astro';
 const locales = [
-  { id: 'sangucheria', nombre: 'Sanguchería Don Lisandro', barrio: 'Plaza Ñuñoa', real: false, permiso: null,
-    tarjeta: { tipo: 'maps', encabezado: 'Ficha en Google Maps', sub: 'Plaza Ñuñoa · Aparece cuando buscan «sanguchería cerca».' },
-    escena: { x: -30, z: -86, w: 6.5, d: 5.5, h: 4.6, techo: 'dos-aguas' } },
-  { id: 'barberia', nombre: 'Barbería Navaja Lenta', barrio: 'Barrio Italia', real: false, permiso: null,
-    tarjeta: { tipo: 'resumen-ia', encabezado: 'Resumen de IA en Google', pregunta: 'barbería que atienda hoy en Barrio Italia',
+  { id: 'sangucheria', nombre: 'Sanguchería Don Lisandro', barrio: 'Parque Forestal', real: false, permiso: null,
+    rubro: 'Sanguchería', nota: 4.6, resenas: 212, cierra: '21:00', foto: 'sangucheria',
+    fotoAlt: 'Foto de ejemplo: vitrina iluminada de una sanguchería frente a un parque, de noche.',
+    resena: 'Buscaba dónde almorzar cerca del parque y estaba todo: la carta, el horario y cómo llegar.',
+    tarjeta: { tipo: 'maps', encabezado: 'Ficha en el mapa', sub: 'Parque Forestal · Aparece cuando buscan «sanguchería cerca».' },
+    escena: { x: -178.3, z: -618.6, w: 9, d: 12, h: 7.5, rot: 2.64, lado: 1, camara: 'frente' } },
+  { id: 'barberia', nombre: 'Barbería Navaja Lenta', barrio: 'Barrio Bellas Artes', real: false, permiso: null,
+    rubro: 'Barbería', nota: 4.8, resenas: 96, cierra: '20:00', foto: 'barberia',
+    fotoAlt: 'Foto de ejemplo: interior de una barbería con dos sillones de cuero y espejos grandes.',
+    resena: 'Reservé desde el teléfono en un minuto. La página dice qué cortes hacen y cuánto cobran.',
+    tarjeta: { tipo: 'resumen-ia', encabezado: 'Resumen de IA en Google', pregunta: 'barbería que atienda hoy en Bellas Artes',
       respuesta: 'El resumen cita a la {nombre} porque su página responde horario, servicios y cómo llegar.' },
-    escena: { x: -13, z: -92, w: 7, d: 6, h: 5.2, techo: 'plano' } },
+    escena: { x: -34.7, z: -344.4, w: 9, d: 12, h: 7.5, rot: 0.131, lado: -1 } },
   { id: 'cafe', nombre: 'Café Tres Cuadras', barrio: 'Lastarria', real: false, permiso: null,
+    rubro: 'Café', nota: 4.7, resenas: 154, cierra: '21:00', foto: 'cafe',
+    fotoAlt: 'Foto de ejemplo: barra de un café en una casona antigua, con máquina de espresso y un ventanal a la calle.',
+    resena: 'Le pregunté a la IA por un café en Lastarria y me lo nombró. Buen espresso y abren temprano.',
     tarjeta: { tipo: 'asistente', encabezado: 'Asistente de IA', pregunta: 'dónde tomar un café en Lastarria',
       respuesta: 'Te puedo nombrar el {nombre}, en Lastarria: su web deja claro qué ofrece, a qué hora abre y dónde está.' },
-    escena: { x: -47, z: -96, w: 6, d: 5, h: 4.4, techo: 'dos-aguas' } },
+    escena: { x: 238, z: -237, w: 9, d: 12, h: 7.5, rot: -1.644, lado: 1 } },
 ];
 const esReal = (l: (typeof locales)[number]) => l.real === true && !!l.permiso;
-const partes = (t: string, n: string) => t.split('{nombre}');
+const partes = (t: string) => t.split('{nombre}');
+const coma = (n: number) => n.toFixed(1).replace('.', ',');
 const escenaJson = JSON.stringify(locales.map((l) => ({ id: l.id, escena: l.escena })));
+const ACCIONES = [
+  { icon: 'route', t: 'Cómo llegar' }, { icon: 'phone', t: 'Llamar' }, { icon: 'globe', t: 'Sitio web' }, { icon: 'bookmark', t: 'Guardar' },
+] as const;
 ---
 <section class="sec f3-sec" id="faro" aria-labelledby="f3-h">
   <div class="wrap-sec">
@@ -36,7 +55,7 @@ const escenaJson = JSON.stringify(locales.map((l) => ({ id: l.id, escena: l.esce
 
   <div class="f3-track">
     <div class="f3-stage wrap-sec">
-      <figure class="f3" data-f3 data-haz="poster" aria-label="Ilustración 3D: Santiago de noche, con la Gran Torre Costanera y un faro sobre un cerro. Su haz recorre la ciudad y encuentra tres locales de ejemplo, ficticios.">
+      <figure class="f3" data-f3 data-haz="poster" aria-label="Ilustración 3D: Santiago de noche desde el cerro Santa Lucía, con el San Cristóbal, Providencia y la Gran Torre Costanera, hecha con datos abiertos de la ciudad. En la cumbre del cerro hay un faro inventado; su haz encuentra tres locales de ejemplo, ficticios.">
         <picture class="f3-poster">
           <source media="(max-width: 640px)" type="image/avif" srcset="/img/faro3d/santiago-tall-720.avif">
           <source media="(max-width: 640px)" type="image/webp" srcset="/img/faro3d/santiago-tall-720.webp">
@@ -44,20 +63,58 @@ const escenaJson = JSON.stringify(locales.map((l) => ({ id: l.id, escena: l.esce
           <img src="/img/faro3d/santiago-wide-1240.webp" srcset="/img/faro3d/santiago-wide-1240.webp 1240w, /img/faro3d/santiago-wide-1860.webp 1860w" sizes="min(77.5rem, 100vw - 3rem)"
             width="1240" height="620" loading="lazy" decoding="async" alt="">
         </picture>
-        {locales.map((l, i) => <span class="pin" data-b={i} aria-hidden="true"><i></i><span>{l.nombre}</span></span>)}
+        <div class="f3-pins" role="group" aria-label="Locales de ejemplo">
+          {locales.map((l, i) => (
+            <button class="pin" type="button" data-b={i} hidden aria-expanded="false" aria-controls={`f3-ficha-${i}`}>
+              <i aria-hidden="true"></i><span>{l.nombre}<span class="sr"> — ver ficha de ejemplo</span></span>
+            </button>
+          ))}
+        </div>
+        {locales.map((l, i) => (
+          <div class="ficha" id={`f3-ficha-${i}`} data-b={i} role="dialog" aria-modal="false" aria-labelledby={`f3-fn-${i}`} tabindex="-1">
+            <div class="fx-cover">
+              <img data-src={`/img/faro3d/ficha-${l.foto}-720.webp`} data-srcset={`/img/faro3d/ficha-${l.foto}-420.webp 420w, /img/faro3d/ficha-${l.foto}-720.webp 720w`}
+                sizes="(max-width: 640px) 100vw, 22rem" width="720" height="360" decoding="async" alt={l.fotoAlt}>
+              {!esReal(l) && <span class="fx-ej">Ejemplo</span>}
+              <button class="fx-x" type="button" aria-label="Cerrar ficha"><Icon name="close" size={18} stroke={2.2} /></button>
+            </div>
+            <div class="fx-body">
+              <h3 class="fx-name" id={`f3-fn-${i}`}>{l.nombre}</h3>
+              <p class="fx-rate">
+                <span class="fx-num">{coma(l.nota)}</span>
+                <span class="fx-stars" role="img" aria-label={`${coma(l.nota)} de 5 estrellas`} style={`--r:${(l.nota / 5) * 100}%`}>
+                  <span class="fx-s0">{[0, 1, 2, 3, 4].map(() => <Icon name="star" size={15} />)}</span>
+                  <span class="fx-s1">{[0, 1, 2, 3, 4].map(() => <Icon name="star" size={15} />)}</span>
+                </span>
+                <span class="fx-n">({l.resenas} reseñas)</span>
+              </p>
+              <p class="fx-meta">{l.rubro} · {l.barrio}, Santiago</p>
+              <p class="fx-open"><span class="fx-dot" aria-hidden="true"></span><strong>Abierto</strong> · cierra {l.cierra}</p>
+            </div>
+            <ul class="fx-acts" aria-hidden="true">
+              {ACCIONES.map((a) => <li><span class="fx-ic"><Icon name={a.icon} size={19} /></span>{a.t}</li>)}
+            </ul>
+            <figure class="fx-rev">
+              <blockquote><p>«{l.resena}»</p></blockquote>
+              <figcaption>Reseña de ejemplo, inventada para la ilustración.</figcaption>
+            </figure>
+            <a class="fx-cta" href="/analiza">Analiza gratis cómo aparece tu negocio <Icon name="arrow" size={17} stroke={2} /></a>
+          </div>
+        ))}
+        <p class="f3-attr">Mapa © <a href="https://www.openstreetmap.org/copyright" rel="noopener" target="_blank">OpenStreetMap contributors</a> · Relieve: Terrarium, AWS Open Data</p>
       </figure>
-      <p class="f3-cap" aria-hidden="true"><span class="f3-cap-t">Ilustración 3D. Los tres locales son ejemplos ficticios.</span></p>
+      <p class="f3-cap" aria-hidden="true"><span class="f3-cap-t">Ilustración 3D con datos reales de Santiago. El faro y los tres locales son ficticios.</span></p>
     </div>
   </div>
 
   <div class="wrap-sec">
     <ul class="f3-cards" role="list">
       {locales.map((l, i) => {
-        const [a, b] = partes('respuesta' in l.tarjeta ? l.tarjeta.respuesta : '', l.nombre);
+        const [a, b] = partes('respuesta' in l.tarjeta ? l.tarjeta.respuesta : '');
         return (
           <li class="f3-card" data-b={i}>
             <div class="c-top">
-              <Icon name={l.tarjeta.tipo === 'maps' ? 'check' : 'sparkle'} size={18} stroke={2} />
+              <Icon name={l.tarjeta.tipo === 'maps' ? 'pin' : 'sparkle'} size={18} stroke={2} />
               {l.tarjeta.encabezado}
               {!esReal(l) && <span class="c-ej">Ejemplo</span>}
             </div>
@@ -76,17 +133,18 @@ const escenaJson = JSON.stringify(locales.map((l) => ({ id: l.id, escena: l.esce
         );
       })}
     </ul>
-    <p class="f3-note">Ilustración 3D hecha por Faro°. Los negocios son ficticios; ningún cliente real aparece en ella.</p>
+    <p class="f3-note">Ilustración 3D hecha por Faro° con datos abiertos: edificios, calles y el Mapocho de © <a href="https://www.openstreetmap.org/copyright" rel="noopener" target="_blank">OpenStreetMap contributors</a> (licencia ODbL); relieve de los tiles Terrarium de AWS Open Data (Mapzen, a partir de SRTM y otras fuentes). El faro y los negocios son ficticios; ningún cliente real aparece en ella.</p>
   </div>
   <script type="application/json" id="f3-locales" set:html={escenaJson} />
 </section>
 
 <script>
-  // Decide si va el 3D en vivo, arma el scrub (el recuadro queda fijo mientras la cámara recorre las estaciones)
-  // y carga three.js con import() solo cuando el recuadro se acerca. Sin JS, todo esto no existe: queda el póster.
+  // Decide si va el 3D en vivo, arma el scrub (el recuadro queda fijo mientras la cámara recorre las estaciones),
+  // maneja la ficha del local y carga three.js con import() solo cuando el recuadro se acerca. Sin JS: póster y tarjetas.
   const sec = document.querySelector<HTMLElement>('.f3-sec');
   const fig = document.querySelector<HTMLElement>('[data-f3]');
   if (sec && fig) {
+    const W = window as any;
     const q = new URLSearchParams(location.search);
     const posterMode = q.has('f3poster');
     const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -95,6 +153,53 @@ const escenaJson = JSON.stringify(locales.map((l) => ({ id: l.id, escena: l.esce
     let gl2 = false;
     try { gl2 = !!document.createElement('canvas').getContext('webgl2'); } catch (e) { gl2 = false; }
     const live = posterMode || (!reduced && !slow && gl2 && !q.has('nogl'));
+    const capT = sec.querySelector<HTMLElement>('.f3-cap-t')!;
+    const cards = [...sec.querySelectorAll<HTMLElement>('.f3-card')];
+    const pins = [...fig.querySelectorAll<HTMLButtonElement>('.pin')];
+    const fichas = [...fig.querySelectorAll<HTMLElement>('.ficha')];
+    const NOMBRES = pins.map((p) => (p.querySelector('span')?.firstChild?.textContent || '').trim());
+    const chico = matchMedia('(max-width: 640px)');
+    fig.dataset.js = '1';
+    pins.forEach((p) => { p.hidden = false; });
+
+    // ---------- ficha del local ----------
+    let abierta = -1, manual = false, opener: HTMLElement | null = null;
+    const desvio = () => {
+      // la escena corre la vista solo si el local abierto queda bajo el panel (borde del panel en px del recuadro)
+      W.__f3 = W.__f3 || {};
+      if (abierta < 0) W.__f3.panel = null;
+      else {
+        const f = fichas[abierta], fr = f.getBoundingClientRect(), br = fig.getBoundingClientRect();
+        W.__f3.panel = chico.matches ? { i: abierta, y: Math.round(fr.top - br.top) } : { i: abierta, x: Math.round(fr.right - br.left) };
+      }
+      W.__f3pedir && W.__f3pedir();
+    };
+    const abrir = (i: number, como: 'auto' | 'manual') => {
+      if (como === 'manual') manual = true;
+      if (abierta !== i) {
+        abierta = i;
+        // la foto baja recién al abrir la ficha (sin JS las fichas no se muestran)
+        const im = fichas[i].querySelector<HTMLImageElement>('img[data-src]');
+        if (im) { im.srcset = im.dataset.srcset || ''; im.src = im.dataset.src || ''; im.removeAttribute('data-src'); }
+        fichas.forEach((f, j) => f.classList.toggle('on', j === i));
+        pins.forEach((p, j) => p.setAttribute('aria-expanded', String(j === i)));
+        fig.dataset.ficha = String(i);
+      }
+      if (como === 'manual') fichas[i].focus({ preventScroll: true });
+      desvio();
+    };
+    const cerrar = (volver: boolean) => {
+      if (abierta < 0) return;
+      const eraManual = manual;
+      fichas[abierta].classList.remove('on'); pins[abierta].setAttribute('aria-expanded', 'false');
+      abierta = -1; manual = false; delete fig.dataset.ficha; desvio();
+      if (volver && eraManual && opener) opener.focus({ preventScroll: true });
+    };
+    pins.forEach((p, i) => p.addEventListener('click', () => { opener = p; if (abierta === i && manual) cerrar(true); else abrir(i, 'manual'); }));
+    fichas.forEach((f) => f.querySelector('.fx-x')!.addEventListener('click', () => cerrar(true)));
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && abierta >= 0) { manual = manual || fig.contains(document.activeElement); cerrar(true); } });
+    chico.addEventListener('change', desvio);
+
     if (!live) {
       fig.dataset.hazMotivo = reduced ? 'movimiento-reducido' : slow ? 'equipo-lento' : 'sin-webgl2';
     } else {
@@ -102,14 +207,10 @@ const escenaJson = JSON.stringify(locales.map((l) => ({ id: l.id, escena: l.esce
       const HOLD = 0.5;
       const track = sec.querySelector<HTMLElement>('.f3-track')!;
       const stage = sec.querySelector<HTMLElement>('.f3-stage')!;
-      const capT = sec.querySelector<HTMLElement>('.f3-cap-t')!;
-      const cards = [...sec.querySelectorAll<HTMLElement>('.f3-card')];
-      const pins = [...fig.querySelectorAll<HTMLElement>('.pin')];
-      const NOMBRES = pins.map((p) => p.textContent || '');
       const CAPS: Record<string, string> = {
-        heroe: 'Santiago de noche, con la Gran Torre Costanera.',
+        heroe: 'Santiago de noche desde el cerro Santa Lucía: el San Cristóbal, Providencia y la Gran Torre Costanera.',
         servicios: 'El haz recorre la ciudad y se encienden los barrios.',
-        cumbre: 'El faro en su cerro, con la ciudad encendida.',
+        cumbre: 'El faro (inventado) en la cumbre del Santa Lucía, con la ciudad encendida.',
       };
       const sm = (a: number, b: number, x: number) => { const t = Math.min(1, Math.max(0, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
       if (!posterMode) sec.classList.add('f3-live');
@@ -119,16 +220,15 @@ const escenaJson = JSON.stringify(locales.map((l) => ({ id: l.id, escena: l.esce
         const vh = innerHeight, sh = stage.offsetHeight;
         stickTop = Math.max(72, (vh - sh) / 2 + 36);
         stage.style.top = stickTop + 'px';
-        run = Math.round(vh * 1.25);
+        run = Math.round(vh * 1.4);
         track.style.height = (sh + run) + 'px';
       };
-      // avance 0..1 mientras el recuadro está fijo
       const prog = () => Math.min(1, Math.max(0, (stickTop - track.getBoundingClientRect().top) / run));
       const estado = () => {
         const x = prog() * (IDS.length - 1); const i = Math.min(IDS.length - 2, Math.floor(x)); const f = x - i;
         return { i, w: sm(HOLD, 1, f), u: Math.min(1, f / HOLD) };
       };
-      (window as any).__f3 = { ids: IDS, estado };
+      W.__f3 = { ...(W.__f3 || {}), ids: IDS, estado };
       let escena = '';
       const pintar = () => {
         const r = estado(); const e = r.w > 0.5 ? IDS[r.i + 1] : IDS[r.i];
@@ -136,15 +236,22 @@ const escenaJson = JSON.stringify(locales.map((l) => ({ id: l.id, escena: l.esce
         const k = e.startsWith('local-') ? +e.slice(6) : -1;
         capT.textContent = k >= 0 ? `El haz encuentra un local de ejemplo, ficticio: ${NOMBRES[k]}.` : CAPS[e] || '';
         cards.forEach((c, j) => c.classList.toggle('on', j === k));
+        if (fig.dataset.haz !== 'vivo') return;
+        if (k >= 0) abrir(k, manual && abierta === k ? 'manual' : 'auto');
+        else if (!manual) cerrar(false);
       };
-      // la escena llama a pintar() en cada cuadro: leyenda, pines y fichas nunca se desfasan del 3D
-      (window as any).__f3.pintar = pintar;
+      W.__f3.pintar = pintar;      // la escena lo llama en cada cuadro: leyenda, pines y ficha nunca se desfasan del 3D
       let pend = 0;
       addEventListener('scroll', () => { if (!pend) pend = requestAnimationFrame(() => { pend = 0; pintar(); }); }, { passive: true });
-      new ResizeObserver(() => { medir(); pintar(); }).observe(stage);
+      new ResizeObserver(() => { medir(); pintar(); desvio(); }).observe(stage);
       medir(); pintar();
       fig.dataset.haz = 'cargando';
-      const cargar = () => import('../../scripts/faro3d.js').catch((e) => { console.error('faro3d', e); fig.dataset.haz = 'poster'; sec.classList.remove('f3-live'); medir(); });
+      addEventListener('f3:vivo', () => { escena = ''; pintar(); });
+      const cargar = () => {
+        // los datos de la ciudad bajan en paralelo con three.js
+        if (!W.__f3geo) { W.__f3geo = fetch('/geo/santiago-v1.bin'); const im = new Image(); im.src = '/geo/santiago-mask.webp'; }
+        return import('../../scripts/faro3d.js').catch((e) => { console.error('faro3d', e); fig.dataset.haz = 'poster'; sec.classList.remove('f3-live'); track.style.height = ''; stage.style.top = ''; });
+      };
       addEventListener('f3:poster', () => { sec.classList.remove('f3-live'); track.style.height = ''; stage.style.top = ''; });
       if (posterMode) cargar();
       else {
@@ -160,32 +267,108 @@ const escenaJson = JSON.stringify(locales.map((l) => ({ id: l.id, escena: l.esce
   .f3-stage { position: relative; }
   .f3-live .f3-stage { position: sticky; }
   .f3 {
-    position: relative; margin: 0; width: 100%; aspect-ratio: 2 / 1; max-height: calc(100svh - 10.5rem); overflow: hidden; isolation: isolate;
+    position: relative; margin: 0; width: 100%; aspect-ratio: 2 / 1; max-height: calc(100svh - 10.5rem); min-height: 31rem; overflow: hidden; isolation: isolate;
     border-radius: 1.75rem; border: 1px solid var(--line); background: #05070e;
   }
   .f3-poster, .f3-poster img, .f3 :global(canvas) { position: absolute; inset: 0; width: 100%; height: 100%; }
   .f3-poster img { object-fit: cover; }
   .f3 :global(canvas) { opacity: 0; transition: opacity 1.1s var(--ease-out); }
   .f3[data-haz='vivo'] :global(canvas) { opacity: 1; }
-  /* pines: el nombre corto del local que el haz encuentra (lo único escrito sobre la escena) */
-  .pin { position: absolute; left: 0; top: 0; z-index: 2; width: 0; height: 0; pointer-events: none; display: none; }
-  .f3[data-haz='vivo'] .pin { display: block; }
-  .pin i { position: absolute; left: -6px; top: -6px; width: 12px; height: 12px; border-radius: 50%; background: #8b9bff; box-shadow: 0 0 0 3px rgba(91, 114, 255, 0.3); opacity: 0.55; }
-  .pin > span {
-    position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%); white-space: nowrap; padding: 0.3rem 0.6rem; border-radius: 0.55rem;
-    background: rgba(10, 13, 23, 0.88); border: 1px solid #34418a; color: #eaedf6; font-size: 0.78rem; font-weight: 600;
-    opacity: 1; transition: opacity 0.45s;
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+  /* pines: botones que abren la ficha. En vivo los mueve la escena; en el póster son una fila de chips abajo */
+  .f3-pins { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
+  .pin {
+    position: absolute; left: 0; top: 0; width: 0; height: 0; padding: 0; border: 0; background: none; cursor: pointer;
+    font: inherit; color: inherit; display: none; pointer-events: auto;
   }
-  /* en vivo, cada pin se muestra cuando el haz encuentra su local */
-  .f3[data-haz='vivo'] .pin { opacity: 0; transition: opacity 0.45s; }
-  .f3[data-haz='vivo'][data-vista^='local'] .pin { opacity: 1; }
-  .f3[data-haz='vivo'] .pin > span { opacity: 0; }
-  .f3[data-haz='vivo'][data-vista='local-0'] .pin[data-b='0'] > span,
-  .f3[data-haz='vivo'][data-vista='local-1'] .pin[data-b='1'] > span,
-  .f3[data-haz='vivo'][data-vista='local-2'] .pin[data-b='2'] > span { opacity: 1; }
-  .f3[data-haz='vivo'][data-vista='local-0'] .pin[data-b='0'] i,
-  .f3[data-haz='vivo'][data-vista='local-1'] .pin[data-b='1'] i,
+  .f3[data-js] .pin { display: block; }
+  .f3[data-haz='cargando'] .pin, .f3[data-haz='perdido'] .pin { display: none; }
+  .f3[data-haz='poster'] .f3-pins { inset: auto auto 0.75rem 0.75rem; display: flex; flex-wrap: wrap; gap: 0.4rem; max-width: calc(100% - 1.5rem); }
+  .f3[data-haz='poster'] .pin { position: static; width: auto; height: auto; }
+  .f3[data-haz='poster'] .pin i { display: none; }
+  .f3[data-haz='poster'] .pin > span { position: static; transform: none; display: inline-block; }
+  .pin i { position: absolute; left: -7px; top: -7px; width: 14px; height: 14px; border-radius: 50%; background: #8b9bff; box-shadow: 0 0 0 4px rgba(91, 114, 255, 0.32); }
+  .pin > span {
+    position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%); white-space: nowrap; padding: 0.4rem 0.7rem; border-radius: 0.6rem;
+    background: rgba(10, 13, 23, 0.9); border: 1px solid #34418a; color: #eaedf6; font-size: 0.8rem; font-weight: 600; line-height: 1.2;
+  }
+  .pin:hover > span, .pin[aria-expanded='true'] > span { border-color: #8b9bff; }
+  .pin:focus-visible { outline: none; }
+  .pin:focus-visible > span { outline: 2px solid #8b9bff; outline-offset: 3px; }
+  /* en vivo: solo en las estaciones de los locales; el del local enfocado muestra su nombre */
+  .f3[data-haz='vivo'] .pin { visibility: hidden; }
+  .f3[data-haz='vivo'][data-vista^='local'] .pin { visibility: visible; }
+  .f3[data-haz='vivo'] .pin > span { opacity: 0; transition: opacity 0.35s; }
+  .f3[data-haz='vivo'] .pin i { opacity: 0.5; }
+  .f3[data-haz='vivo'][data-vista='local-0'] .pin[data-b='0'] > span, .f3[data-haz='vivo'][data-vista='local-1'] .pin[data-b='1'] > span,
+  .f3[data-haz='vivo'][data-vista='local-2'] .pin[data-b='2'] > span, .f3[data-haz='vivo'] .pin:focus-visible > span, .f3[data-haz='vivo'] .pin:hover > span { opacity: 1; }
+  .f3[data-haz='vivo'][data-vista='local-0'] .pin[data-b='0'] i, .f3[data-haz='vivo'][data-vista='local-1'] .pin[data-b='1'] i,
   .f3[data-haz='vivo'][data-vista='local-2'] .pin[data-b='2'] i { opacity: 1; }
+  .f3[data-ficha] .pin[aria-expanded='true'] > span { opacity: 0; }
+
+  /* ---------- ficha de negocio (panel de un lugar en un mapa) ---------- */
+  .ficha {
+    position: absolute; z-index: 4; left: 0.75rem; top: 0.75rem; bottom: 0.75rem; width: min(22rem, 46%);
+    display: flex; flex-direction: column; overflow: hidden auto; overscroll-behavior: contain;
+    background: var(--bg); color: var(--ink); border: 1px solid var(--line); border-radius: var(--radius-lg); box-shadow: var(--shadow-card);
+    visibility: hidden; opacity: 0;
+  }
+  .ficha.on { visibility: visible; opacity: 1; }
+  .ficha:focus { outline: none; }
+  .ficha:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  @media (prefers-reduced-motion: no-preference) {
+    .ficha { transform: translateX(-0.75rem); transition: opacity 0.35s var(--ease-out), transform 0.45s var(--ease-out), visibility 0s 0.45s; }
+    .ficha.on { transform: none; transition: opacity 0.35s var(--ease-out), transform 0.45s var(--ease-out), visibility 0s; }
+  }
+  .fx-cover { position: relative; flex: none; aspect-ratio: 2.25 / 1; background: var(--bubble); }
+  .fx-cover { overflow: hidden; min-height: 0; }
+  .fx-cover img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; }
+  .fx-ej {
+    position: absolute; left: 0.7rem; top: 0.7rem; padding: 0.28rem 0.62rem; border-radius: 999px;
+    background: rgba(10, 13, 23, 0.82); color: #eaedf6; font-size: 0.78rem; font-weight: 600; border: 1px solid rgba(234, 237, 246, 0.25);
+  }
+  .fx-x {
+    position: absolute; right: 0.6rem; top: 0.6rem; display: grid; place-items: center; width: 2.25rem; height: 2.25rem; border-radius: 50%;
+    border: 0; background: rgba(10, 13, 23, 0.82); color: #eaedf6; cursor: pointer;
+  }
+  .fx-x:hover { background: rgba(10, 13, 23, 0.95); }
+  .fx-body { padding: 0.8rem 1.1rem 0.75rem; }
+  .fx-name { font: 700 1.36rem/1.1 var(--font-display); letter-spacing: -0.035em; text-wrap: balance; }
+  .fx-rate { display: flex; align-items: center; gap: 0.4rem; margin-top: 0.45rem; font-size: 0.9rem; color: var(--muted); }
+  .fx-num { color: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }
+  .fx-stars { position: relative; display: inline-block; line-height: 0; }
+  .fx-s0, .fx-s1 { display: inline-flex; gap: 1px; white-space: nowrap; }
+  .fx-s0 { color: var(--line-strong); }
+  .fx-s1 { position: absolute; left: 0; top: 0; width: var(--r); overflow: hidden; color: var(--accent); }
+  .fx-stars :global(svg) { flex: none; }
+  .fx-meta { margin-top: 0.3rem; font-size: 0.9rem; color: var(--muted); }
+  .fx-open { display: flex; align-items: center; gap: 0.4rem; margin-top: 0.3rem; font-size: 0.9rem; color: var(--muted); }
+  .fx-open strong { color: var(--good); font-weight: 600; }
+  .fx-dot { width: 0.5rem; height: 0.5rem; border-radius: 50%; background: var(--good); }
+  .fx-acts {
+    list-style: none; margin: 0; padding: 0.7rem 0.6rem; display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.25rem;
+    border-block: 1px solid var(--line);
+  }
+  .fx-acts li { display: flex; flex-direction: column; align-items: center; gap: 0.4rem; font-size: 0.78rem; font-weight: 600; color: var(--accent); text-align: center; line-height: 1.15; }
+  .fx-ic { display: grid; place-items: center; width: 2.4rem; height: 2.4rem; border-radius: 50%; border: 1px solid var(--accent-line); background: var(--accent-tint); }
+  .fx-acts li:first-child .fx-ic { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+  .fx-rev { margin: 0; padding: 0.8rem 1.1rem 0.1rem; }
+  .fx-rev blockquote { margin: 0; }
+  .fx-rev p { font-size: 0.9rem; line-height: 1.42; color: var(--ink-2); }
+  .fx-rev figcaption { margin-top: 0.35rem; font-size: 0.8rem; color: var(--faint); }
+  .fx-cta {
+    display: flex; align-items: center; gap: 0.4rem; margin: auto 1.1rem 0.9rem; padding-top: 0.7rem; font-size: 0.88rem; font-weight: 600; color: var(--accent);
+    text-decoration: none;
+  }
+  .fx-cta:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+  .f3-attr {
+    position: absolute; z-index: 3; right: 0.6rem; bottom: 0.5rem; margin: 0; padding: 0.18rem 0.5rem; border-radius: 0.4rem;
+    background: rgba(5, 7, 14, 0.72); color: #c9cfe0; font-size: 0.7rem; line-height: 1.3;
+  }
+  .f3-attr a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+  .f3[data-ficha] .f3-attr { opacity: 0.9; }
   .f3-cap { margin-top: 0.875rem; min-height: 1.4em; font-size: 0.92rem; color: var(--muted); }
 
   .f3-cards { list-style: none; margin: 2rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
@@ -203,8 +386,22 @@ const escenaJson = JSON.stringify(locales.map((l) => ({ id: l.id, escena: l.esce
   .c-a { margin-top: 0.55rem; font-size: 0.92rem; line-height: 1.45; color: var(--ink); }
   .c-a strong { color: var(--accent); }
   .f3-note { margin-top: 1rem; font-size: 0.84rem; color: var(--faint); }
+  .f3-note a { color: inherit; }
   @media (max-width: 900px) { .f3-cards { grid-template-columns: minmax(0, 1fr); } }
   @media (max-width: 640px) {
-    .f3 { aspect-ratio: 4 / 5; border-radius: 1.375rem; max-height: calc(100svh - 9rem); }
+    .f3 { aspect-ratio: 4 / 5; border-radius: 1.375rem; max-height: calc(100svh - 9rem); min-height: 0; }
+    /* hoja inferior dentro del recuadro */
+    .ficha { left: 0.5rem; right: 0.5rem; top: auto; bottom: 0.5rem; width: auto; max-height: 74%; border-radius: 1.1rem; }
+    .fx-cover { aspect-ratio: 3.2 / 1; }
+    .fx-body { padding: 0.75rem 0.95rem 0.6rem; }
+    .fx-name { font-size: 1.2rem; }
+    .fx-acts { padding: 0.65rem 0.4rem; }
+    .fx-ic { width: 2.3rem; height: 2.3rem; }
+    .f3-attr { font-size: 0.66rem; right: 0.4rem; bottom: 0.35rem; left: 0.4rem; text-align: right; }
+    .f3[data-haz='poster'] .f3-pins { bottom: 2.6rem; left: 0.5rem; }
+    .f3[data-ficha] .f3-attr { visibility: hidden; }
+    @media (prefers-reduced-motion: no-preference) {
+      .ficha { transform: translateY(1rem); }
+    }
   }
 </style>
