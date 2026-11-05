@@ -165,6 +165,51 @@ nav.bar .nav-in { width: min(var(--wrap), 100% - 2rem); margin-inline: auto; hei
   transition-delay: calc(var(--i, 0) * 70ms);
 }
 
+/* ── Vida (nov-2026) ───────────────────────────────────────────────────────────────────────────
+   Transición entre páginas nativa del navegador (MPA): no necesita JS ni ClientRouter, así site.js,
+   analytics.js y los scripts inline del analizador siguen cargando como en una navegación normal.
+   Chrome/Edge 126+ y Safari 18.2+; el resto navega igual que antes. Con movimiento reducido, apagada. */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+  nav.bar { view-transition-name: faro-nav; }
+  .wa-float { view-transition-name: faro-wa; }
+  ::view-transition-old(root) { animation: vt-out 0.2s ease-in both; }
+  ::view-transition-new(root) { animation: vt-in 0.42s var(--ease-out) both; }
+}
+@keyframes vt-out { to { opacity: 0; } }
+@keyframes vt-in { from { opacity: 0; transform: translateY(0.75rem); } }
+
+/* Botón primario: un destello de luz lo cruza al pasar el mouse y cede al presionar. */
+.btn { transition: transform 0.2s var(--ease-out), translate 0.45s var(--ease-out), box-shadow 0.2s var(--ease-out), background-color 0.2s, border-color 0.2s, color 0.2s; }
+.btn-primary { position: relative; overflow: hidden; isolation: isolate; }
+.btn-primary::after {
+  content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: linear-gradient(105deg, transparent 30%, rgba(255, 255, 255, 0.3) 50%, transparent 70%);
+  transform: translateX(-120%);
+}
+.btn-primary:hover::after { transform: translateX(120%); transition: transform 0.75s var(--ease-out); }
+.btn:active { transform: translateY(0) scale(0.98); transition-duration: 0.08s; }
+
+/* Luz que sigue al puntero ([data-spot], coordenadas de public/vida.js): borde que se enciende donde está
+   el mouse + un tinte muy bajo adentro. Solo con mouse; en táctil y con movimiento reducido no existe. */
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  [data-spot] { position: relative; isolation: isolate; }
+  [data-spot]::before, [data-spot]::after {
+    content: ''; position: absolute; border-radius: inherit; pointer-events: none; opacity: 0; transition: opacity 0.35s;
+  }
+  [data-spot]::before {
+    inset: 0; z-index: -1;
+    background: radial-gradient(18rem circle at var(--mx, 50%) var(--my, 0%), color-mix(in srgb, var(--accent) 9%, transparent), transparent 70%);
+  }
+  [data-spot]::after {
+    inset: -1px; padding: 1px;
+    background: radial-gradient(13rem circle at var(--mx, 50%) var(--my, 0%), var(--accent), transparent 75%);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor;
+    mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  }
+  [data-spot]:hover::before, [data-spot]:hover::after { opacity: 1; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .rv { opacity: 1; transform: none; }
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }

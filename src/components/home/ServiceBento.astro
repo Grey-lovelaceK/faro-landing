@@ -11,7 +11,7 @@ const items = [
 <ul class="bento" role="list">
   {items.map((s) => (
     <li class:list={['svc', { featured: 'featured' in s && s.featured }]}>
-      <a href={s.href}>
+      <a href={s.href} data-spot>
         <span class="svc-icon"><Icon name={s.icon} size={30} stroke={2.2} /></span>
         <span class="svc-text">
           <span class="svc-title">{s.title}</span>

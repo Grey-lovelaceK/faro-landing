@@ -363,6 +363,9 @@ const headExtra = "<style>\n  :root{--pass:#1f8f5f;--warn:#B8690A;--fail:#D63A3A
   document.getElementById('toNoWeb').addEventListener('click', () => showNoWeb(true));
   document.getElementById('toWeb').addEventListener('click', () => { showNoWeb(false); document.getElementById('url').focus(); });
   if (new URLSearchParams(location.search).get('sinweb') === '1') showNoWeb(true); // enlace «Solo tengo Instagram» de la portada
+  // ?url=… (formulario de la portada, sección «Lo que revisa el analizador»): se llena el campo y se analiza de inmediato
+  const qUrl = (new URLSearchParams(location.search).get('url') || '').trim();
+  if (qUrl && f.hidden === false) { document.getElementById('url').value = qUrl.slice(0, 300); f.requestSubmit ? f.requestSubmit() : f.dispatchEvent(new Event('submit', { cancelable: true })); }
 
   fnw.addEventListener('submit', async (e) => {
     e.preventDefault();

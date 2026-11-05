@@ -6,6 +6,7 @@ import AiCard from '../components/home/AiCard.astro';
 import ServiceBento from '../components/home/ServiceBento.astro';
 import Paths from '../components/home/Paths.astro';
 import Visibility from '../components/home/Visibility.astro';
+import Analyzer from '../components/home/Analyzer.astro';
 import Process from '../components/home/Process.astro';
 import Pricing from '../components/home/Pricing.astro';
 import Team from '../components/home/Team.astro';
@@ -165,12 +166,12 @@ const preload = '<link rel="preload" href="/fonts/palanquin-dark-700-latin.woff2
   <SiteNav logo={40} />
 
   <main>
-    <header class="hero">
+    <header class="hero" data-follow-area>
       <div class="wrap hero-copy">
-        <h1><span>No basta con salir en Google.</span> <span>Hay que salir en <em>la respuesta.</em></span></h1>
+        <h1><span style="--l:0">No basta con salir en Google.</span> <span style="--l:1">Hay que salir en <em>la respuesta.</em></span></h1>
         <p class="hero-sub">Diseñamos tu web y la posicionamos en Google y en las respuestas de la IA.</p>
         <div class="hero-cta">
-          <a href="/analiza" class="btn btn-primary">Analiza tu web gratis</a>
+          <a href="/analiza" class="btn btn-primary" data-magnet>Analiza tu web gratis</a>
           <a href="https://wa.me/56986639327?text=Hola%20Faro%C2%B0%2C%20vengo%20desde%20su%20sitio%20web" class="btn btn-ghost" target="_blank" rel="noopener">Escríbenos por WhatsApp</a>
         </div>
       </div>
@@ -182,6 +183,7 @@ const preload = '<link rel="preload" href="/fonts/palanquin-dark-700-latin.woff2
     </section>
     <Paths />
     <Visibility />
+    <Analyzer />
     <Process />
     <Pricing />
     <Team />
@@ -190,26 +192,8 @@ const preload = '<link rel="preload" href="/fonts/palanquin-dark-700-latin.woff2
   </main>
   <HomeFooter />
 
-  <script is:inline>
-    (function () {
-      if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      var fold = innerHeight;
-      var io = new IntersectionObserver(function (es) {
-        es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add(e.target.classList.contains('steps') ? 'lit' : 'in'); io.unobserve(e.target); } });
-      }, { rootMargin: '0px 0px -12% 0px' });
-      var groups = ['.sec-head', '.path-grid > li', '.vis-row', '.plan', '.extra', '.person', '.faq-list details', '.night', '.step'];
-      groups.forEach(function (sel) {
-        var i = 0, last = null;
-        document.querySelectorAll('main ' + sel).forEach(function (el) {
-          if (el.getBoundingClientRect().top < fold) return;
-          if (el.parentElement !== last) { i = 0; last = el.parentElement; }
-          el.style.setProperty('--i', i++); el.classList.add('rv'); io.observe(el);
-        });
-      });
-      var st = document.querySelector('main .steps');
-      if (st && st.getBoundingClientRect().top >= fold) { st.classList.add('dim'); io.observe(st); }
-    })();
-  </script>
+  <!-- aparición escalonada, luz que sigue al puntero, halo de la tarjeta de IA e imán del CTA (public/vida.js) -->
+  <script is:inline src="/vida.js" defer></script>
 </Base>
 
 <style>
@@ -222,6 +206,19 @@ const preload = '<link rel="preload" href="/fonts/palanquin-dark-700-latin.woff2
   .hero-cta { margin-top: 1.25rem; display: flex; justify-content: center; gap: 0.9375rem; flex-wrap: wrap; }
   .hero-demo { margin-top: 2.125rem; }
   .services { padding-bottom: 0; }
+  /* Entrada del héroe (el único momento orquestado): las líneas del titular suben sin desvanecerse (el titular es
+     el LCP: se pinta en el primer cuadro), «la respuesta.» se enciende en cobalto cuando el haz llega a la tarjeta,
+     y los botones y la tarjeta entran después. Sin JS corre igual (es CSS); con movimiento reducido, nada. */
+  @media (prefers-reduced-motion: no-preference) {
+    .hero h1 span { animation: hero-rise 0.9s var(--ease-out) both; animation-delay: calc(var(--l) * 90ms); }
+    .hero h1 em { animation: hero-lit 0.9s var(--ease-out) 1.15s both; }
+    .hero-sub { animation: hero-rise 0.9s var(--ease-out) 0.16s both; }
+    .hero-cta { animation: hero-in 0.8s var(--ease-out) 0.26s both; }
+    .hero-demo { animation: hero-in 1s var(--ease-out) 0.3s both; }
+  }
+  @keyframes hero-rise { from { transform: translateY(0.35em); } }
+  @keyframes hero-in { from { opacity: 0; transform: translateY(1rem); } }
+  @keyframes hero-lit { from { color: var(--ink); } }
   @media (max-width: 640px) {
     .hero { padding: 2.25rem 0 2rem; }
     .hero-cta .btn { width: 100%; }

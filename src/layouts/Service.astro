@@ -44,7 +44,7 @@ const ld = [{
     <p set:html={p.tldr} />
   </div>
   <div class="hero-cta">
-    <a class="btn btn-primary" href={wa} target="_blank" rel="noopener">{p.ctaLabel}</a>
+    <a class="btn btn-primary" href={wa} target="_blank" rel="noopener" data-magnet>{p.ctaLabel}</a>
     <a class="btn btn-ghost" href="/analiza">Analiza tu web gratis</a>
   </div>
 
@@ -71,4 +71,18 @@ const ld = [{
 </main>
 
 <SiteFooter />
+<!-- aparición del cierre y enlaces relacionados, imán del CTA (public/vida.js) -->
+<script is:inline src="/vida.js" defer></script>
 </Base>
+
+<style>
+  /* Entrada de la página de servicio: el titular sube (sin desvanecerse: es el LCP), la respuesta corta y
+     los botones llegan detrás. Mismo lenguaje que el héroe de la portada; con movimiento reducido, nada. */
+  @media (prefers-reduced-motion: no-preference) {
+    .doc > h1 { animation: svc-rise 0.9s var(--ease-out) both; }
+    .doc > .tldr { animation: svc-in 0.8s var(--ease-out) 0.12s both; }
+    .doc > .hero-cta { animation: svc-in 0.8s var(--ease-out) 0.22s both; }
+  }
+  @keyframes svc-rise { from { transform: translateY(0.3em); } }
+  @keyframes svc-in { from { opacity: 0; transform: translateY(0.75rem); } }
+</style>
