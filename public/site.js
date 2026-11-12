@@ -25,7 +25,7 @@
   function waLink() {
     var p = location.pathname.replace(/\/$/, '') || '/';
     var msg = MSG[p] || (p.indexOf('/blog') === 0 ? 'Hola Faro°, leí su blog' : 'Hola Faro°, vengo desde su sitio web');
-    return 'https://wa.me/56986639327?text=' + encodeURIComponent(msg);
+    return 'https://wa.me/56973678880?text=' + encodeURIComponent(msg);
   }
 
   function css() {

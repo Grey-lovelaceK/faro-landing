@@ -1,7 +1,7 @@
 // Helpers de SEO compartidos: todo el JSON-LD sale de los mismos datos que se muestran en la página.
 export const SITE = 'https://faroagencia.cl';
 export const ORG_ID = `${SITE}/#org`;
-export const WA = (msg: string) => `https://wa.me/56986639327?text=${encodeURIComponent(msg)}`;
+export const WA = (msg: string) => `https://wa.me/56973678880?text=${encodeURIComponent(msg)}`;
 
 const plain = (s: string) => s.replace(/<[^>]+>/g, ' ').replace(/&nbsp;/g, ' ').replace(/\s+/g, ' ').trim();
 

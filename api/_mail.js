@@ -42,7 +42,7 @@ export const notifyTo = () => process.env.MAIL_NOTIFY || 'contacto@faroagencia.c
 
 const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const gradeOf = (n) => n >= 85 ? 'A' : n >= 70 ? 'B' : n >= 50 ? 'C' : n >= 30 ? 'D' : 'E';
-const WA = 'https://wa.me/56986639327?text=' + encodeURIComponent('Hola Faro°, recibí mi informe y quiero mejorar mi web');
+const WA = 'https://wa.me/56973678880?text=' + encodeURIComponent('Hola Faro°, recibí mi informe y quiero mejorar mi web');
 
 // Correo del informe para quien dejó sus datos. checks: [{cat,label,status,tip}] (ya saneados).
 export function reportEmail({ name, url, score, checks, kind = 'web' }) {
@@ -90,7 +90,7 @@ export function reportEmail({ name, url, score, checks, kind = 'web' }) {
 function reportNoWebEmail({ name, url, checks }) {
   const raw = String(name || '').split(' ')[0];
   const first = raw ? raw.charAt(0).toLocaleUpperCase('es-CL') + raw.slice(1) : '';
-  const WA2 = 'https://wa.me/56986639327?text=' + encodeURIComponent('Hola Faro°, revisé si la IA conoce mi negocio y quiero aparecer');
+  const WA2 = 'https://wa.me/56973678880?text=' + encodeURIComponent('Hola Faro°, revisé si la IA conoce mi negocio y quiero aparecer');
   const items = checks.map(c => `<li style="margin:6px 0">${esc(c.label)}</li>`).join('');
   const html = `<!doctype html><html lang="es"><body style="margin:0;background:#EEF1F7;font-family:Segoe UI,Arial,Helvetica,sans-serif;color:#111420">
   <div style="max-width:620px;margin:0 auto;padding:24px 16px">
