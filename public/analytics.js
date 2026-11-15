@@ -1,10 +1,12 @@
-// Faro° — GA4 con Consent Mode v2 + aviso de cookies + eventos de conversión.
+// Faro° — GA4 con Consent Mode v2 + Microsoft Clarity + aviso de cookies + eventos de conversión.
 // Se carga en todas las páginas con <script src="/analytics.js" defer>.
 // Por defecto el consentimiento está DENEGADO: GA4 solo recibe pings sin cookies hasta que el
-// visitante acepta. La elección se guarda en localStorage (si el navegador lo permite).
+// visitante acepta. Microsoft Clarity (grabaciones y mapas de calor) NO se carga hasta que acepta.
+// La elección se guarda en localStorage (si el navegador lo permite).
 // Nunca se envían datos personales: ni el nombre ni el correo del lead, solo que ocurrió.
 (function () {
   var GA_ID = 'G-T1F3G9NP1G';
+  var CLARITY_ID = 'ze4gbp4lhc';
   var KEY = 'faro-consent'; // 'granted' | 'denied'
 
   window.dataLayer = window.dataLayer || [];
@@ -29,6 +31,17 @@
   s.async = true;
   s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
   document.head.appendChild(s);
+
+  // Microsoft Clarity: solo con consentimiento (graba la sesión; los textos que se escriben van enmascarados).
+  function loadClarity() {
+    if (window.clarity) return;
+    window.clarity = function () { (window.clarity.q = window.clarity.q || []).push(arguments); };
+    var c = document.createElement('script');
+    c.async = true;
+    c.src = 'https://www.clarity.ms/tag/' + CLARITY_ID;
+    document.head.appendChild(c);
+  }
+  if (granted === 'granted') loadClarity();
 
   function track(name, params) { try { gtag('event', name, params || {}); } catch (e) {} }
   window.faroTrack = track;
@@ -64,6 +77,7 @@
   function choose(value) {
     try { localStorage.setItem(KEY, value); } catch (e) {}
     gtag('consent', 'update', { analytics_storage: value });
+    if (value === 'granted') loadClarity();
     var el = document.getElementById('faro-consent');
     if (el) el.remove();
   }
@@ -88,7 +102,7 @@
     box.setAttribute('role', 'region');
     box.setAttribute('aria-label', 'Aviso de cookies');
     box.innerHTML =
-      '<p>Usamos cookies de analítica (Google Analytics) para saber qué partes del sitio sirven. ' +
+      '<p>Usamos cookies de analítica (Google Analytics y Microsoft Clarity) para saber qué partes del sitio sirven. ' +
       'No usamos cookies publicitarias. <a href="/privacidad">Política de privacidad</a></p>' +
       '<div class="b"><button type="button" data-v="denied">Rechazar</button>' +
       '<button type="button" class="ok" data-v="granted">Aceptar</button></div>';
