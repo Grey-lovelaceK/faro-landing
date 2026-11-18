@@ -138,12 +138,12 @@ const waBase = WA('');
 
     var html = '<dl>' + lineas.map(function (l) { return '<dt>' + l[0] + '</dt><dd>' + l[1] + '</dd>'; }).join('');
     if (sitio[1]) {
-      html += '<dt>Total primer año, desde</dt><dd class="big">' + clp(unico + 12 * (mensual + correoMes)) + '</dd>';
+      html += '<dt>Total primer año, desde</dt><dd class="big">' + clp(unico + 12 * (mensual + correoMes) + (s.tipo === 'landing' ? 0 : DOMINIO_CL)) + '</dd>'; // la landing trae el dominio el 1er año
       html += '<dt>Desde el segundo año, desde</dt><dd>' + clp(12 * (mensual + correoMes) + DOMINIO_CL) + '/año</dd>';
     }
     html += '</dl><p class="nota">Valores netos, más IVA (el dominio .cl de ' + clp(DOMINIO_CL) + ' al año lo cobra NIC Chile y está exento). ' +
-      (s.tipo === 'landing' ? 'La landing incluye hosting y dominio el primer año; el hosting' : 'El hosting') +
-      ' desde el segundo año va según el plan y te lo detallamos por escrito. Es un precio de referencia: el valor final depende del alcance.</p>';
+      (s.tipo === 'tienda' ? 'En la tienda el hosting depende de la plataforma y va en la propuesta.' : s.tipo === 'medida' ? 'El hosting va según lo que haya que montar y va en la propuesta.' : 'El hosting va incluido mientras tu sitio esté con nosotros' + (s.tipo === 'landing' ? ', y el dominio el primer año.' : '.')) +
+      ' Es un precio de referencia: el valor final depende del alcance.</p>';
     var msg = 'Hola Faro°, usé el cotizador: ' + resumen.join(', ') + (sitio[1] ? '. Me dio desde ' + clp(unico) + ' + IVA de pago único.' : '.') + ' ¿Me mandan la propuesta?';
     html += '<a class="wa" target="_blank" rel="noopener" href="' + waBase + encodeURIComponent(msg) + '">Pedir la propuesta por WhatsApp</a>';
     out.innerHTML = html;
