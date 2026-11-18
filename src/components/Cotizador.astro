@@ -142,8 +142,8 @@ const waBase = WA('');
       html += '<dt>Desde el segundo año, desde</dt><dd>' + clp(12 * (mensual + correoMes) + DOMINIO_CL) + '/año</dd>';
     }
     html += '</dl><p class="nota">Valores netos, más IVA (el dominio .cl de ' + clp(DOMINIO_CL) + ' al año lo cobra NIC Chile y está exento). ' +
-      (s.tipo === 'landing' ? 'La landing incluye hosting y dominio el primer año; ' : '') +
-      'el hosting desde el segundo año va según el plan y te lo detallamos por escrito. Es un precio de referencia: el valor final depende del alcance.</p>';
+      (s.tipo === 'landing' ? 'La landing incluye hosting y dominio el primer año; el hosting' : 'El hosting') +
+      ' desde el segundo año va según el plan y te lo detallamos por escrito. Es un precio de referencia: el valor final depende del alcance.</p>';
     var msg = 'Hola Faro°, usé el cotizador: ' + resumen.join(', ') + (sitio[1] ? '. Me dio desde ' + clp(unico) + ' + IVA de pago único.' : '.') + ' ¿Me mandan la propuesta?';
     html += '<a class="wa" target="_blank" rel="noopener" href="' + waBase + encodeURIComponent(msg) + '">Pedir la propuesta por WhatsApp</a>';
     out.innerHTML = html;
