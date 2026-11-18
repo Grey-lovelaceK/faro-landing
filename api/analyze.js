@@ -42,7 +42,8 @@ export default async function handler(req, res) {
   const canonical = /<link[^>]+rel=["']canonical["']/i.test(html);
   const langM = html.match(/<html[^>]+lang=["']([^"']+)["']/i);
   const viewport = !!metaBy('viewport');
-  const isHttps = url.protocol === 'https:';
+  // Se mide la URL final: un sitio que redirige de http:// a https:// sí tiene HTTPS.
+  const isHttps = /^https:/i.test(finalUrl || '') || url.protocol === 'https:';
 
   const og = { title: metaBy('og:title'), desc: metaBy('og:description'), image: metaBy('og:image') };
   const twitter = !!metaBy('twitter:card');
