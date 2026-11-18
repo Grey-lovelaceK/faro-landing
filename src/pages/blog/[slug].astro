@@ -7,6 +7,7 @@ import SiteNav from '../../components/SiteNav.astro';
 import SiteFooter from '../../components/home/HomeFooter.astro';
 import '../../styles/content.css';
 import Faq from '../../components/Faq.astro';
+import Cotizador from '../../components/Cotizador.astro';
 import { SITE, ORG_ID, WA, faqJsonLd, breadcrumbJsonLd, fechaLarga, wordCount } from '../../lib/seo';
 
 export async function getStaticPaths() {
@@ -54,6 +55,7 @@ const ld = [{
       <span class="cat">{d.cluster}</span>
       <span>Por {d.author}</span>
       <span>Publicado el <time datetime={d.date}>{fechaLarga(d.date)}</time></span>
+      {d.updated && d.updated !== d.date && <span>Actualizado el <time datetime={d.updated}>{fechaLarga(d.updated)}</time></span>}
       <span>{mins} min de lectura</span>
     </div>
 
@@ -67,10 +69,13 @@ const ld = [{
     <nav class="toc" aria-label="Contenido">
       <strong>En este artículo</strong>
       <ol>
+        {d.cotizador && <li><a href="#cotizador">Cotizador</a></li>}
         {toc.map((h) => <li><a href={`#${h.slug}`}>{h.text}</a></li>)}
         <li><a href="#preguntas">Preguntas frecuentes</a></li>
       </ol>
     </nav>
+
+    {d.cotizador && <Cotizador />}
 
     <div class="prose">
       <Content />

@@ -24,6 +24,7 @@ const blog = defineCollection({
     faq: z.array(z.object({ q: z.string(), a: z.string() })).min(3),
     cta: z.object({ title: z.string(), text: z.string(), href: z.string(), label: z.string() }),
     related: z.array(z.object({ href: z.string(), title: z.string() })),
+    cotizador: z.boolean().optional(),       // true → muestra el cotizador (src/components/Cotizador.astro) tras el índice
   }),
 });
 

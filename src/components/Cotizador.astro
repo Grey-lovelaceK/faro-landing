@@ -1,0 +1,186 @@
+---
+// Cotizador de página web. Calcula con los precios publicados (los mismos de /precios y /diseno-web).
+// El asistente de IA (/api/cotiza) solo marca las opciones a partir de lo que escribe el cliente:
+// nunca pone el precio. Sin JS se ve el formulario, pero no hay cálculo (el post ya tiene la tabla).
+// Si cambia un precio, cambia acá Y en /precios, /diseno-web e /integraciones.
+import { WA } from '../lib/seo';
+const waBase = WA('');
+---
+<section class="cotz" id="cotizador" aria-labelledby="cotz-h">
+  <h2 id="cotz-h">Cotiza tu página web en 1 minuto</h2>
+  <p class="cotz-lead">Con nuestros precios publicados. Valores netos en pesos chilenos, más IVA.</p>
+
+  <form class="cotz-ia" data-ia>
+    <label for="cotz-texto">Cuéntanos tu proyecto con tus palabras <span>(opcional)</span></label>
+    <textarea id="cotz-texto" maxlength="600" rows="3" placeholder="Ej.: tengo una pastelería en Macul, quiero vender tortas por internet y que me encuentren en Google Maps."></textarea>
+    <div class="cotz-row">
+      <button type="submit">Completar con IA</button>
+      <span class="cotz-msg" role="status" aria-live="polite"></span>
+    </div>
+    <div class="cotz-ai-out" hidden></div>
+  </form>
+
+  <form class="cotz-form" data-form>
+    <fieldset>
+      <legend>¿Qué tipo de sitio necesitas?</legend>
+      <label><input type="radio" name="tipo" value="landing" checked> <b>Landing page</b> <small>presentar tu negocio y recibir consultas</small></label>
+      <label><input type="radio" name="tipo" value="corporativo"> <b>Sitio corporativo</b> <small>hasta 10 páginas, con blog</small></label>
+      <label><input type="radio" name="tipo" value="tienda"> <b>Tienda online</b> <small>vender con carrito y pagos</small></label>
+      <label><input type="radio" name="tipo" value="medida"> <b>Desarrollo a medida</b> <small>portales, reservas, sistemas</small></label>
+    </fieldset>
+
+    <fieldset data-solo-tienda hidden>
+      <legend>Integraciones de la tienda</legend>
+      <label><input type="checkbox" name="integ" value="despacho"> Despacho con Enviame</label>
+      <label><input type="checkbox" name="integ" value="conector"> Conectar con Bsale o Defontana</label>
+      <label><input type="checkbox" name="integ" value="omnicanal"> Varias bodegas o canales (omnicanal)</label>
+    </fieldset>
+
+    <fieldset>
+      <legend>Después de la entrega</legend>
+      <label><input type="checkbox" name="mantencion"> Que ustedes hagan los cambios, respaldos y soporte</label>
+      <label class="cotz-num">Correos con tu dominio <input type="number" name="correos" min="0" max="20" value="0" inputmode="numeric"></label>
+      <label class="cotz-sel">Aparecer en Google
+        <select name="pos">
+          <option value="no">Por ahora no</option>
+          <option value="maps">En Google Maps de mi comuna</option>
+          <option value="google_ia">En Google y en la IA, con contenido</option>
+        </select>
+      </label>
+    </fieldset>
+  </form>
+
+  <div class="cotz-res" aria-live="polite" data-res>
+    <noscript><p>Activa JavaScript para calcular, o revisa la tabla de precios de este artículo.</p></noscript>
+  </div>
+</section>
+
+<style is:global>
+  /* Global a propósito: el resultado se arma con innerHTML y los estilos con alcance no le llegarían. Todo cuelga de .cotz. */
+  .cotz { margin: 2.5rem 0; padding: 1.5rem 1.25rem; border: 1px solid var(--accent-line); border-radius: var(--radius-lg); background: var(--bg-soft); }
+  .cotz h2 { margin-top: 0; }
+  .cotz-lead { color: var(--muted); margin: 0 0 1.25rem; }
+  .cotz label { display: block; }
+  .cotz-ia { margin-bottom: 1.25rem; }
+  .cotz-ia > label { font-weight: 600; margin-bottom: 0.4rem; }
+  .cotz-ia > label span { font-weight: 400; color: var(--muted); }
+  .cotz textarea, .cotz select, .cotz input[type='number'] { font: inherit; color: var(--ink); background: var(--bg); border: 1px solid var(--line-strong); border-radius: var(--radius-sm, 0.75rem); padding: 0.6rem 0.75rem; }
+  .cotz textarea { width: 100%; box-sizing: border-box; resize: vertical; }
+  .cotz input[type='number'] { width: 5rem; margin-left: 0.5rem; }
+  .cotz select { margin-left: 0.5rem; max-width: 100%; }
+  .cotz :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .cotz-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; margin-top: 0.6rem; }
+  .cotz button { font: inherit; font-weight: 600; cursor: pointer; height: 2.75rem; padding: 0 1.25rem; border-radius: var(--radius); border: 0; background: var(--accent); color: var(--on-accent); }
+  .cotz button:disabled { opacity: 0.6; cursor: progress; }
+  .cotz-msg { color: var(--muted); font-size: 0.92rem; }
+  .cotz-ai-out { margin-top: 0.75rem; padding: 0.875rem 1rem; border-radius: var(--radius); background: var(--accent-tint); border: 1px solid var(--accent-line); }
+  .cotz-ai-out p { margin: 0 0 0.4rem; }
+  .cotz-ai-out ul { margin: 0.25rem 0 0; padding-left: 1.2rem; }
+  .cotz fieldset { border: 0; padding: 0; margin: 0 0 1.1rem; display: grid; gap: 0.55rem; }
+  .cotz [hidden] { display: none !important; }
+  .cotz legend { font-weight: 700; margin-bottom: 0.5rem; padding: 0; }
+  .cotz fieldset small { color: var(--muted); }
+  .cotz-res { border-top: 1px solid var(--line); padding-top: 1.1rem; }
+  .cotz-res dl { display: grid; grid-template-columns: 1fr auto; gap: 0.45rem 1rem; margin: 0 0 1rem; }
+  .cotz-res dt { color: var(--muted); }
+  .cotz-res dd { margin: 0; font-weight: 700; text-align: right; font-variant-numeric: tabular-nums; }
+  .cotz-res dd.big { font-size: 1.25rem; color: var(--accent); }
+  .cotz-res .nota { font-size: 0.9rem; color: var(--muted); margin: 0 0 1rem; }
+  .cotz-res a.wa { display: inline-flex; align-items: center; height: 2.75rem; padding: 0 1.25rem; border-radius: var(--radius); background: var(--accent); color: var(--on-accent); font-weight: 600; text-decoration: none; }
+  @media (prefers-reduced-motion: no-preference) { .cotz-res dd { transition: color 0.2s var(--ease-out); } }
+</style>
+
+<script is:inline define:vars={{ waBase }}>
+(function () {
+  var root = document.getElementById('cotizador');
+  if (!root) return;
+  // Precios netos publicados (CLP). Fuente: /precios, /diseno-web, /integraciones, /seo-aeo-geo.
+  var SITIO = { landing: ['Landing page', 290000], corporativo: ['Sitio corporativo', 450000], tienda: ['Tienda online', 790000], medida: ['Desarrollo a medida', null] };
+  var INTEG = { despacho: ['Despacho con Enviame', 250000, 25000], conector: ['Conector Bsale o Defontana', 450000, 45000], omnicanal: ['Omnicanal', 900000, 90000] };
+  var MANT = 39990;
+  var POS = { maps: ['Google Maps', 150000], google_ia: ['Google + IA', 350000] };
+  var WORKSPACE = 6500;  // Google Workspace Business Starter, plan anual, por usuario/mes en Chile (Google, actualizado 3-mar-2026)
+  var DOMINIO_CL = 9990; // NIC Chile, 1 año, exento de IVA
+
+  var form = root.querySelector('[data-form]');
+  var out = root.querySelector('[data-res]');
+  var soloTienda = root.querySelector('[data-solo-tienda]');
+  var clp = function (n) { return '$' + Math.round(n).toLocaleString('es-CL'); };
+
+  function leer() {
+    var f = new FormData(form);
+    return {
+      tipo: f.get('tipo') || 'landing',
+      integ: f.getAll('integ'),
+      mant: f.get('mantencion') === 'on',
+      correos: Math.max(0, Math.min(20, parseInt(f.get('correos'), 10) || 0)),
+      pos: f.get('pos') || 'no',
+    };
+  }
+
+  function calcular() {
+    var s = leer();
+    soloTienda.hidden = s.tipo !== 'tienda';
+    var integ = s.tipo === 'tienda' ? s.integ : [];
+    var sitio = SITIO[s.tipo];
+    var unico = sitio[1] || 0, mensual = 0, lineas = [], resumen = [sitio[0]];
+
+    if (sitio[1]) lineas.push([sitio[0] + ' (pago único)', clp(sitio[1])]);
+    else lineas.push([sitio[0], 'se cotiza según lo que tiene que hacer']);
+    integ.forEach(function (k) {
+      var i = INTEG[k]; unico += i[1]; mensual += i[2];
+      lineas.push([i[0] + ' (instalación + mes)', clp(i[1]) + ' + ' + clp(i[2]) + '/mes']); resumen.push(i[0]);
+    });
+    if (s.mant) { mensual += MANT; lineas.push(['Mantenimiento web', clp(MANT) + '/mes']); resumen.push('mantenimiento'); }
+    if (POS[s.pos]) { mensual += POS[s.pos][1]; lineas.push([POS[s.pos][0] + ' (mínimo 3 meses)', clp(POS[s.pos][1]) + '/mes']); resumen.push(POS[s.pos][0]); }
+    var correoMes = s.correos * WORKSPACE;
+    if (s.correos) { lineas.push([s.correos + ' correo' + (s.correos > 1 ? 's' : '') + ' con tu dominio (se paga a Google)', clp(correoMes) + '/mes']); resumen.push(s.correos + ' correos'); }
+
+    var html = '<dl>' + lineas.map(function (l) { return '<dt>' + l[0] + '</dt><dd>' + l[1] + '</dd>'; }).join('');
+    if (sitio[1]) {
+      html += '<dt>Total primer año, desde</dt><dd class="big">' + clp(unico + 12 * (mensual + correoMes)) + '</dd>';
+      html += '<dt>Desde el segundo año, desde</dt><dd>' + clp(12 * (mensual + correoMes) + DOMINIO_CL) + '/año</dd>';
+    }
+    html += '</dl><p class="nota">Valores netos, más IVA (el dominio .cl de ' + clp(DOMINIO_CL) + ' al año lo cobra NIC Chile y está exento). ' +
+      (s.tipo === 'landing' ? 'La landing incluye hosting y dominio el primer año; ' : '') +
+      'el hosting desde el segundo año va según el plan y te lo detallamos por escrito. Es un precio de referencia: el valor final depende del alcance.</p>';
+    var msg = 'Hola Faro°, usé el cotizador: ' + resumen.join(', ') + (sitio[1] ? '. Me dio desde ' + clp(unico) + ' + IVA de pago único.' : '.') + ' ¿Me mandan la propuesta?';
+    html += '<a class="wa" target="_blank" rel="noopener" href="' + waBase + encodeURIComponent(msg) + '">Pedir la propuesta por WhatsApp</a>';
+    out.innerHTML = html;
+  }
+
+  form.addEventListener('change', calcular);
+  form.addEventListener('input', calcular);
+  calcular();
+
+  // Asistente de IA: rellena el formulario. El precio lo sigue calculando calcular().
+  var ia = root.querySelector('[data-ia]');
+  var btn = ia.querySelector('button');
+  var msgEl = ia.querySelector('.cotz-msg');
+  var aiOut = ia.querySelector('.cotz-ai-out');
+  var esc = function (t) { var d = document.createElement('div'); d.textContent = t; return d.innerHTML; };
+
+  ia.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    var texto = ia.querySelector('textarea').value.trim();
+    if (texto.length < 15) { msgEl.textContent = 'Cuéntanos un poco más de tu negocio y de lo que necesitas.'; return; }
+    btn.disabled = true; msgEl.textContent = 'Leyendo tu proyecto…'; aiOut.hidden = true;
+    fetch('/api/cotiza', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ texto: texto }) })
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        if (!d.ok) { msgEl.textContent = d.error || 'El asistente no está disponible. Usa las opciones de abajo.'; return; }
+        form.querySelector('input[name="tipo"][value="' + d.tipo + '"]').checked = true;
+        form.querySelectorAll('input[name="integ"]').forEach(function (c) { c.checked = d.integraciones.indexOf(c.value) !== -1; });
+        form.querySelector('input[name="mantencion"]').checked = !!d.mantencion;
+        form.querySelector('input[name="correos"]').value = d.correos || 0;
+        form.querySelector('select[name="pos"]').value = d.posicionamiento;
+        calcular();
+        msgEl.textContent = 'Listo. Revisa y ajusta las opciones.';
+        aiOut.innerHTML = '<p>' + esc(d.resumen) + '</p>' + (d.preguntas.length ? '<p>Para afinar la propuesta te preguntaríamos:</p><ul>' + d.preguntas.map(function (q) { return '<li>' + esc(q) + '</li>'; }).join('') + '</ul>' : '');
+        aiOut.hidden = false;
+      })
+      .catch(function () { msgEl.textContent = 'No pudimos conectar con el asistente. Usa las opciones de abajo.'; })
+      .finally(function () { btn.disabled = false; });
+  });
+})();
+</script>

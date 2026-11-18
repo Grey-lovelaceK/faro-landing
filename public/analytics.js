@@ -56,6 +56,7 @@
       p.then(function (r) {
         if (!r || !r.ok) return;
         if (url.indexOf('/api/analyze') === 0) track('analyze_site');
+        else if (url.indexOf('/api/cotiza') === 0) track('quote_ai');
         else if (url.indexOf('/api/lead') === 0 && method === 'POST') track('generate_lead', { lead_source: 'analizador' });
       }).catch(function () {});
       return p;
