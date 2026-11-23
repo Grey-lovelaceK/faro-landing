@@ -71,7 +71,7 @@ El precio de hacer la web es solo el primer año. Esto es lo que se paga despué
 | **Mantenimiento** (opcional) | Desde $39.990 al mes, neto | Faro°: cambios de textos y fotos, respaldos, seguridad y soporte |
 | **Posicionamiento** (opcional) | Desde $150.000 al mes, neto | Faro°: Google Maps, mínimo 3 meses. Más detalle en [precio SEO en Chile](/blog/seo-mensual-chile-precio) |
 
-Lo mínimo para mantener una web en línea es el dominio y el hosting. Todo lo demás depende de si quieres hacer tú los cambios o prefieres que otro los haga, y de si quieres crecer en Google. El [cotizador](#cotizador) de arriba suma el primer y el segundo año según lo que marques.
+Lo mínimo para mantener una web en línea es el dominio y el hosting. Todo lo demás depende de si quieres hacer tú los cambios o prefieres que otro los haga, y de si quieres crecer en Google. El [cotizador](#cotizador) de arriba suma el primer y el segundo año según lo que marques. Si además necesitas marca, redes o publicidad, arma el plan completo en el [cotizador de servicios](/cotizador).
 
 *Precios de NIC Chile y Google revisados el 18 de noviembre de 2026.*
 

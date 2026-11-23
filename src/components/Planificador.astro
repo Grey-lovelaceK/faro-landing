@@ -1,0 +1,403 @@
+---
+// Planificador de /cotizador: el cliente marca lo que necesita, elige el alcance de cada cosa y
+// arma su plan en vivo (pago único y mensual separados, etapas en orden, WhatsApp con el desglose).
+// SIN IA a propósito: reglas fijas, cero costo por visita, siempre igual.
+// Precios = los publicados en /precios (y /diseno-web, /branding, /seo-aeo-geo, /marketing-digital,
+// /integraciones, Cotizador.astro). Si cambia uno, cambian todos.
+import Icon from './Icon.astro';
+import { WA } from '../lib/seo';
+const waBase = WA('');
+
+const necesidades = [
+  { id: 'web', icon: 'monitor', t: 'Una web nueva', d: 'Landing, sitio con blog, tienda o a medida' },
+  { id: 'mejorar', icon: 'sparkle', t: 'Mejorar la web que tengo', d: 'Rediseño, mantención o que la encuentren' },
+  { id: 'marca', icon: 'pen', t: 'Mi marca', d: 'Logo, identidad, manual y piezas' },
+  { id: 'google', icon: 'bars', t: 'Aparecer en Google', d: 'Google Maps, Google y la IA' },
+  { id: 'mkt', icon: 'megaphone', t: 'Publicidad y redes', d: 'Anuncios, Instagram y email' },
+  { id: 'integ', icon: 'puzzle', t: 'Conectar mi tienda', d: 'Bsale, Defontana o Enviame' },
+] as const;
+---
+<section class="pl" id="planificador" aria-labelledby="pl-h">
+  <div class="pl-main">
+    <form class="pl-form" data-form novalidate>
+      <div class="pl-step">
+        <span class="pl-num" aria-hidden="true">1</span>
+        <h2 id="pl-h">¿Qué necesitas?</h2>
+        <p class="pl-sub">Marca una o varias. Puedes cambiarlo cuando quieras.</p>
+      </div>
+      <fieldset class="pl-needs">
+        <legend class="sr-only">Lo que necesitas</legend>
+        {necesidades.map((n) => (
+          <label class="pl-need">
+            <input type="checkbox" name="need" value={n.id} />
+            <span class="pl-need-ic"><Icon name={n.icon} size={22} /></span>
+            <span class="pl-need-tx"><b>{n.t}</b><small>{n.d}</small></span>
+            <span class="pl-tick" aria-hidden="true"><Icon name="check" size={16} stroke={2.4} /></span>
+          </label>
+        ))}
+      </fieldset>
+
+      <div class="pl-step pl-step2" data-step2 hidden>
+        <span class="pl-num" aria-hidden="true">2</span>
+        <h2>Elige el alcance</h2>
+        <p class="pl-sub">Dejamos marcado lo más común. Los precios son netos, "desde", más IVA.</p>
+      </div>
+
+      <fieldset class="pl-blk" data-blk="web" hidden>
+        <legend><Icon name="monitor" size={18} /> Una web nueva</legend>
+        <div class="pl-opts">
+          <label class="pl-opt"><input type="radio" name="web" value="landing" checked><span><b>Landing page</b><small>Para que te contacten. Hosting y dominio .cl el 1er año incluidos</small></span><em>$290.000</em></label>
+          <label class="pl-opt"><input type="radio" name="web" value="corporativo"><span><b>Sitio con blog</b><small>Hasta 10 páginas, una por servicio. Hosting incluido</small></span><em>$450.000</em></label>
+          <label class="pl-opt"><input type="radio" name="web" value="tienda"><span><b>Tienda online</b><small>Catálogo, carrito y pagos</small></span><em>$790.000</em></label>
+          <label class="pl-opt"><input type="radio" name="web" value="medida"><span><b>A medida</b><small>Reservas, portal de clientes, sistemas</small></span><em>se cotiza</em></label>
+        </div>
+        <div class="pl-extra">
+          <label class="pl-chk"><input type="checkbox" name="mant"> Que ustedes hagan los cambios, respaldos y soporte <em>$39.990/mes</em></label>
+          <label class="pl-sel">Correos con tu dominio <small>(se pagan a Google, $6.500 c/u al mes)</small>
+            <select name="correos"><option value="0">Ninguno</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="5">5</option></select>
+          </label>
+        </div>
+      </fieldset>
+
+      <fieldset class="pl-blk" data-blk="mejorar" hidden>
+        <legend><Icon name="sparkle" size={18} /> Mejorar la web que tengo</legend>
+        <p class="pl-tip">Primero mírala gratis en nuestro <a href="/analiza" target="_blank" rel="noopener">analizador</a>: en segundos te dice qué está bien y qué corregir.</p>
+        <div class="pl-extra">
+          <label class="pl-chk"><input type="checkbox" name="mej" value="rediseno"> Rediseñarla <small>(se cotiza como una web nueva: te abrimos esa opción)</small></label>
+          <label class="pl-chk"><input type="checkbox" name="mej" value="mant"> Que ustedes la mantengan <em>$39.990/mes</em></label>
+          <label class="pl-chk"><input type="checkbox" name="mej" value="google"> Que la encuentren en Google <small>(te abrimos esa opción)</small></label>
+        </div>
+      </fieldset>
+
+      <fieldset class="pl-blk" data-blk="marca" hidden>
+        <legend><Icon name="pen" size={18} /> Mi marca</legend>
+        <div class="pl-opts">
+          <label class="pl-opt"><input type="radio" name="marca" value="logo"><span><b>Solo logo</b><small>Principal y versiones</small></span><em>$120.000</em></label>
+          <label class="pl-opt"><input type="radio" name="marca" value="identidad" checked><span><b>Identidad básica</b><small>Logo, colores y tipografías</small></span><em>$190.000</em></label>
+          <label class="pl-opt"><input type="radio" name="marca" value="manual"><span><b>Manual de marca</b><small>Identidad + manual, aplicaciones y plantillas</small></span><em>$390.000</em></label>
+        </div>
+        <div class="pl-extra">
+          <label class="pl-sel">Piezas impresas o digitales <small>(flyers, pendones, tarjetas, $40.000 c/u)</small>
+            <select name="piezas"><option value="0">Ninguna</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="5">5</option></select>
+          </label>
+        </div>
+      </fieldset>
+
+      <fieldset class="pl-blk" data-blk="google" hidden>
+        <legend><Icon name="bars" size={18} /> Aparecer en Google</legend>
+        <div class="pl-opts">
+          <label class="pl-opt"><input type="radio" name="google" value="maps" checked><span><b>Google Maps</b><small>Para tu comuna o ciudad. Sirve aunque no tengas web</small></span><em>$150.000/mes</em></label>
+          <label class="pl-opt"><input type="radio" name="google" value="ia"><span><b>Google + IA</b><small>Maps + SEO, 2 contenidos al mes y visibilidad en IA</small></span><em>$350.000/mes</em></label>
+          <label class="pl-opt"><input type="radio" name="google" value="crec"><span><b>Crecimiento</b><small>4 contenidos, páginas por comuna y enlaces</small></span><em>$650.000/mes</em></label>
+        </div>
+        <p class="pl-tip">Trabajamos mínimo 3 meses: es lo que toma ver resultados en Google.</p>
+      </fieldset>
+
+      <fieldset class="pl-blk" data-blk="mkt" hidden>
+        <legend><Icon name="megaphone" size={18} /> Publicidad y redes</legend>
+        <div class="pl-extra">
+          <label class="pl-sel">Anuncios
+            <select name="ads"><option value="no">Sin anuncios</option><option value="uno" selected>En Google o Meta ($190.000/mes)</option><option value="dos">En Google y Meta ($320.000/mes)</option></select>
+          </label>
+          <label class="pl-sel">Redes sociales
+            <select name="redes"><option value="no">Sin redes</option><option value="dia">Al día: 8 publicaciones ($250.000/mes)</option><option value="crecer">Crecer: 12 con 4 reels ($420.000/mes)</option></select>
+          </label>
+          <label class="pl-chk"><input type="checkbox" name="email"> Email marketing: 2 campañas al mes <em>$120.000/mes</em></label>
+        </div>
+        <p class="pl-tip" data-warn-ads hidden>Los anuncios necesitan una página donde aterrizar. <button type="button" class="pl-fix" data-fix="landing">Sumar una landing</button></p>
+      </fieldset>
+
+      <fieldset class="pl-blk" data-blk="integ" hidden>
+        <legend><Icon name="puzzle" size={18} /> Conectar mi tienda</legend>
+        <p class="pl-tip">Para tiendas en WooCommerce, PrestaShop, Jumpseller o Shopify, o la que te hagamos.</p>
+        <div class="pl-extra">
+          <label class="pl-chk"><input type="checkbox" name="int" value="despacho" checked> Despacho con Enviame: etiquetas y seguimiento <em>$250.000 + $25.000/mes</em></label>
+          <label class="pl-chk"><input type="checkbox" name="int" value="conector"> Bsale o Defontana: stock, precios y boletas <em>$450.000 + $45.000/mes</em></label>
+          <label class="pl-chk"><input type="checkbox" name="int" value="omnicanal"> Omnicanal: varias bodegas o canales <em>$900.000 + $90.000/mes</em></label>
+        </div>
+        <p class="pl-tip" data-warn-integ hidden>Las integraciones son para tiendas online. <button type="button" class="pl-fix" data-fix="tienda">Cambiar a tienda online</button></p>
+      </fieldset>
+    </form>
+  </div>
+
+  <aside class="pl-side" aria-labelledby="pl-res-h">
+    <div class="pl-card" data-card>
+      <div class="pl-step"><span class="pl-num" aria-hidden="true">3</span><h2 id="pl-res-h">Tu plan</h2></div>
+      <div data-res aria-live="polite">
+        <p class="pl-empty">Marca lo que necesitas y aquí aparece tu plan con su precio.</p>
+      </div>
+      <label class="pl-neg" data-neg hidden>¿A qué se dedica tu negocio? <small>(opcional)</small>
+        <input name="negocio" maxlength="80" autocomplete="off" placeholder="Ej.: pastelería en Macul">
+      </label>
+      <a class="pl-wa" data-wa hidden target="_blank" rel="noopener" href={waBase}><Icon name="whatsapp" size={20} /> Pedir mi oferta por WhatsApp</a>
+      <p class="pl-fine" data-fine hidden>Precio de referencia con nuestros valores publicados. La oferta final, con alcance y plazo, te la mandamos por escrito.</p>
+    </div>
+  </aside>
+
+  <div class="pl-bar" data-bar hidden>
+    <div><small>Pago único</small><b data-bar-u>$0</b></div>
+    <div><small>Mensual</small><b data-bar-m>$0</b></div>
+    <a href="#pl-res-h" class="pl-bar-btn">Ver plan</a>
+  </div>
+</section>
+
+<style is:global>
+  /* Global a propósito: el resumen se arma con innerHTML. Todo cuelga de .pl. */
+  .pl { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.5rem; margin: 2rem 0 3rem; }
+  .pl-main, .pl-side { min-width: 0; }
+  @media (min-width: 960px) { .pl { grid-template-columns: minmax(0, 1fr) 22rem; align-items: start; gap: 2rem; } }
+  .pl .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .pl :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .pl-step { display: grid; grid-template-columns: auto 1fr; align-items: center; column-gap: 0.75rem; margin: 0 0 0.9rem; }
+  .pl-step h2 { margin: 0; font-size: 1.35rem; outline: none; }
+  .pl-num { width: 2rem; height: 2rem; border-radius: 50%; display: grid; place-items: center; font-weight: 700; font-size: 0.95rem; color: var(--on-accent); background: var(--accent); box-shadow: 0 0 0 4px var(--accent-tint); }
+  .pl-sub { grid-column: 2; margin: 0.2rem 0 0; color: var(--muted); font-size: 0.95rem; }
+  .pl-step2 { margin-top: 2rem; }
+  .pl fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
+  .pl [hidden] { display: none !important; }
+
+  .pl-needs { display: grid; gap: 0.65rem; grid-template-columns: 1fr; }
+  @media (min-width: 560px) { .pl-needs { grid-template-columns: 1fr 1fr; } }
+  .pl-need { position: relative; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 0.8rem; padding: 0.9rem 1rem; min-height: 4.25rem; border: 1px solid var(--line-strong); border-radius: var(--radius); background: var(--bg); cursor: pointer; transition: border-color 0.18s, background 0.18s, box-shadow 0.18s, transform 0.18s; }
+  .pl-need input, .pl-opt input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  .pl-need:hover { border-color: var(--accent); }
+  .pl-need-ic { width: 2.5rem; height: 2.5rem; border-radius: 0.75rem; display: grid; place-items: center; color: var(--accent); background: var(--accent-tint); transition: background 0.18s, color 0.18s; }
+  .pl-need-tx b { display: block; font-weight: 600; }
+  .pl-need-tx small { display: block; color: var(--muted); font-size: 0.85rem; margin-top: 0.1rem; }
+  .pl-tick { width: 1.5rem; height: 1.5rem; border-radius: 50%; border: 1.5px solid var(--line-strong); display: grid; place-items: center; color: transparent; transition: all 0.18s; }
+  .pl-need:has(input:checked) { border-color: var(--accent); background: var(--accent-tint); box-shadow: 0 0 0 1px var(--accent) inset; }
+  .pl-need:has(input:checked) .pl-need-ic { background: var(--accent); color: var(--on-accent); }
+  .pl-need:has(input:checked) .pl-tick { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+  .pl-need:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+  .pl-blk { margin-top: 1rem !important; padding: 1.1rem 1.1rem 1.2rem !important; border: 1px solid var(--line) !important; border-radius: var(--radius-lg); background: var(--bg-soft); }
+  .pl-blk legend { display: flex; align-items: center; gap: 0.45rem; float: left; width: 100%; font-weight: 700; margin-bottom: 0.8rem; color: var(--ink); }
+  .pl-blk legend svg { color: var(--accent); }
+  .pl-blk > *:not(legend) { clear: both; }
+  .pl-opts { display: grid; gap: 0.5rem; }
+  @media (min-width: 640px) { .pl-opts { grid-template-columns: 1fr 1fr; } }
+  .pl-opt { position: relative; display: grid; grid-template-columns: 1fr auto; gap: 0.25rem 0.75rem; align-items: start; padding: 0.75rem 0.9rem; border: 1px solid var(--line-strong); border-radius: var(--radius); background: var(--bg); cursor: pointer; transition: border-color 0.15s, box-shadow 0.15s; }
+  .pl-opt:hover { border-color: var(--accent); }
+  .pl-opt b { display: block; font-weight: 600; }
+  .pl-opt small { display: block; color: var(--muted); font-size: 0.84rem; margin-top: 0.1rem; }
+  .pl-opt em, .pl-chk em { font-style: normal; font-weight: 700; font-size: 0.9rem; color: var(--accent); white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .pl-opt:has(input:checked) { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent) inset; }
+  .pl-opt:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .pl-extra { display: grid; gap: 0.7rem; margin-top: 0.9rem; }
+  .pl-chk { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.25rem 0.5rem; cursor: pointer; }
+  .pl-chk input { accent-color: var(--accent); width: 1.1rem; height: 1.1rem; transform: translateY(2px); }
+  .pl-chk small, .pl-sel small { color: var(--muted); }
+  .pl-sel { display: grid; gap: 0.35rem; font-weight: 600; }
+  .pl-sel small { font-weight: 400; }
+  .pl select, .pl-neg input { font: inherit; color: var(--ink); background: var(--bg); border: 1px solid var(--line-strong); border-radius: var(--radius-sm, 0.75rem); padding: 0 0.75rem; height: 2.75rem; width: 100%; max-width: 100%; text-overflow: ellipsis; }
+  .pl-tip { margin: 0.9rem 0 0; font-size: 0.9rem; color: var(--muted); }
+  .pl-fix { font: inherit; font-weight: 600; color: var(--accent); background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+
+  .pl-side { position: relative; }
+  @media (min-width: 960px) { .pl-card { position: sticky; top: 5.5rem; } }
+  .pl-card { padding: 1.25rem; border: 1px solid var(--accent-line); border-radius: var(--radius-lg); background: var(--bg); box-shadow: var(--shadow-card), 0 0 0 4px var(--accent-tint); }
+  .pl-empty { margin: 0; color: var(--muted); }
+  .pl-grp { margin: 0 0 0.9rem; }
+  .pl-grp h3 { margin: 0 0 0.4rem; font-size: 0.82rem; font-weight: 700; color: var(--muted); }
+  .pl-grp ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.3rem; }
+  .pl-grp ul li { display: flex; justify-content: space-between; gap: 0.75rem; font-size: 0.92rem; }
+  .pl-grp ul li span:last-child { font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .pl-tot { display: grid; grid-template-columns: 1fr auto; gap: 0.35rem 1rem; padding: 0.85rem 0; margin: 0 0 0.9rem; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .pl-tot dt { color: var(--muted); font-size: 0.92rem; }
+  .pl-tot dd { margin: 0; text-align: right; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .pl-tot dd.big { font-size: 1.25rem; color: var(--accent); }
+  .pl-tot .sm { font-size: 0.84rem; color: var(--muted); font-weight: 600; }
+  #pl-res-h { scroll-margin-top: 6rem; }
+  .pl-note { font-size: 0.84rem; color: var(--muted); margin: -0.4rem 0 0.9rem; }
+  .pl-et { list-style: none; margin: 0 0 1rem; padding: 0; display: grid; gap: 0.45rem; counter-reset: et; }
+  .pl-et li { counter-increment: et; display: grid; grid-template-columns: 1.6rem 1fr; gap: 0.5rem; font-size: 0.92rem; }
+  .pl-et li::before { content: counter(et); width: 1.5rem; height: 1.5rem; border-radius: 50%; display: grid; place-items: center; font-size: 0.78rem; font-weight: 700; color: var(--accent); background: var(--accent-tint); }
+  .pl-et b { font-weight: 600; }
+  .pl-neg { display: grid; gap: 0.35rem; font-size: 0.9rem; font-weight: 600; margin: 0 0 0.9rem; }
+  .pl-neg small { font-weight: 400; color: var(--muted); }
+  .pl-wa { display: flex; align-items: center; justify-content: center; gap: 0.5rem; height: 3.25rem; border-radius: var(--radius); background: var(--accent); color: var(--on-accent); font-weight: 600; text-decoration: none; box-shadow: var(--shadow-btn); transition: background 0.15s, transform 0.15s; }
+  .pl-wa:hover { background: var(--accent-press); transform: translateY(-1px); }
+  .pl-fine { font-size: 0.8rem; color: var(--faint, var(--muted)); margin: 0.7rem 0 0; }
+
+  .pl-bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; display: flex; align-items: center; gap: 1rem; padding: 0.7rem 1rem calc(0.7rem + env(safe-area-inset-bottom)); background: var(--bg); border-top: 1px solid var(--line-strong); box-shadow: 0 -0.5rem 1.5rem -1rem rgba(0, 0, 0, 0.35); }
+  .pl-bar div { display: grid; line-height: 1.15; }
+  .pl-bar small { font-size: 0.74rem; color: var(--muted); }
+  .pl-bar b { font-variant-numeric: tabular-nums; }
+  .pl-bar-btn { margin-left: auto; height: 2.75rem; padding: 0 1rem; display: inline-flex; align-items: center; border-radius: var(--radius); background: var(--accent); color: var(--on-accent); font-weight: 600; text-decoration: none; }
+  @media (min-width: 960px) { .pl-bar { display: none !important; } }
+  /* Con la barra de abajo visible (móvil), el WhatsApp flotante del sitio la taparía: el plan ya trae el suyo. */
+  @media (max-width: 959px) { body.pl-bar-on .wa-float { display: none !important; } body.pl-bar-on { padding-bottom: 4.75rem; } }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .pl-blk:not([hidden]), .pl-step2:not([hidden]) { animation: pl-in 0.32s cubic-bezier(0.16, 1, 0.3, 1) both; }
+    .pl-grp li, .pl-et li { animation: pl-in 0.28s cubic-bezier(0.16, 1, 0.3, 1) both; }
+    .pl-need:active { transform: scale(0.985); }
+    .pl-pulse { animation: pl-pulse 0.5s ease-out; }
+    @keyframes pl-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+    @keyframes pl-pulse { 0% { box-shadow: var(--shadow-card), 0 0 0 4px var(--accent-tint); } 40% { box-shadow: var(--shadow-card), 0 0 0 9px var(--accent-tint); } 100% { box-shadow: var(--shadow-card), 0 0 0 4px var(--accent-tint); } }
+  }
+</style>
+
+<script is:inline define:vars={{ waBase }}>
+(function () {
+  var root = document.getElementById('planificador');
+  if (!root) return;
+  var form = root.querySelector('[data-form]');
+  var res = root.querySelector('[data-res]');
+  var card = root.querySelector('[data-card]');
+  var waBtn = root.querySelector('[data-wa]');
+  var neg = root.querySelector('[data-neg]');
+  var fine = root.querySelector('[data-fine]');
+  var bar = root.querySelector('[data-bar]');
+  var step2 = root.querySelector('[data-step2]');
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var clp = function (n) { return '$' + Math.round(n).toLocaleString('es-CL'); };
+  var esc = function (t) { var d = document.createElement('div'); d.textContent = t; return d.innerHTML; };
+
+  // Precios netos publicados (CLP).
+  var WEB = { landing: ['Landing page', 290000], corporativo: ['Sitio con blog', 450000], tienda: ['Tienda online', 790000], medida: ['Desarrollo a medida', null] };
+  var MARCA = { logo: ['Logo', 120000], identidad: ['Identidad de marca básica', 190000], manual: ['Manual de marca', 390000] };
+  var PIEZA = 40000;
+  var GOOGLE = { maps: ['Google Maps', 150000], ia: ['Google + IA', 350000], crec: ['Posicionamiento Crecimiento', 650000] };
+  var ADS = { uno: ['Anuncios en Google o Meta', 190000], dos: ['Anuncios en Google y Meta', 320000] };
+  var REDES = { dia: ['Redes sociales: Al día', 250000], crecer: ['Redes sociales: Crecer', 420000] };
+  var EMAIL = 120000, MANT = 39990, WORKSPACE = 6500, DOMINIO = 9990;
+  var INTEG = { despacho: ['Despacho con Enviame', 250000, 25000], conector: ['Conector Bsale o Defontana', 450000, 45000], omnicanal: ['Omnicanal', 900000, 90000] };
+
+  var prev = { u: 0, m: 0 };
+
+  function leer() {
+    var f = new FormData(form);
+    return {
+      needs: f.getAll('need'), web: f.get('web'), mant: f.get('mant') === 'on', correos: +f.get('correos') || 0,
+      mej: f.getAll('mej'), marca: f.get('marca'), piezas: +f.get('piezas') || 0, google: f.get('google'),
+      ads: f.get('ads'), redes: f.get('redes'), email: f.get('email') === 'on', int: f.getAll('int'),
+      negocio: (root.querySelector('[name="negocio"]').value || '').trim(),
+    };
+  }
+
+  function calcular(s) {
+    var tiene = function (n) { return s.needs.indexOf(n) !== -1; };
+    var unico = [], mensual = [], etapas = [], notas = [];
+    var hayWeb = tiene('web');
+    if (tiene('marca')) {
+      var m = MARCA[s.marca];
+      unico.push([m[0], m[1]]);
+      if (s.piezas) unico.push([s.piezas + ' pieza' + (s.piezas > 1 ? 's' : '') + ' de material publicitario', s.piezas * PIEZA]);
+      etapas.push(['Marca', 'tu identidad primero, para que todo lo demás salga con ella']);
+    }
+    if (hayWeb) {
+      var w = WEB[s.web];
+      unico.push([w[0], w[1]]);
+      etapas.push([w[0], s.web === 'medida' ? 'partimos con una reunión para entender lo que tiene que hacer' : s.web === 'landing' ? 'diseño a medida, lista en 2 a 3 semanas' : 'diseño a medida, con su plazo escrito en la propuesta']);
+      if (s.web === 'landing' || s.web === 'corporativo') notas.push('Hosting incluido mientras tu sitio esté con nosotros' + (s.web === 'landing' ? ', y el dominio .cl el primer año.' : '.'));
+      if (s.web === 'tienda') notas.push('En la tienda, el hosting depende de la plataforma y va en la propuesta.');
+    }
+    var mant = (hayWeb && s.mant) || (tiene('mejorar') && s.mej.indexOf('mant') !== -1);
+    if (tiene('mejorar') && !hayWeb) etapas.push(['Tu web actual', 'la revisamos con el analizador y partimos por lo que más pesa']);
+    if (tiene('integ') && s.int.length) {
+      s.int.forEach(function (k) { var i = INTEG[k]; unico.push([i[0] + ' (instalación)', i[1]]); mensual.push([i[0], i[2]]); });
+      etapas.push(['Integraciones', 'stock, boletas y despacho conectados con tu tienda']);
+    }
+    if (mant) mensual.push(['Mantenimiento web', MANT]);
+    if (hayWeb && s.correos) mensual.push([s.correos + ' correo' + (s.correos > 1 ? 's' : '') + ' con tu dominio (Google)', s.correos * WORKSPACE]);
+    var trafico = [];
+    if (tiene('google')) { var g = GOOGLE[s.google]; mensual.push([g[0], g[1]]); trafico.push(g[0]); notas.push('El posicionamiento es por mínimo 3 meses.'); }
+    if (tiene('mkt')) {
+      if (ADS[s.ads]) { mensual.push([ADS[s.ads][0], ADS[s.ads][1]]); trafico.push('anuncios'); notas.push('La inversión en anuncios la pagas aparte, directo a Google o Meta.'); }
+      if (REDES[s.redes]) { mensual.push([REDES[s.redes][0], REDES[s.redes][1]]); trafico.push('redes'); }
+      if (s.email) { mensual.push(['Email marketing', EMAIL]); trafico.push('email'); }
+    }
+    if (trafico.length) etapas.push(['Clientes', trafico.join(', ') + ' trabajando cada mes']);
+    var u = unico.reduce(function (a, x) { return a + (x[1] || 0); }, 0);
+    var mm = mensual.reduce(function (a, x) { return a + x[1]; }, 0);
+    var aCotizar = hayWeb && s.web === 'medida';
+    var dominio = hayWeb && s.web !== 'landing' && s.web !== 'medida' ? DOMINIO : 0;
+    return { unico: unico, mensual: mensual, etapas: etapas, notas: notas, u: u, m: mm, aCotizar: aCotizar,
+      anio1: u + 12 * mm + dominio, anio2: hayWeb && s.web !== 'medida' ? 12 * mm + DOMINIO : 12 * mm };
+  }
+
+  function contar(el, de, a) {
+    if (reduce || de === a) { el.textContent = clp(a); return; }
+    var t0 = performance.now(), dur = 420;
+    (function paso(t) { var k = Math.min(1, (t - t0) / dur); k = 1 - Math.pow(1 - k, 3); el.textContent = clp(de + (a - de) * k); if (k < 1) requestAnimationFrame(paso); })(t0);
+  }
+
+  function lista(titulo, items, mes) {
+    if (!items.length) return '';
+    return '<div class="pl-grp"><h3>' + titulo + '</h3><ul>' + items.map(function (x) {
+      return '<li><span>' + esc(x[0]) + '</span><span>' + (x[1] == null ? 'se cotiza' : clp(x[1]) + (mes ? '/mes' : '')) + '</span></li>';
+    }).join('') + '</ul></div>';
+  }
+
+  function mensajeWA(s, c) {
+    var L = ['Hola Faro°, armé este plan en su cotizador:'];
+    if (s.negocio) L.push('Mi negocio: ' + s.negocio + '.');
+    if (c.unico.length) { L.push('', 'Pago único:'); c.unico.forEach(function (x) { L.push('- ' + x[0] + (x[1] == null ? ' (a cotizar)' : ' (' + clp(x[1]) + ')')); }); }
+    if (c.mensual.length) { L.push('', 'Mensual:'); c.mensual.forEach(function (x) { L.push('- ' + x[0] + ' (' + clp(x[1]) + '/mes)'); }); }
+    if (s.needs.indexOf('mejorar') !== -1 && s.mej.indexOf('rediseno') !== -1) L.push('', 'Quiero rediseñar la web que tengo.');
+    L.push('', 'Total estimado + IVA: ' + clp(c.u) + ' de pago único' + (c.m ? ' y ' + clp(c.m) + '/mes' : '') + (c.aCotizar ? ', más el desarrollo a medida por cotizar' : '') + '.');
+    L.push('¿Me mandan una oferta?');
+    return L.join('\n');
+  }
+
+  function render() {
+    var s = leer();
+    // Bloques visibles según lo marcado.
+    root.querySelectorAll('[data-blk]').forEach(function (b) { b.hidden = s.needs.indexOf(b.dataset.blk) === -1; });
+    step2.hidden = !s.needs.length;
+    // Avisos que se arreglan con un toque.
+    var hayWeb = s.needs.indexOf('web') !== -1;
+    root.querySelector('[data-warn-ads]').hidden = !(s.needs.indexOf('mkt') !== -1 && ADS[s.ads] && !hayWeb && s.needs.indexOf('mejorar') === -1);
+    root.querySelector('[data-warn-integ]').hidden = !(s.needs.indexOf('integ') !== -1 && hayWeb && s.web !== 'tienda');
+
+    var c = calcular(s);
+    var vacio = !c.unico.length && !c.mensual.length && !c.etapas.length;
+    [waBtn, neg, fine].forEach(function (el) { el.hidden = vacio; });
+    bar.hidden = vacio;
+    document.body.classList.toggle('pl-bar-on', !vacio);
+    if (vacio) { res.innerHTML = '<p class="pl-empty">Marca lo que necesitas y aquí aparece tu plan con su precio.</p>'; prev = { u: 0, m: 0 }; return; }
+
+    var h = lista('Pago único', c.unico, false) + lista('Mensual', c.mensual, true);
+    h += '<dl class="pl-tot"><dt>Pago único, desde</dt><dd class="big" data-u></dd><dt>Mensual, desde</dt><dd class="big" data-m></dd>';
+    if (!c.aCotizar && (c.u || c.m)) h += '<dt class="sm">Primer año completo, desde</dt><dd class="sm" data-a></dd>';
+    h += '</dl>';
+    var notas = c.notas.slice();
+    if (c.aCotizar) notas.unshift('El desarrollo a medida se suma al total cuando lo cotizamos.');
+    notas.push('Valores netos, más IVA.' + (!c.aCotizar && c.m ? ' El primer año supone lo mensual los 12 meses.' : ''));
+    h += '<p class="pl-note">' + notas.map(esc).join(' ') + '</p>';
+    if (c.etapas.length) h += '<div class="pl-grp"><h3>En este orden</h3><ol class="pl-et">' + c.etapas.map(function (e) { return '<li><span><b>' + esc(e[0]) + ':</b> ' + esc(e[1]) + '</span></li>'; }).join('') + '</ol></div>';
+    res.innerHTML = h;
+    contar(res.querySelector('[data-u]'), prev.u, c.u);
+    contar(res.querySelector('[data-m]'), prev.m, c.m);
+    var a = res.querySelector('[data-a]'); if (a) contar(a, prev.u + 12 * prev.m, c.anio1);
+    root.querySelector('[data-bar-u]').textContent = clp(c.u) + (c.aCotizar ? ' +' : '');
+    root.querySelector('[data-bar-m]').textContent = clp(c.m);
+    if (prev.u !== c.u || prev.m !== c.m) { card.classList.remove('pl-pulse'); void card.offsetWidth; card.classList.add('pl-pulse'); }
+    prev = { u: c.u, m: c.m };
+    waBtn.href = waBase + encodeURIComponent(mensajeWA(s, c));
+  }
+
+  // Atajos entre bloques: "Rediseñarla" abre Web nueva; "Que la encuentren" abre Google; los avisos arreglan con un toque.
+  var marcar = function (id) { var i = form.querySelector('input[name="need"][value="' + id + '"]'); if (i && !i.checked) { i.checked = true; } };
+  form.addEventListener('change', function (e) {
+    var t = e.target;
+    if (t.name === 'mej' && t.checked && t.value === 'rediseno') marcar('web');
+    if (t.name === 'mej' && t.checked && t.value === 'google') marcar('google');
+    render();
+    if (t.name === 'need' && t.checked) {
+      var b = root.querySelector('[data-blk="' + t.value + '"]');
+      if (b && innerWidth >= 960) b.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'nearest' });
+    }
+  });
+  root.querySelector('[name="negocio"]').addEventListener('input', render);
+  root.addEventListener('click', function (e) {
+    var fx = e.target.closest('[data-fix]');
+    if (!fx) return;
+    if (fx.dataset.fix === 'landing') { marcar('web'); form.querySelector('input[name="web"][value="landing"]').checked = true; }
+    if (fx.dataset.fix === 'tienda') form.querySelector('input[name="web"][value="tienda"]').checked = true;
+    render();
+  });
+  render();
+})();
+</script>

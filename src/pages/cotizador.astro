@@ -1,0 +1,71 @@
+---
+// Cotizador: planificador interactivo de todos los servicios (sin IA) + cómo calculamos + FAQ.
+// Precios: los publicados (ver la cabecera de src/components/Planificador.astro).
+import Base from '../layouts/Base.astro';
+import SiteNav from '../components/SiteNav.astro';
+import SiteFooter from '../components/home/HomeFooter.astro';
+import Planificador from '../components/Planificador.astro';
+import Faq from '../components/Faq.astro';
+import { SITE, ORG_ID, faqJsonLd, breadcrumbJsonLd } from '../lib/seo';
+import '../styles/content.css';
+
+const url = `${SITE}/cotizador`;
+const faq = [
+  { q: '¿Cuánto cuesta una página web en Chile?', a: 'En Faro°, una landing page parte desde $290.000, un sitio con blog desde $450.000 y una tienda online desde $790.000, netos (más IVA) y como pago único. El detalle está en <a href="/precios">precios</a>.' },
+  { q: '¿El precio del cotizador es el precio final?', a: 'Es un precio de referencia calculado con nuestros precios publicados. Después de conversar te mandamos la oferta por escrito con alcance, plazo y precio final, que depende de lo que necesites.' },
+  { q: '¿Por qué separan el pago único de lo mensual?', a: 'Porque son cosas distintas: la web, la marca y la instalación de integraciones se pagan una vez; el posicionamiento, la publicidad, las redes y la mantención se pagan cada mes mientras los quieras. Así sabes qué pagas una vez y qué se repite.' },
+  { q: '¿Qué costos aparte debo considerar?', a: 'El dominio .cl desde el segundo año ($9.990 al año en NIC Chile), los correos con tu dominio ($6.500 por usuario al mes, se pagan a Google) y, si haces anuncios, la inversión que pagas directo a Google o Meta.' },
+  { q: '¿Por qué el posicionamiento es por mínimo 3 meses?', a: 'Porque Google tarda en reflejar los cambios. Con menos tiempo no alcanzarías a ver resultados que justifiquen la inversión.' },
+  { q: '¿Me comprometo a algo al usar el cotizador?', a: 'No. El cotizador no pide datos. Si quieres la oferta, nos escribes por WhatsApp con el plan ya armado y conversamos sin compromiso.' },
+];
+const ld = [{
+  '@context': 'https://schema.org',
+  '@graph': [
+    { '@type': 'WebPage', '@id': `${url}#page`, url, name: 'Cotizador de páginas web y servicios digitales', inLanguage: 'es-CL', isPartOf: { '@id': `${SITE}/#website` }, about: { '@id': ORG_ID } },
+    breadcrumbJsonLd([{ name: 'Inicio', url: `${SITE}/` }, { name: 'Cotizador', url }]),
+    faqJsonLd(faq),
+  ],
+}];
+const headExtra = '<style>.cot-head{padding-bottom:0}.cot-head h1{margin-bottom:.6rem}.cot-head p{color:var(--muted);font-size:1.08rem;max-width:60ch}.cot-tail{padding-top:1rem}</style>';
+---
+<Base
+  title="Cotizador de páginas web y marketing: arma tu plan | Faro°"
+  description="Cotiza tu página web, marca, posicionamiento, redes o integraciones en 2 minutos: elige lo que necesitas y ve tu plan con precios publicados, sin dejar datos."
+  canonical={url}
+  ogTitle="Cotizador — Faro°"
+  ogDescription="Elige lo que necesitas y arma tu plan con precios publicados: pago único y mensual por separado."
+  ld={ld}
+  headExtra={headExtra}
+>
+<SiteNav />
+
+<main>
+  <div class="doc cot-head">
+    <nav class="crumbs" aria-label="Ruta"><a href="/">Inicio</a> / Cotizador</nav>
+    <h1>Cotizador de páginas web: arma tu plan y conoce el precio en 2 minutos</h1>
+    <p>Elige lo que necesitas (una web, tu marca, aparecer en Google, publicidad o conectar tu tienda) y te mostramos qué conviene hacer primero y cuánto cuesta, con nuestros precios publicados. Sin dejar tus datos.</p>
+  </div>
+
+  <div class="wrap-sec">
+    <Planificador />
+  </div>
+
+  <div class="doc cot-tail">
+    <div class="prose">
+      <h2 id="como">Cómo calculamos el precio</h2>
+      <ul>
+        <li><strong>Pago único:</strong> la web (landing desde $290.000, sitio con blog desde $450.000, tienda online desde $790.000), la marca (desde $120.000) y la instalación de las integraciones. El desarrollo a medida se cotiza según lo que tiene que hacer.</li>
+        <li><strong>Mensual:</strong> posicionamiento en Google (desde $150.000, mínimo 3 meses), anuncios (desde $190.000 más la inversión), redes sociales (desde $250.000), email marketing (desde $120.000), mantenimiento web (desde $39.990) y la mensualidad de las integraciones.</li>
+        <li><strong>Lo que va incluido:</strong> la landing y el sitio con blog traen el hosting mientras tu sitio esté con nosotros, y la landing además el dominio .cl el primer año.</li>
+        <li><strong>Primer año:</strong> el pago único más doce meses de lo mensual que elijas. Es una referencia: puedes partir con menos y sumar después.</li>
+      </ul>
+      <p>Todos los precios están publicados en <a href="/precios">precios</a>. Si quieres entender qué mueve el valor de una web, lee <a href="/blog/cuanto-cuesta-una-pagina-web-chile">cuánto cuesta una página web en Chile</a>.</p>
+
+      <h2 id="faq">Preguntas frecuentes</h2>
+    </div>
+    <Faq items={faq} />
+  </div>
+</main>
+
+<SiteFooter />
+</Base>

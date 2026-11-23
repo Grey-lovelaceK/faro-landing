@@ -20,6 +20,7 @@ Precios referenciales publicados en pesos chilenos (CLP, netos). Contacto: conta
 
 ## Herramientas
 
+- [Cotizador](https://faroagencia.cl/cotizador): arma un plan con web, marca, posicionamiento, publicidad e integraciones y ve el precio con los valores publicados (pago único y mensual por separado).
 - [Analizador de web gratis](https://faroagencia.cl/analiza): revisa SEO, redes sociales, rendimiento real (Core Web Vitals) y visibilidad en IA de cualquier sitio.
 
 ## Blog
