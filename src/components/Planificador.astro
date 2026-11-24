@@ -53,6 +53,9 @@ const necesidades = [
         </div>
         <div class="pl-extra">
           <label class="pl-chk"><input type="checkbox" name="mant"> Que ustedes hagan los cambios, respaldos y soporte <em>$39.990/mes</em></label>
+          <label class="pl-sel">Correos con tu dominio <small>(Google Workspace, $6.500 c/u al mes; los dejamos configurados)</small>
+            <select name="correos"><option value="0">Ninguno</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="5">5</option></select>
+          </label>
         </div>
       </fieldset>
 
@@ -257,7 +260,7 @@ const necesidades = [
   // Publicidad, redes y email: se cotizan según objetivos después de la reunión (Clementina, 23-nov-2026). No suman al total.
   var ADS = { uno: 'Anuncios en Google o Meta', dos: 'Anuncios en Google y Meta' };
   var REDES = { dia: 'Redes sociales: Al día', crecer: 'Redes sociales: Crecer' };
-  var MANT = 39990, DOMINIO = 9990;
+  var MANT = 39990, WORKSPACE = 6500, DOMINIO = 9990; // Google Workspace Business Starter, plan anual, por usuario/mes en Chile
   var INTEG = { despacho: ['Despacho con Enviame', 250000, 25000], conector: ['Conector Bsale o Defontana', 450000, 45000], omnicanal: ['Omnicanal', 900000, 90000] };
 
   var prev = { u: 0, m: 0 };
@@ -265,7 +268,7 @@ const necesidades = [
   function leer() {
     var f = new FormData(form);
     return {
-      needs: f.getAll('need'), web: f.get('web'), mant: f.get('mant') === 'on',
+      needs: f.getAll('need'), web: f.get('web'), mant: f.get('mant') === 'on', correos: +f.get('correos') || 0,
       mej: f.getAll('mej'), marca: f.get('marca'), google: f.get('google'),
       ads: f.get('ads'), redes: f.get('redes'), email: f.get('email') === 'on', int: f.getAll('int'),
       negocio: (root.querySelector('[name="negocio"]').value || '').trim(),
@@ -295,6 +298,7 @@ const necesidades = [
       etapas.push(['Integraciones', 'stock, boletas y despacho conectados con tu tienda']);
     }
     if (mant) mensual.push(['Mantenimiento web', MANT]);
+    if (hayWeb && s.correos) mensual.push([s.correos + ' correo' + (s.correos > 1 ? 's' : '') + ' con tu dominio (Google Workspace)', s.correos * WORKSPACE]);
     var trafico = [];
     if (tiene('google')) { var g = GOOGLE[s.google]; mensual.push([g[0], g[1]]); trafico.push(g[0]); notas.push('El posicionamiento es por mínimo 3 meses.'); }
     if (tiene('mkt')) {
