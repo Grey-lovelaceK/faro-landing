@@ -97,10 +97,10 @@ const lock = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke
                 <div><p class="pv-k">Tu nota, de la A a la E</p><p class="pv-d">Gratis y sin registro.</p></div>
               </div>
               <ul class="pv-rows">
-                <li><b>SEO</b><span>título, H1, canonical, celular</span><i></i></li>
-                <li><b>Redes sociales</b><span>cómo se ve tu link al compartirlo</span><i></i></li>
-                <li><b>AEO / GEO</b><span>Schema, llms.txt, preguntas frecuentes</span><i></i></li>
-                <li><b>Técnico</b><span>servidor, robots.txt, sitemap</span><i></i></li>
+                <li data-cat="SEO"><b>SEO</b><span>título, H1, canonical, celular</span><i></i></li>
+                <li data-cat="Social"><b>Redes sociales</b><span>cómo se ve tu link al compartirlo</span><i></i></li>
+                <li data-cat="AEO / GEO"><b>AEO / GEO</b><span>Schema, llms.txt, preguntas frecuentes</span><i></i></li>
+                <li data-cat="Técnico"><b>Técnico</b><span>servidor, robots.txt, sitemap</span><i></i></li>
               </ul>
               <p class="pv-lock"><Fragment set:html={lock} /><span>Con tu nombre y correo: los 21 puntos explicados, Google PageSpeed en celular y si la IA te cita.</span></p>
             </div>
@@ -223,6 +223,9 @@ const lock = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke
   .pv-rows b{font-size:.92rem;color:var(--ink)}
   .pv-rows span{font-size:.82rem;color:var(--faint);text-align:right}
   .pv-rows i{grid-column:1 / -1;height:6px;border-radius:99px;background:var(--bubble);margin-top:.25rem}
+  .pv-rows li.on span{display:inline;color:var(--ink);font-weight:700;font-variant-numeric:tabular-nums}
+  .pv-ring.on{border-style:solid}
+  .pv-ring.sm{font-size:.86rem;letter-spacing:-.02em}
   .pv-lock{display:flex;gap:.625rem;align-items:flex-start;margin:1.25rem 0 0;padding:.75rem .875rem;border:1px dashed var(--line-strong);border-radius:var(--radius);font-size:.84rem;line-height:1.45;color:var(--muted)}
   .pv-lock svg{color:var(--accent);flex:0 0 auto;margin-top:.15rem}
 
@@ -449,16 +452,59 @@ const lock = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke
       if (stages.scrollIntoView) stages.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'nearest' });
     }
 
+    // El panel derecho muestra el resultado real (lo lee de lo que el analizador escribió en #out).
+    var bodies = { web: lab.querySelector('.pv-web'), noweb: lab.querySelector('.pv-noweb') };
+    var orig = bodies.web ? { web: bodies.web.innerHTML, noweb: bodies.noweb.innerHTML } : null;
+    function resetPreview() { if (orig) { bodies.web.innerHTML = orig.web; bodies.noweb.innerHTML = orig.noweb; } }
+    function paintRing(body, text, color, small) {
+      var r = body.querySelector('.pv-ring');
+      r.firstElementChild.textContent = text; r.classList.add('on'); r.classList.toggle('sm', !!small);
+      r.style.borderColor = color; r.style.color = color;
+    }
+    function paintRow(li, text, color, pct) {
+      if (!li) return;
+      li.classList.add('on'); li.querySelector('span').textContent = text;
+      if (color) li.querySelector('span').style.color = color;
+      if (pct != null) li.querySelector('i').style.background = 'linear-gradient(to right,' + color + ' ' + pct + '%,var(--bubble) ' + pct + '%)';
+    }
+    function fillPreview() {
+      if (!orig) return;
+      var unlocked = !!document.getElementById('detail');
+      var sc = outEl.querySelector('.scorecard'), pres = outEl.firstElementChild;
+      if (sc) {
+        var ring = sc.querySelector('.ring'), b = bodies.web;
+        paintRing(b, ring.dataset.v, ring.style.getPropertyValue('--rc'));
+        b.querySelector('.pv-k').textContent = sc.querySelector('h2').textContent;
+        b.querySelector('.pv-d').textContent = 'Tu ' + sc.querySelector('.g').textContent + ', de 100 puntos.';
+        outEl.querySelectorAll('.catpill').forEach(function (p) {
+          var cv = p.querySelector('.cv'), li = null, name = p.querySelector('.cn').textContent.trim();
+          b.querySelectorAll('.pv-rows li').forEach(function (x) { if (x.dataset.cat === name) li = x; });
+          paintRow(li, cv.dataset.to + ' / 100', cv.style.color, cv.dataset.to);
+        });
+        b.querySelector('.pv-lock').hidden = unlocked;
+      } else if (pres && pres.classList.contains('pres')) {
+        var badge = pres.querySelector('.verdict-badge'), n = bodies.noweb;
+        var kind = badge.classList.contains('vb-si') ? ['Sí', 'var(--pass)'] : badge.classList.contains('vb-parcial') ? ['A medias', 'var(--warn)'] : ['No', 'var(--fail)'];
+        paintRing(n, kind[0], kind[1], true);
+        n.querySelector('.pv-k').textContent = badge.textContent;
+        n.querySelector('.pv-d').textContent = 'Lo que respondió la IA está abajo.';
+        var cells = document.querySelectorAll('#detail .grid4 div'), rows = n.querySelectorAll('.pv-rows li');
+        cells.forEach(function (c, i) { var st = c.querySelector('strong'); if (st && rows[i]) paintRow(rows[i], st.textContent, st.style.color); });
+        n.querySelector('.pv-lock').hidden = unlocked;
+      }
+    }
+
     var last = 'idle';
     function sync() {
       var c = outEl.firstElementChild, st = 'idle';
       if (c && c.classList.contains('loading')) st = 'scanning';
       else if (c && (c.classList.contains('scorecard') || c.classList.contains('pres'))) st = 'ready';
-      if (st === last) return;
+      if (st === last) { if (st === 'ready') fillPreview(); return; }
       last = st; lab.dataset.state = st;
+      if (st === 'ready') fillPreview(); else resetPreview();
       if (st === 'scanning') startStages(); else { stop(); stages.hidden = true; }
       if (st === 'ready') outEl.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
-      if (pv) pv.textContent = st === 'scanning' ? 'Buscando…' : st === 'ready' ? 'Listo: tu resultado está abajo' : (lab.dataset.mode === 'noweb' ? 'Esperando tus datos' : 'Esperando tu dirección');
+      if (pv) pv.textContent = st === 'scanning' ? 'Buscando…' : st === 'ready' ? 'Listo: el detalle está abajo' : (lab.dataset.mode === 'noweb' ? 'Esperando tus datos' : 'Esperando tu dirección');
     }
     new MutationObserver(sync).observe(outEl, { childList: true });
   })();
