@@ -332,7 +332,8 @@ const necesidades = [
     var L = ['Hola Faro°, armé este plan en su cotizador:'];
     if (s.negocio) L.push('Mi negocio: ' + s.negocio + '.');
     if (c.unico.length) { L.push('', 'Pago único:'); c.unico.forEach(function (x) { L.push('- ' + x[0] + (x[1] == null ? ' (a cotizar)' : ' (' + clp(x[1]) + ')')); }); }
-    if (c.mensual.length) { L.push('', 'Mensual:'); c.mensual.forEach(function (x) { L.push('- ' + x[0] + ' (' + clp(x[1]) + '/mes)'); }); }
+    // '/mes)' va partido a propósito: entero, Googlebot lo tomaba como URL relativa y rastreaba /mes) → 404. El texto sale igual.
+    if (c.mensual.length) { L.push('', 'Mensual:'); c.mensual.forEach(function (x) { L.push('- ' + x[0] + ' (' + clp(x[1]) + '/' + 'mes)'); }); }
     if (c.reunion.length) { L.push('', 'A definir en la reunión:'); c.reunion.forEach(function (x) { L.push('- ' + x); }); }
     if (s.needs.indexOf('mejorar') !== -1 && s.mej.indexOf('rediseno') !== -1) L.push('', 'Quiero rediseñar la web que tengo.');
     L.push('', 'Valor aproximado + IVA (no es el precio final): ' + clp(c.u) + ' de pago único' + (c.m ? ' y ' + clp(c.m) + '/mes' : '') + (c.aCotizar ? ', más el desarrollo a medida por cotizar' : '') + '.');
