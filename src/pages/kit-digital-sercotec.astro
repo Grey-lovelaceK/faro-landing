@@ -1,0 +1,146 @@
+---
+// Página de servicio: /kit-digital-sercotec. Estructura, FAQ y JSON-LD en src/layouts/Service.astro.
+// Ángulo: beneficiarios de fondos de digitalización de Sercotec (Digitaliza tu Almacén, "Kit Digital")
+// que ya tienen el monto aprobado y buscan proveedor. NO somos proveedor certificado por Sercotec:
+// asesoramos, ajustamos la propuesta al presupuesto y entregamos documentos para la rendición.
+import Service from '../layouts/Service.astro';
+const page = {
+  "slug": "kit-digital-sercotec",
+  "crumb": "Kit Digital Sercotec",
+  "eyebrow": "Para beneficiarios de fondos Sercotec",
+  "title": "Tienda online para tu fondo Sercotec (Kit Digital) | Faro°",
+  "description": "¿Ganaste un fondo de digitalización de Sercotec, como Digitaliza tu Almacén? Te armamos tu tienda online ajustada a tu presupuesto aprobado, a tu nombre y con los documentos para la rendición. No somos proveedor certificado: asesoramos y nos ajustamos a tu monto.",
+  "h1": "Tienda online para tu fondo de digitalización de Sercotec",
+  "tldr": "Si te ganaste un fondo de Sercotec para digitalizar tu negocio —como <strong>Digitaliza tu Almacén</strong> o lo que muchos llaman «Kit Digital»— te armamos tu tienda online <strong>ajustada al monto que te aprobaron</strong>, con el dominio y todos los accesos a tu nombre, y con la boleta o factura que necesitas para rendir. <strong>No somos un proveedor certificado por Sercotec</strong> y no gestionamos tu postulación: lo que hacemos es ejecutar el proyecto y dejarte todo por escrito —neto, IVA, plazo y qué incluye— para que tu rendición cuadre.",
+  "ctaLabel": "Cuéntanos tu fondo por WhatsApp",
+  "waMessage": "Hola Faro°, me gané un fondo de Sercotec y quiero cotizar mi tienda online",
+  "end": {
+    "title": "¿Ya tienes tu fondo aprobado?",
+    "text": "Cuéntanos el monto y el plazo de tu rendición, y te enviamos una propuesta que cabe en tu presupuesto, con todo por escrito."
+  },
+  "faq": [
+    {
+      "q": "¿Son un proveedor certificado o registrado por Sercotec?",
+      "a": "No. No estamos en ningún registro ni somos un proveedor certificado por Sercotec, y no gestionamos tu postulación por ti. Lo que hacemos es asesorarte y ejecutar el proyecto: armamos tu tienda online ajustada a tu presupuesto aprobado y te entregamos los documentos para rendir."
+    },
+    {
+      "q": "¿Qué fondos de Sercotec cubren?",
+      "a": "Trabajamos con beneficiarios de los fondos de digitalización de Sercotec, como Digitaliza tu Almacén, y de otros fondos que financien una tienda online, un sitio web o marketing. Las reglas y los montos cambian en cada convocatoria, así que confirma siempre con tu ejecutivo de Sercotec qué gastos son rendibles en tu caso."
+    },
+    {
+      "q": "¿Se ajustan al monto que me aprobaron?",
+      "a": "Sí. Nos dices el monto aprobado y el plazo de rendición, y armamos el alcance para que la propuesta quepa en tu presupuesto. Si el fondo no alcanza para todo, priorizamos lo que más mueve tus ventas y te decimos qué queda para después."
+    },
+    {
+      "q": "¿Me entregan los documentos para la rendición?",
+      "a": "Sí. Te entregamos la factura o boleta de Faro SpA con el detalle del servicio, el valor neto, el IVA y el total, más la propuesta escrita con el alcance y el plazo. Ojo: muchos fondos cubren solo el valor neto y dejan el IVA por cuenta del beneficiario; confírmalo con tu ejecutivo antes de firmar."
+    },
+    {
+      "q": "¿La web y el dominio quedan a mi nombre?",
+      "a": "Sí. El dominio, el hosting, la plataforma de la tienda y todos los accesos quedan a nombre de tu empresa. Sercotec suele exigir que el activo sea tuyo, y para nosotros es la regla de siempre: nada queda amarrado a Faro."
+    },
+    {
+      "q": "¿Me garantizan que me voy a ganar el fondo?",
+      "a": "No, y nadie serio puede hacerlo: el fondo lo adjudica Sercotec según sus propios criterios. Podemos orientarte sobre qué pedir y cómo describir el proyecto, pero la postulación y su resultado son tuyos y de Sercotec."
+    },
+    {
+      "q": "¿Hay una mensualidad obligatoria con ustedes?",
+      "a": "No. El desarrollo de la tienda es un pago único. Aparte van, y los paga tu empresa directo a cada proveedor, la licencia de la plataforma, el dominio y el hosting desde el segundo año; te los itemizamos por separado. Un plan mensual de posicionamiento o marketing es opcional, solo si lo quieres."
+    }
+  ],
+  "related": [
+    {
+      "href": "/blog/cuanto-cuesta-una-pagina-web-chile",
+      "title": "¿Cuánto cuesta una página web en Chile? Precios 2026"
+    },
+    {
+      "href": "/precios",
+      "title": "Todos los precios de referencia de Faro°"
+    },
+    {
+      "href": "/blog/google-business-profile-google-maps",
+      "title": "Cómo aparecer en Google Maps con tu negocio"
+    }
+  ],
+  "service": {
+    "@type": "Service",
+    "@id": "https://faroagencia.cl/kit-digital-sercotec#servicio",
+    "name": "Tienda online para beneficiarios de fondos Sercotec",
+    "serviceType": "Desarrollo de tienda online",
+    "provider": {
+      "@id": "https://faroagencia.cl/#org",
+      "@type": "ProfessionalService",
+      "name": "Faro°",
+      "url": "https://faroagencia.cl/"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "Chile"
+    },
+    "description": "Desarrollo de tienda online y sitio web ajustado al presupuesto de fondos de digitalización de Sercotec, a nombre del beneficiario y con documentos para la rendición. Proveedor no certificado por Sercotec.",
+    "offers": [
+      {
+        "@type": "Offer",
+        "name": "Tienda online (e-commerce)",
+        "price": "790000",
+        "priceCurrency": "CLP",
+        "description": "Pago único, neto. Ajustable al monto del fondo."
+      }
+    ]
+  }
+};
+---
+<Service {...page}>
+  <h2 id="para-quien">Para quién es esto</h2>
+    <p>Esta página es para quien <strong>ya se ganó un fondo de Sercotec</strong> para digitalizar su negocio y ahora busca en qué invertirlo, y para quien <strong>va a postular</strong> en la próxima convocatoria y quiere saber qué puede incluir. Los fondos de digitalización —como <strong>Digitaliza tu Almacén</strong>— se abren por temporadas; cuando no hay una convocatoria abierta, igual podemos dejar tu proyecto cotizado y listo para cuando se abra.</p>
+    <p class="note-mono">No somos proveedor certificado por Sercotec y no gestionamos tu postulación · confirma los gastos rendibles con tu ejecutivo de Sercotec</p>
+
+  <h2 id="que-hacemos">Qué hacemos con tu fondo</h2>
+    <ol>
+      <li><strong>Ajustamos la propuesta a tu monto.</strong> Nos dices cuánto te aprobaron y qué pide tu rendición, y armamos el alcance para que quepa en tu presupuesto.</li>
+      <li><strong>Construimos tu tienda online.</strong> Catálogo con fotos, precios y descripciones, carrito, pago en línea (Webpay o Mercado Pago), despacho y retiro, y un panel para que la administres tú.</li>
+      <li><strong>Todo a tu nombre.</strong> Dominio, hosting, plataforma y accesos quedan en tu empresa. Nada amarrado a Faro.</li>
+      <li><strong>Te capacitamos.</strong> Sesiones prácticas para que subas productos, cambies precios y gestiones pedidos sin depender de nadie.</li>
+      <li><strong>Documentos para rendir.</strong> Factura o boleta de Faro SpA con neto, IVA y total, más la propuesta escrita con alcance y plazo.</li>
+    </ol>
+
+  <h2 id="intangibles">Lo nuestro entra como «activo intangible»</h2>
+    <p>Varios fondos de digitalización de Sercotec separan el subsidio en dos: <strong>activos intangibles</strong> (lo digital) y <strong>activos fijos</strong> (lo físico). En un fondo típico de $1.200.000, entre $600.000 y $1.200.000 pueden ir a intangibles, y hasta $600.000 a activos fijos. Casi todo lo que hacemos cae en intangibles:</p>
+    <table>
+      <thead><tr><th>Lo que financia el fondo (intangibles)</th><th>Lo que hace Faro°</th></tr></thead>
+      <tbody>
+        <tr><td>Sitio web</td><td>Tu tienda online a medida</td></tr>
+        <tr><td>Marketing y posicionamiento web</td><td>SEO, AEO y GEO para que te encuentren</td></tr>
+        <tr><td>Sistemas de inventario y facturación electrónica (ERP)</td><td>Conexión de tu tienda con el ERP (stock y boleta/factura)</td></tr>
+      </tbody>
+    </table>
+    <p class="note-mono">La lista de gastos financiables la define tu convocatoria · confírmala con tu ejecutivo de Sercotec</p>
+
+  <h2 id="precio">Cuánto cuesta y cómo calza con el fondo</h2>
+    <p>Partimos de nuestros precios publicados y ajustamos el alcance a tu presupuesto. Son valores de referencia, netos en pesos chilenos; el valor final depende del alcance y queda por escrito antes de empezar.</p>
+    <div class="plans">
+      <div class="plan"><div class="pn">Landing page</div><div class="pp">desde $290.000<small>pago único · neto</small></div>
+        <ul><li>Sitio o landing de hasta 5 secciones</li><li>Hosting y dominio .cl el primer año</li><li>Para quien parte con presencia, no con tienda</li></ul></div>
+      <div class="plan hot"><div class="pn">Tienda online</div><div class="pp">desde $790.000<small>pago único · neto</small></div>
+        <ul><li>Catálogo, carrito y pago en línea</li><li>Despacho, retiro y gestión de pedidos</li><li>Capacitación para administrarla tú</li><li>El plan que suele calzar con el fondo</li></ul></div>
+      <div class="plan"><div class="pn">Posicionamiento</div><div class="pp">desde $350.000<small>al mes · neto · opcional</small></div>
+        <ul><li>SEO, AEO y GEO con contenido</li><li>Para que te encuentren en Google y en la IA</li><li>Mínimo 3 meses · solo si lo quieres</li></ul></div>
+    </div>
+    <p class="note-mono">Precios netos en CLP, más IVA · aparte van la licencia de la plataforma, el dominio y el hosting desde el segundo año, que itemizamos y paga tu empresa · detalle en <a href="/precios">todos los precios</a></p>
+
+  <h2 id="rendicion">Lo que te dejamos para la rendición</h2>
+    <ul>
+      <li><strong>Factura o boleta de Faro SpA</strong> (RUT 78.550.973-0) con el detalle del servicio, el valor neto, el IVA (19%) y el total.</li>
+      <li><strong>Propuesta escrita</strong> con el alcance, el plazo y qué incluye y qué no.</li>
+      <li><strong>Accesos y dominio a nombre de tu empresa</strong>, que es lo que suele pedir Sercotec para acreditar que el activo es tuyo.</li>
+    </ul>
+    <p>Ojo con el <strong>IVA</strong>: muchos fondos de digitalización cubren solo el <strong>valor neto</strong> y dejan el impuesto por cuenta del beneficiario. Confírmalo con tu ejecutivo de Sercotec antes de firmar, porque cambia cuánto de tu proyecto alcanza a pagar el subsidio.</p>
+
+  <h2 id="que-no">Lo que no hacemos (para ser claros)</h2>
+    <ul>
+      <li>No somos un proveedor certificado ni registrado por Sercotec.</li>
+      <li>No postulamos el fondo por ti ni te garantizamos ganarlo.</li>
+      <li>No te cobramos una mensualidad obligatoria por mantener la tienda.</li>
+    </ul>
+    <p>Lo que sí: asesoría honesta, una tienda que cabe en tu presupuesto, todo a tu nombre y los papeles en regla para rendir.</p>
+</Service>
