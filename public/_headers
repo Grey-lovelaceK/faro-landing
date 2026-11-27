@@ -1,0 +1,4 @@
+# Cloudflare Pages: cabeceras. TEMPORAL (27-nov-2026): permite adjuntar estas imágenes al Perfil de Empresa desde google.com. Borrar junto con public/tmp-perfil/.
+/tmp-perfil/*
+  Access-Control-Allow-Origin: https://www.google.com
+  X-Robots-Tag: noindex
