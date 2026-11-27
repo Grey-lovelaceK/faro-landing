@@ -473,6 +473,11 @@ const headExtra = "<style>\n  :root{--pass:#1f8f5f;--warn:#B8690A;--fail:#D63A3A
     const col = v => v === 'si' ? 'var(--pass)' : v === 'no' ? 'var(--fail)' : 'var(--muted)';
     const cell = (n, v) => `<div>${n}<strong style="color:${col(v)}">${txt[v] || '—'}</strong></div>`;
     const p = d.presence || {};
+    // Si Places trajo el dato real, mostramos el número de reseñas (no un simple Sí/No).
+    const g = d.google;
+    const reviewsCell = g && g.reviews != null
+      ? `<div>Reseñas en Google<strong style="color:${g.reviews > 0 ? 'var(--pass)' : 'var(--muted)'}">${g.reviews}${g.rating ? ' · ' + g.rating + '★' : ''}</strong></div>`
+      : cell('Reseñas en Google', p.reviews);
     const rec = (d.recommended || []).map(x => `<li>${esc(x)}</li>`).join('');
     const acts = (d.actions || []).map(x => `<li>${esc(x)}</li>`).join('');
     const src = (d.sources || []).map(s => esc(s.title)).join(' · ');
@@ -480,7 +485,7 @@ const headExtra = "<style>\n  :root{--pass:#1f8f5f;--warn:#B8690A;--fail:#D63A3A
     el.id = 'detail';
     el.innerHTML = `<div class="ai pres">
         <div class="top"><h3>Tu presencia hoy</h3></div>
-        <div class="grid4">${cell('Google Maps', p.googleMaps)}${cell('Reseñas en Google', p.reviews)}${cell('Instagram', p.instagram)}${cell('Web', p.web)}</div>
+        <div class="grid4">${cell('Google Maps', p.googleMaps)}${reviewsCell}${cell('Instagram', p.instagram)}${cell('Web', p.web)}</div>
         ${rec ? `<div class="sect"><h4>A quién recomienda la IA para «${esc(d.query)}»</h4><ul>${rec}</ul></div>` : ''}
         ${acts ? `<div class="sect"><h4>Qué hacer primero</h4><ul>${acts}</ul></div>` : ''}
         <p class="note">Consulta hecha hoy con ${esc(d.model || 'IA')}${d.grounded ? ' sobre una búsqueda real en internet' : ''}. Las respuestas de la IA cambian: tómalo como una prueba, no como una nota fija.${src ? ' Fuentes: ' + src + '.' : ''}</p>
