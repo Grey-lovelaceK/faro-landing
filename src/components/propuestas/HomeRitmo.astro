@@ -1,0 +1,154 @@
+---
+// TEMPORAL (27-nov-2026): capa de la propuesta «Ritmo» para la portada, revisión interna (Cristian + Clementina).
+// No cambia ningún componente real: son estilos y un script que se aplican solo dentro de <main class="h1p">.
+// Se borra junto con src/pages/propuestas/home-1.astro cuando se decida.
+---
+<div class="pbar">
+  <div class="pbar-in">
+    <p><strong>Propuesta de portada · Ritmo.</strong> Mismo contenido, otro orden visual: franjas de fondo suave, «¿Por dónde partimos?» como selector, extras de precio y diferenciales en lista, y el equipo lado a lado. El héroe no cambia.</p>
+    <a href="/">Portada actual</a>
+  </div>
+</div>
+
+<style is:global>
+  .pbar{background:var(--accent-tint);border-bottom:1px solid var(--accent-line);font-size:.88rem;color:var(--ink-2)}
+  .pbar-in{width:min(77.5rem,100% - 2rem);margin-inline:auto;padding:.75rem 0;display:flex;gap:.75rem 2rem;align-items:center;justify-content:space-between;flex-wrap:wrap}
+  .pbar p{margin:0;max-width:86ch}
+  .pbar a{padding:.375rem .75rem;border-radius:999px;border:1px solid var(--accent-line);background:var(--bg);text-decoration:none;font-weight:600;white-space:nowrap}
+  .pbar a:hover{border-color:var(--accent);color:var(--accent)}
+
+  /* 1 · Franjas: el blanco deja de ser un bloque continuo */
+  main.h1p .services{padding-bottom:5.5rem}
+  main.h1p .paths,main.h1p .pluses{background:var(--bg-soft);border-block:1px solid var(--line);padding:5.5rem 0}
+  main.h1p .paths + .sec,main.h1p .pluses + .sec{padding-top:7rem}
+
+  /* 2 · «¿Por dónde partimos?» como selector (solo escritorio y con JavaScript; si no, quedan las tarjetas) */
+  main.h1p .path-grid.sel{grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:0 3.5rem;align-items:stretch}
+  main.h1p .path-grid.sel > li{grid-column:1;border-bottom:1px solid var(--line)}
+  main.h1p .path-grid.sel > li:first-child{border-top:1px solid var(--line)}
+  main.h1p .path-grid.sel .path{flex-direction:row;align-items:center;gap:.75rem;height:auto;padding:1.25rem 1rem 1.25rem 1.25rem;border:0;border-left:2px solid transparent;border-radius:0;background:none;box-shadow:none;transform:none}
+  main.h1p .path-grid.sel .p-icon,main.h1p .path-grid.sel .p-d,main.h1p .path-grid.sel .p-foot{display:none}
+  main.h1p .path-grid.sel .p-t{margin:0;font-size:1.36rem;color:var(--muted);transition:color .2s}
+  main.h1p .path-grid.sel > li.on .path{border-left-color:var(--accent);background:var(--bg)}
+  main.h1p .path-grid.sel > li.on .p-t{color:var(--ink)}
+  main.h1p .path-grid.sel > li.path-panel{grid-column:2;grid-row:1 / span 5;border:1px solid var(--line);border-radius:var(--radius-lg);background:var(--bg);box-shadow:var(--shadow-card);padding:2.25rem;display:flex}
+  .pp{display:flex;flex-direction:column;align-items:flex-start;gap:.875rem;width:100%}
+  .pp.in{animation:pp-in .24s var(--ease-out) both}
+  @keyframes pp-in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  .pp-icon{width:3.4375rem;height:3.4375rem;border-radius:var(--radius-sm);display:grid;place-items:center;background:var(--accent-tint);color:var(--accent)}
+  .pp-icon svg{width:30px;height:30px}
+  .pp h3{font-size:clamp(1.6rem,2.4vw,2.1rem);line-height:1.05;letter-spacing:-.035em}
+  .pp-d{margin:0;color:var(--muted);font-size:1.06rem;line-height:1.5;max-width:44ch}
+  .pp-meta{margin:auto 0 0;padding-top:1rem;font-weight:600;color:var(--ink-2);font-variant-numeric:tabular-nums}
+
+  /* 3 · Visibilidad: la fila que estás leyendo se enciende */
+  main.h1p .vis-list{overflow:hidden}
+  main.h1p .vis-row{transition:background-color .35s var(--ease-out),opacity .7s var(--ease-out),transform .7s var(--ease-out)}
+  main.h1p .vis-row.on{background:var(--accent-tint)}
+  main.h1p .vis-row.on .vis-tag{background:var(--accent);color:var(--on-accent)}
+
+  /* 4 · Extras de precio: de seis cajas punteadas a una lista con divisores */
+  main.h1p .extras{grid-template-columns:1fr 1fr;gap:0 3.5rem;margin-top:3rem;border-top:1px solid var(--line)}
+  main.h1p .extra{grid-template-columns:1fr auto auto;grid-template-areas:'t p a' 'n p a';row-gap:.125rem;column-gap:1.25rem;align-items:center;padding:1rem .25rem;border:0;border-bottom:1px solid var(--line);border-radius:0}
+  main.h1p .extra:hover{background:none;border-bottom-color:var(--accent-line)}
+  main.h1p .extra:hover .x-title{color:var(--accent)}
+  main.h1p .x-price{justify-content:flex-end;text-align:right}
+  main.h1p .x-arrow{color:var(--accent)}
+
+  /* 5 · Diferenciales: índice numerado en dos columnas, sin esquina vacía */
+  main.h1p .pluses .plus-grid{grid-template-columns:1fr 1fr;gap:0 3.5rem;counter-reset:pl;border-top:1px solid var(--line)}
+  main.h1p .pluses .plus-grid a{grid-template-columns:2.75rem 1fr;padding:1.25rem .25rem;border:0;border-bottom:1px solid var(--line);border-radius:0;background:none}
+  main.h1p .pluses .plus-grid a:hover{background:none;border-bottom-color:var(--accent-line)}
+  main.h1p .pluses .plus-grid a:hover .pl-t{color:var(--accent)}
+  main.h1p .pl-i{width:auto;height:auto;border-radius:0;background:none;place-items:start;padding-top:.3rem}
+  main.h1p .pl-i svg{display:none}
+  main.h1p .pl-i::before{counter-increment:pl;content:counter(pl,decimal-leading-zero);font-weight:700;font-size:1.125rem;line-height:1.2;color:var(--accent);font-variant-numeric:tabular-nums}
+  main.h1p .pl-t{font-size:1.2rem;padding-top:.2rem}
+
+  /* 6 · Equipo: cabecera centrada, las dos personas lado a lado y la prueba abajo */
+  main.h1p .team-grid{grid-template-columns:1fr;gap:0}
+  main.h1p .team .sec-head{display:contents}
+  main.h1p .team .sec-head h2{max-width:45rem;margin-inline:auto;text-align:center}
+  main.h1p .team .sec-head .lead{margin:1.125rem auto 0;text-align:center}
+  main.h1p .people{order:2;grid-template-columns:1fr 1fr;gap:1.25rem;margin-top:3rem}
+  main.h1p .person{grid-template-columns:6rem 1fr;gap:1.25rem}
+  main.h1p .mono-av{width:6rem;height:6rem}
+  main.h1p .more{grid-column:1 / -1;text-align:center}
+  main.h1p .proof{order:3;margin-top:1.25rem;grid-template-columns:1fr auto;align-items:center;gap:1.5rem}
+
+  @media (max-width:900px){
+    main.h1p .people{grid-template-columns:1fr}
+    main.h1p .proof{grid-template-columns:1fr}
+  }
+  @media (max-width:760px){
+    main.h1p .paths,main.h1p .pluses{padding:4rem 0}
+    main.h1p .paths + .sec,main.h1p .pluses + .sec{padding-top:4.5rem}
+    main.h1p .extras,main.h1p .pluses .plus-grid{grid-template-columns:1fr}
+    main.h1p .extra{grid-template-columns:1fr auto;grid-template-areas:'t a' 'p a' 'n a'}
+    main.h1p .x-price{justify-content:flex-start;text-align:left}
+  }
+  @media (max-width:520px){
+    main.h1p .person{grid-template-columns:1fr}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .pp.in{animation:none}
+    main.h1p .vis-row{transition:none}
+  }
+</style>
+
+<script is:inline>
+  // Se ejecuta al final del <body> de la propuesta: el selector de caminos y el encendido de filas.
+  document.addEventListener('DOMContentLoaded', function () {
+    var main = document.querySelector('main.h1p');
+    if (!main) return;
+
+    // Selector «¿Por dónde partimos?»
+    var grid = main.querySelector('.path-grid');
+    if (grid) {
+      var items = Array.prototype.slice.call(grid.children);
+      var panel = document.createElement('li');
+      panel.className = 'path-panel';
+      panel.setAttribute('aria-live', 'polite');
+      var wide = window.matchMedia('(min-width: 901px)');
+      var current = -1;
+      function txt(li, sel) { var e = li.querySelector(sel); return e ? e.textContent : ''; }
+      function show(i) {
+        if (i === current) return;
+        current = i;
+        items.forEach(function (li, j) { li.classList.toggle('on', j === i); });
+        var li = items[i], a = li.querySelector('a');
+        var box = document.createElement('div'); box.className = 'pp in';
+        var ic = document.createElement('span'); ic.className = 'pp-icon';
+        var svg = li.querySelector('.p-icon svg'); if (svg) ic.appendChild(svg.cloneNode(true));
+        var h = document.createElement('h3'); h.textContent = txt(li, '.p-t');
+        var d = document.createElement('p'); d.className = 'pp-d'; d.textContent = txt(li, '.p-d');
+        var m = document.createElement('p'); m.className = 'pp-meta'; m.textContent = txt(li, '.p-meta');
+        var go = document.createElement('a'); go.className = 'btn btn-primary'; go.href = a.getAttribute('href'); go.textContent = 'Empezar por acá';
+        box.appendChild(ic); box.appendChild(h); box.appendChild(d); box.appendChild(m); box.appendChild(go);
+        panel.textContent = ''; panel.appendChild(box);
+      }
+      items.forEach(function (li, i) {
+        li.addEventListener('mouseenter', function () { if (grid.classList.contains('sel')) show(i); });
+        li.addEventListener('focusin', function () { if (grid.classList.contains('sel')) show(i); });
+      });
+      function apply() {
+        if (wide.matches) { grid.classList.add('sel'); if (!panel.parentNode) grid.appendChild(panel); if (current < 0) show(0); }
+        else { grid.classList.remove('sel'); if (panel.parentNode) grid.removeChild(panel); }
+      }
+      apply();
+      if (wide.addEventListener) wide.addEventListener('change', apply); else if (wide.addListener) wide.addListener(apply);
+    }
+
+    // Visibilidad: se enciende la fila que pasa por el centro de la pantalla
+    var rows = main.querySelectorAll('.vis-row');
+    if (rows.length && 'IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (es) {
+        es.forEach(function (e) {
+          if (!e.isIntersecting) return;
+          rows.forEach(function (r) { r.classList.toggle('on', r === e.target); });
+        });
+      }, { rootMargin: '-35% 0px -45% 0px' });
+      rows.forEach(function (r) { io.observe(r); });
+    }
+  });
+</script>

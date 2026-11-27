@@ -1,0 +1,270 @@
+---
+// TEMPORAL: copia de la portada con la propuesta «Ritmo» encima. Revisión interna, noindex. Se borra al decidir.
+import SiteNav from '../../components/SiteNav.astro';
+import HomeRitmo from '../../components/propuestas/HomeRitmo.astro';
+// Portada de Faro° (rediseño 27-sep-2026, dirección «estándar del rubro», comp aprobada .impeccable/mocks/comp-2.png).
+import Base from '../../layouts/Base.astro';
+import AiCard from '../../components/home/AiCard.astro';
+import ServiceBento from '../../components/home/ServiceBento.astro';
+import Paths from '../../components/home/Paths.astro';
+import Visibility from '../../components/home/Visibility.astro';
+import Process from '../../components/home/Process.astro';
+import Pricing from '../../components/home/Pricing.astro';
+import Team from '../../components/home/Team.astro';
+import HomeFaq from '../../components/home/HomeFaq.astro';
+import ClosingCta from '../../components/home/ClosingCta.astro';
+import Pluses from '../../components/Pluses.astro';
+import HomeFooter from '../../components/home/HomeFooter.astro';
+import { faqJsonLd } from '../../lib/seo';
+import '../../styles/faro.css';
+
+const faq = [
+  { q: "¿Cuánto cuesta una página web con Faro°?", a: "Una landing page con diseño a medida, SEO base, hosting incluido y dominio .cl el primer año parte desde $290.000 CLP netos. Un sitio corporativo con blog parte desde $450.000 y una tienda online desde $790.000. El precio final depende del alcance y te lo enviamos por escrito." },
+  { q: "¿Qué es AEO y GEO, y en qué se diferencia del SEO?", a: "El SEO busca que aparezcas en los resultados de Google. El AEO y el GEO buscan que los asistentes de IA, como ChatGPT, Perplexity, Gemini o los AI Overviews de Google, entiendan tu negocio y te citen cuando alguien pregunta por lo que vendes. Se trabajan con datos estructurados, contenido que responde preguntas concretas y archivos como llms.txt." },
+  { q: "¿Cuánto demora hacer mi sitio web?", a: "Una landing page se entrega en 2 a 3 semanas. Los proyectos más grandes se planifican por etapas y el plazo queda escrito en la propuesta." },
+  { q: "¿Atienden solo en Santiago?", a: "Tenemos base en Macul y podemos reunirnos en persona en Santiago. Diseño web, posicionamiento e integraciones los hacemos de forma remota para cualquier ciudad de Chile." },
+  { q: "¿Cómo sé qué necesita mi web hoy?", a: "Pasa tu sitio por nuestro analizador gratis: en segundos te da una nota de SEO, redes y visibilidad en IA. Si prefieres, escríbenos y te hacemos una auditoría sin costo." },
+];
+
+const ld = [
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "ProfessionalService",
+        "@id": "https://faroagencia.cl/#org",
+        "name": "Faro°",
+        "alternateName": "Faro Agencia",
+        "url": "https://faroagencia.cl/",
+        "email": "contacto@faroagencia.cl",
+        "description": "Estudio chileno de diseño y desarrollo web, marketing digital, posicionamiento SEO, AEO y GEO (visibilidad en respuestas de IA) e integraciones de tiendas online con ERP y courier.",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Macul",
+          "addressRegion": "Región Metropolitana",
+          "addressCountry": "CL"
+        },
+        "areaServed": {
+          "@type": "Country",
+          "name": "Chile"
+        },
+        "knowsAbout": [
+          "Diseño web",
+          "SEO",
+          "AEO",
+          "GEO",
+          "Marketing digital",
+          "Integración Bsale",
+          "Integración Defontana",
+          "Integración Enviame",
+          "WooCommerce",
+          "PrestaShop",
+          "Jumpseller"
+        ],
+        "founder": [
+          {
+            "@type": "Person",
+            "@id": "https://faroagencia.cl/nosotros#cristian",
+            "name": "Cristian Florez Revilla",
+            "jobTitle": "Cofundador y director de tecnología y posicionamiento"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://faroagencia.cl/nosotros#clementina",
+            "name": "Clementina Moya",
+            "jobTitle": "Cofundadora y directora creativa y de marketing"
+          }
+        ],
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Servicios de Faro°",
+          "itemListElement": [
+            {
+              "@type": "Offer",
+              "name": "Landing page",
+              "description": "Landing o sitio de hasta 5 secciones, diseño a medida, SEO base, hosting incluido y dominio el primer año. Desde $290.000 CLP, pago único.",
+              "price": "290000",
+              "priceCurrency": "CLP"
+            },
+            {
+              "@type": "Offer",
+              "name": "Sitio web corporativo",
+              "description": "Hasta 10 páginas con blog y administrador, SEO on-page y base AEO/GEO. Desde $450.000 CLP, pago único.",
+              "price": "450000",
+              "priceCurrency": "CLP"
+            },
+            {
+              "@type": "Offer",
+              "name": "Tienda online",
+              "description": "Catálogo, carrito y pagos en línea, conectable a ERP y courier. Desde $790.000 CLP, pago único.",
+              "price": "790000",
+              "priceCurrency": "CLP"
+            },
+            {
+              "@type": "Offer",
+              "name": "Branding: identidad de marca básica",
+              "description": "Logo, versiones, colores y tipografías. Desde $190.000 CLP, pago único.",
+              "price": "190000",
+              "priceCurrency": "CLP"
+            },
+            {
+              "@type": "Offer",
+              "name": "Google Maps (SEO local)",
+              "description": "Aparecer en Google Maps y en la IA. Desde $150.000 CLP al mes, mínimo 3 meses.",
+              "price": "150000",
+              "priceCurrency": "CLP"
+            },
+            {
+              "@type": "Offer",
+              "name": "Google + IA (SEO, AEO y GEO)",
+              "description": "Posicionamiento mensual con contenido. Desde $350.000 CLP al mes, mínimo 3 meses.",
+              "price": "350000",
+              "priceCurrency": "CLP"
+            },
+            {
+              "@type": "Offer",
+              "name": "Anuncios en Google y Meta",
+              "description": "Gestión de anuncios. Desde $190.000 CLP al mes más la inversión.",
+              "price": "190000",
+              "priceCurrency": "CLP"
+            },
+            {
+              "@type": "Offer",
+              "name": "Redes sociales",
+              "description": "8 publicaciones al mes en Instagram y Facebook. Desde $250.000 CLP al mes.",
+              "price": "250000",
+              "priceCurrency": "CLP"
+            },
+            {
+              "@type": "Offer",
+              "name": "Email marketing",
+              "description": "2 campañas al mes. Desde $120.000 CLP al mes.",
+              "price": "120000",
+              "priceCurrency": "CLP"
+            },
+            {
+              "@type": "Offer",
+              "name": "Integración tienda ↔ ERP",
+              "description": "Tienda online conectada con Bsale o Defontana. Desde $450.000 CLP + $45.000 CLP al mes.",
+              "price": "450000",
+              "priceCurrency": "CLP",
+              "url": "https://faroagencia.cl/integraciones"
+            }
+          ]
+        },
+        "telephone": "+56973678880",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://faroagencia.cl/img/logo-faro.png",
+          "width": 512,
+          "height": 512
+        },
+        "sameAs": [
+          "https://www.instagram.com/faroagencia.cl/",
+          "https://www.facebook.com/people/Faro-Agencia/61595053283621/",
+          "https://www.linkedin.com/company/faroagencia-cl/"
+        ],
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "ventas",
+          "telephone": "+56973678880",
+          "email": "contacto@faroagencia.cl",
+          "availableLanguage": "es",
+          "areaServed": "CL"
+        }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://faroagencia.cl/#website",
+        "url": "https://faroagencia.cl/",
+        "name": "Faro°",
+        "inLanguage": "es-CL",
+        "publisher": {
+          "@id": "https://faroagencia.cl/#org"
+        }
+      },
+      { ...faqJsonLd(faq), "@id": "https://faroagencia.cl/#faq" }
+    ]
+  }
+];
+const preload = '<link rel="preload" href="/fonts/palanquin-dark-700-latin.woff2" as="font" type="font/woff2" crossorigin>';
+---
+<Base
+  title="Propuesta de portada · Ritmo | Faro°"
+  description="Estudio chileno de diseño web, marketing y posicionamiento SEO, AEO y GEO. Que te encuentren en Google y en las respuestas de la IA."
+  canonical="https://faroagencia.cl/propuestas/home-1"
+  noindex
+  ogTitle="Faro° — Web, marketing y posicionamiento con IA"
+  ogDescription="Diseñamos tu web a medida y la posicionamos en Google y en buscadores con IA (SEO · AEO · GEO)."
+  twitterTitle="Faro° — Web, marketing y posicionamiento con IA"
+  twitterDescription="Diseñamos tu web a medida y la posicionamos en Google y en buscadores con IA (SEO · AEO · GEO)."
+  headExtra={preload}
+>
+  <SiteNav logo={40} />
+  <HomeRitmo />
+
+  <main class="h1p">
+    <header class="hero">
+      <div class="wrap hero-copy">
+        <h1><span>No basta con salir en Google.</span> <span>Hay que salir en <em>la respuesta.</em></span></h1>
+        <p class="hero-sub">Diseñamos tu web y la posicionamos en Google y en las respuestas de la IA.</p>
+        <div class="hero-cta">
+          <a href="/analiza" class="btn btn-primary">Analiza tu web gratis</a>
+          <a href="https://wa.me/56973678880?text=Hola%20Faro%C2%B0%2C%20vengo%20desde%20su%20sitio%20web" class="btn btn-ghost" target="_blank" rel="noopener">Escríbenos por WhatsApp</a>
+        </div>
+      </div>
+      <div class="hero-demo wrap"><AiCard /></div>
+    </header>
+
+    <section id="servicios" class="services wrap-wide" aria-label="Servicios">
+      <ServiceBento />
+    </section>
+    <Paths />
+    <Visibility />
+    <Process />
+    <Pricing />
+    <Pluses home />
+    <Team />
+    <HomeFaq items={faq} />
+    <ClosingCta />
+  </main>
+  <HomeFooter />
+
+  <script is:inline>
+    (function () {
+      if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      var fold = innerHeight;
+      var io = new IntersectionObserver(function (es) {
+        es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add(e.target.classList.contains('steps') ? 'lit' : 'in'); io.unobserve(e.target); } });
+      }, { rootMargin: '0px 0px -12% 0px' });
+      var groups = ['.sec-head', '.plus-grid > li', '.path-grid > li', '.vis-row', '.plan', '.extra', '.person', '.faq-list details', '.night', '.step'];
+      groups.forEach(function (sel) {
+        var i = 0, last = null;
+        document.querySelectorAll('main ' + sel).forEach(function (el) {
+          if (el.getBoundingClientRect().top < fold) return;
+          if (el.parentElement !== last) { i = 0; last = el.parentElement; }
+          el.style.setProperty('--i', i++); el.classList.add('rv'); io.observe(el);
+        });
+      });
+      var st = document.querySelector('main .steps');
+      if (st && st.getBoundingClientRect().top >= fold) { st.classList.add('dim'); io.observe(st); }
+    })();
+  </script>
+</Base>
+
+<style>
+  .hero { padding: 3rem 0 2.75rem; overflow-x: clip; }
+  .hero-copy { text-align: center; }
+  .hero h1 { font-size: clamp(2.5rem, 4.75vw, 4.56rem); line-height: 0.93; letter-spacing: -0.035em; max-width: 57.5rem; margin-inline: auto; }
+  .hero h1 span { display: block; }
+  .hero h1 em { font-style: normal; color: var(--accent); }
+  .hero-sub { margin: 1.125rem auto 0; max-width: 64ch; font-size: clamp(1.08rem, 1.6vw, 1.5rem); line-height: 1.35; color: var(--muted); }
+  .hero-cta { margin-top: 1.25rem; display: flex; justify-content: center; gap: 0.9375rem; flex-wrap: wrap; }
+  .hero-demo { margin-top: 2.125rem; }
+  .services { padding-bottom: 0; }
+  @media (max-width: 640px) {
+    .hero { padding: 2.25rem 0 2rem; }
+    .hero-cta .btn { width: 100%; }
+    .hero-demo { margin-top: 1.75rem; }
+  }
+</style>

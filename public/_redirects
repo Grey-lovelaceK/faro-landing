@@ -1,0 +1,5 @@
+# Cloudflare Pages: redirecciones. Formato: origen destino código
+# Propuestas de /analiza ya resueltas (27-nov-2026): sus enlaces llevan a la página definitiva.
+/propuestas/analiza-1 /analiza 302
+/propuestas/analiza-2 /analiza 302
+/propuestas/analiza-3 /analiza 302
