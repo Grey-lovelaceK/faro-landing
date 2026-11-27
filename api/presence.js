@@ -1,6 +1,7 @@
 // Faro° — ¿La IA conoce tu negocio? (para quien NO tiene web).
 // GET /api/presence?name=...&rubro=...&comuna=...&ig=...
 // 1) Busca en la web real (Tavily) lo que buscaría un cliente («pastelería en Macul») y el nombre del negocio.
+//    Si viene el Instagram, hace una búsqueda más por ese usuario: «si» solo cuando aparece su perfil.
 // 2) Una IA (Groq y, si falla, Gemini) lee SOLO esos resultados y responde como un asistente: a quién recomienda,
 //    si el negocio aparece, qué presencia tiene y qué hacer. Sin resultados de búsqueda, no nombra competidores.
 // Env: TAVILY_API_KEY + GROQ_API_KEY y/o GEMINI_API_KEY (ver api/_llm.js).
@@ -18,23 +19,32 @@ export default async function handler(req, res) {
   const name = field(q.name, 80);
   const rubro = field(q.rubro, 60);
   const comuna = field(q.comuna, 60);
-  const ig = field(q.ig, 60).replace(/^@/, '').replace(/^https?:\/\/(www\.)?instagram\.com\//i, '').replace(/\/.*$/, '');
+  const igRaw = field(q.ig, 60).replace(/^@/, '').replace(/^https?:\/\/(www\.)?instagram\.com\//i, '').replace(/[/?#].*$/, '');
+  const ig = /^[A-Za-z0-9._]{1,30}$/.test(igRaw) ? igRaw : ''; // solo un usuario válido de Instagram; si no, se ignora
   if (name.length < 2 || rubro.length < 3 || comuna.length < 3) {
     return res.status(400).json({ ok: false, error: 'Completa el nombre del negocio, el rubro y la comuna.' });
   }
   const query = `${rubro} en ${comuna}`;
 
   // En paralelo: la búsqueda del cliente, la del propio negocio y el dato REAL de Google (Places).
-  const [market, own, place] = await Promise.all([
+  const [market, own, place, igSearch] = await Promise.all([
     search(`${rubro} en ${comuna} Chile recomendados`, { max: 8 }),
     search(`"${name}" ${comuna}`, { max: 6 }),
     placeStats(name, comuna),
+    ig ? search(`instagram.com/${ig}`, { max: 5 }) : Promise.resolve({ ok: false, results: [] }),
   ]);
+  // Perfil de Instagram: «encontrado» solo si un resultado ES ese perfil (instagram.com/<usuario>).
+  // Si no aparece no se afirma que no exista: la búsqueda web no ve todos los perfiles.
+  const igHit = ig ? igSearch.results.find(x => igUser(x.url) === ig.toLowerCase()) : null;
   if (!market.ok && !own.ok) {
     return res.status(200).json({ ok: false, error: market.quota ? 'La búsqueda llegó a su límite de hoy. Intenta más tarde.' : 'No pudimos buscar en la web ahora. Intenta de nuevo.' });
   }
   // Dato verificado del Perfil de Empresa (si Places lo encontró). Manda sobre lo que adivine la IA.
   const g = place.ok ? place.place : null;
+
+  const igNote = !ig ? '' : igHit
+    ? `INSTAGRAM (verificado por búsqueda): el perfil @${ig} SÍ aparece en la web.\n${igHit.title} — ${host(igHit.url)}\n${igHit.content}\nUsa presence.instagram = "si".\n\n`
+    : `INSTAGRAM: el dueño indicó @${ig}, pero ese perfil NO apareció en nuestra búsqueda web. No afirmes que no existe: di que no apareció al buscarlo. Usa presence.instagram = "no se sabe", salvo que los resultados del negocio muestren su Instagram.\n\n`;
 
   const fmt = (list) => list.map((x, i) => `[${i + 1}] ${x.title} — ${host(x.url)}\n${x.content}`).join('\n\n') || '(sin resultados)';
   const prompt = `Eres un asistente de IA que ayuda a una persona en Chile a encontrar un negocio. Solo puedes usar los resultados de búsqueda de abajo: no inventes negocios, datos ni reseñas.
@@ -45,7 +55,7 @@ ${fmt(market.results)}
 BÚSQUEDA DEL NEGOCIO "${name}" (rubro: ${rubro}, comuna: ${comuna}${ig ? `, Instagram: @${ig}` : ''}):
 ${fmt(own.results)}
 
-${g
+${igNote}${g
   ? `DATOS REALES DE GOOGLE (verificados por API, son la VERDAD; valen por sobre lo que muestren o no las búsquedas de arriba):
 - Perfil de Empresa en Google: SÍ existe${g.status && g.status !== 'OPERATIONAL' ? ` (estado: ${g.status})` : ''}.
 - Reseñas en Google: ${g.userRatingCount}${g.rating ? `, nota ${g.rating}/5` : ''}.
@@ -97,17 +107,21 @@ Formato exacto: {"answer": "", "recommended": [""], "found": "si|parcial|no", "p
     recommended,
     presence: {
       googleMaps: g ? 'si' : yn(out.presence?.googleMaps),
-      instagram: yn(out.presence?.instagram),
+      instagram: igHit ? 'si' : yn(out.presence?.instagram),
       web: yn(out.presence?.web),
       reviews: g ? (g.userRatingCount > 0 ? 'si' : 'no') : yn(out.presence?.reviews),
     },
     // Dato real de Google (null si Places no lo encontró o no está configurado): lo usa el front para mostrar el número.
     google: g ? { reviews: g.userRatingCount, rating: g.rating, mapsUri: g.googleMapsUri } : null,
+    // Resultado de la búsqueda del perfil (null si no se indicó Instagram).
+    instagramCheck: ig ? { handle: ig, found: !!igHit, url: igHit ? igHit.url : null } : null,
     actions: arr(out.actions).slice(0, 5).map(x => x.slice(0, 220)),
     sources,
   });
 }
 
+// Usuario de un enlace de perfil de Instagram ('' si no es de instagram.com).
+function igUser(u) { try { const x = new URL(u); return /(^|\.)instagram\.com$/i.test(x.hostname) ? (x.pathname.split('/').filter(Boolean)[0] || '').toLowerCase() : ''; } catch { return ''; } }
 function host(u) { try { return new URL(u).hostname.replace(/^www\./, ''); } catch { return ''; } }
 function field(v, n) { return String(v || '').replace(/[<>"`]/g, '').replace(/\s+/g, ' ').trim().slice(0, n); }
 function str(v) { return v == null ? '' : String(v); }
